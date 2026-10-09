@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "marsad"
+version = "0.1.0"
+description = "Position-trust layer for autonomous systems: GNSS jamming/spoofing detection, track integrity scoring, fallback navigation advice."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Huda Mueen" }]
+keywords = ["gnss", "spoofing", "jamming", "resilient-pnt", "px4", "mavlink", "uav", "mcp"]
+dependencies = []   # core engine is standard-library only (onboard portability)
+
+[project.optional-dependencies]
+sim = ["numpy>=1.26"]
+adapters = ["pyulog>=1.0", "pymavlink>=2.4"]
+api = ["fastapi>=0.110", "uvicorn>=0.27", "httpx>=0.27"]
+mcp = ["mcp>=1.2"]
+dev = ["pytest>=8", "numpy>=1.26", "pyulog>=1.0", "pymavlink>=2.4", "fastapi>=0.110", "httpx>=0.27", "mcp>=1.2", "uvicorn>=0.27"]
+
+[project.scripts]
+marsad = "marsad.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+marsad = ["dashboard/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
