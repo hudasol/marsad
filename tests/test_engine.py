@@ -84,3 +84,30 @@ def test_determinism():
     assert a.obs_e.tolist() == b.obs_e.tolist() or all(
         (x == y) or (math.isnan(x) and math.isnan(y)) for x, y in zip(a.obs_e, b.obs_e))
     assert generate("spoof_drift", 8, "dev").params != a.params
+
+
+def test_replay_is_labelled_replay_with_lag():
+    r = generate("replay", 2, "dev")
+    eng = TrustEngine(preset("uav_multirotor"))
+    reps = [eng.update(s) for s in r.samples]
+    assert eng.replay.lag is not None and abs(eng.replay.lag - r.params["delay"]) <= 2.0
+    assert reps[-1].dominant == "replay_meaconing"
+
+
+def test_jump_is_not_labelled_replay_and_nominal_has_no_lag():
+    r = generate("spoof_jump", 5, "dev")
+    eng = TrustEngine(preset("uav_multirotor"))
+    reps = [eng.update(s) for s in r.samples]
+    assert reps[-1].dominant == "spoofing_jump"
+    r = generate("nominal", 5, "dev")
+    eng = TrustEngine(preset("uav_multirotor"))
+    for s in r.samples:
+        eng.update(s)
+    assert eng.replay.lag is None
+
+
+def test_no_reference_drift_is_reported_as_unclassified_spoofing():
+    r = generate("spoof_drift_noref", 1, "dev")
+    eng = TrustEngine(preset("uav_multirotor"))
+    reps = [eng.update(s) for s in r.samples]
+    assert reps[-1].dominant == "spoofing_unclassified"

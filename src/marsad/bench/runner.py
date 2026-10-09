@@ -98,6 +98,10 @@ def evaluate_run(kind: str, seed: int, split: str, cfg: Optional[EngineConfig] =
             break
     out["label"] = dom[i_first] if i_first is not None else None
     out["hold_frac_marsad"] = float(hold[post].mean())
+    # settled label: dominant hypothesis 60 s after the first alarm (or just before attack end), while still alarmed
+    la = out.get('lat_alarm_marsad')
+    j = int(min(np.searchsorted(ts, t_a + (la or 0.0) + 60.0), (np.searchsorted(ts, t_b - 2.0) if t_b is not None else n) - 1, n - 1))
+    out["label_settled"] = dom[j] if m_state[j] > 0 and dom[j] not in ("", "none") else None
     out["truth_class"] = TRUTH_CLASS.get(kind)
     out["final_state_marsad"] = int(m_state[-1])
     if t_b is not None and t_b < ts[-1]:
@@ -124,7 +128,7 @@ def run_benchmark(split="heldout", seeds=range(30), kinds=None, disable=None, re
 
 
 def _coarse(c):
-    if c in ("spoofing_jump", "spoofing_drift", "replay_meaconing"):
+    if c in ("spoofing_jump", "spoofing_drift", "replay_meaconing", "spoofing_unclassified"):
         return "spoofing"
     return c
 
@@ -159,6 +163,9 @@ def summarize(results: list) -> dict:
             row["err_max_med_raw"] = _med([r["err_max_raw"] for r in rs])
             lab = [r for r in rs if r["label"] is not None]
             row["label_acc"] = (sum(r["label"] == r["truth_class"] for r in lab) / len(lab)) if lab else None
+            lab2 = [r for r in rs if r.get("label_settled") is not None]
+            row["label_settled_acc"] = (sum(r["label_settled"] == r["truth_class"] for r in lab2) / len(lab2)) if lab2 else None
+            row["label_settled_coarse"] = (sum(_coarse(r["label_settled"]) == _coarse(r["truth_class"]) for r in lab2) / len(lab2)) if lab2 else None
             row["label_acc_coarse"] = (sum(_coarse(r["label"]) == _coarse(r["truth_class"]) for r in lab) / len(lab)) if lab else None
             row["hold_frac_marsad"] = float(np.mean([r["hold_frac_marsad"] for r in rs]))
             row["pre_alarm_frac_marsad"] = float(np.mean([r["pre_alarm_frac_marsad"] for r in rs]))

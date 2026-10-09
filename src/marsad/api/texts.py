@@ -21,6 +21,7 @@ HYPOTHESIS_TEXT = {
     "spoofing_jump": "position-takeover spoofing (abrupt displacement)",
     "spoofing_drift": "gradual carry-off spoofing (slow drift away from the independent reference)",
     "replay_meaconing": "replay / meaconing (delayed re-broadcast of genuine signals)",
+    "spoofing_unclassified": "spoofing-like signal anomaly (kind undetermined, e.g. no independent reference)",
     "none": "an unexplained anomaly",
 }
 

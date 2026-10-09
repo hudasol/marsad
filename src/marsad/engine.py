@@ -8,7 +8,8 @@ import math
 from typing import Optional
 
 from .config import EngineConfig, preset
-from .detectors import Context, SignalDetector, KinematicDetector, InertialDetector, TimingDetector
+from .detectors import (Context, SignalDetector, KinematicDetector, InertialDetector, TimingDetector,
+                        ReplayDetector)
 from .fusion import Fusion
 from .geo import LocalFrame
 from .types import (Evidence, Hypothesis as H, NavAction, NavSample, TrustReport, TrustState)
@@ -25,7 +26,8 @@ class TrustEngine:
         self.kin = KinematicDetector(self.cfg)
         self.inertial = InertialDetector(self.cfg)
         self.timing = TimingDetector(self.cfg)
-        self.detectors = [d for d in (self.signal, self.kin, self.inertial, self.timing)
+        self.replay = ReplayDetector(self.cfg)
+        self.detectors = [d for d in (self.signal, self.kin, self.inertial, self.timing, self.replay)
                           if d.name not in (disable or set())]
         self.fusion = Fusion(self.cfg)
         self.reset()
@@ -58,10 +60,12 @@ class TrustEngine:
         self._down_since: Optional[float] = None
         self._recent: list[tuple] = []
         self._spoof_hold_until = -1e18
+        self._last_jump_t = -1e18
         self._verified_since = None
         self._cut_done = False
         self.fusion.reset()
         self.inertial.reset()
+        self.replay.reset()
 
     def acknowledge(self) -> None:
         """Operator override: accept current GNSS as trusted (e.g. after verifying by other means)."""
@@ -113,6 +117,14 @@ class TrustEngine:
         ev: list[Evidence] = []
         for d in self.detectors:
             ev.extend(d.update(ctx))
+        for e in ev:                      # a takeover jump makes the long drift windows light up for minutes:
+            if e.kind == "position_jump" and e.weight > 2.0:      # attribute that to the jump, not to a drift
+                self._last_jump_t = t
+        if t - self._last_jump_t < 1.7 * max(self.cfg.drift_windows):
+            for e in ev:
+                if e.kind == "gnss_vs_reference_drift":
+                    r = e.llr.get(H.SPOOF_DRIFT, 0.0)
+                    e.llr = {H.SPOOF_JUMP: r, H.REPLAY: 0.3 * r}
 
         # persistent offset against dead-reckoned continuation (used while not trusted)
         offset_m = None
@@ -122,7 +134,12 @@ class TrustEngine:
         reacq_ok = self._reacquisition_ok(g, offset_m, t)
         if (self.state != TrustState.TRUSTED and offset_m is not None and not reacq_ok
                 and not self.unverifiable):
-            ev.append(Evidence("engine", "persistent_offset", {H.SPOOF_JUMP: 1.2 * dt, H.SPOOF_DRIFT: 0.6 * dt},
+            replay_now = self.replay.lag is not None
+            if replay_now:
+                hp = H.REPLAY
+            else:   # reinforce whichever spoofing hypothesis the onset evidence pointed to
+                hp = max((H.SPOOF_JUMP, H.SPOOF_DRIFT, H.REPLAY), key=lambda h: self.fusion.T[h])
+            ev.append(Evidence("engine", "persistent_offset", {hp: 1.2 * dt},
                                f"GNSS is {offset_m:.0f} m from the dead-reckoned continuation of the last trusted track",
                                offset_m, 1.2 * dt))
 
@@ -255,7 +272,16 @@ class TrustEngine:
         cfg = self.cfg
         probs = self.probs
         non_nom = {k: v for k, v in probs.items() if k != H.NOMINAL.value}
-        dominant = max(non_nom, key=non_nom.get) if self.p_nom < 0.95 else "none"
+        dh = H.REPLAY if (self.replay.lag is not None and self.fusion.T[H.REPLAY] > 0 and self.p_nom < 0.95) \
+            else self.fusion.dominant()
+        if self.p_nom >= 0.95:
+            dominant = "none"
+        elif dh is not None:
+            dominant = dh.value
+        else:
+            dominant = max(non_nom, key=non_nom.get)
+            if dominant in ("spoofing_jump", "spoofing_drift", "replay_meaconing"):
+                dominant = "spoofing_unclassified"   # spoof signature present but nothing says which kind
         dr = self._dead_reckon(t)
         gnss_ok_now = g is not None
         if self.state == TrustState.TRUSTED:
@@ -301,6 +327,7 @@ class TrustEngine:
         label = {"environmental_degradation": "environmental degradation (obstruction/multipath)",
                  "jamming": "jamming-like signal loss", "spoofing_jump": "position-takeover spoofing",
                  "spoofing_drift": "gradual carry-off spoofing", "replay_meaconing": "replay/meaconing",
+                 "spoofing_unclassified": "spoofing-like signal anomaly (type undetermined)",
                  "none": "unexplained anomaly"}.get(r.dominant, r.dominant)
         why = r.evidence[0].message if r.evidence else "see evidence"
         extra = " Re-acquisition cannot be verified against the reference." if self.unverifiable else ""
