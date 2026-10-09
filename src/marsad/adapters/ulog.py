@@ -30,9 +30,9 @@ REF_CANDIDATES = (
 
 ALIASES = {
     "timestamp": ("timestamp",),
-    "lat": ("lat", "latitude"),
-    "lon": ("lon", "longitude"),
-    "alt": ("alt", "altitude"),
+    "lat": ("latitude_deg", "lat", "latitude"),
+    "lon": ("longitude_deg", "lon", "longitude"),
+    "alt": ("altitude_msl_m", "alt", "altitude"),
     "vel_n": ("vel_n_m_s", "vel_n", "vn"),
     "vel_e": ("vel_e_m_s", "vel_e", "ve"),
     "fix_type": ("fix_type",),
@@ -231,7 +231,7 @@ def _flowvel(d, info: UlogInfo, topic: str):
     if "vel_ne[0]" in f and "vel_ne[1]" in f:
         vn, ve = f["vel_ne[0]"], f["vel_ne[1]"]
         ok = np.isfinite(vn) & np.isfinite(ve)
-        info.mapping[f"ref.{topic}"] = "vel_ne[0]=north, vel_ne[1]=east (UNVERIFIED order)"
+        info.mapping[f"ref.{topic}"] = "vel_ne[0]=north, vel_ne[1]=east (order per PX4 msg name 'vel_ne': north, east)"
         return t[ok], ve[ok], vn[ok], None
     info.warnings.append(f"{topic}: no vel_ne[]; body-frame velocity not used")
     return None

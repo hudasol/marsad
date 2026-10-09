@@ -21,23 +21,43 @@ class Fusion:
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
         self.L = {h: 0.0 for h in HYPS}
+        self.T = {h: 0.0 for h in HYPS}   # unclipped, slow-decaying evidence used only to LABEL the event type
 
     def reset(self) -> None:
         for h in HYPS:
             self.L[h] = 0.0
+            self.T[h] = 0.0
+
+    def dominant(self):
+        h = max(HYPS, key=lambda k: self.T[k])
+        return h if self.T[h] > 1.0 else None
 
     def step(self, dt: float, evidence: list[Evidence]) -> dict:
         lo, hi = self.cfg.llr_clip
         for h in HYPS:
             tau = self.cfg.tau[h.value]
             self.L[h] *= math.exp(-dt / tau) if dt > 0 else 1.0
+            self.T[h] *= math.exp(-dt / 150.0) if dt > 0 else 1.0
         for e in evidence:
             for h, v in e.llr.items():
                 if h in self.L:
                     self.L[h] += v
+            prim = self._primary(e)
+            if prim is not None:
+                self.T[prim] = min(400.0, max(0.0, self.T[prim] + e.llr[prim]))
         for h in HYPS:
             self.L[h] = min(hi, max(lo, self.L[h]))
         return self.posterior()
+
+    @staticmethod
+    def _primary(e):
+        """The single hypothesis an evidence item is *about* (largest |llr|; ties => none). Used only for labelling."""
+        items = sorted(((abs(v), h) for h, v in e.llr.items() if h in HYPS), key=lambda x: -x[0])
+        if not items or items[0][0] < 1e-9:
+            return None
+        if len(items) > 1 and items[0][0] - items[1][0] < 1e-9:
+            return None
+        return items[0][1]
 
     def posterior(self) -> dict:
         logits = {H.NOMINAL: 0.0}

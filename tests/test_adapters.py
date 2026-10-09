@@ -359,3 +359,16 @@ def test_cli_replay_warns_on_contaminated_reference(tmp_path, capsys):
 def test_existing_demo_still_works(capsys):
     assert main(["demo", "nominal", "--seed", "1"]) == 0
     assert "SIMULATED" in capsys.readouterr().out
+
+
+def test_current_px4_sensor_gps_schema_roundtrip(tmp_path):
+    """PX4 main now logs latitude_deg/longitude_deg (float64) and altitude_msl_m; the legacy layout used int 1e-7."""
+    from marsad.adapters import write_ulog, read_ulog_samples
+    from marsad.sim import generate
+    run = generate("spoof_jump", 3, "dev", duration=120)
+    p = str(tmp_path / "cur.ulg")
+    write_ulog(p, run, schema="current")
+    got = list(read_ulog_samples(p))
+    g0 = next(s.gnss for s in got if s.gnss)
+    s0 = next(s.gnss for s in run.samples if s.gnss)
+    assert abs(g0.lat - s0.lat) < 1e-9 and abs(g0.lon - s0.lon) < 1e-9

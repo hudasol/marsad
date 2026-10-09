@@ -34,6 +34,6 @@ class TimingDetector:
         step = (g.t - g.t_gnss) - self._off
         if abs(step) > self.cfg.clock_step_s:
             llr = min(6.0, 2.0 + abs(step) / self.cfg.clock_step_s)
-            out.append(Evidence(self.name, "clock_step", {H.REPLAY: llr, H.SPOOF_JUMP: 0.7 * llr},
+            out.append(Evidence(self.name, "clock_step", {H.REPLAY: llr, H.SPOOF_JUMP: llr},
                                 f"GNSS clock stepped {step:+.2f} s against the host clock", step, llr))
         return out
