@@ -18,6 +18,8 @@ class Context:
     cn: float = 0.0
     ref_ok: bool = False
     ref_valid_since: float = 0.0         # reference integral continuous since this time
+    ref_bias_eff: float = 0.08           # bias bound to use for this sample (tightened once bias is estimated)
+    ref_noise_eff: float = 0.2
     gnss_gap: float = 0.0                # seconds since last usable fix
     state: TrustState = TrustState.TRUSTED
     p_nominal: float = 1.0

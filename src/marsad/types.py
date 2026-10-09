@@ -52,6 +52,7 @@ class RefMotion:
     vn: float
     sigma: Optional[float] = None            # 1-sigma velocity noise (m/s), optional
     source: str = "ref"
+    quality: Optional[float] = None          # 0..1 tracking quality (e.g. VIO); low => sample is ignored
 
 
 @dataclass(slots=True)

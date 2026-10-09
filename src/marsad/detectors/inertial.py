@@ -66,8 +66,8 @@ class InertialDetector:
             mag = math.hypot(cur[0] - r0[0], cur[1] - r0[1])
             allowed = math.sqrt(
                 (2.0 * c.sigma_pos) ** 2 * 2
-                + (c.ref_noise * math.sqrt(Weff * max(ctx.dt, 0.05))) ** 2
-                + (c.ref_bias_bound * Weff) ** 2)
+                + (ctx.ref_noise_eff * math.sqrt(Weff * max(ctx.dt, 0.05))) ** 2
+                + (ctx.ref_bias_eff * Weff) ** 2)
             z = mag / allowed
             rate = clamp(1.6 * (z - c.drift_z0), -0.3, 4.0)
             if z > best_z:

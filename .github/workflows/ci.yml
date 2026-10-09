@@ -33,3 +33,30 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install -e ".[sim]"
       - run: marsad bench --split dev --seeds 3 --workers 2
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t marsad:ci .
+      - name: smoke-test the container
+        run: |
+          docker run -d --name m -p 8000:8000 marsad:ci
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8000/v1/health && break || sleep 1; done
+          curl -fsS http://127.0.0.1:8000/v1/version
+          curl -fsS -X POST http://127.0.0.1:8000/v1/demo/start -H 'content-type: application/json' -d '{"kind":"spoof_jump","seed":1,"split":"dev","speed":50}'
+          sleep 5
+          curl -fsS http://127.0.0.1:8000/v1/vehicles/demo/trust | head -c 400
+          docker logs m | tail -5
+  ros2:
+    # real rclpy runtime; synthetic NavSatFix/Odometry only
+    runs-on: ubuntu-latest
+    container: ros:humble-ros-base
+    steps:
+      - uses: actions/checkout@v4
+      - run: apt-get update && apt-get install -y python3-pip
+      - run: pip3 install --no-deps -e .
+      - name: smoke test MarsadNode
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          python3 scripts/ros2_smoke.py

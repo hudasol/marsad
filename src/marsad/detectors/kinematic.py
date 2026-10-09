@@ -16,6 +16,7 @@ class KinematicDetector:
         self._prev = None            # (t, e, n, ve, vn)
         self._win = []               # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
         self._cum = [0.0, 0.0]
+        self._xe = 0.0               # EWMA of normalised innovation (noise inflation => degraded/jammed receiver)
         self._last_jump = None       # (t, res_e, res_n, llr) for revert (multipath spike) detection
 
     def learn(self, ctx: Context) -> None:  # no learned baselines
@@ -37,6 +38,11 @@ class KinematicDetector:
             res = math.hypot(ctx.pe - pe, ctx.pn - pn)
             allowed = math.sqrt(2.0) * c.sigma_pos + 0.5 * c.a_max * dt * dt + c.v_max * dt * (0.0 if have_v else 0.5)
             x = res / allowed
+            self._xe += min(1.0, dt / 2.0) * (min(x, 6.0) - self._xe)
+            if self._xe > 1.2:
+                r = 1.5 * min(2.0, self._xe - 1.2) * dt
+                out.append(Evidence(self.name, "noise_inflation", {H.JAM: r, H.ENV: r},
+                                    f"GNSS position noise inflated ({self._xe:.1f}x nominal innovation)", self._xe, r))
             llr = clamp(0.9 * (x - c.jump_x0), -0.1, 8.0)
             disp = math.hypot(ctx.pe - prev[1], ctx.pn - prev[2])
             speed = disp / dt
