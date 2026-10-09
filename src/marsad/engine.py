@@ -44,6 +44,9 @@ class TrustEngine:
         self.ref_t: Optional[float] = None
         self.ce = self.cn = 0.0
         self.ref_valid_since = -1e18
+        self.bias = [0.0, 0.0]       # estimated reference velocity bias (m/s)
+        self.bias_s = 0.0            # seconds of clean data the estimate is based on
+        self.ref_sigma = None
         # gnss bookkeeping
         self.fix_t: Optional[float] = None
         self.last_good = None      # (t, e, n) last position while TRUSTED
@@ -93,15 +96,18 @@ class TrustEngine:
         gap = 0.0 if (g is not None) else (t - self.fix_t if self.fix_t is not None else t - self.t0)
 
         # reference integration -------------------------------------------------
-        if s.ref is not None:
+        ref = s.ref
+        if ref is not None and ref.quality is not None and ref.quality < cfg.ref_min_quality:
+            ref = None                      # tracking lost: treat as a reference gap, never integrate it
+        if ref is not None:
             if self.ref_t is not None:
                 dtr = t - self.ref_t
                 if dtr > cfg.ref_timeout:
                     self.ref_valid_since = t
                     self.anchor_valid = False
                 else:
-                    self.ce += s.ref.ve * dtr
-                    self.cn += s.ref.vn * dtr
+                    self.ce += (ref.ve - self.bias[0]) * dtr
+                    self.cn += (ref.vn - self.bias[1]) * dtr
             else:
                 self.ref_valid_since = t
             self.ref_t = t
@@ -110,8 +116,11 @@ class TrustEngine:
             self.anchor_valid = False
 
         warm = (t - self.t0) < cfg.warmup_s
-        ctx = Context(t=t, dt=dt, gnss=g, ref=s.ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn,
+        ctx = Context(t=t, dt=dt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn,
                       ref_ok=ref_ok, ref_valid_since=self.ref_valid_since, gnss_gap=gap,
+                      ref_bias_eff=(cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s)
+                                    else cfg.ref_bias_bound),
+                      ref_noise_eff=(max(cfg.ref_noise * 0.5, ref.sigma) if (ref is not None and ref.sigma) else cfg.ref_noise),
                       state=self.state, p_nominal=self.p_nom, warmup=warm)
 
         ev: list[Evidence] = []
@@ -169,6 +178,14 @@ class TrustEngine:
         if self.state == TrustState.TRUSTED and prev_state == TrustState.TRUSTED and self.p_nom > 0.9:
             for d in self.detectors:
                 d.learn(ctx)
+            if (cfg.bias_est and g is not None and ref is not None and g.ve is not None and g.vn is not None
+                    and ref_ok and self.inertial.last_z < 1.0 and dt > 0):
+                a = min(1.0, max(dt / cfg.bias_tau, dt / (self.bias_s + dt)))   # running mean first, slow EWMA later
+                lim = 1.5 * cfg.ref_bias_bound
+                be = self.bias[0] + a * ((ref.ve - g.ve) - self.bias[0])
+                bn = self.bias[1] + a * ((ref.vn - g.vn) - self.bias[1])
+                self.bias = [max(-lim, min(lim, be)), max(-lim, min(lim, bn))]
+                self.bias_s += dt
             if g is not None:
                 self.last_good = (t, pe, pn)
                 if ref_ok:
