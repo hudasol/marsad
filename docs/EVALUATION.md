@@ -4,7 +4,7 @@
 model of what a GNSS receiver and a reference sensor would report. No flight data, no RF, no hardware.
 Read the results as "the method works against this threat model", not "Marsad is validated in the field".
 
-Reproduce: `python scripts/run_eval.py` (about 4 minutes on 4 cores). Raw results: `docs/results/*.json`.
+Reproduce: `python scripts/run_eval.py` (about 12 minutes on 4 cores). Raw results: `docs/results/*.json`.
 
 ## Method
 
@@ -29,45 +29,56 @@ Reproduce: `python scripts/run_eval.py` (about 4 minutes on 4 cores). Raw result
   not TRUSTED and fraction of runs reaching DENIED. `no-fallback time` = fraction of post-onset time Marsad
   recommended HOLD_AND_ALERT (it has nothing to navigate on).
 
-## Results, held-out split (30 seeds per scenario)
+## Results, held-out split (30 seeds per scenario, fresh seeds)
 
-| scenario | detected: Marsad | detected: gate baseline | latency med / p90 (s): Marsad | max nav error med (m): Marsad / baseline / raw GNSS | coarse class acc. |
+Version 1.1.0. Seeds were drawn fresh (held-out 5000+, ablation 6000+, sweep 7000+) after the 1.1 changes, because the
+v1.0.0 held-out seeds had been seen while those changes were designed. The v1.0.0 results are kept in
+`docs/results/v1.0.0/`. Parameters were not re-tuned against these seeds.
+
+| scenario | detected: Marsad | detected: gate baseline | latency med / p90 (s): Marsad | max nav error med (m): Marsad / baseline / raw GNSS | class at first alarm (coarse) / settled (fine) |
 |---|---|---|---|---|---|
-| jam_hard | 100% | 100% | 2.4 / 4.5 | 8 / 7 / 4 | 80% |
-| jam_soft | 100% | 100% | 5.7 / 8.5 | 13 / 10 / 22 | 83% |
-| spoof_jump | 100% | 100% | 0.1 / 0.2 | **17 / 403 / 406** | 100% |
-| spoof_jump_transient | 100% | 100% | 0.1 / 0.2 | **7 / 80 / 81** | 100% |
-| spoof_drift | 97% | **0%** | 30 / 119 | **22 / 103 / 103** | 100% |
-| spoof_drift_stealth | 100% | **0%** | 53 / 100 | **21 / 158 / 157** | 100% |
-| replay | 100% | 100% | 0.1 / 0.2 | **17 / 1072 / 1070** | 100% |
-| spoof_drift_noref *(failure regime)* | **53%** | 0% | 32 / 47 | 99 / 428 / 427 (43% of time no fallback) | 100% |
-| spoof_drift_ref_outage *(failure regime)* | 100% | 0% | 54 / 150 | 33 / 122 / 122 (50% no fallback) | 100% |
+| jam_hard | 100% | 100% | 2.4 / 4.5 | 6 / 7 / 4 | 93% / 100% |
+| jam_soft | 100% | 100% | 5.0 / 6.1 | 11 / 11 / 22 | 83% / 83% |
+| spoof_jump | 100% | 100% | 0.1 / 0.2 | **8 / 430 / 430** | 100% / 100% |
+| spoof_jump_transient | 100% | 100% | 0.1 / 0.2 | **6 / 269 / 266** | 100% / 100% |
+| spoof_drift | 100% | **0%** | 27 / 90 | **18 / 411 / 413** | 100% / 90% |
+| spoof_drift_stealth | 100% | **0%** | 58 / 89 | **20 / 144 / 145** | 100% / 100% |
+| replay | 100% | 100% | 0.1 / 0.2 | **10 / 712 / 709** | 100% / 97% |
+| spoof_drift_noref *(failure regime)* | **53%** | 0% | 33 / 59 | 99 / 243 / 245 (45% of time no fallback) | 100% / 47% |
+| spoof_drift_ref_outage *(failure regime)* | 100% | 0% | 41 / 138 | 37 / 121 / 121 (40% no fallback) | 100% / 87% |
 
 | benign scenario | time not-TRUSTED: Marsad | runs reaching DENIED: Marsad | runs reaching DENIED: baseline |
 |---|---|---|---|
 | nominal | 0% | 0% | 0% |
-| benign_obstruction | 82% (DEGRADED, never DENIED) | **0%** | 100% |
-| benign_multipath | 0% | **0%** | 73% |
+| benign_obstruction | 85% (DEGRADED) | **0%** | 100% |
+| benign_multipath | 2% | **3%** (1 of 30 runs) | 77% |
 
-Dev split numbers are in `docs/results/dev.md`; they differ mainly in slower-drift latency (dev median 31 s vs 30 s,
-p90 35 s vs 119 s).
+Changes versus v1.0.0 (same scenarios, different seeds, so small differences are within seed noise): the replay
+event is now labelled `replay_meaconing` (with an estimated delay) instead of a position jump; carry-off with a
+power signature went from 97% to 100%; soft jamming latency is 5.0 s (was 5.7) and navigation error equals the
+baseline's (11 m); the stealth carry-off detection latency did not improve on the median (58 s vs 53 s).
+Regressions: one multipath run (3%) now reaches DENIED (was 0 of 30), and engine cost is about four times higher.
+
+Dev split numbers are in `docs/results/dev.md`.
 
 ### What the numbers do and do not say
 
 * **The baseline catches every abrupt event and none of the gradual ones.** Its innovation gate is designed for
   noise and faults, and a slow carry-off stays under it by construction.
 * **Even when the baseline detects a jump it ends up wrong.** After the latch expires it accepts the spoofed
-  position again (403 m median error). Marsad keeps the offset latched until the GNSS agrees with the
+  position again (430 m median error). Marsad keeps the offset latched until the GNSS agrees with the
   dead-reckoned continuation of the last trusted track.
-* **Marsad is not better at everything.** In `jam_soft` the baseline's navigation error is smaller (10 m vs 13 m)
-  and its latency is lower (4.5 s vs 5.7 s). Marsad's rewind-to-onset anchor is deliberately conservative.
+* **Marsad is not better at everything.** In `jam_soft` the baseline's latency is lower (4.1 s vs 5.0 s); navigation
+  error is equal (11 m). Marsad's rewind-to-onset anchor is deliberately conservative.
 * **Class accuracy:** jamming vs spoofing vs environmental is separated well when AGC is available. A `replay`
-  is always labelled `spoofing_jump` (never `replay_meaconing`), because after the takeover instant a
-  replay and a jump look the same to these detectors. The coarse "spoofing" label is correct; the fine label is not.
+  is now labelled `replay_meaconing` in 97% of runs once a delay (lag) is confirmed by cross-correlating GNSS
+  and reference velocity; at the very first alarm the label is still the coarse one. Without a reference sensor a
+  carry-off is reported as `spoofing_unclassified` (the fine label is right in 47% of those runs). Jump vs. drift
+  labelling is imperfect in ~10% of power-signature carry-off runs.
 * **Obstruction is DEGRADED for most of its duration by design.** The product claim is "does not deny good
   navigation", not "stays silent".
 
-## Ablation (held-out, 20 seeds)
+## Ablation (held-out, fresh seeds)
 
 `docs/results/ablation.md`. Removing a detector:
 
@@ -86,8 +97,10 @@ an EKF-fused (GNSS-contaminated) velocity is available.
 ![detectability](img/detectability.png)
 
 `docs/results/detectability.md` sweeps carry-off rate × reference bias. Without a power signature, drifts of
-0.1 m/s are **not detected at all** (even with a perfect reference), 0.15 m/s only in 0–38% of runs, and 0.2 m/s in
-81–100% of runs but only after more than two minutes; 0.3 m/s and faster is detected in every run. The floor comes from the reference
+0.05 m/s are **never** detected, 0.1 m/s in about 50–56% of runs (after ~4–5 minutes), and 0.15 m/s and faster in
+100% of runs (0.15 m/s after ~2.3 minutes). In v1.0.0 the 0.15 m/s cell was 0–38%; the improvement comes from the
+slow reference-bias estimator and the 240 s window. The sweep is on fresh seeds and the bias values are bounds of
+the simulated reference sensor. The floor comes from the reference
 bias bound and the sensor noise integrated over the window, not from the code path.
 
 ## Case studies
@@ -98,8 +111,9 @@ bias bound and the sensor noise integrated over the window, not from the code pa
 
 ## Performance
 
-45.7 µs per sample (3000 samples in 0.137 s, CPython 3.13, one cloud core, includes simulation-free engine
-only). Memory is bounded: the longest drift window is 120 s, history is pruned at 1.6× that. The core is
+About 185 µs per sample (3000 samples in 0.56 s, CPython 3.13, one cloud core, engine only; v1.0.0 was 46 µs,
+the increase is the replay cross-correlation and the longer drift windows). Memory is bounded: the longest drift window is 240 s, history is pruned at 1.6× that. This is still
+well inside the budget for 5–50 Hz. The core is
 standard-library only. A compiled port is not needed for 5–50 Hz companion-computer use; it would be for
 microcontrollers.
 
@@ -112,14 +126,17 @@ microcontrollers.
 3. **Simple GNSS error model.** No ionospheric events, no multi-constellation geometry, no receiver-specific
    C/N0 behaviour, no real AGC scale.
 4. **Baseline is a stand-in.** Do not read the table as "Marsad beats PX4".
-5. **Spoofer model is measurement-level.** A spoofer that also manipulates C/N0 statistics to match baselines,
+5. **Held-out seeds are not independent of the design.** The 1.1 changes were developed while looking at v1.0.0
+   results; the numbers above are on fresh seeds but the same scenario family.
+6. **Spoofer model is measurement-level.** A spoofer that also manipulates C/N0 statistics to match baselines,
    or that manipulates the reference sensor, is outside the model (see below).
 
 ## Not handled (by design or by limit)
 
 * Attack at power-up (no clean baseline to learn).
 * A coordinated attack that also corrupts the reference sensor (the reference must be independent).
-* Slow drift below the reference bias bound.
+* Slow drift below roughly 0.1 m/s (undetected or only after minutes): the reference sensor's residual bias and noise,
+  integrated over the window, bound what can be seen.
 * After a long outage with no reference, re-acquisition is unverifiable; the state stays DEGRADED until an
   operator acknowledges (`engine.acknowledge()`).
 * Multipath excursions that do not revert within 4 s are indistinguishable from a small jump at onset.

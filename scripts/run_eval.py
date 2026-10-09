@@ -17,7 +17,7 @@ N = 6 if a.quick else 30
 t0 = time.time()
 
 # 1. dev and held-out main tables --------------------------------------------------------------
-for split, seeds in (("dev", range(N)), ("heldout", range(1000, 1000 + N))):
+for split, seeds in (("dev", range(N)), ("heldout", range(5000, 5000 + N))):
     res = run_benchmark(split, seeds, workers=a.workers)
     summ = summarize(res)
     json.dump({"split": split, "n_seeds": N, "summary": summ, "runs": res}, open(f"{OUT}/{split}.json", "w"), indent=1)
@@ -26,11 +26,11 @@ for split, seeds in (("dev", range(N)), ("heldout", range(1000, 1000 + N))):
 
 # 2. ablations (held-out) --------------------------------------------------------------------
 ab_kinds = ["nominal", "benign_obstruction", "benign_multipath", "jam_hard", "jam_soft", "spoof_jump", "spoof_drift",
-            "spoof_drift_stealth", "replay"]
+            "spoof_drift_stealth", "replay", "spoof_drift_noref"]
 rows = {}
 for name, dis in (("full", ()), ("-signal", ("signal",)), ("-kinematic", ("kinematic",)),
                   ("-inertial", ("inertial",)), ("-timing", ("timing",))):
-    res = run_benchmark("heldout", range(2000, 2000 + (4 if a.quick else 20)), kinds=ab_kinds, disable=dis, workers=a.workers)
+    res = run_benchmark("heldout", range(6000, 6000 + (4 if a.quick else 20)), kinds=ab_kinds, disable=dis, workers=a.workers)
     rows[name] = summarize(res)
     print("ablation", name, round(time.time() - t0))
 json.dump(rows, open(f"{OUT}/ablation.json", "w"), indent=1)
@@ -49,12 +49,12 @@ for k in ab_kinds:
 open(f"{OUT}/ablation.md", "w").write("\n".join(L) + "\n")
 
 # 3. detectability sweep: carry-off rate x reference bias -------------------------------------
-rates = [0.1, 0.15, 0.2, 0.3, 0.5, 1.0, 2.0]
+rates = [0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1.0, 2.0]
 biases = [0.0, 0.04, 0.08]
 sw = {}
 for b in biases:
     for r in rates:
-        res = run_benchmark("heldout", range(3000, 3000 + (4 if a.quick else 16)), kinds=["spoof_drift_stealth"],
+        res = run_benchmark("heldout", range(7000, 7000 + (4 if a.quick else 16)), kinds=["spoof_drift_stealth"],
                             ref_bias=b, overrides={"rate": r}, workers=a.workers)
         s = summarize(res)["spoof_drift_stealth"]
         sw[f"{b}|{r}"] = {"detect": s["alarm_rate_marsad"], "lat_med": s["lat_alarm_med_marsad"],

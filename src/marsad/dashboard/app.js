@@ -381,7 +381,7 @@ function renderBanner() {
   renderPosteriorLegend(); const ht = S.pts.some((p) => p.truth); $("lg-truth").hidden = !ht; $("lg-whisk").hidden = VIEW === "offset" && ht; $("vw-offset").disabled = !ht;
 }
 const humanDom = (d) => ({ environmental_degradation: "environmental degradation, not malicious", jamming: "jamming-like signal loss", spoofing_jump: "position-takeover spoofing",
-  spoofing_drift: "gradual carry-off spoofing", replay_meaconing: "replay or meaconing", none: "unexplained anomaly" }[d] || d);
+  spoofing_drift: "gradual carry-off spoofing", replay_meaconing: "replay or meaconing", spoofing_unclassified: "spoofing of unknown type (no reference to classify)", none: "unexplained anomaly" }[d] || d);
 
 function addFeed(tr) {
   S.feed.unshift(tr); S.feed = S.feed.slice(0, 60); renderFeed();

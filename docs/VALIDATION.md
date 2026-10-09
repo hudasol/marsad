@@ -3,14 +3,14 @@
 | Claim | Status |
 |---|---|
 | Detection logic works against the modelled threats | **Demonstrated in simulation** (docs/EVALUATION.md) |
-| Engine runs in real time on a laptop-class CPU | **Measured** (46 µs/sample; companion-computer class untested) |
+| Engine runs in real time on a laptop-class CPU | **Measured** (~185 µs/sample; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
-| Works on real PX4 logs | **NOT validated** — no real log has been run. Field names and units are from public docs and memory (see ADAPTERS.md "known unknowns") |
+| Works on real PX4 logs | **NOT validated** — no real log has been run. `sensor_gps` field names checked against PX4's published message docs, **not** against a real log; other topics still from memory (see ADAPTERS.md "known unknowns") |
 | Works on a real flight controller | **NOT validated** |
-| ROS 2 node | **Stub-tested only**; never run under rclpy |
+| ROS 2 node | Stub-tested locally; a CI job runs `scripts/ros2_smoke.py` under ROS 2 humble (first result not yet observed) |
 | Real GNSS spoofing/jamming data | **NOT used** |
 | Dashboard / API / MCP | Tested with the simulator and scripted clients; not security-audited |
-| Container image | `Dockerfile` provided; see MILESTONES.md for whether it was built |
+| Container image | `Dockerfile` provided; a CI job builds and exercises it (first result not yet observed) |
 
 ## The path from here
 

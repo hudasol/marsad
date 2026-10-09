@@ -51,11 +51,11 @@ explanations as tools. The MAVLink reporter is advisory-only and cannot emit com
 
 ## 3. Results (simulated)
 
-On held-out scenarios (30 seeds each): 100% detection of jumps, replay, hard/soft jamming and stealth carry-off;
-97% for carry-off with a power signature; median latency 0.1 s for abrupt events, 2–6 s for jamming, 30–53 s for
+On held-out scenarios (30 seeds each): 100% detection of jumps, replay, hard/soft jamming and both kinds of carry-off (fresh seeds, v1.1.0);
+median latency 0.1 s for abrupt events, 2–5 s for jamming, 27–58 s for
 carry-off. A simplified autopilot-style gate detects the abrupt events but **none** of the carry-off runs, and after
-its latch expires re-accepts spoofed positions (median error 403 m vs 17 m for Marsad on a jump). Obstruction and
-multipath never reach DENIED under Marsad (the gate baseline denies 100% / 73% of runs). The track module scores
+its latch expires re-accepts spoofed positions (median error 430 m vs 8 m for Marsad on a jump). Obstruction never reaches DENIED and multipath did in 1 of 30 runs
+under Marsad (the gate baseline denies 100% / 77% of runs). Replay is labelled as replay with an estimated delay. The track module scores
 precision/recall 1.00 on simulated multi-source scenarios (including a 3–15 km AIS-style common offset attributed to
 the right source), with the caveat that its simulator and detectors share an author. Full tables, ablations and a
 carry-off detectability sweep are in EVALUATION.md.

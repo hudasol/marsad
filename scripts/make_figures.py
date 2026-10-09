@@ -40,7 +40,7 @@ case("jam_hard", 3, "dev", "docs/img/case-jamming.png", "Hard jamming and recove
 case("spoof_jump_transient", 2, "dev", "docs/img/case-jump.png", "Position takeover (transient), no silent re-trust")
 
 sw = json.load(open("docs/results/detectability.json"))
-rates = [0.1, 0.15, 0.2, 0.3, 0.5, 1.0, 2.0]; biases = [0.0, 0.04, 0.08]
+rates = [0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1.0, 2.0]; biases = [0.0, 0.04, 0.08]
 M = np.array([[100*sw[f"{b}|{r}"]["detect"] for r in rates] for b in biases])
 fig, ax = plt.subplots(figsize=(6.4, 2.8))
 im = ax.imshow(M, cmap="viridis", vmin=0, vmax=100, aspect="auto")

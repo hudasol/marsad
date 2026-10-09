@@ -41,20 +41,19 @@ positions from the tracks it fuses.
 
 | | Marsad | simplified autopilot-style gate |
 |---|---|---|
-| Position takeover (jump / replay) detected | 100%, median **0.1 s** | 100%, 0.1 s — but accepts the spoofed position again after its latch: median error **403 m** vs **17 m** |
-| Stealth carry-off (no power signature) detected | **100%**, median 53 s | **0%** |
-| Carry-off with power signature detected | 97% | 0% |
-| Navigation error, carry-off (median of max) | **~21 m** (raw GNSS 158 m and growing) | 158 m |
-| Jamming (hard / soft) detected | 100% / 100%, 2.4 s / 5.7 s | 100% / 100% |
+| Position takeover (jump / replay) detected | 100%, median **0.1 s** | 100%, 0.1 s — but accepts the spoofed position again after its latch: median error **430 m** vs **8 m** |
+| Stealth carry-off (no power signature) detected | **100%**, median 58 s | **0%** |
+| Carry-off with power signature detected | 100% | 0% |
+| Navigation error, carry-off (median of max) | **~20 m** (raw GNSS 145 m and growing) | 144 m |
+| Jamming (hard / soft) detected | 100% / 100%, 2.4 s / 5.0 s | 100% / 100% |
 | Signal obstruction → DENIED | **0%** of runs | 100% |
-| Multipath → DENIED | **0%** of runs | 73% |
+| Multipath → DENIED | **3%** of runs (1 of 30) | 77% |
 | Nominal flights with any alarm | 0% | 0% |
-| Engine cost | 46 µs / sample, stdlib only | |
+| Engine cost | ~185 µs / sample, stdlib only | |
 
 **Where it does not work** (reported in [docs/EVALUATION.md](docs/EVALUATION.md)): without an independent motion
-reference carry-off detection falls to 53% and there is no fallback position; drifts below ~0.15 m/s are
-undetectable; an attack at power-up has no clean baseline; in soft jamming the simple baseline's navigation error is
-slightly *better*. Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
+reference carry-off detection falls to 53% (labelled `spoofing_unclassified`) and there is no fallback position; drifts of 0.1 m/s are detected in only ~50% of runs and 0.05 m/s never; an attack at power-up has no clean baseline; in soft jamming the simple baseline's navigation error is
+slightly *better* in latency (5.0 s vs 4.1 s) and equal in navigation error. Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
 with the same author and should be read accordingly ([docs/TRACKS.md](docs/TRACKS.md)).
 
 ## Design in one picture

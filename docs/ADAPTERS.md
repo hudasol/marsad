@@ -170,7 +170,7 @@ def generate_launch_description():
 ## Known unknowns (verify against a real log before trusting any result)
 
 PX4 / ULog:
-1. `sensor_gps` field names and types: `lat`/`lon` (int32, 1e-7 deg), `alt` (int32 mm), `vel_n_m_s`,
+1. `sensor_gps` — **checked against PX4's own message docs (current schema: `latitude_deg`/`longitude_deg` doubles, `altitude_msl_m`; legacy `lat`/`lon` 1e-7 int32 still read), not against a real log.** Remaining uncertainty: which fields a given version actually logs. Legacy list: `lat`/`lon` (int32, 1e-7 deg), `alt` (int32 mm), `vel_n_m_s`,
    `vel_e_m_s`, `hdop`, `eph`, `fix_type`, `satellites_used`, `time_utc_usec`, `noise_per_ms`,
    `jamming_indicator`, `automatic_gain_control` (**may not exist** in a given PX4 version), `jamming_state`,
    `spoofing_state` (**enum values and whether they are populated at all** depend on receiver/driver).
