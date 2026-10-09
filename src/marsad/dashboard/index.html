@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marsad watchpost</title>
+<meta name="description" content="Marsad operator console: can this position be believed?">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0e12'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%233ec9b6' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e9e4d6'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#plot-panel">Skip to position plot</a>
+
+<header id="top" class="top" data-state="TRUSTED">
+  <div class="brand" lang="ar">
+    <span class="wordmark-ar" lang="ar" dir="rtl">مرصد</span>
+    <span class="wordmark-en" lang="en">Marsad</span>
+  </div>
+
+  <section id="banner" class="banner" aria-labelledby="state-word" aria-live="polite">
+    <span id="state-glyph" class="glyph" aria-hidden="true"></span>
+    <div class="state-block">
+      <h1 id="state-word" class="state-word">NO DATA</h1>
+      <p id="state-sub" class="state-sub">Waiting for a vehicle. Start a simulated scenario or post samples.</p>
+    </div>
+    <div class="trust-block">
+      <div id="trust-num" class="trust-num" aria-label="Trust score">--</div>
+      <div class="trust-cap">trust</div>
+    </div>
+    <div class="action-block">
+      <div class="action-cap">Recommended action</div>
+      <div id="action-text" class="action-text">--</div>
+    </div>
+  </section>
+
+  <div class="top-right">
+    <span id="sim-badge" class="badge sim" hidden title="Everything on screen comes from the measurement-level simulator, not hardware.">SIMULATED</span>
+    <span id="conn" class="conn" data-s="connecting" role="status"><i aria-hidden="true"></i><span id="conn-text">Connecting</span></span>
+    <label class="veh-pick"><span>Vehicle</span>
+      <select id="veh-select" aria-label="Vehicle to display"><option value="">none</option></select>
+    </label>
+  </div>
+</header>
+
+<main class="grid">
+  <aside class="col col-left">
+    <section class="panel" aria-labelledby="h-scn">
+      <h2 id="h-scn">Scenario</h2>
+      <form id="scn-form" class="scn" autocomplete="off">
+        <label for="scn-kind">Kind</label>
+        <select id="scn-kind"></select>
+        <p id="scn-desc" class="hint"></p>
+        <div class="row2">
+          <fieldset class="seg" aria-label="Parameter split">
+            <legend class="vh">Split</legend>
+            <input type="radio" name="split" id="sp-dev" value="dev" checked><label for="sp-dev">dev</label>
+            <input type="radio" name="split" id="sp-held" value="heldout"><label for="sp-held">heldout</label>
+          </fieldset>
+          <div class="field"><label for="scn-seed">Seed</label>
+            <input id="scn-seed" type="number" min="0" max="2147483647" value="1" inputmode="numeric"></div>
+          <div class="field"><label for="scn-speed">Speed</label>
+            <select id="scn-speed">
+              <option value="5">5x</option><option value="10" selected>10x</option>
+              <option value="25">25x</option><option value="50">50x</option><option value="100">100x</option>
+            </select></div>
+        </div>
+        <div class="row-btn">
+          <button type="submit" id="btn-start" class="btn primary">Start simulation</button>
+          <button type="button" id="btn-stop" class="btn" disabled>Stop</button>
+        </div>
+        <div class="progress" aria-hidden="true"><i id="prog-bar"></i></div>
+        <p id="demo-line" class="hint mono">idle</p>
+      </form>
+    </section>
+
+    <section class="panel grow" aria-labelledby="h-ev">
+      <div class="ph"><h2 id="h-ev">Evidence</h2>
+        <button id="btn-ack" class="btn small" type="button" disabled title="Operator override: accept current GNSS as trusted">Acknowledge</button></div>
+      <div id="ev-now" class="ev-now"></div>
+      <ol id="ev-feed" class="ev-feed" aria-label="State changes, newest first"></ol>
+    </section>
+  </aside>
+
+  <section class="col col-mid">
+    <section id="plot-panel" class="panel hero" aria-labelledby="h-plot" tabindex="-1">
+      <div class="ph">
+        <h2 id="h-plot">What GNSS said, what Marsad advises, what was real</h2>
+        <fieldset class="seg small" aria-label="Plot zoom">
+          <legend class="vh">Plot zoom</legend>
+          <input type="radio" name="view" id="vw-event" value="event"><label for="vw-event" title="Zoom on the last two minutes, or the event if there is one">Event</label>
+          <input type="radio" name="view" id="vw-full" value="full"><label for="vw-full" title="Whole recorded track">Full track</label>
+          <input type="radio" name="view" id="vw-offset" value="offset" disabled><label for="vw-offset" title="Simulated demos only: every position relative to ground truth, so slow drift is visible">Offset</label>
+        </fieldset>
+      </div>
+      <ul class="legend plot-legend" id="plot-legend" aria-label="Plot legend">
+        <li><i class="sw thick" style="color:var(--raw)"></i>GNSS said</li>
+        <li><i class="sw thick" style="color:var(--advice)"></i>Marsad advises</li>
+        <li><i class="sw thick dash" style="color:var(--degraded)"></i>Marsad on reference</li>
+        <li id="lg-truth" hidden><i class="sw dots" style="color:var(--truth)"></i>Reality (simulated)</li>
+        <li id="lg-whisk"><i class="sw dots" style="color:var(--raw);opacity:.7"></i>Claim vs reference</li>
+      </ul>
+      <div class="canvas-wrap"><canvas id="plot" role="img" aria-label="Position plot"></canvas>
+        <div id="plot-empty" class="empty">No position data yet.</div></div>
+      <p id="plot-readout" class="readout mono" aria-live="off"></p>
+    </section>
+
+    <div class="mid-bottom">
+      <section class="panel" aria-labelledby="h-tl">
+        <div class="ph"><h2 id="h-tl">Trust over time</h2>
+          <ul class="legend tiny" aria-label="State bands"><li><i class="sw st-TRUSTED"></i>Trusted</li><li><i class="sw st-DEGRADED"></i>Degraded</li><li><i class="sw st-DENIED"></i>Denied</li></ul></div>
+        <div class="canvas-wrap"><canvas id="timeline" role="img" aria-label="Trust score over time with state bands"></canvas></div>
+      </section>
+      <section class="panel" aria-labelledby="h-po">
+        <div class="ph"><h2 id="h-po">Why: posterior by hypothesis</h2></div>
+        <div class="po-wrap">
+          <div class="canvas-wrap"><canvas id="posterior" role="img" aria-label="Posterior probability per hypothesis over time"></canvas></div>
+          <ul id="po-legend" class="po-legend" aria-label="Current posterior"></ul>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <aside class="col col-right">
+    <section class="panel grow" aria-labelledby="h-tr">
+      <div class="ph"><h2 id="h-tr">Tracks</h2><span id="tr-count" class="count mono"></span></div>
+      <div id="src-chips" class="chips" aria-label="Source health"></div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tracks, most distrusted first">
+        <table id="tr-table" class="tbl">
+          <thead><tr><th scope="col">Trust</th><th scope="col">Track</th><th scope="col">Why</th></tr></thead>
+          <tbody id="tr-body"></tbody>
+        </table>
+        <p id="tr-empty" class="empty static">No tracks yet. Start a simulation, or POST to /v1/tracks/reports.</p>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-map">
+      <div class="ph"><h2 id="h-map">Interference map</h2><span id="map-count" class="count mono"></span></div>
+      <div class="canvas-wrap map"><canvas id="hexmap" role="img" aria-label="Hex map of reported interference events"></canvas>
+        <div id="map-empty" class="empty">No events reported. An empty map does not mean no interference.</div></div>
+    </section>
+  </aside>
+</main>
+
+<footer class="foot">
+  <span>Advisory only. Never commands a vehicle.</span>
+  <span id="foot-sim">Simulated data is measurement-level and not validated on hardware.</span>
+  <span>Independent project, not affiliated with or endorsed by TII, ATRC or any ATRC entity.</span>
+  <span class="mono" id="foot-ver"></span>
+</footer>
+
+<div id="live" class="vh" aria-live="assertive"></div>
+<script src="app.js"></script>
+</body>
+</html>
