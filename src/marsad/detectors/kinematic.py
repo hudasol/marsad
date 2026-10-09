@@ -16,6 +16,7 @@ class KinematicDetector:
         self._prev = None            # (t, e, n, ve, vn)
         self._win = []               # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
         self._cum = [0.0, 0.0]
+        self._last_jump = None       # (t, res_e, res_n, llr) for revert (multipath spike) detection
 
     def learn(self, ctx: Context) -> None:  # no learned baselines
         pass
@@ -40,8 +41,19 @@ class KinematicDetector:
             disp = math.hypot(ctx.pe - prev[1], ctx.pn - prev[2])
             speed = disp / dt
             if llr > 0.05:
-                out.append(Evidence(self.name, "position_jump", {H.SPOOF_JUMP: llr, H.REPLAY: 0.5 * llr},
-                                    f"position innovation {res:.1f} m vs {allowed:.1f} m allowed", res, llr))
+                re_, rn_ = ctx.pe - pe, ctx.pn - pn
+                lj = self._last_jump
+                if (lj is not None and ctx.t - lj[0] <= 4.0 and re_ * lj[1] + rn_ * lj[2] < 0
+                        and math.hypot(re_ + lj[1], rn_ + lj[2]) < 0.6 * math.hypot(lj[1], lj[2])):
+                    # the position snapped back: a transient excursion (multipath), not a takeover
+                    c_ = -(lj[3] + llr)
+                    out.append(Evidence(self.name, "jump_reverted", {H.SPOOF_JUMP: c_, H.REPLAY: 0.5 * c_},
+                                        "position excursion reverted within seconds (multipath-like, not takeover)", res, 0.0))
+                    self._last_jump = None
+                else:
+                    out.append(Evidence(self.name, "position_jump", {H.SPOOF_JUMP: llr, H.REPLAY: 0.5 * llr},
+                                        f"position innovation {res:.1f} m vs {allowed:.1f} m allowed", res, llr))
+                    self._last_jump = (ctx.t, re_, rn_, llr)
             if disp > 1.5 * c.v_max * dt + 5.0 * math.sqrt(2.0) * c.sigma_pos:
                 out.append(Evidence(self.name, "implied_speed", {H.SPOOF_JUMP: 4.0, H.REPLAY: 2.0},
                                     f"implied speed {speed:.0f} m/s exceeds platform envelope", speed, 4.0))
