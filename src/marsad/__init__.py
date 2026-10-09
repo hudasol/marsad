@@ -4,6 +4,6 @@ from .types import (GnssFix, RefMotion, NavSample, Evidence, TrustReport,
 from .config import EngineConfig, preset
 from .engine import TrustEngine
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __all__ = ["GnssFix", "RefMotion", "NavSample", "Evidence", "TrustReport", "TrustState",
            "NavAction", "Hypothesis", "EngineConfig", "preset", "TrustEngine", "__version__"]
