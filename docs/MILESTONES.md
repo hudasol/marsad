@@ -10,6 +10,6 @@ Annotated git tags exist in the local clone but the session's git proxy refused 
 | `v0.4.0` | `0e4ff4a` | v0.4.0: PX4 ULog, MAVLink and ROS 2 adapters, synthetic ULog writer, replay/inspect CLI |
 | `v0.6.0` | `6156e60` | v0.5.0/v0.6.0: REST+SSE service, MCP server, operator dashboard; serve/mcp CLI |
 | `v1.0.0` | `4638548` | docs+eval: held-out evaluation, ablations, detectability sweep, figures, technical report, |
-| `v1.1.0` | (see git log) | replay delay estimator, reference-quality gate, slow bias estimation, soft-jam tuning, Docker/ROS 2 CI jobs, fresh-seed evaluation |
+| `v1.1.0` | `1f17c9f` | replay delay estimator, reference-quality gate, slow bias estimation, soft-jam tuning, Docker/ROS 2 CI jobs, fresh-seed evaluation |
 
 The Dockerfile could not be built locally in the authoring environment (no Docker daemon), so it is untested. CI workflow was pushed but its first run was not observed.
