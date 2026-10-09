@@ -141,7 +141,8 @@ def _draw(kind, rng, split, duration):
 
 
 def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
-             ref_bias: Optional[float] = None, cadence: float = DT) -> Run:
+             ref_bias: Optional[float] = None, cadence: float = DT,
+             overrides: Optional[dict] = None) -> Run:
     if kind not in KINDS:
         raise KeyError(f"unknown scenario {kind!r}; choose from {KINDS}")
     if split not in SPLITS:
@@ -152,6 +153,8 @@ def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
     tr = _trajectory(rng, n)
     te, tn, tve, tvn = tr.T
     P = _draw(kind, rng, split, duration)
+    if overrides:
+        P.update(overrides)
     t_a = P["t_a"]
 
     # ---- clean receiver model ----------------------------------------------------------

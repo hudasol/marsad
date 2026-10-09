@@ -26,8 +26,9 @@ def _nav_err(nav_e, nav_n, te, tn):
 
 
 def evaluate_run(kind: str, seed: int, split: str, cfg: Optional[EngineConfig] = None,
-                 disable: Optional[set] = None, duration: float = 600.0, ref_bias: Optional[float] = None) -> dict:
-    run = generate(kind, seed, split, duration=duration, ref_bias=ref_bias)
+                 disable: Optional[set] = None, duration: float = 600.0, ref_bias: Optional[float] = None,
+                 overrides: Optional[dict] = None) -> dict:
+    run = generate(kind, seed, split, duration=duration, ref_bias=ref_bias, overrides=overrides)
     eng = TrustEngine(cfg or preset("uav_multirotor"), disable=disable)
     base = GateBaseline()
     t_a, t_b = run.attack_start, run.attack_end
@@ -106,13 +107,14 @@ def evaluate_run(kind: str, seed: int, split: str, cfg: Optional[EngineConfig] =
 
 
 def _job(args):
-    kind, seed, split, disable, ref_bias = args
-    return evaluate_run(kind, seed, split, disable=set(disable) if disable else None, ref_bias=ref_bias)
+    kind, seed, split, disable, ref_bias, overrides = args
+    return evaluate_run(kind, seed, split, disable=set(disable) if disable else None, ref_bias=ref_bias,
+                        overrides=dict(overrides) if overrides else None)
 
 
-def run_benchmark(split="heldout", seeds=range(30), kinds=None, disable=None, ref_bias=None, workers=0):
+def run_benchmark(split="heldout", seeds=range(30), kinds=None, disable=None, ref_bias=None, workers=0, overrides=None):
     kinds = list(kinds or KINDS)
-    jobs = [(k, s, split, tuple(disable or ()), ref_bias) for k in kinds for s in seeds]
+    jobs = [(k, s, split, tuple(disable or ()), ref_bias, tuple((overrides or {}).items())) for k in kinds for s in seeds]
     if workers and workers > 1:
         with ProcessPoolExecutor(workers) as ex:
             res = list(ex.map(_job, jobs, chunksize=4))

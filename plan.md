@@ -3,7 +3,7 @@
 > Position-trust layer for autonomous systems and decision platforms.
 > This document is the source of truth for scope, architecture, milestones and the honesty rules for what we claim.
 
-Status: **v0.0.1-plan** (planning). Updated as milestones land; see tags.
+Status: **v1.0.0 built** (this document was written as the plan; results and status live in README.md and docs/EVALUATION.md).
 
 ---
 
