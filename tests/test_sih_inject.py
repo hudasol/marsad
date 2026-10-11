@@ -29,7 +29,7 @@ def test_jump_displacement_is_exact_and_input_untouched():
 def test_drift_ramps_then_is_linear():
     assert S._drift_dist(0, 10, 1.0, 10) == 0
     assert abs(S._drift_dist(20, 10, 1.0, 10) - 5.0) < 1e-9
-    assert abs(S._drift_dist(30, 10, 1.0, 10) - 25.0) < 1e-9
+    assert abs(S._drift_dist(30, 10, 1.0, 10) - 15.0) < 1e-9
 
 
 def test_clean_run_has_no_alarm():
