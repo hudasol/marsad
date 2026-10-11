@@ -16,7 +16,9 @@ from typing import Iterator, Optional
 from ..types import GnssFix, NavSample, RefMotion
 from ._common import (CONTAMINATED_WARNING, ContaminatedReferenceWarning, mean_std, normalise_agc)
 
-GPS_TOPICS = ("sensor_gps", "vehicle_gps_position")      # the latter is the pre-v1.13 name
+# sensor_gps: v1.13-v1.17; vehicle_gps_position: pre-v1.13; vehicle_gnss / sensor_gnss: PX4 v1.18+ (renamed).
+# vehicle_gnss nests the receiver sample as `receiver.*` (flattened by pyulog), at a higher rate than sensor_gnss.
+GPS_TOPICS = ("sensor_gps", "vehicle_gps_position", "vehicle_gnss", "sensor_gnss")
 SAT_TOPICS = ("satellite_info",)
 # reference candidates, in priority order: (topic, kind, independent?)
 REF_CANDIDATES = (
@@ -30,11 +32,11 @@ REF_CANDIDATES = (
 
 ALIASES = {
     "timestamp": ("timestamp",),
-    "lat": ("latitude_deg", "lat", "latitude"),
-    "lon": ("longitude_deg", "lon", "longitude"),
-    "alt": ("altitude_msl_m", "alt", "altitude"),
-    "vel_n": ("vel_n_m_s", "vel_n", "vn"),
-    "vel_e": ("vel_e_m_s", "vel_e", "ve"),
+    "lat": ("latitude_deg", "latitude", "lat"),
+    "lon": ("longitude_deg", "longitude", "lon"),
+    "alt": ("altitude_msl_m", "altitude_msl", "alt", "altitude"),
+    "vel_n": ("vel_n_m_s", "vel_north", "vel_n", "vn"),
+    "vel_e": ("vel_e_m_s", "vel_east", "vel_e", "ve"),
     "fix_type": ("fix_type",),
     "n_sats": ("satellites_used", "satellites_visible", "n_sats"),
     "hdop": ("hdop",),
@@ -43,7 +45,7 @@ ALIASES = {
     "jamming_indicator": ("jamming_indicator",),
     "jamming_state": ("jamming_state",),
     "spoofing_state": ("spoofing_state",),
-    "noise_per_ms": ("noise_per_ms",),
+    "noise_per_ms": ("noise_per_ms", "noise"),
     "time_utc": ("time_utc_usec", "time_utc"),
 }
 
@@ -351,6 +353,10 @@ def _gps_fixes(ulog, info: UlogInfo, max_cn0_age: float):
         return [], []
     info.gps_topic, info.gps_instance = d.name, d.multi_id
     f = d.data
+    if d.name == "vehicle_gnss":                      # nested SensorGnss receiver: strip the "receiver." prefix
+        f = {(k[len("receiver."):] if k.startswith("receiver.") else k): v for k, v in f.items()}
+        f["timestamp"] = d.data["timestamp"]
+        info.mapping["gps.nested"] = "vehicle_gnss: receiver.* fields"
     n = len(f["timestamp"])
     t = f["timestamp"] / 1e6
     m = info.mapping

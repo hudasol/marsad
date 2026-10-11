@@ -79,6 +79,15 @@ SENSOR_GPS_CURRENT = Topic("sensor_gps", [
     ("uint16_t", "automatic_gain_control", 0),
     ("uint8_t", "fix_type", 0), ("uint8_t", "satellites_used", 0),
     ("uint8_t", "jamming_state", 0), ("uint8_t", "spoofing_state", 0)])
+# PX4 v1.18+ renamed sensor_gps -> sensor_gnss (field names per msg/SensorGnss.msg).
+SENSOR_GNSS = Topic("sensor_gnss", [
+    ("uint64_t", "timestamp", 0), ("uint64_t", "time_utc_usec", 0),
+    ("double", "latitude", 0), ("double", "longitude", 0), ("double", "altitude_msl", 0),
+    ("float", "vel_north", 0), ("float", "vel_east", 0), ("float", "hdop", 0), ("float", "eph", 0),
+    ("int32_t", "noise", 0), ("int32_t", "jamming_indicator", 0),
+    ("uint16_t", "automatic_gain_control", 0),
+    ("uint8_t", "fix_type", 0), ("uint8_t", "satellites_used", 0),
+    ("uint8_t", "jamming_state", 0), ("uint8_t", "spoofing_state", 0)])
 SATELLITE_INFO = Topic("satellite_info", [
     ("uint64_t", "timestamp", 0), ("uint8_t", "count", 0),
     ("uint8_t", "svid", MAX_SATS), ("uint8_t", "used", MAX_SATS), ("uint8_t", "elevation", MAX_SATS),
@@ -177,7 +186,7 @@ def write_ulog(path: str, source, *, include_satellite_info: bool = True, note: 
     if not samples:
         raise ValueError("no samples to write")
     t0_us = int(round(samples[0].t * 1e6))
-    gps_topic = SENSOR_GPS_CURRENT if schema == "current" else SENSOR_GPS
+    gps_topic = {"current": SENSOR_GPS_CURRENT, "gnss": SENSOR_GNSS}.get(schema, SENSOR_GPS)
     topics = [gps_topic, VISUAL_ODOMETRY] + ([SATELLITE_INFO] if include_satellite_info else [])
     out = bytearray(MAGIC + bytes([1]) + struct.pack("<Q", t0_us))
     out += _msg(b"B", bytes(8) + bytes(8) + bytes(24))                     # compat, incompat, appended offsets
@@ -200,14 +209,18 @@ def write_ulog(path: str, source, *, include_satellite_info: bool = True, note: 
             n_gps += 1
             jf, sf = flag_fn(s.t) if flag_fn else (0, 0)
             agc = 0 if g.agc is None else int(min(max(round(g.agc * AGC_FULL_SCALE), 0), 65535))
-            out += _msg(b"D", struct.pack("<H", ids["sensor_gps"]) + gps_topic.pack({
+            out += _msg(b"D", struct.pack("<H", ids[gps_topic.name]) + gps_topic.pack({
                 "timestamp": ts,
                 "time_utc_usec": 0 if g.t_gnss is None else int(round((g.t_gnss + UTC_BASE) * 1e6)),
                 **({"latitude_deg": g.lat, "longitude_deg": g.lon, "altitude_msl_m": g.alt}
                    if schema == "current" else
+                   {"latitude": g.lat, "longitude": g.lon, "altitude_msl": g.alt}
+                   if schema == "gnss" else
                    {"lat": int(round(g.lat * 1e7)), "lon": int(round(g.lon * 1e7)),
                     "alt": int(round(g.alt * 1e3))}),
-                "vel_n_m_s": NAN if g.vn is None else g.vn, "vel_e_m_s": NAN if g.ve is None else g.ve,
+                **({"vel_north": NAN if g.vn is None else g.vn, "vel_east": NAN if g.ve is None else g.ve}
+                   if schema == "gnss" else
+                   {"vel_n_m_s": NAN if g.vn is None else g.vn, "vel_e_m_s": NAN if g.ve is None else g.ve}),
                 "hdop": NAN if g.hdop is None else g.hdop, "eph": NAN,
                 "automatic_gain_control": agc, "fix_type": g.fix_type,
                 "satellites_used": 0 if g.n_sats is None else min(int(g.n_sats), 255),

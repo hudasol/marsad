@@ -372,3 +372,36 @@ def test_current_px4_sensor_gps_schema_roundtrip(tmp_path):
     g0 = next(s.gnss for s in got if s.gnss)
     s0 = next(s.gnss for s in run.samples if s.gnss)
     assert abs(g0.lat - s0.lat) < 1e-9 and abs(g0.lon - s0.lon) < 1e-9
+
+
+def test_px4_v118_sensor_gnss_schema_roundtrip(tmp_path):
+    """PX4 v1.18 renamed sensor_gps -> sensor_gnss (latitude, vel_north, ...); the adapter must still score it."""
+    from marsad.adapters import write_ulog, read_ulog_samples
+    from marsad.sim import generate
+    run = generate("spoof_jump", 3, "dev", duration=120)
+    p = str(tmp_path / "gnss.ulg")
+    write_ulog(p, run, schema="gnss")
+    got = list(read_ulog_samples(p))
+    g0 = next(s.gnss for s in got if s.gnss)
+    s0 = next(s.gnss for s in run.samples if s.gnss)
+    assert abs(g0.lat - s0.lat) < 1e-9 and abs(g0.lon - s0.lon) < 1e-9
+    assert g0.vn is not None
+
+
+def test_vehicle_gnss_nested_prefix_is_stripped():
+    """vehicle_gnss nests the receiver sample; pyulog flattens it to receiver.* names."""
+    import numpy as np
+    from types import SimpleNamespace
+    from marsad.adapters import ulog as U
+    n = 5
+    d = SimpleNamespace(name="vehicle_gnss", multi_id=0, data={
+        "timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
+        "receiver.timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
+        "receiver.latitude": np.full(n, 25.2), "receiver.longitude": np.full(n, 55.3),
+        "receiver.altitude_msl": np.full(n, 10.0), "receiver.vel_north": np.ones(n, np.float32),
+        "receiver.vel_east": np.zeros(n, np.float32), "receiver.fix_type": np.full(n, 3, np.uint8),
+        "receiver.satellites_used": np.full(n, 12, np.uint8)})
+    ulog = SimpleNamespace(data_list=[d])
+    info = U.UlogInfo()
+    fixes, _ = U._gps_fixes(ulog, info, 2.0)
+    assert info.gps_topic == "vehicle_gnss" and len(fixes) == n
