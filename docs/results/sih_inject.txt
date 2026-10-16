@@ -1,0 +1,17 @@
+sitl1.ulg: 9530 samples to 77s, attack from 45s (32s window)
+reference: vehicle_local_position_groundtruth (simulator truth)
+
+clean (no attack): Marsad non-TRUSTED samples 0, gate baseline 0
+
+attack                                     Marsad  offset@alarm       baseline
+drift rate=0.5, vel_consistent=True            0/4             -            0/4
+drift rate=0.5, vel_consistent=False            0/4             -            0/4
+drift rate=1.0, vel_consistent=True            0/4             -            0/4
+drift rate=1.0, vel_consistent=False            0/4             -            0/4
+drift rate=2.0, vel_consistent=True            0/4             -            0/4
+drift rate=2.0, vel_consistent=False            0/4             -            0/4
+jump mag=50.0                        4/4 med 0.0s        50.0 m   4/4 med 0.0s
+jump mag=200.0                       4/4 med 0.0s       200.0 m   4/4 med 0.0s
+jump mag=1000.0                      4/4 med 0.0s      1000.0 m   4/4 med 0.0s
+
+Label: SIH log + injected attack (4 headings per case). Window is short; slow drifts may not complete.
