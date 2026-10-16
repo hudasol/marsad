@@ -5,8 +5,11 @@ Run inside WSL/Linux while `make px4_sitl sihsim_quadx` is running and the vehic
 (`param set SYS_FAILURE_EN 1`, then `commander takeoff` in the pxh> shell). Needs pymavlink.
 Writes sitl_events.txt with the script-relative time of every injection, so a replayed log can be
 compared against the ground truth. Faults are injected receiver faults, NOT RF spoofing.
+
+usage: python3 scripts/sitl_flight.py [--no-faults]
+  --no-faults  fly the same square for the same time with no fault injection (a clean log for sih_inject.py)
 """
-import sys, time
+import argparse, sys, time
 from pymavlink import mavutil
 
 LEG_S, SPEED = 30, 5.0
@@ -14,6 +17,11 @@ LEG_S, SPEED = 30, 5.0
 FAULTS = [(40, 4, 20, "wrong"), (100, 2, 20, "stuck"), (160, 1, 20, "off"), (220, 3, 20, "garbage")]
 GPS_UNIT = 4  # as printed by PX4: "unit: gps (4)"
 END_S = 300
+
+ap = argparse.ArgumentParser()
+ap.add_argument("--no-faults", action="store_true", help="fly the square without injecting any GPS fault")
+if ap.parse_args().no_faults:
+    FAULTS = []
 
 m = mavutil.mavlink_connection("udpin:127.0.0.1:14540")
 print("waiting for heartbeat on udp 14540 ...")
@@ -72,7 +80,8 @@ while time.time() - t0 < END_S:
     vn, ve = legs[k % 4]
     stream(vn, ve, 0, LEG_S, tick)
     k += 1
-inject(0, "ok")
+if FAULTS:
+    inject(0, "ok")
 stream(0, 0, 0, 2)
 events.write(f"{time.time()-t0:.1f} end\n"); events.close()
 print("done. In pxh> run: commander land")
