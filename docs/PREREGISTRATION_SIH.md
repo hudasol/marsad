@@ -1,6 +1,6 @@
 # Preregistration: SIH + INJECTED evaluation on sitl1.ulg
 
-Written on 2026-10-16 at 05:20 (AST), **before** `scripts/sih_inject.py` was run on `sitl1.ulg` by this author.
+Written on 2026-10-16 at 05:09 (AST), **before** `scripts/sih_inject.py` was run on `sitl1.ulg` by this author.
 Committed before the run so that the commit history shows the order. No threshold, preset or detector was
 changed for this experiment, and none will be changed after seeing the result.
 

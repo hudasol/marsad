@@ -12,4 +12,4 @@ Times are local (AST, UTC+3).
 * 05:04 Copied `flight1.ulg`, `flight2.ulg`, `sitl1.ulg` and `sitl_events.txt` from the old checkout into the clone (copies, originals kept). They are not committed.
 * 05:05 Python: the `python` alias is the Windows Store stub; used `py -3.13 -m venv .venv` and `pip install -e ".[dev]"`.
 * 05:06 Found that annotated tag `v1.1.0` already exists on `1f17c9f` on the remote, so task 3a only needs `v1.2.0`.
-* 05:20 Wrote `docs/PREREGISTRATION_SIH.md` before running `scripts/sih_inject.py`.
+* 05:09 Wrote `docs/PREREGISTRATION_SIH.md` before running `scripts/sih_inject.py`.
