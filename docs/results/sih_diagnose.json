@@ -1,0 +1,134 @@
+{
+ "log": "sitl1.ulg",
+ "end_s": 77.0,
+ "t_attack_s": 45.0,
+ "sample_structure": {
+  "samples": 9530,
+  "gnss_samples": 612,
+  "ref_samples": 9213,
+  "median_gap_all_s": 0.007999999999999119,
+  "median_gap_gnss_s": 0.12400000000000233,
+  "median_gap_ref_s": 0.007999999999999119
+ },
+ "trace_drift_2mps_north": [
+  [
+   40.0,
+   "TRUSTED",
+   0.02,
+   0.1,
+   0.961
+  ],
+  [
+   44.0,
+   "TRUSTED",
+   0.02,
+   0.1,
+   0.961
+  ],
+  [
+   48.0,
+   "TRUSTED",
+   0.17,
+   1.0,
+   0.961
+  ],
+  [
+   52.0,
+   "TRUSTED",
+   0.81,
+   4.7,
+   0.961
+  ],
+  [
+   56.0,
+   "TRUSTED",
+   1.96,
+   11.4,
+   0.961
+  ],
+  [
+   60.0,
+   "TRUSTED",
+   3.27,
+   18.9,
+   0.96
+  ],
+  [
+   64.0,
+   "TRUSTED",
+   4.3,
+   24.9,
+   0.955
+  ],
+  [
+   68.0,
+   "TRUSTED",
+   5.06,
+   34.0,
+   0.947
+  ],
+  [
+   72.0,
+   "TRUSTED",
+   6.18,
+   41.5,
+   0.935
+  ],
+  [
+   76.0,
+   "TRUSTED",
+   7.31,
+   49.1,
+   0.919
+  ]
+ ],
+ "epoch_rate_clean_non_trusted": {
+  "marsad": 0,
+  "baseline": 0
+ },
+ "epoch_rate_rows": [
+  {
+   "attack": "drift rate=0.5, vel_consistent=True",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "baseline_detected": 0,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.5, vel_consistent=False",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "baseline_detected": 0,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=True",
+   "marsad_detected": 4,
+   "marsad_median_s": 27.65,
+   "baseline_detected": 0,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=False",
+   "marsad_detected": 4,
+   "marsad_median_s": 25.524,
+   "baseline_detected": 0,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=True",
+   "marsad_detected": 4,
+   "marsad_median_s": 16.276000000000003,
+   "baseline_detected": 0,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=False",
+   "marsad_detected": 4,
+   "marsad_median_s": 15.652000000000001,
+   "baseline_detected": 0,
+   "n": 4
+  }
+ ],
+ "label": "SIH + INJECTED, exploratory"
+}

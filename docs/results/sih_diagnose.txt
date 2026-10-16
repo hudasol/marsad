@@ -1,0 +1,33 @@
+sitl1.ulg: to 77s, attack from 45s
+1. sample structure as fed by sih_inject.py
+   samples              9530
+   gnss_samples         612
+   ref_samples          9213
+   median_gap_all_s     0.008
+   median_gap_gnss_s    0.124
+   median_gap_ref_s     0.008
+
+2. drift 2.0 m/s, velocity consistent, heading north, fed as sih_inject.py feeds it
+     t(s) state    drift z offset m P(nominal)
+     40.0 TRUSTED     0.02      0.1      0.961
+     44.0 TRUSTED     0.02      0.1      0.961
+     48.0 TRUSTED     0.17      1.0      0.961
+     52.0 TRUSTED     0.81      4.7      0.961
+     56.0 TRUSTED     1.96     11.4      0.961
+     60.0 TRUSTED     3.27     18.9      0.960
+     64.0 TRUSTED     4.30     24.9      0.955
+     68.0 TRUSTED     5.06     34.0      0.947
+     72.0 TRUSTED     6.18     41.5      0.935
+     76.0 TRUSTED     7.31     49.1      0.919
+
+3. fed at the GNSS epoch rate only (612 samples). Exploratory, not preregistered.
+   clean (no attack): Marsad non-TRUSTED samples 0, gate baseline 0
+   attack                                       Marsad   baseline
+   drift rate=0.5, vel_consistent=True             0/4        0/4
+   drift rate=0.5, vel_consistent=False            0/4        0/4
+   drift rate=1.0, vel_consistent=True   4/4 med 27.6s        0/4
+   drift rate=1.0, vel_consistent=False  4/4 med 25.5s        0/4
+   drift rate=2.0, vel_consistent=True   4/4 med 16.3s        0/4
+   drift rate=2.0, vel_consistent=False  4/4 med 15.7s        0/4
+
+Label: SIH + INJECTED. Part 3 is exploratory (post hoc); it changes the input stream, not the engine.
