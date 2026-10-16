@@ -10,3 +10,5 @@ build/
 *.egg-info/
 reports/out/
 .coverage
+*.ulg
+sitl_events.txt
