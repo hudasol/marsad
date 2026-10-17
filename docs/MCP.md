@@ -5,8 +5,8 @@
 explain, and nothing they do reaches outside this process's in-memory store. Every result carries
 `evidence` (machine-readable reasons) and `explanation` (plain language).
 
-> Marsad is an independent open-source project, not affiliated with or endorsed by TII, ATRC or any
-> ATRC entity. Results labelled `simulated: true` come from the measurement-level simulator, not hardware.
+> Marsad is an independent open-source project, not affiliated with or endorsed by EDGE Group, TII, ATRC or
+> any of their entities. Results labelled `simulated: true` come from the measurement-level simulator, not hardware.
 
 ## Run
 
@@ -20,7 +20,7 @@ Tested with the official Python SDK, 2.x (`MCPServer`); 1.x (`FastMCP`) is suppo
 
 ## Client configuration
 
-Claude Desktop (`claude_desktop_config.json`); use the full path to the Python that has Marsad installed:
+Any MCP host that reads a JSON server list; use the full path to the Python that has Marsad installed:
 
 ```json
 {
@@ -78,7 +78,7 @@ less than or equal to 90`), and a rejected call changes nothing.
 
 ## Example exchange
 
-An agent checks a simulated jamming scenario (SIMULATED data).
+An agent checks a simulated jamming scenario (SIMULATED data; values are illustrative and abbreviated, not a reported result).
 
 ```
 agent -> list_scenarios()

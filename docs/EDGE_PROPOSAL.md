@@ -46,10 +46,10 @@ against simulator truth.
 | Engine cost 187.7 µs per sample (3000 samples, CPython 3.13, one cloud CPU core) | SIMULATED |
 
 The SIH results exposed a defect that simulation hid: when the reference arrives faster than GNSS (about 125 Hz
-against 8 Hz in PX4 logs), drift evidence is weighted by the wrong time step and accrues at roughly 6% of its
+against 8 Hz in the two PX4 SIH logs), drift evidence is weighted by the wrong time step and accrues at roughly 6% of its
 intended rate. An exploratory check that only changes the input stream brings 0.5 m/s detection down to a median of
-42.5 to 48.2 s. The fix is planned as a separate, preregistered change. This is reported because it is the most
-useful thing the real logs taught.
+42.5 to 48.2 s. The fix is planned as a separate, preregistered change. It is reported because the SIH logs exposed it
+and the simulator did not.
 
 ## 4. What it does not claim
 

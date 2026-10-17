@@ -4,8 +4,8 @@ Marsad ships a small FastAPI service (`marsad.api`). It is in-memory, advisory, 
 trusted-network use. It also serves the [dashboard](DASHBOARD.md) at `/`.
 
 > **Independence notice.** Marsad is an independent open-source project. It is not affiliated with,
-> endorsed by, or sponsored by the Technology Innovation Institute (TII), the Advanced Technology
-> Research Council (ATRC), or any of their entities. The same notice is returned by `GET /v1/version`.
+> endorsed by, or sponsored by EDGE Group, the Technology Innovation Institute (TII), the Advanced Technology
+> Research Council (ATRC), or any of their entities. A similar notice is returned by `GET /v1/version`.
 >
 > **Simulation.** Everything produced by `/v1/demo/*` is SIMULATED, measurement-level data and is flagged
 > `simulated: true`. Nothing here has been validated on hardware or real flight logs.
@@ -93,7 +93,7 @@ curl -s -X POST localhost:8000/v1/vehicles/uav1/acknowledge -H 'content-type: ap
      -d '{"operator":"alice","note":"visual fix confirmed"}'
 ```
 
-Response of `POST .../samples`:
+Response of `POST .../samples` (illustrative values, not a measured result):
 
 ```json
 {"vehicle_id": "uav1", "simulated": false, "n_samples": 500,
