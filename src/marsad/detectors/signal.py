@@ -39,10 +39,10 @@ class SignalDetector:
             self.agc_b = g.agc if self.agc_b is None else self.agc_b + a * (g.agc - self.agc_b)
 
     def update(self, ctx: Context) -> list[Evidence]:
-        c, dt, out = self.cfg, ctx.dt, []
-        # --- loss of fix -----------------------------------------------------
+        c, out = self.cfg, []
+        # --- loss of fix (accrues with elapsed time, on every sample) ----------
         if ctx.gnss_gap > c.gnss_gap_timeout:
-            r = 2.5 * dt
+            r = 2.5 * ctx.dt
             out.append(Evidence(self.name, "fix_loss", {H.JAM: r, H.ENV: 0.8 * r},
                                 f"no usable GNSS fix for {ctx.gnss_gap:.1f} s", ctx.gnss_gap, r))
         g = ctx.gnss
@@ -50,6 +50,7 @@ class SignalDetector:
             return out
         if self._n < 10:      # calibrating baselines from the first trusted fixes (assumes no attack at power-up)
             return out
+        dt = ctx.gnss_dt      # everything below is computed once per fix
         agc_known = g.agc is not None and self.agc_b is not None
         # --- power / satellites down: jamming vs environmental ----------------
         down = 0.0

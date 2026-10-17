@@ -81,12 +81,12 @@ class InertialDetector:
         self.last_z = best_z
         self.last_mag = best_mag
         if best_rate > 0:
-            r = best_rate * ctx.dt
+            r = best_rate * ctx.gnss_dt
             out.append(Evidence(self.name, "gnss_vs_reference_drift",
                                 {H.SPOOF_DRIFT: r, H.SPOOF_JUMP: 0.4 * r, H.REPLAY: 0.3 * r},
                                 best_msg, best_mag, r))
         elif best_z < 1.0 and best_z > 0:
-            out.append(Evidence(self.name, "gnss_matches_reference", {H.SPOOF_DRIFT: -0.15 * ctx.dt,
-                                                                      H.SPOOF_JUMP: -0.1 * ctx.dt},
+            out.append(Evidence(self.name, "gnss_matches_reference", {H.SPOOF_DRIFT: -0.15 * ctx.gnss_dt,
+                                                                      H.SPOOF_JUMP: -0.1 * ctx.gnss_dt},
                                 "GNSS motion agrees with independent reference", best_z, 0.0))
         return out
