@@ -6,7 +6,7 @@
 | Engine runs in real time on a laptop-class CPU | **Measured** (187.7 µs/sample on one cloud core, `docs/results/throughput.json`; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
 | Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. Reproduce: `marsad replay flight1.ulg` and `marsad replay flight2.ulg` (output in `docs/results/real_logs.txt`). See "Real-log results" below. |
-| Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. Drifts: 0/4 in a 32 s window (sitl1); in a 230 s window (sitl2) 0.5 to 2 m/s detected 4/4 but only after median latencies of 98.1 to 204.6 s and offsets of 77.1 to 186.8 m, and 0.1 and 0.25 m/s missed. A defect in evidence weighting at mixed sample rates is the likely cause. See "SIH + INJECTED results" below |
+| Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. After the preregistered evidence weighting fix: 1 and 2 m/s drifts detected 4/4 at median latencies of 15.7 to 27.8 s in both logs, 0.5 m/s 4/4 at 42.5 and 48.3 s in the 230 s window (sitl2), offsets at alarm 18.8 to 22.8 m; 0.1 m/s and the velocity consistent 0.25 m/s case missed. Before the fix (v1.2.0) drifts were 0/4 in 32 s and caught only after 98.1 to 204.6 s in 230 s. See "Evidence weighting fix" below |
 | Works on a real flight controller | **NOT validated** |
 | ROS 2 node | A CI job runs `scripts/ros2_smoke.py` with a real rclpy runtime under ROS 2 humble on synthetic messages; it passes since 2026-10-17. Never run on a robot |
 | Real GNSS spoofing/jamming data | **NOT used** |
@@ -87,6 +87,8 @@ Reproduce: `python scripts/sih_diagnose.py sitl1.ulg --out docs/results/sih_diag
   method. It matters for any real integration where the reference sensor runs faster than GNSS, which is the
   normal case. Fixing it changes engine behaviour and the published v1.1.0 numbers, so it was left for a separate,
   preregistered change.
+* The fix was made after v1.2.0; see "Evidence weighting fix" below. The tables in this section are the v1.2.0
+  results and are kept unchanged.
 
 ### Long clean flight (sitl2.ulg, 230 s attack window)
 
@@ -154,11 +156,112 @@ within 0.4 s, which is what one would expect if the evidence weighting, not the 
 * **Not real spoofing.** The offset is added to logged numbers. Nothing about how a real receiver reacts to a
   spoofing signal is tested.
 
+## Evidence weighting fix
+
+The defect described in "Why the drifts were missed" was fixed in a separate change after v1.2.0. Predictions were
+written and committed first, in [PREREGISTRATION_WEIGHTING.md](PREREGISTRATION_WEIGHTING.md) (commit `5756142`),
+before any engine code was changed. The engine now scales every piece of evidence that is computed once per GNSS fix
+by the time since the previous usable fix (`gnss_dt`, capped at 1.5 s) instead of the time since the previous sample
+of any kind. The same defect was found and fixed in the kinematic position/velocity consistency evidence, the per fix
+signal evidence, the engine's persistent offset and verified continuity evidence, the reference bias estimator and
+the anchor smoothing; the full list is in the preregistration. No threshold or preset was changed.
+`tests/test_mixed_rate.py` feeds one synthetic flight co-sampled at 5 Hz and interleaved with a 100 Hz reference; on
+the old code the interleaved 2 m/s drift was never detected, on the new code it is detected at 15.8 s against 16.2 s
+co-sampled. All 143 tests pass (140 existing, unmodified, and 3 new). The simulated evaluation is reported in
+[EVALUATION.md](EVALUATION.md).
+
+Results are in `docs/results/weighting_fix/`. The v1.2.0 files in `docs/results/` are unchanged.
+
+### SIH + INJECTED, sitl1.ulg (32 s window)
+
+**Label: SIH + INJECTED.** Reproduce: `python scripts/sih_inject.py sitl1.ulg --out docs/results/weighting_fix/sih_inject.json`
+(console output in `docs/results/weighting_fix/sih_inject.txt`).
+
+| attack | v1.2.0 | predicted | after the fix | median offset at alarm | hit |
+|---|---|---|---|---|---|
+| none (clean log) | 0 non TRUSTED | 0 | 0 non TRUSTED samples | | yes |
+| drift 0.1 m/s (both modes) | 0/4 | 0/4 | 0/4 | | yes, yes |
+| drift 0.25 m/s (both modes) | 0/4 | 0/4 | 0/4 | | yes, yes |
+| drift 0.5 m/s (both modes) | 0/4 | 0/4 | 0/4 | | yes, yes |
+| drift 1.0 m/s, velocity consistent | 0/4 | 4/4, 20 to 32 s | 4/4, 27.8 s | 22.8 m | yes |
+| drift 1.0 m/s, velocity not consistent | 0/4 | 4/4, 18 to 32 s | 4/4, 25.5 s | 20.5 m | yes |
+| drift 2.0 m/s, velocity consistent | 0/4 | 4/4, 11 to 22 s | 4/4, 16.3 s | 22.6 m | yes |
+| drift 2.0 m/s, velocity not consistent | 0/4 | 4/4, 11 to 22 s | 4/4, 15.7 s | 21.3 m | yes |
+| jump 50, 200, 1000 m | 4/4, 0.0 s | 4/4, under 1 s | 4/4, 0.0 s | 50, 200, 1000 m | yes |
+
+### SIH + INJECTED, sitl2.ulg (230 s window)
+
+**Label: SIH + INJECTED.** Reproduce:
+`python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/weighting_fix/sih_inject_long.json`
+(console output in `docs/results/weighting_fix/sih_inject_long.txt`, 16 minutes).
+
+| attack | v1.2.0 | predicted | after the fix | median offset at alarm | hit |
+|---|---|---|---|---|---|
+| none (clean log) | 0 non TRUSTED | 0 | 0 non TRUSTED samples | | yes |
+| drift 0.1 m/s (both modes) | 0/4 | 0/4 | 0/4 | | yes, yes |
+| drift 0.25 m/s, velocity consistent | 0/4 | 4/4, 70 to 200 s | **0/4** | | **no** |
+| drift 0.25 m/s, velocity not consistent | 0/4 | 4/4, 70 to 200 s | 4/4, 113.6 s | 27.1 m | yes |
+| drift 0.5 m/s, velocity consistent | 4/4, 204.6 s | 4/4, 35 to 70 s | 4/4, 48.3 s | 21.7 m | yes |
+| drift 0.5 m/s, velocity not consistent | 4/4, 159.1 s | 4/4, 30 to 65 s | 4/4, 42.5 s | 18.8 m | yes |
+| drift 1.0 m/s, velocity consistent | 4/4, 112.3 s | 4/4, 20 to 40 s | 4/4, 27.3 s | 22.3 m | yes |
+| drift 1.0 m/s, velocity not consistent | 4/4, 110.1 s | 4/4, 18 to 38 s | 4/4, 25.5 s | 20.5 m | yes |
+| drift 2.0 m/s, velocity consistent | 4/4, 98.4 s | 4/4, 11 to 25 s | 4/4, 16.2 s | 22.4 m | yes |
+| drift 2.0 m/s, velocity not consistent | 4/4, 98.1 s | 4/4, 11 to 25 s | 4/4, 15.7 s | 21.4 m | yes |
+| jump 50, 200, 1000 m | 4/4, 0.0 s | 4/4, under 1 s | 4/4, 0.0 s | 50, 200, 1000 m | yes |
+
+Against the preregistration:
+
+* **P1 (sitl1): 14 of 14 Marsad rows hit. P2 (sitl2): 13 of 14 hit, 1 miss** (0.25 m/s, velocity consistent).
+* **P3 hit:** median offset at alarm 18.8 to 22.8 m for every detected drift of 0.5 m/s and faster (v1.2.0: 77.1 to
+  186.8 m).
+* **P4 hit:** latency is ordered 0.25 > 0.5 > 1.0 > 2.0 m/s in each velocity mode, among the detected cases.
+* **P5 hit:** the gate baseline is identical to v1.2.0 in every row of both logs.
+* The latencies agree with the exploratory GNSS epoch rate feed of v1.2.0 (`sih_diagnose*.txt`) to within 0.2 s in
+  every case that feed detected, as the preregistration argued they should.
+
+**Why 0.25 m/s velocity consistent was missed (exploratory, post hoc).** Reproduce:
+`python scripts/bias_trace.py sitl2.ulg` (output in `docs/results/weighting_fix/bias_trace_sitl2.txt`). While the
+drift z score is below 1, the engine keeps learning the reference velocity bias by comparing the reference velocity
+with the GNSS velocity. A velocity consistent spoofer shifts the GNSS velocity together with the position, so the
+estimator learned a northward bias of -0.087 m/s, about 35% of the 0.25 m/s drift, before the z score passed 1 at
+about 95 s. Integrating the bias corrected reference then hides that part of the drift, and the peak z score stayed
+at 1.80, below the evidence threshold of 2. In the velocity not consistent mode the GNSS velocity is honest, the
+estimate stayed at 0.000 m/s north and the drift was caught. The trace also shows that the estimator had only 47 s
+of learning when it stopped, short of the 150 s that enables the tighter bias bound, because it learns only on fixes
+that share a sample with the reference (1,145 of 2,305 fixes in this log). Both effects were named as risks in the
+preregistration. They are properties of the bias estimator, not of the weighting fix, and are left for a separate
+change.
+
+### REAL LOG replays and false alarm margin
+
+**Label: REAL LOG** (flight1, flight2: unmodified public PX4 flights, no attack, EKF fused reference).
+Reproduce: `marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json` and the same for
+`flight2.ulg` (console output in `docs/results/weighting_fix/real_logs.txt`).
+
+**P6 hit:** Marsad stays TRUSTED for 100% of both flights (911 s and 334 s), as in v1.2.0, although GNSS driven
+evidence now accrues about 10 times faster on these logs.
+
+`python scripts/clean_margin.py` (output in `docs/results/weighting_fix/clean_margin.txt`) measures how close the
+engine comes to leaving TRUSTED on the four clean logs, with the v1.2.0 engine and with the fixed engine. The sitl rows
+are SIH logs without any injection.
+
+| log | label | min P(nominal), v1.2.0 | min P(nominal), fixed | max drift z, v1.2.0 | max drift z, fixed |
+|---|---|---|---|---|---|
+| sitl1.ulg (to 77 s) | SIH, no injection | 0.960 | 0.965 | 0.03 | 0.03 |
+| sitl2.ulg (to 290 s) | SIH, no injection | 0.960 | 0.966 | 0.08 | 0.08 |
+| flight1.ulg | REAL LOG | 0.961 | 0.966 | 1.17 | 1.18 |
+| flight2.ulg | REAL LOG | 0.960 | 0.965 | 0.25 | 0.25 |
+
+DEGRADED starts below P(nominal) 0.5 and drift evidence accrues above z = 2. The margin did not shrink: the
+"GNSS agrees with the reference" evidence also accrues at its intended rate now, which keeps P(nominal) slightly
+higher. This is still the false alarm side only; the flights contain no attack and their reference is contaminated.
+
 ## The path from here
 
-1. **Fix evidence weighting for mixed sample rates** (found by the SIH + INJECTED runs), preregister the expected
-   change, and rerun the simulated and SIH evaluations. Real-log replay on clean flights is done (two logs); more
-   logs, including GNSS degraded ones, are still needed.
+1. **Evidence weighting for mixed sample rates**: fixed and rerun against preregistered predictions (above). Still
+   open: the bias estimator can absorb part of a velocity consistent drift, and it learns only on fixes that share a
+   sample with the reference. Real-log replay on clean flights is done (two logs); more logs, including GNSS
+   degraded ones, are still needed.
 2. **Real interference logs.** Any logged episode of known jamming/spoofing (with ground truth from a controlled
    test, or a cooperating range). Measure detection latency against the PX4 `jamming_state`/`spoofing_state`
    flags the receiver itself reports.
