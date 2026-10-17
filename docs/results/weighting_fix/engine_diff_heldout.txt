@@ -1,0 +1,19 @@
+# Same machine control, held out split, 30 seeds per scenario (SIMULATED)
+# PYTHONPATH=<v1.2.0 checkout>/src python scripts/engine_diff.py --out docs/results/weighting_fix/engine_diff_heldout_v1.2.0.json
+# python scripts/engine_diff.py --out docs/results/weighting_fix/engine_diff_heldout_fixed.json
+# python scripts/engine_diff.py --compare docs/results/weighting_fix/engine_diff_heldout_v1.2.0.json docs/results/weighting_fix/engine_diff_heldout_fixed.json
+
+nominal                  IDENTICAL
+benign_obstruction       CHANGED alarm_frac_marsad: 0.8462024027982565 -> 0.8466621729131991
+benign_multipath         IDENTICAL
+jam_hard                 CHANGED recover_med_marsad: 20.0183032266753 -> 20.26832449963149
+jam_soft                 CHANGED lat_alarm_med_marsad: 5.020894606840059 -> 4.620894606840054, lat_alarm_p90_marsad: 6.0557102328845875 -> 5.5789641131874275, err_max_med_marsad: 10.8282992414975 -> 9.364391301795527, recover_med_marsad: 47.45555660090173 -> 48.08555362644168
+spoof_jump               IDENTICAL
+spoof_jump_transient     IDENTICAL
+spoof_drift              IDENTICAL
+spoof_drift_stealth      IDENTICAL
+replay                   IDENTICAL
+spoof_drift_noref        IDENTICAL
+spoof_drift_ref_outage   IDENTICAL
+
+Both runs on the same Windows machine. The v1.2.0 engine run here differs from the published docs/results/heldout.json (produced on Linux) only in the last digits of floating point medians, in jam_hard, spoof_jump, spoof_jump_transient, spoof_drift_stealth, spoof_drift_noref and spoof_drift_ref_outage; those differences are platform effects, not engine changes.
