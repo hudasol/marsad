@@ -120,7 +120,7 @@ def main(argv=None):
     print(f"clean (no attack): Marsad non-TRUSTED samples {clean_m}, gate baseline {clean_b}\n")
 
     angles = [0.0, math.pi / 2, math.pi, 3 * math.pi / 2]
-    cases = ([("drift", dict(rate=r, vel_consistent=vc)) for r in (0.5, 1.0, 2.0) for vc in (True, False)]
+    cases = ([("drift", dict(rate=r, vel_consistent=vc)) for r in (0.1, 0.25, 0.5, 1.0, 2.0) for vc in (True, False)]
              + [("jump", dict(mag=x)) for x in (50.0, 200.0, 1000.0)])
     rows = []
     print(f"{'attack':34s} {'Marsad':>14s} {'offset@alarm':>13s} {'baseline':>14s}")
