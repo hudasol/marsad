@@ -6,16 +6,14 @@ data source into that stream. Install the optional dependencies with `pip instal
 
 | Adapter | Module | Status |
 |---|---|---|
-| PX4 ULog reader | `marsad.adapters.ulog` | Tested on **synthetic** logs and hand-built logs only. **Never run on a real PX4 log.** |
-| Synthetic ULog writer | `marsad.adapters.ulog_writer` | Produces SYNTHETIC logs from the simulator. |
+| PX4 ULog reader | `marsad.adapters.ulog` | Tested on simulated and hand-built logs, on two real PX4 flight logs (v1.15.3 and v1.17.0, REAL LOG, zero alarms) and on two PX4 v1.18 SIH logs (see VALIDATION.md). |
+| Simulated ULog writer | `marsad.adapters.ulog_writer` | Produces SIMULATED logs from the simulator. |
 | MAVLink source + advisory reporter | `marsad.adapters.mavlink` | Tested offline on pymavlink-encoded bytes, a `.tlog` file and a localhost UDP loop. Never run against a real autopilot. |
-| ROS 2 node | `marsad.adapters.ros2` | **Stub-tested only.** No ROS 2 runtime was available; `MarsadNode` has never run. |
+| ROS 2 node | `marsad.adapters.ros2` | Unit tested with stand-ins; a CI job runs `MarsadNode` with a real rclpy runtime under ROS 2 humble on synthetic messages (`scripts/ros2_smoke.py`). Never run on a robot. |
 
-> **SYNTHETIC DATA NOTICE.** Everything in this repository that exercises these adapters (`marsad make-log`,
-> the test logs, the `.tlog` round trips) was produced by the Marsad measurement-level simulator. It is
-> **not real flight data**, contains no real PX4 firmware output, and only demonstrates that the plumbing
-> works. Results on it say nothing about performance on real receivers. **Replaying a real PX4 log is the
-> first thing to do once one is available** (checklist below).
+> **SIMULATED DATA NOTICE.** The test logs and `.tlog` round trips in this repository (`marsad make-log`) were
+> produced by the Marsad measurement-level simulator. They are **not real flight data** and only demonstrate that
+> the plumbing works. Real PX4 logs are not stored in git; results on them are in VALIDATION.md.
 
 ## CLI
 
@@ -51,9 +49,9 @@ samples (GNSS-only or reference-only), which the engine handles.
 
 | Logical field | Topic / aliases tried | Unit handling |
 |---|---|---|
-| GPS topic | `sensor_gps`, then `vehicle_gps_position` (pre-1.13 name); instance with most rows (warns on multi) | |
+| GPS topic | `sensor_gps`, then `vehicle_gps_position` (pre-1.13 name), then the PX4 v1.18 `vehicle_gnss` / `sensor_gnss` (nested `receiver.*` fields); instance with most rows (warns on multi) | |
 | time | `timestamp` (us) | /1e6 |
-| lat, lon | `lat`/`latitude`, `lon`/`longitude` | integer type or `|x|>180` -> 1e-7 deg; else degrees |
+| lat, lon | `latitude_deg`/`lat`/`latitude`, `longitude_deg`/`lon`/`longitude` | integer type or `|x|>180` -> 1e-7 deg; else degrees |
 | alt | `alt`, `altitude` | integer -> mm to m; float -> m |
 | velocity | `vel_n_m_s`/`vel_n`/`vn`, `vel_e_m_s`/`vel_e`/`ve` | m/s |
 | fix | `fix_type` | PX4 numbering: 3 = 3D (engine needs >= 3) |
@@ -140,11 +138,11 @@ change (DEGRADED = WARNING, DENIED = CRITICAL, return to TRUSTED = NOTICE), and 
 other message type; a test tries `COMMAND_LONG`, `SET_MODE`, `PARAM_SET`, `SET_POSITION_TARGET_LOCAL_NED` and
 `GPS_INPUT` and asserts none can be sent.
 
-## ROS 2 (`adapters/ros2.py`) -- stub-tested only
+## ROS 2 (`adapters/ros2.py`)
 
 Pure functions `process_navsat`, `process_odom`, `process_cn0`, `build_diagnostic` and the ROS-agnostic
-`RosBridge` are unit-tested with `types.SimpleNamespace` stand-ins. `MarsadNode` (rclpy) is only syntax- and
-import-checked: **never run against ROS 2**.
+`RosBridge` are unit-tested with `types.SimpleNamespace` stand-ins. `MarsadNode` (rclpy) runs in CI under ROS 2 humble
+on synthetic messages (`scripts/ros2_smoke.py`); it has never run on a robot.
 
 - `NavSatFix`: `status.status < 0` -> fix_type 1 else 3 (2D/3D inexpressible); `hdop` is a **proxy**
   `sqrt(cov_ee + cov_nn)/3 m`; no satellite count, no AGC, no velocity (optional separate `TwistStamped`).
@@ -170,7 +168,7 @@ def generate_launch_description():
 ## Known unknowns (verify against a real log before trusting any result)
 
 PX4 / ULog:
-1. `sensor_gps` — **checked against PX4's own message docs (current schema: `latitude_deg`/`longitude_deg` doubles, `altitude_msl_m`; legacy `lat`/`lon` 1e-7 int32 still read), not against a real log.** Remaining uncertainty: which fields a given version actually logs. Legacy list: `lat`/`lon` (int32, 1e-7 deg), `alt` (int32 mm), `vel_n_m_s`,
+1. `sensor_gps`: **checked against PX4's own message docs (current schema: `latitude_deg`/`longitude_deg` doubles, `altitude_msl_m`; legacy `lat`/`lon` 1e-7 int32 still read), not against a real log.** Remaining uncertainty: which fields a given version actually logs. Legacy list: `lat`/`lon` (int32, 1e-7 deg), `alt` (int32 mm), `vel_n_m_s`,
    `vel_e_m_s`, `hdop`, `eph`, `fix_type`, `satellites_used`, `time_utc_usec`, `noise_per_ms`,
    `jamming_indicator`, `automatic_gain_control` (**may not exist** in a given PX4 version), `jamming_state`,
    `spoofing_state` (**enum values and whether they are populated at all** depend on receiver/driver).
@@ -209,6 +207,6 @@ ROS 2: everything about `MarsadNode` at runtime (QoS, executors, parameter handl
 6. `marsad replay flight.ulg --json out.json` on a **nominal** flight first: expect TRUSTED throughout. Any
    DEGRADED/DENIED here is a false alarm; investigate (usually C/N0 baseline, hdop, units) before attack logs.
 7. Replay logs with known interference and compare against the PX4 flag column; record disagreements both ways.
-8. Do not tune detector thresholds on the same logs you report. Label results "real-log replay", with the
+8. Do not tune detector thresholds on the same logs you report. Label results REAL LOG, with the
    log count, the PX4 version and this checklist's findings, separately from simulated numbers.
 9. Update this "known unknowns" list: move confirmed items out, record the PX4 version they were confirmed on.
