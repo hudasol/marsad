@@ -11,8 +11,8 @@ Reproduce: `python scripts/run_eval.py` (about 12 minutes on 4 cores). Raw resul
 * **Scenarios (12).** `nominal`; benign: `benign_obstruction`, `benign_multipath`; jamming: `jam_hard`, `jam_soft`;
   spoofing: `spoof_jump`, `spoof_jump_transient`, `spoof_drift` (carry-off with a power signature),
   `spoof_drift_stealth` (no power signature, velocity-consistent), `replay` (meaconing); and two failure-regime
-  cases, `spoof_drift_noref` (no reference sensor) and `spoof_drift_ref_outage` (reference lost for 30–60 s).
-  600 s, 5 Hz, a manoeuvring UAV at 8–16 m/s, correlated GNSS error (1.2 m, 30 s correlation), a reference
+  cases, `spoof_drift_noref` (no reference sensor) and `spoof_drift_ref_outage` (reference lost for 30 to 60 s).
+  600 s, 5 Hz, a manoeuvring UAV at 8 to 16 m/s, correlated GNSS error (1.2 m, 30 s correlation), a reference
   velocity sensor with bias up to 0.06 m/s (dev) / 0.08 m/s (held-out).
 * **Splits.** Detector thresholds were tuned on the **dev** split only. The **held-out** split uses different
   seeds and *different or more adversarial parameter ranges* (slower and faster carry-off than dev, weaker
@@ -80,13 +80,15 @@ Dev split numbers are in `docs/results/dev.md`.
 
 ## Ablation (held-out, fresh seeds)
 
+Ablation runs use 20 seeds (6000+), so the full engine figures differ slightly from the main table.
+
 `docs/results/ablation.md`. Removing a detector:
 
 | removed | consequence |
 |---|---|
-| inertial/reference | stealth carry-off detection drops from 100% to **0%**; carry-off with a power signature from 100% to 45% |
-| signal | jamming latency about doubles; carry-off latency 39 s → 103 s; obstruction can reach DENIED (5% of runs) |
-| kinematic | jump/replay latency 0.1 s → 1.5 s (still caught by the others) |
+| inertial/reference | stealth carry-off detection drops from 100% to **0%**; carry-off with a power signature from 100% to 45%; multipath reaches DENIED in 5% of runs (0% with all detectors) |
+| signal | hard jamming latency 2.4 s → 4.5 s, soft 5.1 s → 7.5 s; carry-off with a power signature 32.5 s → 48.3 s; carry-off without a reference detected in 10% of runs instead of 50%; obstruction time not TRUSTED falls from 88% to 63% (no run reaches DENIED either way) |
+| kinematic | jump latency 0.1 s → 1.4 s, replay 0.1 s → 1.6 s (still caught by the others) |
 | timing | no measurable change on these scenarios (the simulator rarely exercises clock steps) |
 
 The reference sensor is the single biggest factor for carry-off, which is why the adapters warn loudly when only
@@ -97,8 +99,8 @@ an EKF-fused (GNSS-contaminated) velocity is available.
 ![detectability](img/detectability.png)
 
 `docs/results/detectability.md` sweeps carry-off rate × reference bias. Without a power signature, drifts of
-0.05 m/s are **never** detected, 0.1 m/s in about 50–56% of runs (after ~4–5 minutes), and 0.15 m/s and faster in
-100% of runs (0.15 m/s after ~2.3 minutes). In v1.0.0 the 0.15 m/s cell was 0–38%; the improvement comes from the
+0.05 m/s are **never** detected, 0.1 m/s in about 50 to 56% of runs (after about 4 to 5 minutes), and 0.15 m/s and faster in
+100% of runs (0.15 m/s after about 2.3 minutes). In v1.0.0 the 0.15 m/s cell was 0 to 38%; the improvement comes from the
 slow reference-bias estimator and the 240 s window. The sweep is on fresh seeds and the bias values are bounds of
 the simulated reference sensor. The floor comes from the reference
 bias bound and the sensor noise integrated over the window, not from the code path.
@@ -111,10 +113,10 @@ bias bound and the sensor noise integrated over the window, not from the code pa
 
 ## Performance
 
-About 185 µs per sample (3000 samples in 0.56 s, CPython 3.13, one cloud core, engine only; v1.0.0 was 46 µs,
+187.7 µs per sample (3000 samples in 0.56 s, `docs/results/throughput.json`, CPython 3.13, one cloud core, engine only; v1.0.0 was 46 µs,
 the increase is the replay cross-correlation and the longer drift windows). Memory is bounded: the longest drift window is 240 s, history is pruned at 1.6× that. This is still
-well inside the budget for 5–50 Hz. The core is
-standard-library only. A compiled port is not needed for 5–50 Hz companion-computer use; it would be for
+well inside the budget for 5 to 50 Hz. The core is
+standard-library only. A compiled port is not needed for 5 to 50 Hz companion-computer use; it would be for
 microcontrollers.
 
 ## Threats to validity
