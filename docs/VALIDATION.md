@@ -6,7 +6,7 @@
 | Engine runs in real time on a laptop-class CPU | **Measured** (~185 µs/sample; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
 | Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. See "Real-log results" below. Original wording: **NOT validated** — no real log has been run. `sensor_gps` field names checked against PX4's published message docs, **not** against a real log; other topics still from memory (see ADAPTERS.md "known unknowns") |
-| Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once; every drift case (0.5 to 2 m/s, 32 s window) missed 0/4. See "SIH + INJECTED results" below |
+| Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. Drifts: 0/4 in a 32 s window (sitl1); in a 230 s window (sitl2) 0.5 to 2 m/s detected 4/4 but only after median latencies of 98.1 to 204.6 s and offsets of 77.1 to 186.8 m, and 0.1 and 0.25 m/s missed. A defect in evidence weighting at mixed sample rates is the likely cause. See "SIH + INJECTED results" below |
 | Works on a real flight controller | **NOT validated** |
 | ROS 2 node | Stub-tested locally; a CI job runs `scripts/ros2_smoke.py` under ROS 2 humble (first result not yet observed) |
 | Real GNSS spoofing/jamming data | **NOT used** |
@@ -82,15 +82,68 @@ Reproduce: `python scripts/sih_diagnose.py sitl1.ulg --out docs/results/sih_diag
   normal case. Fixing it changes engine behaviour and the published v1.1.0 numbers, so it was left for a separate,
   preregistered change.
 
+### Long clean flight (sitl2.ulg, 230 s attack window)
+
+**Label: SIH + INJECTED.** `sitl2.ulg` is a second PX4 SIH flight, flown for this purpose with no fault injection:
+`scripts/sitl_flight.py --no-faults`, a 300 s square at 5 m/s and 10 m altitude, so the vehicle turns through every
+heading every 2 minutes. Before use it was checked with `marsad inspect` and `scripts/sitl_timeline.py sitl2.ulg 10`:
+fix type 3 on all 3,212 fixes, GNSS error against ground truth at most 0.30 m (median 0.10 m), and Marsad TRUSTED on
+all 51,615 samples (`docs/results/sitl2_timeline.txt`).
+
+Reproduce: `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json`
+(console output in `docs/results/sih_inject_long.txt`, about 17 minutes). Predictions were committed before the run
+in the addendum of [PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md). The case list gained 0.1 and 0.25 m/s drifts for
+this run; rerunning the sitl1 command therefore prints two extra rows, and the rows above are unchanged.
+
+| attack | Marsad detected | Marsad median latency | median offset at alarm | gate baseline detected |
+|---|---|---|---|---|
+| none (clean log) | 0 non TRUSTED samples | | | 0 non TRUSTED samples |
+| drift 0.1 m/s, velocity consistent | 0/4 | | | 0/4 |
+| drift 0.1 m/s, velocity not consistent | 0/4 | | | 0/4 |
+| drift 0.25 m/s, velocity consistent | 0/4 | | | 0/4 |
+| drift 0.25 m/s, velocity not consistent | 0/4 | | | 0/4 |
+| drift 0.5 m/s, velocity consistent | 4/4 | 204.6 s | 99.8 m | 0/4 |
+| drift 0.5 m/s, velocity not consistent | 4/4 | 159.1 s | 77.1 m | 0/4 |
+| drift 1.0 m/s, velocity consistent | 4/4 | 112.3 s | 107.3 m | 0/4 |
+| drift 1.0 m/s, velocity not consistent | 4/4 | 110.1 s | 105.1 m | 0/4 |
+| drift 2.0 m/s, velocity consistent | 4/4 | 98.4 s | 186.8 m | 0/4 |
+| drift 2.0 m/s, velocity not consistent | 4/4 | 98.1 s | 186.3 m | 0/4 |
+| jump 50 m | 4/4 | 0.0 s | 50.0 m | 4/4 (0.0 s) |
+| jump 200 m | 4/4 | 0.0 s | 200.0 m | 4/4 (0.0 s) |
+| jump 1000 m | 4/4 | 0.0 s | 1000.0 m | 4/4 (0.0 s) |
+
+Against the addendum predictions:
+
+* **Hits:** clean log silent; 0.1 and 0.25 m/s missed (predicted 0/4); 1.0 m/s detected 4/4 at 110.1 and 112.3 s
+  (predicted band 60 to 180 s); 2.0 m/s detected 4/4 at 98.1 and 98.4 s (band 40 to 120 s); jumps 4/4 at once; gate
+  baseline as predicted in every row.
+* **Miss:** 0.5 m/s was detected 4/4 (159.1 and 204.6 s); I predicted it would stay TRUSTED inside 230 s.
+
+Compared with the 32 s window on sitl1, the longer window turns 0/4 into 4/4 for drifts of 0.5 m/s and faster, which
+is consistent with the diagnosis: the evidence does build up, only slowly. The cost is visible in the offset column.
+A 2 m/s drift is caught only when the GNSS position is about 187 m from the truth, and latency barely shortens from
+1 m/s to 2 m/s, which suggests the diluted evidence accrual sets a floor of roughly 100 s that faster drifts cannot
+beat. In a state trace of the 2 m/s north case the state goes from TRUSTED to DEGRADED at 158.4 s and to DENIED at
+159.4 s and stays DENIED until the log is cut (`docs/results/sih_diagnose_long.txt` shows the same case every 4 s).
+
+Exploratory check, same as for sitl1 and again not preregistered:
+`python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json`. Fed at
+the GNSS epoch rate only (2,305 samples), Marsad detects 0.5 m/s drift 4/4 at a median of 48.2 s (velocity consistent)
+and 42.5 s (not consistent), 1.0 m/s at 27.2 and 25.5 s, and 2.0 m/s at 16.2 and 15.7 s, with no alarm on the clean
+log and the gate baseline at 0/4 throughout. The 1.0 and 2.0 m/s figures agree with the sitl1 exploratory check to
+within 0.4 s, which is what one would expect if the evidence weighting, not the flight, sets the latency.
+
 ### Limits of this experiment
 
-* **Short window.** 32 s of attack. A 0.5 m/s drift has moved only about 14 m by the end, and slower drifts (the
-  hard cases in the simulated evaluation) cannot be tested at all.
+* **Short window (sitl1).** 32 s of attack. A 0.5 m/s drift has moved only about 14 m by the end. The sitl2 run
+  extends the window to 230 s, which is still shorter than the 240 s drift window the engine uses and far shorter
+  than the several minutes the simulated evaluation needs for 0.1 m/s.
 * **Ideal reference.** Simulator ground truth has no bias, no scale error and no dropouts. Any real visual or
   odometry reference is worse. A positive result here would be an upper bound.
-* **One flight, one manoeuvre.** The vehicle was on the ground until about 16 s, climbed until about 40 s, flew
+* **Two flights, one vehicle model.** sitl2 flies a full square (all headings); sitl1 was mostly one heading. In sitl1 the vehicle was on the ground until about 16 s, climbed until about 40 s, flew
   north at about 4.6 m/s through most of the attack window and turned east after about 64 s. The 4 headings are
-  4 directions of offset on the same flight and the same noise realisation, not 4 independent trials.
+  4 directions of offset on the same flight and the same noise realisation, not 4 independent trials. This holds
+  for sitl2 as well.
 * **Simulated receiver.** The SIH GNSS model has its own noise; no C/N0, no AGC, no real receiver behaviour.
 * **Not real spoofing.** The offset is added to logged numbers. Nothing about how a real receiver reacts to a
   spoofing signal is tested.
