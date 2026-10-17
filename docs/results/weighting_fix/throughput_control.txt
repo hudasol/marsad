@@ -1,0 +1,9 @@
+# Same machine throughput control (us per sample, 3 repeats per run, two runs per engine, alternating)
+# PYTHONPATH=<v1.2.0 checkout>/src python scripts/throughput.py ; python scripts/throughput.py
+
+v1.2.0 [738.9, 802.7, 909.4]
+fixed [892.3, 923.6, 900.0]
+v1.2.0 [1181.8, 1069.0, 1179.7]
+fixed [1211.5, 1173.8, 1209.8]
+
+Windows 11 laptop, CPython 3.13.0. The published 187.7 us (docs/results/throughput.json) was measured on one cloud core.
