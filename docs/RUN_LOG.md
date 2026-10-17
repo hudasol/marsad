@@ -1,8 +1,20 @@
-# Run log, 2026-10-16
+# Run log, 2026-10-16 to 2026-10-18
 
 ## Summary
 
-(written at the end of the run)
+1. Done: all six phases. Preregistered predictions, ran SIH + INJECTED evaluations on sitl1 (32 s window) and a new clean 300 s SIH flight, sitl2 (230 s window), fixed CI, wrote the proposal seed, ran a hostile review, wrote the resume entry, tagged and released v1.2.0.
+2. Measured (SIH + INJECTED): jumps of 50, 200, 1000 m detected 4/4 on the first attacked fix in both logs; clean logs silent.
+3. Measured (SIH + INJECTED): drifts of 0.5 to 2 m/s missed 0/4 in 32 s; in 230 s detected 4/4 after median 98.1 to 204.6 s at median offsets of 77.1 to 186.8 m; 0.1 and 0.25 m/s missed.
+4. Predictions: sitl1 6 of 10 Marsad rows missed (all drifts); sitl2 1 miss (0.5 m/s detected though predicted missed). Gate baseline matched every prediction.
+5. Found (exploratory): drift evidence is weighted by the gap to the previous sample of any kind, so a 125 Hz reference dilutes 8 Hz GNSS evidence to about 6%. Engine not changed.
+6. Measured (REAL LOG): zero alarms over 911 s and 334 s of two public PX4 flights; output now stored in docs/results/real_logs.txt.
+7. CI: docker and ros2 jobs had failed on every run since 2026-10-11; both fixed; all seven jobs pass.
+8. Changed outside docs: `--no-faults` flag, drift rates 0.1 and 0.25 added to the sih_inject.py case list, new script sih_diagnose.py, CI file, version string 1.2.0.
+9. Failed: first WSL start timed out (second attempt worked); first ros2 CI fix was insufficient (second fix worked).
+10. Manual: decide on the evidence weighting fix (changes v1.1.0 numbers; preregister it first).
+11. Manual: remove the repository topic `gps-spoofing-data`; regenerate the dashboard screenshot.
+12. Manual: keep sitl2.ulg safe (only copy is in the working clone and in the WSL PX4 log folder); the older local checkout was not touched.
+13. Manual: review docs/EDGE_PROPOSAL.md before sending it anywhere; it claims no affiliation and names no individuals.
 
 ## Log
 
@@ -29,3 +41,15 @@ Times are local (UTC+4, matching the commit timestamps).
 * 23:37 CI: every run on main since 2026-10-11 failed in two jobs. docker: `Invalid container name (m)`; fixed by naming the container `marsad-ci`. ros2: pip 22 in `ros:humble` cannot do a PEP 660 editable install; fixed by a non editable install. Docker Desktop is not running locally, so only what the logs show was fixed. test, core is stdlib only and bench smoke were passing.
 * 23:40 Found a GitHub Release for v1.1.0 already exists; only v1.2.0 is needed. Repository topic `gps-spoofing-data` is misleading (no real spoofing data in the repository); left unchanged because changing repository settings was not asked for; listed in the review findings.
 * 23:42 Sources for the proposal, all opened: OCCRP news item of 5 March 2026; EASA page on GNSS outages and alterations (SIB 2022-02R4); ZAWYA/TradeArabia article based on BBC reporting. A CNN syndication page had no body text and is not cited.
+* 23:46 First ros2 CI fix (non editable install) still failed: the stock pip 22 / setuptools 59 built an `UNKNOWN-0.0.0` wheel. Second fix upgrades pip and setuptools first; ros2 passes from commit 2493d31 on.
+* 23:48 Version string bumped to 1.2.0 in `pyproject.toml` and `src/marsad/__init__.py` (no engine change).
+* 23:52 Long run finished (17 min): 0.1 and 0.25 m/s 0/4; 0.5 m/s 4/4 (204.6 s, 159.1 s); 1 m/s 4/4 (112.3 s, 110.1 s); 2 m/s 4/4 (98.4 s, 98.1 s); jumps 4/4 at 0.0 s; clean 0. One preregistered miss (0.5 m/s).
+* 23:53 Exploratory diagnosis on sitl2 at the GNSS epoch rate: 0.5 m/s 4/4 at 48.2 s and 42.5 s; 1 m/s 27.2 s and 25.5 s; 2 m/s 16.2 s and 15.7 s.
+* 23:54 Checked a possible transient alarm: the 2 m/s north and east cases go to DEGRADED and then DENIED and stay there; the latency is not a transient.
+* 23:55 README status, independence notice (EDGE Group added) and roadmap updated; MILESTONES rewritten with a v1.2.0 changelog.
+* 23:56 Wrote docs/EDGE_PROPOSAL.md from the three opened sources and numbers in docs/results only.
+* 23:57 Replayed flight1.ulg and flight2.ulg with `marsad replay` and stored the output (REAL LOG); figures match VALIDATION.md (911 s and 334 s, TRUSTED 100%).
+* 23:58 README "For reviewers" section with one reproduce command per table.
+* 23:59 Wrote docs/RESUME_BULLET.md. The SIH drift results are weak, so the second line states them as a limitation found.
+* 00:00 Hostile review by a reviewer that had not seen the work: 31 findings. Fixed the documentation and label items; logged the rest with reasons in docs/REVIEW_FINDINGS.md. No dead relative links remain.
+* 00:12 Final commit of the run; annotated tag v1.2.0 placed on it and pushed; GitHub Release v1.2.0 created and the empty v1.1.0 release notes filled from MILESTONES.md.
