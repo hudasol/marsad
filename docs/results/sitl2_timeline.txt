@@ -1,0 +1,48 @@
+# Acceptance check of sitl2.ulg (clean PX4 SIH flight, no fault injection, no offset added).
+# Command: python scripts/sitl_timeline.py sitl2.ulg 10
+# Label: control log for the SIH + INJECTED experiment. Reference here is the EKF output (as the adapter loads it).
+# Over every fix (3212 fixes, 2.0 s to 403.4 s): fix type 3 throughout, GNSS error vs groundtruth max 0.30 m, p99 0.27 m, median 0.10 m; Marsad non TRUSTED samples 0 of 51615.
+
+sitl2.ulg: 51615 reports; time axis = vehicle uptime (s). groundtruth: yes
+   t(s) marsad   trust gnss_err_m nav_state landed  dominant
+    2.0 TRUSTED   0.96        0.0                1  none
+   12.0 TRUSTED   0.96        0.0        17      0  none
+   22.0 TRUSTED   0.96        0.0         4      0  none
+   32.0 TRUSTED   0.96        0.0        14      0  none
+   42.0 TRUSTED   0.96        0.2        14      0  none
+   52.0 TRUSTED   0.96        0.2        14      0  none
+   62.0 TRUSTED   0.96        0.2        14      0  none
+   72.0 TRUSTED   0.96        0.2        14      0  none
+   82.0 TRUSTED   0.96        0.3        14      0  none
+   92.0 TRUSTED   0.96        0.2        14      0  none
+  102.0 TRUSTED   0.96        0.2        14      0  none
+  112.0 TRUSTED   0.96        0.2        14      0  none
+  122.0 TRUSTED   0.96        0.3        14      0  none
+  132.0 TRUSTED   0.96        0.2        14      0  none
+  142.0 TRUSTED   0.96        0.2        14      0  none
+  152.0 TRUSTED   0.96        0.2        14      0  none
+  162.0 TRUSTED   0.96        0.2        14      0  none
+  172.0 TRUSTED   0.96        0.2        14      0  none
+  182.0 TRUSTED   0.96        0.2        14      0  none
+  192.0 TRUSTED   0.96        0.2        14      0  none
+  202.0 TRUSTED   0.96        0.2        14      0  none
+  212.0 TRUSTED   0.96        0.2        14      0  none
+  222.0 TRUSTED   0.96        0.2        14      0  none
+  232.0 TRUSTED   0.96        0.2        14      0  none
+  242.0 TRUSTED   0.96        0.2        14      0  none
+  252.0 TRUSTED   0.96        0.2        14      0  none
+  262.0 TRUSTED   0.96        0.3        14      0  none
+  272.0 TRUSTED   0.96        0.2        14      0  none
+  282.0 TRUSTED   0.96        0.2        14      0  none
+  292.0 TRUSTED   0.96        0.2        14      0  none
+  302.0 TRUSTED   0.96        0.2        14      0  none
+  312.0 TRUSTED   0.96        0.2        14      0  none
+  322.0 TRUSTED   0.96        0.1        14      0  none
+  332.0 TRUSTED   0.96        0.0         5      0  none
+  342.0 TRUSTED   0.96        0.2         5      0  none
+  352.0 TRUSTED   0.96        0.2         5      0  none
+  362.0 TRUSTED   0.96        0.2         5      0  none
+  372.0 TRUSTED   0.96        0.2         5      0  none
+  382.0 TRUSTED   0.96        0.0        18      0  none
+  392.0 TRUSTED   0.96        0.0        18      0  none
+  402.0 TRUSTED   0.96        0.0        18      1  none
