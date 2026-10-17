@@ -90,8 +90,11 @@ class TrustEngine:
         if g is not None and self.frame is None:
             self.frame = LocalFrame(g.lat, g.lon)
         pe = pn = 0.0
+        gdt = 0.0      # per-fix step: evidence computed on a fix must not shrink when the reference runs faster
         if g is not None and self.frame is not None:
             pe, pn = self.frame.to_local(g.lat, g.lon)
+            if self.fix_t is not None:
+                gdt = min(max(t - self.fix_t, 0.0), cfg.gnss_gap_timeout)
             self.fix_t = t
         gap = 0.0 if (g is not None) else (t - self.fix_t if self.fix_t is not None else t - self.t0)
 
@@ -116,7 +119,7 @@ class TrustEngine:
             self.anchor_valid = False
 
         warm = (t - self.t0) < cfg.warmup_s
-        ctx = Context(t=t, dt=dt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn,
+        ctx = Context(t=t, dt=dt, gnss_dt=gdt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn,
                       ref_ok=ref_ok, ref_valid_since=self.ref_valid_since, gnss_gap=gap,
                       ref_bias_eff=(cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s)
                                     else cfg.ref_bias_bound),
@@ -148,9 +151,9 @@ class TrustEngine:
                 hp = H.REPLAY
             else:   # reinforce whichever spoofing hypothesis the onset evidence pointed to
                 hp = max((H.SPOOF_JUMP, H.SPOOF_DRIFT, H.REPLAY), key=lambda h: self.fusion.T[h])
-            ev.append(Evidence("engine", "persistent_offset", {hp: 1.2 * dt},
+            ev.append(Evidence("engine", "persistent_offset", {hp: 1.2 * gdt},
                                f"GNSS is {offset_m:.0f} m from the dead-reckoned continuation of the last trusted track",
-                               offset_m, 1.2 * dt))
+                               offset_m, 1.2 * gdt))
 
         verified = (self.state != TrustState.TRUSTED and g is not None and offset_m is not None and reacq_ok)
         if verified:
@@ -163,7 +166,7 @@ class TrustEngine:
             self._verified_since = None
             self._cut_done = False
         if verified and self.inertial.last_z_short < 1.0:
-            r = -2.0 * dt   # independent proof of continuity with the dead-reckoned track
+            r = -2.0 * gdt  # independent proof of continuity with the dead-reckoned track
             ev.append(Evidence("engine", "verified_continuity",
                                {H.JAM: r, H.ENV: r, H.SPOOF_JUMP: r, H.SPOOF_DRIFT: r, H.REPLAY: r},
                                "GNSS agrees with the dead-reckoned continuation of the last trusted track",
@@ -179,17 +182,17 @@ class TrustEngine:
             for d in self.detectors:
                 d.learn(ctx)
             if (cfg.bias_est and g is not None and ref is not None and g.ve is not None and g.vn is not None
-                    and ref_ok and self.inertial.last_z < 1.0 and dt > 0):
-                a = min(1.0, max(dt / cfg.bias_tau, dt / (self.bias_s + dt)))   # running mean first, slow EWMA later
+                    and ref_ok and self.inertial.last_z < 1.0 and gdt > 0):
+                a = min(1.0, max(gdt / cfg.bias_tau, gdt / (self.bias_s + gdt)))   # running mean first, slow EWMA later
                 lim = 1.5 * cfg.ref_bias_bound
                 be = self.bias[0] + a * ((ref.ve - g.ve) - self.bias[0])
                 bn = self.bias[1] + a * ((ref.vn - g.vn) - self.bias[1])
                 self.bias = [max(-lim, min(lim, be)), max(-lim, min(lim, bn))]
-                self.bias_s += dt
+                self.bias_s += gdt
             if g is not None:
                 self.last_good = (t, pe, pn)
                 if ref_ok:
-                    self._update_anchor(t, dt, pe - self.ce, pn - self.cn)
+                    self._update_anchor(t, gdt, pe - self.ce, pn - self.cn)
         if self.fusion.attack_onset_evidence() < 0.5 and self.state == TrustState.TRUSTED:
             self.last_clean_t = t
         if prev_state == TrustState.TRUSTED and self.state != TrustState.TRUSTED:

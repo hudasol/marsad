@@ -9,7 +9,9 @@ from ..types import Evidence, GnssFix, RefMotion, TrustState
 @dataclass
 class Context:
     t: float = 0.0
-    dt: float = 0.0
+    dt: float = 0.0                      # seconds since the previous sample of any kind
+    gnss_dt: float = 0.0                 # seconds since the previous usable fix (0 without a fix this tick);
+                                         # scales evidence computed once per fix, whatever the reference rate
     gnss: Optional[GnssFix] = None       # fix delivered this tick (None = nothing new)
     ref: Optional[RefMotion] = None
     pe: float = 0.0                      # GNSS position, local frame (valid iff gnss is not None)

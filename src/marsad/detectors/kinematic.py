@@ -80,7 +80,7 @@ class KinematicDetector:
                 mag = math.hypot(de, dn)
                 allowed = 3.0 * (math.sqrt(2) * c.sigma_pos + c.sigma_vel * W)
                 z = mag / allowed
-                r = clamp(2.0 * (z - 1.0), -0.2, 3.0) * ctx.dt
+                r = clamp(2.0 * (z - 1.0), -0.2, 3.0) * ctx.gnss_dt
                 if r > 0.01:
                     out.append(Evidence(self.name, "pos_vel_inconsistent",
                                         {H.SPOOF_DRIFT: r, H.SPOOF_JUMP: 0.5 * r},
