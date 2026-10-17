@@ -1,0 +1,23 @@
+# REAL LOG: unmodified public PX4 flights from review.px4.io, no attack present. Reference is EKF fused (contaminated), so only the false alarm side is tested. Engine with the mixed sample rate weighting fix (docs/PREREGISTRATION_WEIGHTING.md).
+
+## marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json
+replay flight1.ulg preset=uav_multirotor
+reference velocity: px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]
+WARNING: REFERENCE VELOCITY IS CONTAMINATED: it comes from an EKF/autopilot estimate that also fuses GNSS. A slow GNSS carry-off drags this estimate along, so the independent-reference check (the main defence against slow carry-off spoofing) is WEAKENED or BLIND. Use VIO / optical flow + range / wheel or DVL odometry as the reference for any real evaluation. (source: vehicle_local_position)
+WARNING: no satellite_info C/N0: signal-quality detector runs without C/N0 (spoof-by-uniform-power and jamming-by-C/N0-drop evidence unavailable)
+106083 samples, 353.7s .. 1264.6s
+t=    353.7s  TRUSTED   trust=0.96  none  | PX4 flag: n/a
+time in state: TRUSTED 911s (100%)
+PX4 flag: first flag at 353.7s; Marsad first non-TRUSTED at never
+  Marsad non-TRUSTED while PX4 flag silent: 0s; PX4 flag flagged while Marsad TRUSTED: 774s
+
+## marsad replay flight2.ulg --json docs/results/weighting_fix/real_flight2.json
+replay flight2.ulg preset=uav_multirotor
+reference velocity: px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]
+WARNING: REFERENCE VELOCITY IS CONTAMINATED: it comes from an EKF/autopilot estimate that also fuses GNSS. A slow GNSS carry-off drags this estimate along, so the independent-reference check (the main defence against slow carry-off spoofing) is WEAKENED or BLIND. Use VIO / optical flow + range / wheel or DVL odometry as the reference for any real evaluation. (source: vehicle_local_position)
+WARNING: no satellite_info C/N0: signal-quality detector runs without C/N0 (spoof-by-uniform-power and jamming-by-C/N0-drop evidence unavailable)
+3675 samples, 1343.3s .. 1677.2s
+t=   1343.3s  TRUSTED   trust=0.96  none  | PX4 flag: n/a
+time in state: TRUSTED 334s (100%)
+PX4 flag: first flag at never; Marsad first non-TRUSTED at never
+  Marsad non-TRUSTED while PX4 flag silent: 0s; PX4 flag flagged while Marsad TRUSTED: 0s
