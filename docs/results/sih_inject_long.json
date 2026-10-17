@@ -1,0 +1,129 @@
+{
+ "log": "sitl2.ulg",
+ "end_s": 290.0,
+ "t_attack_s": 60.0,
+ "reference": "vehicle_local_position_groundtruth (simulator truth)",
+ "clean_non_trusted": {
+  "marsad": 0,
+  "baseline": 0
+ },
+ "rows": [
+  {
+   "attack": "drift rate=0.1, vel_consistent=True",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "offset_at_alarm_m": null,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.1, vel_consistent=False",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "offset_at_alarm_m": null,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.25, vel_consistent=True",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "offset_at_alarm_m": null,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.25, vel_consistent=False",
+   "marsad_detected": 0,
+   "marsad_median_s": null,
+   "offset_at_alarm_m": null,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.5, vel_consistent=True",
+   "marsad_detected": 4,
+   "marsad_median_s": 204.628,
+   "offset_at_alarm_m": 99.814,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=0.5, vel_consistent=False",
+   "marsad_detected": 4,
+   "marsad_median_s": 159.128,
+   "offset_at_alarm_m": 77.064,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=True",
+   "marsad_detected": 4,
+   "marsad_median_s": 112.252,
+   "offset_at_alarm_m": 107.252,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=False",
+   "marsad_detected": 4,
+   "marsad_median_s": 110.12799999999999,
+   "offset_at_alarm_m": 105.12799999999999,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=True",
+   "marsad_detected": 4,
+   "marsad_median_s": 98.376,
+   "offset_at_alarm_m": 186.752,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=False",
+   "marsad_detected": 4,
+   "marsad_median_s": 98.12799999999999,
+   "offset_at_alarm_m": 186.25599999999997,
+   "baseline_detected": 0,
+   "baseline_median_s": null,
+   "n": 4
+  },
+  {
+   "attack": "jump mag=50.0",
+   "marsad_detected": 4,
+   "marsad_median_s": 0.0,
+   "offset_at_alarm_m": 50.0,
+   "baseline_detected": 4,
+   "baseline_median_s": 0.0,
+   "n": 4
+  },
+  {
+   "attack": "jump mag=200.0",
+   "marsad_detected": 4,
+   "marsad_median_s": 0.0,
+   "offset_at_alarm_m": 200.0,
+   "baseline_detected": 4,
+   "baseline_median_s": 0.0,
+   "n": 4
+  },
+  {
+   "attack": "jump mag=1000.0",
+   "marsad_detected": 4,
+   "marsad_median_s": 0.0,
+   "offset_at_alarm_m": 1000.0,
+   "baseline_detected": 4,
+   "baseline_median_s": 0.0,
+   "n": 4
+  }
+ ]
+}
