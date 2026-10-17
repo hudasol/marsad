@@ -1,9 +1,13 @@
-# Marsad — Build Plan
+# Marsad: build plan
 
 > Position-trust layer for autonomous systems and decision platforms.
 > This document is the source of truth for scope, architecture, milestones and the honesty rules for what we claim.
 
-Status: **v1.0.0 built** (this document was written as the plan; results and status live in README.md and docs/EVALUATION.md).
+Status: **v1.2.0.** This document is the original plan and is kept for history. Where it disagrees with the code or
+with README.md, the code and README.md are right; known differences (for example NumPy versus standard library core,
+CLI names, CI scope, tags v0.2.0 and v0.5.0 that were never created, and the planned HARDWARE.md and ROADMAP.md that do
+not exist) are listed in docs/REVIEW_FINDINGS.md. Results and status live in README.md, docs/EVALUATION.md and
+docs/VALIDATION.md.
 
 ---
 
@@ -76,7 +80,7 @@ Marsad also exposes a **fleet layer** that aggregates trust events into an inter
   Events ──► Fleet interference map (hex grid, time-decayed)
 ```
 
-### 4.1 Vehicle trust — detectors
+### 4.1 Vehicle trust: detectors
 
 Each detector looks at one physical consistency and outputs a **likelihood table** over the hypotheses. The fusion layer multiplies them, so independent weak evidence accumulates into confident decisions.
 
@@ -127,7 +131,7 @@ Hex-binned, time-decayed aggregation of trust events with a confidence per cell.
 - detection latency (time from attack onset to DENIED/DEGRADED)
 - miss rate (attack never detected)
 - false alarms per flight hour (nominal and hard-negative scenarios)
-- **max undetected position error** — the damage done before detection (the number that matters operationally)
+- **max undetected position error**: the damage done before detection (the number that matters operationally)
 - time in wrong state
 - calibration (reliability diagram, Brier score)
 - compute: per-sample latency and memory

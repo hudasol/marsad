@@ -6,6 +6,7 @@ signal-synthesis code and cannot be used to interfere with any receiver. Contrib
 signal generation or attack tooling will not be accepted.
 
 * Marsad does not attribute interference to any actor.
-* The service has no authentication by default and binds to 127.0.0.1. Set `MARSAD_API_KEY` and put it
-  behind TLS before exposing it. Do not expose it to untrusted networks.
+* The service has no authentication by default. `marsad serve` binds to 127.0.0.1, but the container image
+  (`Dockerfile`) binds to 0.0.0.0 so that it can be reached through a published port. Set `MARSAD_API_KEY` and put
+  it behind TLS before exposing either. Do not expose it to untrusted networks.
 * Report vulnerabilities privately through GitHub's "Report a vulnerability" (Security tab).
