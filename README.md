@@ -12,12 +12,16 @@ operator dashboard, and exposes an **MCP server** so AI agents and decision plat
 <sub>Operator dashboard during a SIMULATED carry-off: what GNSS said (purple), what Marsad advises (orange), what was real (white).</sub>
 
 > **Independence notice.** Marsad is an independent open-source project. It is not affiliated with, endorsed by, or
-> sponsored by the Technology Innovation Institute (TII), the Advanced Technology Research Council (ATRC), or any of
-> their entities.
+> sponsored by EDGE Group, the Technology Innovation Institute (TII), the Advanced Technology Research Council (ATRC), or
+> any of their entities.
 >
-> **Validation status.** All results below are from *measurement-level simulation*. Nothing has been run on a real
-> flight controller or real interference data yet. See [docs/VALIDATION.md](docs/VALIDATION.md) for exactly what is and
-> is not demonstrated.
+> **Validation status (v1.2.0).** The results table below is SIMULATED (measurement level generator). Beyond it:
+> two unmodified public PX4 flights replay with zero alarms (REAL LOG, no attack present), and attacks added to real
+> PX4 SIH logs are scored against simulator truth (SIH + INJECTED): jumps are caught at once, but drifts of 0.5 m/s or
+> faster are caught only after median latencies of 98.1 to 204.6 s, at median offsets of 77.1 to 186.8 m, and 0.25 m/s
+> or slower is not caught at all in a 230 s window.
+> Nothing has been run on a real flight controller or on real interference data. See
+> [docs/VALIDATION.md](docs/VALIDATION.md) for exactly what is and is not demonstrated.
 
 ## Why this exists
 
@@ -37,7 +41,7 @@ positions from the tracks it fuses.
 | **Interference map** | Mission planners | Hex-binned, time-decayed interference confidence (GeoJSON) |
 | **MCP server** | AI agents | `assess_vehicle_window`, `score_track`, `list_distrusted_tracks`, `explain_state`, … |
 
-## Results (simulated, held-out seeds, 30 per scenario)
+## Results (SIMULATED, held-out seeds, 30 per scenario)
 
 | | Marsad | simplified autopilot-style gate |
 |---|---|---|
@@ -123,7 +127,11 @@ print(report.state, report.trust, report.action, report.summary)
 | `v0.4.0` | PX4 ULog, MAVLink, ROS 2 adapters |
 | `v0.6.0` | REST/SSE service, MCP server, dashboard |
 | `v1.0.0` | Held-out evaluation, ablations, CI, container, technical report |
-| next | Real PX4 log replay → SITL → advisory companion computer → closed loop in an authorised range |
+| `v1.1.0` | Replay delay estimator, reference quality gate, slow reference bias estimation, fresh seed evaluation, Docker and ROS 2 CI jobs |
+| `v1.2.0` | Real PX4 log replay (false alarm side), PX4 v1.18 adapter fields, SIH + INJECTED evaluation with preregistered predictions, CI fixes |
+| next | Fix evidence weighting for mixed sample rates (preregistered), then advisory companion computer, then closed loop in an authorised range |
+
+All tags are listed in [docs/MILESTONES.md](docs/MILESTONES.md).
 
 ## License
 
