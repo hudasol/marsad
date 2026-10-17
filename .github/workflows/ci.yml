@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: apt-get update && apt-get install -y python3-pip
-      - run: pip3 install --no-deps -e .
+      - run: pip3 install --no-deps .   # pip 22 in ros:humble cannot do a PEP 660 editable install
       - name: smoke test MarsadNode
         shell: bash
         run: |
