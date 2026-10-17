@@ -61,6 +61,57 @@ Regressions: one multipath run (3%) now reaches DENIED (was 0 of 30), and engine
 
 Dev split numbers are in `docs/results/dev.md`.
 
+### After the evidence weighting fix (preregistered)
+
+**SIMULATED.** The tables above are v1.1.0 and stay as published. After v1.2.0 the engine was changed so that
+evidence computed once per GNSS fix is scaled by the time since the previous usable fix rather than the time since
+the previous sample (details in [VALIDATION.md](VALIDATION.md), "Evidence weighting fix"). Predictions for this
+evaluation (P7, P8) were committed before the change in [PREREGISTRATION_WEIGHTING.md](PREREGISTRATION_WEIGHTING.md).
+In the simulator GNSS and reference share one 5 Hz sample, so the change can only matter on the first fix after
+samples without a usable fix.
+
+Reproduce: `python scripts/run_eval.py --out docs/results/weighting_fix` (same seeds as v1.1.0; 39 minutes on the
+Windows laptop used for this run). Results: `docs/results/weighting_fix/`.
+
+Rows that changed, held out split (every other row of `heldout.md` is unchanged):
+
+| scenario | metric | v1.1.0 | after the fix |
+|---|---|---|---|
+| jam_soft | latency med / p90 (s) | 5.0 / 6.1 | 4.6 / 5.6 |
+| jam_soft | max nav error med (m), Marsad | 11 | 9 |
+| jam_soft | class at first alarm / settled | 83% / 83% | 83% / 83% (unchanged) |
+| jam_soft | median recovery time (s, JSON only) | 47.5 | 48.1 |
+| jam_hard | median recovery time (s, JSON only) | 20.0 | 20.3 |
+| benign_obstruction | time not TRUSTED | 84.6% | 84.7% (85% in the table either way) |
+
+Dev split: `jam_soft` latency 5.2 → 4.9 s, navigation error 11 → 10 m, class accuracy 97% → 100%, DENIED in 97% →
+100% of runs. Ablation (20 seeds): full engine `jam_soft` latency 5.1 → 4.8 s; no other ablation cell changed in its
+table. Detectability sweep: every cell unchanged.
+
+Against the preregistration:
+
+* **P7a hit.** Every scenario in which every sample carries a usable fix is unchanged in `heldout.md`, `dev.md`,
+  `detectability.md` and `ablation.md`. Some JSON medians differ from v1.1.0 in the 13th to 15th significant digit.
+  A same machine control (`scripts/engine_diff.py`, output in `docs/results/weighting_fix/engine_diff_heldout.txt`)
+  ran the v1.2.0 engine and the fixed engine on the held out split on this machine: the nine predicted scenarios are
+  bitwise identical, and the v1.2.0 engine run here shows the same last digit differences from the published JSON,
+  which was produced on another machine. They are floating point platform effects, not engine changes.
+* **P7b hit.** `jam_hard`: detection 100% on both splits, latency unchanged (2.4 s held out, 2.4 s dev).
+* **P7c hit.** `jam_soft`: detection 100% on both splits; latency 4.6 s held out and 4.9 s dev, inside the band of
+  3.0 s to the v1.1.0 value; settled class accuracy unchanged held out, +3 points dev.
+* **P7d hit.** `benign_obstruction`: time not TRUSTED 85% held out and 88% dev, as before; no run reaches DENIED.
+* **P7e miss.** `throughput.json` reports 1,263.0 µs per sample against a prediction of 187.7 µs ± 20%. A same
+  machine control (`scripts/throughput.py`, output in `docs/results/weighting_fix/throughput_control.txt`) times
+  both engines alternately on this laptop: v1.2.0 739 to 1,182 µs, fixed engine 892 to 1,212 µs, within the spread
+  of repeated runs. The miss reflects the machine, not the change; the prediction should not have assumed the same
+  hardware. The published 187.7 µs stays the reference figure for a cloud core, and this control cannot resolve a
+  difference between the two engines below about 10%.
+* **P8 hit.** All 140 existing tests pass unmodified; the 3 new tests in `tests/test_mixed_rate.py` pass, and the
+  interleaved drift test failed on the old code.
+
+With the fix, the soft jamming navigation error (9 m) is now lower than the baseline's (11 m); the baseline's
+latency is still lower (4.1 s vs 4.6 s).
+
 ### What the numbers do and do not say
 
 * **The baseline catches every abrupt event and none of the gradual ones.** Its innovation gate is designed for
