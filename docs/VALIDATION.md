@@ -3,15 +3,15 @@
 | Claim | Status |
 |---|---|
 | Detection logic works against the modelled threats | **Demonstrated in simulation** (docs/EVALUATION.md) |
-| Engine runs in real time on a laptop-class CPU | **Measured** (~185 µs/sample; companion-computer class untested) |
+| Engine runs in real time on a laptop-class CPU | **Measured** (187.7 µs/sample on one cloud core, `docs/results/throughput.json`; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
-| Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. See "Real-log results" below. Original wording: **NOT validated** — no real log has been run. `sensor_gps` field names checked against PX4's published message docs, **not** against a real log; other topics still from memory (see ADAPTERS.md "known unknowns") |
+| Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. Reproduce: `marsad replay flight1.ulg` and `marsad replay flight2.ulg` (output in `docs/results/real_logs.txt`). See "Real-log results" below. |
 | Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. Drifts: 0/4 in a 32 s window (sitl1); in a 230 s window (sitl2) 0.5 to 2 m/s detected 4/4 but only after median latencies of 98.1 to 204.6 s and offsets of 77.1 to 186.8 m, and 0.1 and 0.25 m/s missed. A defect in evidence weighting at mixed sample rates is the likely cause. See "SIH + INJECTED results" below |
 | Works on a real flight controller | **NOT validated** |
-| ROS 2 node | Stub-tested locally; a CI job runs `scripts/ros2_smoke.py` under ROS 2 humble (first result not yet observed) |
+| ROS 2 node | A CI job runs `scripts/ros2_smoke.py` with a real rclpy runtime under ROS 2 humble on synthetic messages; it passes since 2026-10-17. Never run on a robot |
 | Real GNSS spoofing/jamming data | **NOT used** |
 | Dashboard / API / MCP | Tested with the simulator and scripted clients; not security-audited |
-| Container image | `Dockerfile` provided; a CI job builds and exercises it (first result not yet observed) |
+| Container image | A CI job builds the `Dockerfile` and smoke tests the API in it; it passes since 2026-10-17 |
 
 ## Real-log results
 
@@ -19,7 +19,7 @@ Two public logs from review.px4.io (CC-BY), run with `marsad inspect` / `marsad 
 
 * Both parse; `latitude_deg`/`longitude_deg`/`altitude_msl_m`, `vel_n_m_s`, `jamming_state`, `spoofing_state` etc. were found with the current schema.
 * Marsad stayed TRUSTED for 100% of both flights (1,245 s of GPS in total).
-* In the 911 s log the receiver's own `jamming_state` was 2 (warning) on 7,739 of 9,109 rows. During those rows satellites used (18–21), HDOP (0.57–0.66), eph (~0.8 m), fix type (3) and `noise_per_ms` (82–98 vs 85–97) were indistinguishable from the rows with state 1 (OK); `jamming_indicator` overlapped (22–61 vs 23–44). We read this as a receiver-side warning with no visible effect on position quality, and Marsad correctly did not alarm. This is an interpretation, not ground truth: no one verified the RF environment.
+* In the 911 s log the receiver's own `jamming_state` was 2 (warning) on 7,739 of 9,109 rows. During those rows satellites used (18 to 21), HDOP (0.57 to 0.66), eph (about 0.8 m), fix type (3) and `noise_per_ms` (82 to 98 vs 85 to 97) were indistinguishable from the rows with state 1 (OK); `jamming_indicator` overlapped (22 to 61 vs 23 to 44). These row level figures were read from the log when the replay was first done and are not stored in `docs/results`; `docs/results/real_logs.txt` records 774 s with the PX4 flag raised while Marsad stayed TRUSTED. We read this as a receiver-side warning with no visible effect on position quality, and Marsad correctly did not alarm. This is an interpretation, not ground truth: no one verified the RF environment.
 * Not tested by these logs: detection of any real attack, the carry-off check (reference is EKF-fused), the C/N0 detectors (no `satellite_info`), AGC (all zeros in one log; the scaling used for the other is a guess).
 * Replay timestamps are vehicle uptime (boot-relative), not time since log start.
 
@@ -33,7 +33,13 @@ Reproduce: `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject
 `docs/results/sih_inject.txt`). Predictions were committed before the run in
 [PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md).
 
-Setup: log cut at 77 s (before the receiver fault at about 78 s), attack from 45 s (32 s window), reference =
+Disclosure: `scripts/sih_inject.py`, including its sitl1 defaults (`--end 77`, `--t-attack 45`), was committed on
+2026-10-11, before the preregistration. The repository does not record whether it had been run on sitl1 before
+then. The preregistration therefore guards against tuning during this run (none was done: no threshold, preset or
+case was changed for sitl1), not against earlier exposure to the log.
+
+Setup: log cut at 77 s (before the PX4 GPS failure that `sitl_flight.py` injected at about 78 s, a SITL FAULT that is
+excluded here), attack from 45 s (32 s window), reference =
 `vehicle_local_position_groundtruth` velocity, preset `uav_multirotor`, each case at 4 headings. Latency is from 45 s;
 "0.0 s" means the alarm came on the first attacked GNSS fix.
 
@@ -123,8 +129,8 @@ Compared with the 32 s window on sitl1, the longer window turns 0/4 into 4/4 for
 is consistent with the diagnosis: the evidence does build up, only slowly. The cost is visible in the offset column.
 A 2 m/s drift is caught only when the GNSS position is about 187 m from the truth, and latency barely shortens from
 1 m/s to 2 m/s, which suggests the diluted evidence accrual sets a floor of roughly 100 s that faster drifts cannot
-beat. In a state trace of the 2 m/s north case the state goes from TRUSTED to DEGRADED at 158.4 s and to DENIED at
-159.4 s and stays DENIED until the log is cut (`docs/results/sih_diagnose_long.txt` shows the same case every 4 s).
+beat. The 4 s trace of the 2 m/s north case in `docs/results/sih_diagnose_long.txt` shows the state TRUSTED at
+155.0 s, DEGRADED at 159.0 s and DENIED from 163.0 s until the log is cut, so the alarm is not a brief transient.
 
 Exploratory check, same as for sitl1 and again not preregistered:
 `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json`. Fed at
@@ -150,18 +156,18 @@ within 0.4 s, which is what one would expect if the evidence weighting, not the 
 
 ## The path from here
 
-1. **Real-log replay (first priority).** Run `marsad inspect <log.ulg>` on any PX4 log from a real flight (open
-   logs exist, e.g. from the PX4 flight review database). Fix field mappings. Check false-alarm rate on genuine
-   flights, including GNSS-degraded ones. Success = zero unexplained DENIED events on clean flights.
+1. **Fix evidence weighting for mixed sample rates** (found by the SIH + INJECTED runs), preregister the expected
+   change, and rerun the simulated and SIH evaluations. Real-log replay on clean flights is done (two logs); more
+   logs, including GNSS degraded ones, are still needed.
 2. **Real interference logs.** Any logged episode of known jamming/spoofing (with ground truth from a controlled
    test, or a cooperating range). Measure detection latency against the PX4 `jamming_state`/`spoofing_state`
    flags the receiver itself reports.
-3. **PX4 SITL in the loop.** Inject measurement-level GNSS faults through the GPS sensor simulation, run the
-   MAVLink adapter live, measure latency end to end.
+3. **PX4 SITL in the loop.** Offline SIH logs are done (above). Still to do: run the MAVLink adapter live against
+   SITL and measure latency end to end.
 4. **Companion computer, advisory only.** Raspberry Pi / Jetson reading MAVLink from a real autopilot on the
    bench. No closed loop.
 5. **Closed loop in a controlled, authorised environment** (an operator or range that is licensed to perform the
    test). Trust state selects the navigation source under a mission policy.
 6. **Port the core to C++/Rust** only if the budget requires it.
 
-Nothing beyond step 0 (this repository) is claimed.
+Nothing beyond what the tables above report is claimed.
