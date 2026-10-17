@@ -102,6 +102,28 @@ report = engine.update(NavSample(t=12.4,
 print(report.state, report.trust, report.action, report.summary)
 ```
 
+## For reviewers
+
+* **What is claimed and what is not:** [docs/VALIDATION.md](docs/VALIDATION.md). Every number carries one label:
+  SIMULATED, REAL LOG, SIH + INJECTED or SITL FAULT.
+* **Proposal seed:** [docs/EDGE_PROPOSAL.md](docs/EDGE_PROPOSAL.md). **Open review findings:**
+  [docs/REVIEW_FINDINGS.md](docs/REVIEW_FINDINGS.md). **Predictions written before the SIH runs:**
+  [docs/PREREGISTRATION_SIH.md](docs/PREREGISTRATION_SIH.md).
+* **Reproduce each table with one command** (from the repository root, after `pip install -e ".[dev]"`):
+
+| table | label | command | output |
+|---|---|---|---|
+| Held out, dev, ablation, detectability, throughput (EVALUATION.md, the table above) | SIMULATED | `python scripts/run_eval.py` (about 12 min) | `docs/results/*.md`, `*.json` |
+| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/real_flight1.json` (same for `flight2.ulg`) | `docs/results/real_logs.txt` |
+| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject.json` | `docs/results/sih_inject.txt` |
+| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json` (about 17 min) | `docs/results/sih_inject_long.txt` |
+| Exploratory diagnosis of the drift misses | SIH + INJECTED | `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json` | `docs/results/sih_diagnose_long.txt` |
+| Clean SIH flight acceptance check | SIH + INJECTED (control, zero offset) | `python scripts/sitl_timeline.py sitl2.ulg 10` | `docs/results/sitl2_timeline.txt` |
+
+The `.ulg` logs are not stored in git (23 to 190 MB each). `flight1.ulg` and `flight2.ulg` are public logs from
+review.px4.io; `sitl1.ulg` and `sitl2.ulg` are PX4 v1.18 SIH runs flown with `scripts/sitl_flight.py`. A new SIH
+flight flown with the same script reproduces the method, not the exact published numbers.
+
 ## Documentation
 
 [Build plan](plan.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
