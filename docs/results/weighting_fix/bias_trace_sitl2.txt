@@ -1,0 +1,34 @@
+sitl2.ulg: to 290s, northward drift 0.25 m/s from 60s
+GNSS fixes 2305, of which carry a reference sample 1145 (the bias estimator learns only on those)
+
+velocity consistent: True
+    t(s) state    drift z  bias e  bias n bias s P(nominal)
+    55.0 TRUSTED     0.07  +0.005  +0.003   25.7      0.966
+    75.0 TRUSTED     0.41  +0.004  -0.035   35.7      0.966
+    95.0 TRUSTED     0.94  +0.003  -0.083   45.7      0.966
+   115.0 TRUSTED     1.20  +0.003  -0.087   47.0      0.964
+   135.0 TRUSTED     1.14  +0.003  -0.087   47.0      0.963
+   155.0 TRUSTED     1.43  +0.003  -0.087   47.0      0.961
+   175.0 TRUSTED     1.71  +0.003  -0.087   47.0      0.961
+   195.0 TRUSTED     1.80  +0.003  -0.087   47.0      0.960
+   215.0 TRUSTED     1.75  +0.003  -0.087   47.0      0.960
+   235.0 TRUSTED     1.75  +0.003  -0.087   47.0      0.960
+   255.0 TRUSTED     1.75  +0.003  -0.087   47.0      0.960
+   275.0 TRUSTED     1.77  +0.003  -0.087   47.0      0.960
+
+velocity consistent: False
+    t(s) state    drift z  bias e  bias n bias s P(nominal)
+    55.0 TRUSTED     0.07  +0.005  +0.003   25.7      0.966
+    75.0 TRUSTED     0.45  +0.004  +0.000   35.7      0.966
+    95.0 TRUSTED     1.15  +0.004  -0.000   43.6      0.966
+   115.0 TRUSTED     1.66  +0.004  -0.000   43.6      0.964
+   135.0 TRUSTED     1.65  +0.004  -0.000   43.6      0.962
+   155.0 TRUSTED     2.02  +0.004  -0.000   43.6      0.961
+   175.0 DEGRADED    2.47  +0.004  -0.000   43.6      0.920
+   195.0 DENIED      2.69  +0.004  -0.000   43.6      0.011
+   215.0 DENIED      2.69  +0.004  -0.000   43.6      0.009
+   235.0 DENIED      2.69  +0.004  -0.000   43.6      0.005
+   255.0 DENIED      2.69  +0.004  -0.000   43.6      0.005
+   275.0 DENIED      2.69  +0.004  -0.000   43.6      0.004
+
+Label: SIH + INJECTED. Exploratory (post hoc), not preregistered.
