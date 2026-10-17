@@ -63,3 +63,9 @@ arrives faster than GNSS (about 125 Hz against 8 Hz in the PX4 SIH logs), drift 
 its intended rate. This is why drifts were missed in a 32 s window and caught only after about 100 s or more in a
 230 s window. Fixing it changes engine behaviour and the v1.1.0 numbers, so it is left for a separate,
 preregistered change (VALIDATION.md, "Why the drifts were missed").
+
+**Status after v1.2.0: fixed.** The weighting was changed in a separate, preregistered change
+([PREREGISTRATION_WEIGHTING.md](PREREGISTRATION_WEIGHTING.md)); the same defect was found and fixed in the kinematic,
+signal and engine evidence and in the bias estimator. Scored results are in VALIDATION.md ("Evidence weighting fix")
+and EVALUATION.md; the v1.1.0 and v1.2.0 results in `docs/results/` are unchanged. The fix also exposed a separate
+limitation of the bias estimator (it can absorb part of a velocity consistent drift), which is left open.

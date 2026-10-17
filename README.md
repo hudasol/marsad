@@ -153,7 +153,8 @@ flight flown with the same script reproduces the method, not the exact published
 | `v1.0.0` | Held-out evaluation, ablations, CI, container, technical report |
 | `v1.1.0` | Replay delay estimator, reference quality gate, slow reference bias estimation, fresh seed evaluation, Docker and ROS 2 CI jobs |
 | `v1.2.0` | Real PX4 log replay (false alarm side), PX4 v1.18 adapter fields, SIH + INJECTED evaluation with preregistered predictions, CI fixes |
-| next | Fix evidence weighting for mixed sample rates (preregistered), then advisory companion computer, then closed loop in an authorised range |
+| unreleased | Evidence weighting fix for mixed sample rates, preregistered (docs/PREREGISTRATION_WEIGHTING.md) and scored in docs/VALIDATION.md and docs/EVALUATION.md; results in docs/results/weighting_fix/ |
+| next | Bias estimator review (velocity consistent drift absorption), then advisory companion computer, then closed loop in an authorised range |
 
 All tags are listed in [docs/MILESTONES.md](docs/MILESTONES.md).
 
