@@ -2,6 +2,7 @@
 
     python scripts/run_eval.py            # full (several minutes)
     python scripts/run_eval.py --quick    # smoke
+    python scripts/run_eval.py --out docs/results/weighting_fix    # write elsewhere, keep docs/results
 """
 import argparse, json, os, time
 import numpy as np
@@ -11,8 +12,9 @@ from marsad import TrustEngine, preset
 from marsad.sim import generate, KINDS
 
 ap = argparse.ArgumentParser(); ap.add_argument("--quick", action="store_true"); ap.add_argument("--workers", type=int, default=4)
+ap.add_argument("--out", default="docs/results")
 a = ap.parse_args()
-OUT = "docs/results"; os.makedirs(OUT, exist_ok=True)
+OUT = a.out; os.makedirs(OUT, exist_ok=True)
 N = 6 if a.quick else 30
 t0 = time.time()
 
