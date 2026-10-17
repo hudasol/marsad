@@ -1,0 +1,82 @@
+sitl2.ulg: to 290s, attack from 60s
+1. sample structure as fed by sih_inject.py
+   samples              36986
+   gnss_samples         2305
+   ref_samples          35826
+   median_gap_all_s     0.008
+   median_gap_gnss_s    0.124
+   median_gap_ref_s     0.008
+
+2. drift 2.0 m/s, velocity consistent, heading north, fed as sih_inject.py feeds it
+     t(s) state    drift z offset m P(nominal)
+     55.0 TRUSTED     0.07      0.5      0.961
+     59.0 TRUSTED     0.07      0.5      0.961
+     63.0 TRUSTED     0.18      1.0      0.961
+     67.0 TRUSTED     0.84      4.9      0.961
+     71.0 TRUSTED     1.99     11.5      0.961
+     75.0 TRUSTED     3.32     19.2      0.960
+     79.0 TRUSTED     4.37     25.3      0.955
+     83.0 TRUSTED     5.15     34.5      0.947
+     87.0 TRUSTED     6.30     42.3      0.935
+     91.0 TRUSTED     7.44     49.9      0.919
+     95.0 TRUSTED     8.58     57.5      0.898
+     99.0 TRUSTED     9.71     65.1      0.873
+    103.0 TRUSTED    10.84     72.7      0.844
+    107.0 TRUSTED    11.91     79.9      0.812
+    111.0 TRUSTED    12.59     84.5      0.779
+    115.0 TRUSTED    12.81     85.9      0.745
+    119.0 TRUSTED    12.81     85.9      0.712
+    123.0 TRUSTED    12.80     85.9      0.681
+    127.0 TRUSTED    12.80     85.9      0.652
+    131.0 TRUSTED    12.80     85.8      0.624
+    135.0 TRUSTED    12.80     85.8      0.600
+    139.0 TRUSTED    12.80     85.9      0.578
+    143.0 TRUSTED    13.38    149.2      0.558
+    147.0 TRUSTED    14.06    156.7      0.541
+    151.0 TRUSTED    14.75    164.4      0.525
+    155.0 TRUSTED    15.44    172.1      0.511
+    159.0 DEGRADED   16.12    179.7      0.492
+    163.0 DENIED     16.81    187.4      0.433
+    167.0 DENIED     17.50    195.0      0.382
+    171.0 DENIED     18.19    202.7      0.338
+    175.0 DENIED     18.86    210.2      0.302
+    179.0 DENIED     19.55    217.9      0.273
+    183.0 DENIED     20.16    224.6      0.248
+    187.0 DENIED     20.50    228.5      0.228
+    191.0 DENIED     20.57    229.3      0.214
+    195.0 DENIED     20.58    229.4      0.199
+    199.0 DENIED     20.58    229.3      0.187
+    203.0 DENIED     20.58    229.3      0.177
+    207.0 DENIED     20.58    229.4      0.168
+    211.0 DENIED     20.57    229.3      0.161
+    215.0 DENIED     20.58    229.3      0.155
+    219.0 DENIED     20.57    229.3      0.150
+    223.0 DENIED     20.57    229.3      0.146
+    227.0 DENIED     20.58    229.3      0.142
+    231.0 DENIED     20.57    229.3      0.139
+    235.0 DENIED     20.57    229.3      0.136
+    239.0 DENIED     20.57    229.3      0.133
+    243.0 DENIED     20.57    229.3      0.131
+    247.0 DENIED     20.58    229.3      0.129
+    251.0 DENIED     20.58    229.3      0.128
+    255.0 DENIED     20.57    229.3      0.127
+    259.0 DENIED     20.57    229.3      0.125
+    263.0 DENIED     20.58    229.3      0.124
+    267.0 DENIED     20.58    229.4      0.124
+    271.0 DENIED     20.57    229.3      0.123
+    275.0 DENIED     20.58    229.3      0.122
+    279.0 DENIED     20.58    229.4      0.121
+    283.0 DENIED     20.82    416.8      0.121
+    287.0 DENIED     21.20    424.4      0.121
+
+3. fed at the GNSS epoch rate only (2305 samples). Exploratory, not preregistered.
+   clean (no attack): Marsad non-TRUSTED samples 0, gate baseline 0
+   attack                                       Marsad   baseline
+   drift rate=0.5, vel_consistent=True   4/4 med 48.2s        0/4
+   drift rate=0.5, vel_consistent=False  4/4 med 42.5s        0/4
+   drift rate=1.0, vel_consistent=True   4/4 med 27.2s        0/4
+   drift rate=1.0, vel_consistent=False  4/4 med 25.5s        0/4
+   drift rate=2.0, vel_consistent=True   4/4 med 16.2s        0/4
+   drift rate=2.0, vel_consistent=False  4/4 med 15.7s        0/4
+
+Label: SIH + INJECTED. Part 3 is exploratory (post hoc); it changes the input stream, not the engine.
