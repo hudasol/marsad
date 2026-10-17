@@ -24,7 +24,7 @@ def main():
         res = run_benchmark(split, seeds, workers=a.workers)
         summ = summarize(res)
         json.dump({"split": split, "n_seeds": N, "summary": summ, "runs": res}, open(f"{OUT}/{split}.json", "w"), indent=1)
-        open(f"{OUT}/{split}.md", "w").write(markdown(summ, f"{split} split, {N} seeds per scenario (SIMULATED)"))
+        open(f"{OUT}/{split}.md", "w", encoding="utf-8").write(markdown(summ, f"{split} split, {N} seeds per scenario (SIMULATED)"))
         print(split, "done", round(time.time() - t0))
 
     # 2. ablations (held-out) --------------------------------------------------------------------
@@ -49,7 +49,7 @@ def main():
             else:
                 cells.append(f"FA {100*v['alarm_frac_marsad']:.0f}% time, deny {100*v['runs_with_deny_marsad']:.0f}% runs")
         L.append(f"| `{k}` | " + " | ".join(cells) + " |")
-    open(f"{OUT}/ablation.md", "w").write("\n".join(L) + "\n")
+    open(f"{OUT}/ablation.md", "w", encoding="utf-8").write("\n".join(L) + "\n")
 
     # 3. detectability sweep: carry-off rate x reference bias -------------------------------------
     rates = [0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1.0, 2.0]
@@ -75,7 +75,7 @@ def main():
             err = "–" if v["err_max_med"] is None else f"{v['err_max_med']:.0f}m"
             cells.append(f"{100*v['detect']:.0f}% / {lat} / {err}")
         L.append(f"| {b} | " + " | ".join(cells) + " |")
-    open(f"{OUT}/detectability.md", "w").write("\n".join(L) + "\n")
+    open(f"{OUT}/detectability.md", "w", encoding="utf-8").write("\n".join(L) + "\n")
 
     # 4. throughput ---------------------------------------------------------------------------------
     run = generate("nominal", 1, "dev", duration=600)
