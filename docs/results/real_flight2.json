@@ -1,0 +1,2418 @@
+{
+ "log": "flight2.ulg",
+ "preset": "uav_multirotor",
+ "result": {
+  "n_samples": 3675,
+  "t_start": 1343.262428,
+  "t_end": 1677.167416,
+  "transitions": [
+   {
+    "t": 1343.262428,
+    "state": "TRUSTED",
+    "trust": 0.96,
+    "dominant": "none",
+    "summary": "GNSS position consistent with all checks. (warming up baselines)",
+    "evidence": [],
+    "flags": "n/a"
+   }
+  ],
+  "seconds_in_state": {
+   "TRUSTED": 333.904988
+  },
+  "first_nontrusted_t": null,
+  "first_denied_t": null,
+  "px4_flags_available": true,
+  "first_px4_flag_t": null,
+  "px4_flagged_s": 0.0,
+  "marsad_flagged_px4_silent_s": 0.0,
+  "px4_flagged_marsad_trusted_s": 0.0
+ },
+ "info": {
+  "path": "flight2.ulg",
+  "duration_s": 334.15617,
+  "synthetic": false,
+  "synthetic_note": "",
+  "topics": {
+   "actuator_armed": {
+    "n": 661,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "armed",
+     "in_esc_calibration_mode",
+     "kill",
+     "lockdown",
+     "prearmed",
+     "ready_to_arm",
+     "termination",
+     "timestamp"
+    ]
+   },
+   "actuator_motors": {
+    "n": 94939,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "control[0]",
+     "control[10]",
+     "control[11]",
+     "control[1]",
+     "control[2]",
+     "control[3]",
+     "control[4]",
+     "control[5]",
+     "control[6]",
+     "control[7]",
+     "control[8]",
+     "control[9]",
+     "reversible_flags",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "actuator_outputs": {
+    "n": 6682,
+    "multi_ids": [
+     0,
+     1
+    ],
+    "fields": [
+     "noutputs",
+     "output[0]",
+     "output[10]",
+     "output[11]",
+     "output[12]",
+     "output[13]",
+     "output[14]",
+     "output[15]",
+     "output[1]",
+     "output[2]",
+     "output[3]",
+     "output[4]",
+     "output[5]",
+     "output[6]",
+     "output[7]",
+     "output[8]",
+     "output[9]",
+     "timestamp"
+    ]
+   },
+   "battery_status": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "average_time_to_empty",
+     "capacity",
+     "cell_count",
+     "connected",
+     "current_a",
+     "current_average_a",
+     "cycle_count",
+     "discharged_mah",
+     "estimation_covariance_norm",
+     "faults",
+     "full_charge_capacity_wh",
+     "id",
+     "interface_error",
+     "internal_resistance_estimate",
+     "is_powering_off",
+     "is_required",
+     "manufacture_date",
+     "max_cell_voltage_delta",
+     "max_error",
+     "nominal_voltage",
+     "ocv_estimate",
+     "ocv_estimate_filtered",
+     "over_discharge_count",
+     "prediction_error",
+     "priority",
+     "remaining",
+     "remaining_capacity_wh",
+     "scale",
+     "source",
+     "state_of_health",
+     "temperature",
+     "time_remaining_s",
+     "timestamp",
+     "volt_based_soc_estimate",
+     "voltage_cell_v[0]",
+     "voltage_cell_v[10]",
+     "voltage_cell_v[11]",
+     "voltage_cell_v[12]",
+     "voltage_cell_v[13]",
+     "voltage_cell_v[1]",
+     "voltage_cell_v[2]",
+     "voltage_cell_v[3]",
+     "voltage_cell_v[4]",
+     "voltage_cell_v[5]",
+     "voltage_cell_v[6]",
+     "voltage_cell_v[7]",
+     "voltage_cell_v[8]",
+     "voltage_cell_v[9]",
+     "voltage_prediction",
+     "voltage_v",
+     "warning"
+    ]
+   },
+   "can_interface_status": {
+    "n": 6624,
+    "multi_ids": [
+     0,
+     1
+    ],
+    "fields": [
+     "frames_rx",
+     "frames_tx",
+     "interface",
+     "io_errors",
+     "timestamp"
+    ]
+   },
+   "config_overrides": {
+    "n": 663,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "defer_failsafes",
+     "defer_failsafes_timeout_s",
+     "disable_auto_disarm",
+     "source_id",
+     "source_type",
+     "timestamp"
+    ]
+   },
+   "control_allocator_status": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "actuator_saturation[0]",
+     "actuator_saturation[10]",
+     "actuator_saturation[11]",
+     "actuator_saturation[12]",
+     "actuator_saturation[13]",
+     "actuator_saturation[14]",
+     "actuator_saturation[15]",
+     "actuator_saturation[1]",
+     "actuator_saturation[2]",
+     "actuator_saturation[3]",
+     "actuator_saturation[4]",
+     "actuator_saturation[5]",
+     "actuator_saturation[6]",
+     "actuator_saturation[7]",
+     "actuator_saturation[8]",
+     "actuator_saturation[9]",
+     "handled_motor_failure_mask",
+     "motor_stop_mask",
+     "thrust_setpoint_achieved",
+     "timestamp",
+     "torque_setpoint_achieved",
+     "unallocated_thrust[0]",
+     "unallocated_thrust[1]",
+     "unallocated_thrust[2]",
+     "unallocated_torque[0]",
+     "unallocated_torque[1]",
+     "unallocated_torque[2]"
+    ]
+   },
+   "cpuload": {
+    "n": 669,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "load",
+     "ram_usage",
+     "timestamp"
+    ]
+   },
+   "distance_sensor": {
+    "n": 16558,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "current_distance",
+     "device_id",
+     "h_fov",
+     "max_distance",
+     "min_distance",
+     "mode",
+     "orientation",
+     "q[0]",
+     "q[1]",
+     "q[2]",
+     "q[3]",
+     "signal_quality",
+     "timestamp",
+     "type",
+     "v_fov",
+     "variance"
+    ]
+   },
+   "dronecan_node_status": {
+    "n": 1337,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "health",
+     "mode",
+     "node_id",
+     "sub_mode",
+     "timestamp",
+     "uptime_sec",
+     "vendor_specific_status_code"
+    ]
+   },
+   "ekf2_timestamps": {
+    "n": 66776,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "airspeed_timestamp_rel",
+     "airspeed_validated_timestamp_rel",
+     "distance_sensor_timestamp_rel",
+     "optical_flow_timestamp_rel",
+     "timestamp",
+     "vehicle_air_data_timestamp_rel",
+     "vehicle_magnetometer_timestamp_rel",
+     "visual_odometry_timestamp_rel"
+    ]
+   },
+   "estimator_aid_src_baro_hgt": {
+    "n": 667,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation",
+     "innovation_filtered",
+     "innovation_rejected",
+     "innovation_variance",
+     "observation",
+     "observation_variance",
+     "test_ratio",
+     "test_ratio_filtered",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_gnss_hgt": {
+    "n": 667,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation",
+     "innovation_filtered",
+     "innovation_rejected",
+     "innovation_variance",
+     "observation",
+     "observation_variance",
+     "test_ratio",
+     "test_ratio_filtered",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_gnss_pos": {
+    "n": 667,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation[0]",
+     "innovation[1]",
+     "innovation_filtered[0]",
+     "innovation_filtered[1]",
+     "innovation_rejected",
+     "innovation_variance[0]",
+     "innovation_variance[1]",
+     "observation[0]",
+     "observation[1]",
+     "observation_variance[0]",
+     "observation_variance[1]",
+     "test_ratio[0]",
+     "test_ratio[1]",
+     "test_ratio_filtered[0]",
+     "test_ratio_filtered[1]",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_gnss_vel": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation[0]",
+     "innovation[1]",
+     "innovation[2]",
+     "innovation_filtered[0]",
+     "innovation_filtered[1]",
+     "innovation_filtered[2]",
+     "innovation_rejected",
+     "innovation_variance[0]",
+     "innovation_variance[1]",
+     "innovation_variance[2]",
+     "observation[0]",
+     "observation[1]",
+     "observation[2]",
+     "observation_variance[0]",
+     "observation_variance[1]",
+     "observation_variance[2]",
+     "test_ratio[0]",
+     "test_ratio[1]",
+     "test_ratio[2]",
+     "test_ratio_filtered[0]",
+     "test_ratio_filtered[1]",
+     "test_ratio_filtered[2]",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_gravity": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation[0]",
+     "innovation[1]",
+     "innovation[2]",
+     "innovation_filtered[0]",
+     "innovation_filtered[1]",
+     "innovation_filtered[2]",
+     "innovation_rejected",
+     "innovation_variance[0]",
+     "innovation_variance[1]",
+     "innovation_variance[2]",
+     "observation[0]",
+     "observation[1]",
+     "observation[2]",
+     "observation_variance[0]",
+     "observation_variance[1]",
+     "observation_variance[2]",
+     "test_ratio[0]",
+     "test_ratio[1]",
+     "test_ratio[2]",
+     "test_ratio_filtered[0]",
+     "test_ratio_filtered[1]",
+     "test_ratio_filtered[2]",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_mag": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation[0]",
+     "innovation[1]",
+     "innovation[2]",
+     "innovation_filtered[0]",
+     "innovation_filtered[1]",
+     "innovation_filtered[2]",
+     "innovation_rejected",
+     "innovation_variance[0]",
+     "innovation_variance[1]",
+     "innovation_variance[2]",
+     "observation[0]",
+     "observation[1]",
+     "observation[2]",
+     "observation_variance[0]",
+     "observation_variance[1]",
+     "observation_variance[2]",
+     "test_ratio[0]",
+     "test_ratio[1]",
+     "test_ratio[2]",
+     "test_ratio_filtered[0]",
+     "test_ratio_filtered[1]",
+     "test_ratio_filtered[2]",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_aid_src_rng_hgt": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "device_id",
+     "estimator_instance",
+     "fused",
+     "innovation",
+     "innovation_filtered",
+     "innovation_rejected",
+     "innovation_variance",
+     "observation",
+     "observation_variance",
+     "test_ratio",
+     "test_ratio_filtered",
+     "time_last_fuse",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_baro_bias": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "bias",
+     "bias_var",
+     "device_id",
+     "innov",
+     "innov_test_ratio",
+     "innov_var",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_event_flags": {
+    "n": 331,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "gps_checks_passed",
+     "information_event_changes",
+     "reset_hgt_to_baro",
+     "reset_hgt_to_ev",
+     "reset_hgt_to_gps",
+     "reset_hgt_to_rng",
+     "reset_pos_to_gps",
+     "reset_pos_to_last_known",
+     "reset_pos_to_vision",
+     "reset_vel_to_flow",
+     "reset_vel_to_gps",
+     "reset_vel_to_vision",
+     "reset_vel_to_zero",
+     "starting_gps_fusion",
+     "starting_vision_pos_fusion",
+     "starting_vision_vel_fusion",
+     "starting_vision_yaw_fusion",
+     "timestamp",
+     "timestamp_sample",
+     "yaw_aligned_to_imu_gps"
+    ]
+   },
+   "estimator_gnss_hgt_bias": {
+    "n": 486,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "bias",
+     "bias_var",
+     "device_id",
+     "innov",
+     "innov_test_ratio",
+     "innov_var",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_gps_status": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "check_fail_gps_fix",
+     "check_fail_max_horz_drift",
+     "check_fail_max_horz_err",
+     "check_fail_max_horz_spd_err",
+     "check_fail_max_pdop",
+     "check_fail_max_spd_err",
+     "check_fail_max_vert_drift",
+     "check_fail_max_vert_err",
+     "check_fail_max_vert_spd_err",
+     "check_fail_min_sat_count",
+     "check_fail_spoofed_gps",
+     "checks_passed",
+     "filtered_horizontal_speed_m_s",
+     "position_drift_rate_horizontal_m_s",
+     "position_drift_rate_vertical_m_s",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_innovation_test_ratios": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "airspeed",
+     "aux_hvel[0]",
+     "aux_hvel[1]",
+     "baro_vpos",
+     "beta",
+     "drag[0]",
+     "drag[1]",
+     "ev_hpos[0]",
+     "ev_hpos[1]",
+     "ev_hvel[0]",
+     "ev_hvel[1]",
+     "ev_vpos",
+     "ev_vvel",
+     "flow[0]",
+     "flow[1]",
+     "gps_hpos[0]",
+     "gps_hpos[1]",
+     "gps_hvel[0]",
+     "gps_hvel[1]",
+     "gps_vpos",
+     "gps_vvel",
+     "gravity[0]",
+     "gravity[1]",
+     "gravity[2]",
+     "hagl",
+     "hagl_rate",
+     "heading",
+     "mag_field[0]",
+     "mag_field[1]",
+     "mag_field[2]",
+     "rng_vpos",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_innovation_variances": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "airspeed",
+     "aux_hvel[0]",
+     "aux_hvel[1]",
+     "baro_vpos",
+     "beta",
+     "drag[0]",
+     "drag[1]",
+     "ev_hpos[0]",
+     "ev_hpos[1]",
+     "ev_hvel[0]",
+     "ev_hvel[1]",
+     "ev_vpos",
+     "ev_vvel",
+     "flow[0]",
+     "flow[1]",
+     "gps_hpos[0]",
+     "gps_hpos[1]",
+     "gps_hvel[0]",
+     "gps_hvel[1]",
+     "gps_vpos",
+     "gps_vvel",
+     "gravity[0]",
+     "gravity[1]",
+     "gravity[2]",
+     "hagl",
+     "hagl_rate",
+     "heading",
+     "mag_field[0]",
+     "mag_field[1]",
+     "mag_field[2]",
+     "rng_vpos",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_innovations": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "airspeed",
+     "aux_hvel[0]",
+     "aux_hvel[1]",
+     "baro_vpos",
+     "beta",
+     "drag[0]",
+     "drag[1]",
+     "ev_hpos[0]",
+     "ev_hpos[1]",
+     "ev_hvel[0]",
+     "ev_hvel[1]",
+     "ev_vpos",
+     "ev_vvel",
+     "flow[0]",
+     "flow[1]",
+     "gps_hpos[0]",
+     "gps_hpos[1]",
+     "gps_hvel[0]",
+     "gps_hvel[1]",
+     "gps_vpos",
+     "gps_vvel",
+     "gravity[0]",
+     "gravity[1]",
+     "gravity[2]",
+     "hagl",
+     "hagl_rate",
+     "heading",
+     "mag_field[0]",
+     "mag_field[1]",
+     "mag_field[2]",
+     "rng_vpos",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_sensor_bias": {
+    "n": 334,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "accel_bias[0]",
+     "accel_bias[1]",
+     "accel_bias[2]",
+     "accel_bias_limit",
+     "accel_bias_stable",
+     "accel_bias_valid",
+     "accel_bias_variance[0]",
+     "accel_bias_variance[1]",
+     "accel_bias_variance[2]",
+     "accel_device_id",
+     "gyro_bias[0]",
+     "gyro_bias[1]",
+     "gyro_bias[2]",
+     "gyro_bias_limit",
+     "gyro_bias_stable",
+     "gyro_bias_valid",
+     "gyro_bias_variance[0]",
+     "gyro_bias_variance[1]",
+     "gyro_bias_variance[2]",
+     "gyro_device_id",
+     "mag_bias[0]",
+     "mag_bias[1]",
+     "mag_bias[2]",
+     "mag_bias_limit",
+     "mag_bias_stable",
+     "mag_bias_valid",
+     "mag_bias_variance[0]",
+     "mag_bias_variance[1]",
+     "mag_bias_variance[2]",
+     "mag_device_id",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_states": {
+    "n": 668,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "covariances[0]",
+     "covariances[10]",
+     "covariances[11]",
+     "covariances[12]",
+     "covariances[13]",
+     "covariances[14]",
+     "covariances[15]",
+     "covariances[16]",
+     "covariances[17]",
+     "covariances[18]",
+     "covariances[19]",
+     "covariances[1]",
+     "covariances[20]",
+     "covariances[21]",
+     "covariances[22]",
+     "covariances[23]",
+     "covariances[2]",
+     "covariances[3]",
+     "covariances[4]",
+     "covariances[5]",
+     "covariances[6]",
+     "covariances[7]",
+     "covariances[8]",
+     "covariances[9]",
+     "n_states",
+     "states[0]",
+     "states[10]",
+     "states[11]",
+     "states[12]",
+     "states[13]",
+     "states[14]",
+     "states[15]",
+     "states[16]",
+     "states[17]",
+     "states[18]",
+     "states[19]",
+     "states[1]",
+     "states[20]",
+     "states[21]",
+     "states[22]",
+     "states[23]",
+     "states[24]",
+     "states[2]",
+     "states[3]",
+     "states[4]",
+     "states[5]",
+     "states[6]",
+     "states[7]",
+     "states[8]",
+     "states[9]",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "estimator_status": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "accel_device_id",
+     "baro_device_id",
+     "beta_test_ratio",
+     "control_mode_flags",
+     "filter_fault_flags",
+     "gps_check_fail_flags",
+     "gyro_device_id",
+     "hagl_test_ratio",
+     "hdg_test_ratio",
+     "health_flags",
+     "hgt_test_ratio",
+     "mag_device_id",
+     "mag_inclination_deg",
+     "mag_inclination_ref_deg",
+     "mag_strength_gs",
+     "mag_strength_ref_gs",
+     "output_tracking_error[0]",
+     "output_tracking_error[1]",
+     "output_tracking_error[2]",
+     "pos_horiz_accuracy",
+     "pos_test_ratio",
+     "pos_vert_accuracy",
+     "pre_flt_fail_innov_heading",
+     "pre_flt_fail_innov_height",
+     "pre_flt_fail_innov_pos_horiz",
+     "pre_flt_fail_innov_vel_horiz",
+     "pre_flt_fail_innov_vel_vert",
+     "pre_flt_fail_mag_field_disturbed",
+     "reset_count_pod_d",
+     "reset_count_pos_ne",
+     "reset_count_quat",
+     "reset_count_vel_d",
+     "reset_count_vel_ne",
+     "solution_status_flags",
+     "tas_test_ratio",
+     "time_slip",
+     "timeout_flags",
+     "timestamp",
+     "timestamp_sample",
+     "vel_test_ratio"
+    ]
+   },
+   "estimator_status_flags": {
+    "n": 350,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "control_status_changes",
+     "cs_aux_gpos",
+     "cs_baro_fault",
+     "cs_baro_hgt",
+     "cs_constant_pos",
+     "cs_ev_hgt",
+     "cs_ev_pos",
+     "cs_ev_vel",
+     "cs_ev_yaw",
+     "cs_ev_yaw_fault",
+     "cs_fake_hgt",
+     "cs_fake_pos",
+     "cs_fixed_wing",
+     "cs_fuse_aspd",
+     "cs_fuse_beta",
+     "cs_gnd_effect",
+     "cs_gnss_fault",
+     "cs_gnss_hgt_fault",
+     "cs_gnss_pos",
+     "cs_gnss_vel",
+     "cs_gnss_yaw",
+     "cs_gnss_yaw_fault",
+     "cs_gps_hgt",
+     "cs_gravity_vector",
+     "cs_in_air",
+     "cs_inertial_dead_reckoning",
+     "cs_mag",
+     "cs_mag_3d",
+     "cs_mag_aligned_in_flight",
+     "cs_mag_dec",
+     "cs_mag_fault",
+     "cs_mag_field_disturbed",
+     "cs_mag_hdg",
+     "cs_mag_heading_consistent",
+     "cs_opt_flow",
+     "cs_opt_flow_terrain",
+     "cs_rng_fault",
+     "cs_rng_hgt",
+     "cs_rng_kin_consistent",
+     "cs_rng_stuck",
+     "cs_rng_terrain",
+     "cs_synthetic_mag_z",
+     "cs_tilt_align",
+     "cs_valid_fake_pos",
+     "cs_vehicle_at_rest",
+     "cs_wind",
+     "cs_wind_dead_reckoning",
+     "cs_yaw_align",
+     "cs_yaw_manual",
+     "fault_status_changes",
+     "fs_bad_acc_clipping",
+     "fs_bad_acc_vertical",
+     "fs_bad_airspeed",
+     "fs_bad_hdg",
+     "fs_bad_mag_decl",
+     "fs_bad_mag_x",
+     "fs_bad_mag_y",
+     "fs_bad_mag_z",
+     "fs_bad_optflow_x",
+     "fs_bad_optflow_y",
+     "fs_bad_sideslip",
+     "innovation_fault_status_changes",
+     "reject_airspeed",
+     "reject_hagl",
+     "reject_hor_pos",
+     "reject_hor_vel",
+     "reject_optflow_x",
+     "reject_optflow_y",
+     "reject_sideslip",
+     "reject_ver_pos",
+     "reject_ver_vel",
+     "reject_yaw",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "event": {
+    "n": 21,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "arguments[0]",
+     "arguments[10]",
+     "arguments[11]",
+     "arguments[12]",
+     "arguments[13]",
+     "arguments[14]",
+     "arguments[15]",
+     "arguments[16]",
+     "arguments[17]",
+     "arguments[18]",
+     "arguments[19]",
+     "arguments[1]",
+     "arguments[20]",
+     "arguments[21]",
+     "arguments[22]",
+     "arguments[23]",
+     "arguments[24]",
+     "arguments[2]",
+     "arguments[3]",
+     "arguments[4]",
+     "arguments[5]",
+     "arguments[6]",
+     "arguments[7]",
+     "arguments[8]",
+     "arguments[9]",
+     "event_sequence",
+     "id",
+     "log_levels",
+     "timestamp"
+    ]
+   },
+   "failsafe_flags": {
+    "n": 612,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "angular_velocity_invalid",
+     "attitude_invalid",
+     "auto_mission_missing",
+     "battery_low_remaining_time",
+     "battery_unhealthy",
+     "battery_warning",
+     "fd_critical_failure",
+     "fd_esc_arming_failure",
+     "fd_imbalanced_prop",
+     "fd_motor_failure",
+     "flight_time_limit_exceeded",
+     "gcs_connection_lost",
+     "geofence_breached",
+     "global_position_invalid",
+     "global_position_invalid_relaxed",
+     "home_position_invalid",
+     "local_altitude_invalid",
+     "local_position_invalid",
+     "local_position_invalid_relaxed",
+     "local_velocity_invalid",
+     "manual_control_signal_lost",
+     "mission_failure",
+     "mode_req_angular_velocity",
+     "mode_req_attitude",
+     "mode_req_global_position",
+     "mode_req_global_position_relaxed",
+     "mode_req_home_position",
+     "mode_req_local_alt",
+     "mode_req_local_position",
+     "mode_req_local_position_relaxed",
+     "mode_req_manual_control",
+     "mode_req_mission",
+     "mode_req_offboard_signal",
+     "mode_req_other",
+     "mode_req_prevent_arming",
+     "mode_req_wind_and_flight_time_compliance",
+     "navigator_failure",
+     "offboard_control_signal_lost",
+     "position_accuracy_low",
+     "timestamp",
+     "vtol_fixed_wing_system_failure",
+     "wind_limit_exceeded"
+    ]
+   },
+   "failure_detector_status": {
+    "n": 661,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "fd_alt",
+     "fd_arm_escs",
+     "fd_battery",
+     "fd_ext",
+     "fd_imbalanced_prop",
+     "fd_motor",
+     "fd_pitch",
+     "fd_roll",
+     "imbalanced_prop_metric",
+     "motor_failure_mask",
+     "motor_stop_mask",
+     "timestamp"
+    ]
+   },
+   "home_position": {
+    "n": 4,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "alt",
+     "lat",
+     "lon",
+     "manual_home",
+     "pitch",
+     "roll",
+     "timestamp",
+     "update_count",
+     "valid_alt",
+     "valid_hpos",
+     "valid_lpos",
+     "x",
+     "y",
+     "yaw",
+     "z"
+    ]
+   },
+   "hover_thrust_estimate": {
+    "n": 3268,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "accel_innov",
+     "accel_innov_test_ratio",
+     "accel_innov_var",
+     "accel_noise_var",
+     "hover_thrust",
+     "hover_thrust_var",
+     "timestamp",
+     "timestamp_sample",
+     "valid"
+    ]
+   },
+   "input_rc": {
+    "n": 667,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "channel_count",
+     "input_source",
+     "link_quality",
+     "rc_failsafe",
+     "rc_lost",
+     "rc_lost_frame_count",
+     "rc_ppm_frame_length",
+     "rc_total_frame_count",
+     "rssi",
+     "rssi_dbm",
+     "timestamp",
+     "timestamp_last_signal",
+     "values[0]",
+     "values[10]",
+     "values[11]",
+     "values[12]",
+     "values[13]",
+     "values[14]",
+     "values[15]",
+     "values[16]",
+     "values[17]",
+     "values[1]",
+     "values[2]",
+     "values[3]",
+     "values[4]",
+     "values[5]",
+     "values[6]",
+     "values[7]",
+     "values[8]",
+     "values[9]"
+    ]
+   },
+   "magnetometer_bias_estimate": {
+    "n": 3,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "bias_x[0]",
+     "bias_x[1]",
+     "bias_x[2]",
+     "bias_x[3]",
+     "bias_y[0]",
+     "bias_y[1]",
+     "bias_y[2]",
+     "bias_y[3]",
+     "bias_z[0]",
+     "bias_z[1]",
+     "bias_z[2]",
+     "bias_z[3]",
+     "stable[0]",
+     "stable[1]",
+     "stable[2]",
+     "stable[3]",
+     "timestamp",
+     "valid[0]",
+     "valid[1]",
+     "valid[2]",
+     "valid[3]"
+    ]
+   },
+   "manual_control_setpoint": {
+    "n": 2349,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "aux1",
+     "aux2",
+     "aux3",
+     "aux4",
+     "aux5",
+     "aux6",
+     "buttons",
+     "data_source",
+     "flaps",
+     "pitch",
+     "roll",
+     "sticks_moving",
+     "throttle",
+     "timestamp",
+     "timestamp_sample",
+     "valid",
+     "yaw"
+    ]
+   },
+   "manual_control_switches": {
+    "n": 330,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "arm_switch",
+     "engage_main_motor_switch",
+     "gear_switch",
+     "kill_switch",
+     "loiter_switch",
+     "mode_slot",
+     "offboard_switch",
+     "payload_power_switch",
+     "photo_switch",
+     "return_switch",
+     "switch_changes",
+     "termination_switch",
+     "timestamp",
+     "timestamp_sample",
+     "transition_switch",
+     "video_switch"
+    ]
+   },
+   "mission_result": {
+    "n": 15,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "execution_mode",
+     "failure",
+     "finished",
+     "geofence_id",
+     "home_position_counter",
+     "item_changed_index",
+     "item_do_jump_changed",
+     "item_do_jump_remaining",
+     "mission_id",
+     "seq_current",
+     "seq_reached",
+     "seq_total",
+     "timestamp",
+     "valid",
+     "warning"
+    ]
+   },
+   "navigator_mission_item": {
+    "n": 14,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "acceptance_radius",
+     "altitude",
+     "altitude_is_relative",
+     "autocontinue",
+     "force_heading",
+     "frame",
+     "latitude",
+     "loiter_exit_xtrack",
+     "loiter_radius",
+     "longitude",
+     "nav_cmd",
+     "origin",
+     "sequence_current",
+     "time_inside",
+     "timestamp",
+     "vtol_back_transition",
+     "yaw"
+    ]
+   },
+   "navigator_status": {
+    "n": 659,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "failure",
+     "nav_state",
+     "timestamp"
+    ]
+   },
+   "parameter_update": {
+    "n": 1,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "active",
+     "changed",
+     "custom_default",
+     "export_count",
+     "find_count",
+     "get_count",
+     "instance",
+     "set_count",
+     "timestamp"
+    ]
+   },
+   "position_setpoint_triplet": {
+    "n": 21,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "current._padding0[0]",
+     "current._padding0[1]",
+     "current._padding0[2]",
+     "current.acceptance_radius",
+     "current.alt",
+     "current.alt_acceptance_radius",
+     "current.cruising_speed",
+     "current.cruising_throttle",
+     "current.gliding_enabled",
+     "current.lat",
+     "current.loiter_direction_counter_clockwise",
+     "current.loiter_minor_radius",
+     "current.loiter_orientation",
+     "current.loiter_pattern",
+     "current.loiter_radius",
+     "current.lon",
+     "current.timestamp",
+     "current.type",
+     "current.valid",
+     "current.vx",
+     "current.vy",
+     "current.vz",
+     "current.yaw",
+     "next._padding0[0]",
+     "next._padding0[1]",
+     "next._padding0[2]",
+     "next.acceptance_radius",
+     "next.alt",
+     "next.alt_acceptance_radius",
+     "next.cruising_speed",
+     "next.cruising_throttle",
+     "next.gliding_enabled",
+     "next.lat",
+     "next.loiter_direction_counter_clockwise",
+     "next.loiter_minor_radius",
+     "next.loiter_orientation",
+     "next.loiter_pattern",
+     "next.loiter_radius",
+     "next.lon",
+     "next.timestamp",
+     "next.type",
+     "next.valid",
+     "next.vx",
+     "next.vy",
+     "next.vz",
+     "next.yaw",
+     "previous._padding0[0]",
+     "previous._padding0[1]",
+     "previous._padding0[2]",
+     "previous.acceptance_radius",
+     "previous.alt",
+     "previous.alt_acceptance_radius",
+     "previous.cruising_speed",
+     "previous.cruising_throttle",
+     "previous.gliding_enabled",
+     "previous.lat",
+     "previous.loiter_direction_counter_clockwise",
+     "previous.loiter_minor_radius",
+     "previous.loiter_orientation",
+     "previous.loiter_pattern",
+     "previous.loiter_radius",
+     "previous.lon",
+     "previous.timestamp",
+     "previous.type",
+     "previous.valid",
+     "previous.vx",
+     "previous.vy",
+     "previous.vz",
+     "previous.yaw",
+     "timestamp"
+    ]
+   },
+   "px4io_status": {
+    "n": 329,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "alarm_pwm_error",
+     "alarm_rc_lost",
+     "arming_failsafe_custom",
+     "arming_fmu_armed",
+     "arming_fmu_prearmed",
+     "arming_io_arm_ok",
+     "arming_lockdown",
+     "arming_termination",
+     "arming_termination_failsafe",
+     "free_memory_bytes",
+     "pwm[0]",
+     "pwm[1]",
+     "pwm[2]",
+     "pwm[3]",
+     "pwm[4]",
+     "pwm[5]",
+     "pwm[6]",
+     "pwm[7]",
+     "pwm_disarmed[0]",
+     "pwm_disarmed[1]",
+     "pwm_disarmed[2]",
+     "pwm_disarmed[3]",
+     "pwm_disarmed[4]",
+     "pwm_disarmed[5]",
+     "pwm_disarmed[6]",
+     "pwm_disarmed[7]",
+     "pwm_failsafe[0]",
+     "pwm_failsafe[1]",
+     "pwm_failsafe[2]",
+     "pwm_failsafe[3]",
+     "pwm_failsafe[4]",
+     "pwm_failsafe[5]",
+     "pwm_failsafe[6]",
+     "pwm_failsafe[7]",
+     "pwm_rate_hz[0]",
+     "pwm_rate_hz[1]",
+     "pwm_rate_hz[2]",
+     "pwm_rate_hz[3]",
+     "pwm_rate_hz[4]",
+     "pwm_rate_hz[5]",
+     "pwm_rate_hz[6]",
+     "pwm_rate_hz[7]",
+     "raw_inputs[0]",
+     "raw_inputs[10]",
+     "raw_inputs[11]",
+     "raw_inputs[12]",
+     "raw_inputs[13]",
+     "raw_inputs[14]",
+     "raw_inputs[15]",
+     "raw_inputs[16]",
+     "raw_inputs[17]",
+     "raw_inputs[1]",
+     "raw_inputs[2]",
+     "raw_inputs[3]",
+     "raw_inputs[4]",
+     "raw_inputs[5]",
+     "raw_inputs[6]",
+     "raw_inputs[7]",
+     "raw_inputs[8]",
+     "raw_inputs[9]",
+     "rssi_v",
+     "status_arm_sync",
+     "status_failsafe",
+     "status_fmu_initialized",
+     "status_fmu_ok",
+     "status_init_ok",
+     "status_outputs_armed",
+     "status_raw_pwm",
+     "status_rc_dsm",
+     "status_rc_ok",
+     "status_rc_ppm",
+     "status_rc_sbus",
+     "status_rc_st24",
+     "status_rc_sumd",
+     "status_safety_button_event",
+     "timestamp",
+     "voltage_v"
+    ]
+   },
+   "radio_status": {
+    "n": 559,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "fix",
+     "noise",
+     "remote_noise",
+     "remote_rssi",
+     "rssi",
+     "rxerrors",
+     "timestamp",
+     "txbuf"
+    ]
+   },
+   "rate_ctrl_status": {
+    "n": 16696,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "pitchspeed_integ",
+     "rollspeed_integ",
+     "timestamp",
+     "yawspeed_integ"
+    ]
+   },
+   "rtl_status": {
+    "n": 166,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "has_vtol_approach",
+     "is_evaluation_pending",
+     "rtl_type",
+     "safe_point_index",
+     "safe_points_id",
+     "timestamp"
+    ]
+   },
+   "rtl_time_estimate": {
+    "n": 165,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "safe_time_estimate",
+     "time_estimate",
+     "timestamp",
+     "valid"
+    ]
+   },
+   "sensor_accel": {
+    "n": 1002,
+    "multi_ids": [
+     0,
+     1,
+     2
+    ],
+    "fields": [
+     "clip_counter[0]",
+     "clip_counter[1]",
+     "clip_counter[2]",
+     "device_id",
+     "error_count",
+     "samples",
+     "temperature",
+     "timestamp",
+     "timestamp_sample",
+     "x",
+     "y",
+     "z"
+    ]
+   },
+   "sensor_baro": {
+    "n": 668,
+    "multi_ids": [
+     0,
+     1
+    ],
+    "fields": [
+     "device_id",
+     "error_count",
+     "pressure",
+     "temperature",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "sensor_combined": {
+    "n": 66776,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "accel_calibration_count",
+     "accelerometer_clipping",
+     "accelerometer_integral_dt",
+     "accelerometer_m_s2[0]",
+     "accelerometer_m_s2[1]",
+     "accelerometer_m_s2[2]",
+     "accelerometer_timestamp_relative",
+     "gyro_calibration_count",
+     "gyro_clipping",
+     "gyro_integral_dt",
+     "gyro_rad[0]",
+     "gyro_rad[1]",
+     "gyro_rad[2]",
+     "timestamp"
+    ]
+   },
+   "sensor_gps": {
+    "n": 334,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "altitude_ellipsoid_m",
+     "altitude_msl_m",
+     "authentication_state",
+     "automatic_gain_control",
+     "c_variance_rad",
+     "cog_rad",
+     "device_id",
+     "eph",
+     "epv",
+     "fix_type",
+     "hdop",
+     "heading",
+     "heading_accuracy",
+     "heading_offset",
+     "jamming_indicator",
+     "jamming_state",
+     "latitude_deg",
+     "longitude_deg",
+     "noise_per_ms",
+     "rtcm_crc_failed",
+     "rtcm_injection_rate",
+     "rtcm_msg_used",
+     "s_variance_m_s",
+     "satellites_used",
+     "selected_rtcm_instance",
+     "spoofing_state",
+     "system_error",
+     "time_utc_usec",
+     "timestamp",
+     "timestamp_sample",
+     "timestamp_time_relative",
+     "vdop",
+     "vel_d_m_s",
+     "vel_e_m_s",
+     "vel_m_s",
+     "vel_n_m_s",
+     "vel_ned_valid"
+    ]
+   },
+   "sensor_gyro": {
+    "n": 1002,
+    "multi_ids": [
+     0,
+     1,
+     2
+    ],
+    "fields": [
+     "clip_counter[0]",
+     "clip_counter[1]",
+     "clip_counter[2]",
+     "device_id",
+     "error_count",
+     "samples",
+     "temperature",
+     "timestamp",
+     "timestamp_sample",
+     "x",
+     "y",
+     "z"
+    ]
+   },
+   "sensor_mag": {
+    "n": 668,
+    "multi_ids": [
+     0,
+     1
+    ],
+    "fields": [
+     "device_id",
+     "error_count",
+     "temperature",
+     "timestamp",
+     "timestamp_sample",
+     "x",
+     "y",
+     "z"
+    ]
+   },
+   "sensors_status_imu": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "accel_device_id_primary",
+     "accel_device_ids[0]",
+     "accel_device_ids[1]",
+     "accel_device_ids[2]",
+     "accel_device_ids[3]",
+     "accel_healthy[0]",
+     "accel_healthy[1]",
+     "accel_healthy[2]",
+     "accel_healthy[3]",
+     "accel_inconsistency_m_s_s[0]",
+     "accel_inconsistency_m_s_s[1]",
+     "accel_inconsistency_m_s_s[2]",
+     "accel_inconsistency_m_s_s[3]",
+     "accel_priority[0]",
+     "accel_priority[1]",
+     "accel_priority[2]",
+     "accel_priority[3]",
+     "gyro_device_id_primary",
+     "gyro_device_ids[0]",
+     "gyro_device_ids[1]",
+     "gyro_device_ids[2]",
+     "gyro_device_ids[3]",
+     "gyro_healthy[0]",
+     "gyro_healthy[1]",
+     "gyro_healthy[2]",
+     "gyro_healthy[3]",
+     "gyro_inconsistency_rad_s[0]",
+     "gyro_inconsistency_rad_s[1]",
+     "gyro_inconsistency_rad_s[2]",
+     "gyro_inconsistency_rad_s[3]",
+     "gyro_priority[0]",
+     "gyro_priority[1]",
+     "gyro_priority[2]",
+     "gyro_priority[3]",
+     "timestamp"
+    ]
+   },
+   "system_power": {
+    "n": 667,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "brick_valid",
+     "can1_gps1_5v_valid",
+     "comp_5v_valid",
+     "hipower_5v_oc",
+     "payload_v_valid",
+     "periph_5v_oc",
+     "sensors3v3[0]",
+     "sensors3v3[1]",
+     "sensors3v3[2]",
+     "sensors3v3[3]",
+     "sensors3v3_valid",
+     "servo_valid",
+     "timestamp",
+     "usb_connected",
+     "usb_valid",
+     "voltage5v_v",
+     "voltage_payload_v"
+    ]
+   },
+   "takeoff_status": {
+    "n": 9,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "takeoff_state",
+     "tilt_limit",
+     "timestamp"
+    ]
+   },
+   "telemetry_status": {
+    "n": 666,
+    "multi_ids": [
+     0,
+     1
+    ],
+    "fields": [
+     "data_rate",
+     "flow_control",
+     "forwarding",
+     "ftp",
+     "heartbeat_component_log",
+     "heartbeat_component_osd",
+     "heartbeat_component_pairing_manager",
+     "heartbeat_component_telemetry_radio",
+     "heartbeat_component_uart_bridge",
+     "heartbeat_component_udp_bridge",
+     "heartbeat_component_vio",
+     "heartbeat_type_adsb",
+     "heartbeat_type_antenna_tracker",
+     "heartbeat_type_camera",
+     "heartbeat_type_gcs",
+     "heartbeat_type_gimbal",
+     "heartbeat_type_onboard_controller",
+     "heartbeat_type_open_drone_id",
+     "heartbeat_type_parachute",
+     "mavlink_v2",
+     "mode",
+     "open_drone_id_system_healthy",
+     "parachute_system_healthy",
+     "rate_multiplier",
+     "rx_buffer_overruns",
+     "rx_message_count",
+     "rx_message_lost_count",
+     "rx_message_lost_rate",
+     "rx_packet_drop_count",
+     "rx_parse_errors",
+     "rx_rate_avg",
+     "streams",
+     "timestamp",
+     "tx_buffer_overruns",
+     "tx_error_rate_avg",
+     "tx_message_count",
+     "tx_rate_avg",
+     "type"
+    ]
+   },
+   "timesync_status": {
+    "n": 23,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "estimated_offset",
+     "observed_offset",
+     "remote_timestamp",
+     "round_trip_time",
+     "source_protocol",
+     "timestamp"
+    ]
+   },
+   "trajectory_setpoint": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "acceleration[0]",
+     "acceleration[1]",
+     "acceleration[2]",
+     "jerk[0]",
+     "jerk[1]",
+     "jerk[2]",
+     "position[0]",
+     "position[1]",
+     "position[2]",
+     "timestamp",
+     "velocity[0]",
+     "velocity[1]",
+     "velocity[2]",
+     "yaw",
+     "yawspeed"
+    ]
+   },
+   "transponder_report": {
+    "n": 302,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "altitude",
+     "altitude_type",
+     "callsign[0]",
+     "callsign[1]",
+     "callsign[2]",
+     "callsign[3]",
+     "callsign[4]",
+     "callsign[5]",
+     "callsign[6]",
+     "callsign[7]",
+     "callsign[8]",
+     "emitter_type",
+     "flags",
+     "heading",
+     "hor_velocity",
+     "icao_address",
+     "lat",
+     "lon",
+     "squawk",
+     "timestamp",
+     "tslc",
+     "uas_id[0]",
+     "uas_id[10]",
+     "uas_id[11]",
+     "uas_id[12]",
+     "uas_id[13]",
+     "uas_id[14]",
+     "uas_id[15]",
+     "uas_id[16]",
+     "uas_id[17]",
+     "uas_id[1]",
+     "uas_id[2]",
+     "uas_id[3]",
+     "uas_id[4]",
+     "uas_id[5]",
+     "uas_id[6]",
+     "uas_id[7]",
+     "uas_id[8]",
+     "uas_id[9]",
+     "ver_velocity"
+    ]
+   },
+   "vehicle_acceleration": {
+    "n": 6679,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "timestamp",
+     "timestamp_sample",
+     "xyz[0]",
+     "xyz[1]",
+     "xyz[2]"
+    ]
+   },
+   "vehicle_air_data": {
+    "n": 6236,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "ambient_temperature",
+     "baro_alt_meter",
+     "baro_device_id",
+     "baro_pressure_pa",
+     "calibration_count",
+     "rho",
+     "temperature_source",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "vehicle_angular_velocity": {
+    "n": 94934,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "timestamp",
+     "timestamp_sample",
+     "xyz[0]",
+     "xyz[1]",
+     "xyz[2]",
+     "xyz_derivative[0]",
+     "xyz_derivative[1]",
+     "xyz_derivative[2]"
+    ]
+   },
+   "vehicle_attitude": {
+    "n": 66776,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "delta_q_reset[0]",
+     "delta_q_reset[1]",
+     "delta_q_reset[2]",
+     "delta_q_reset[3]",
+     "q[0]",
+     "q[1]",
+     "q[2]",
+     "q[3]",
+     "quat_reset_counter",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "vehicle_attitude_setpoint": {
+    "n": 33389,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "q_d[0]",
+     "q_d[1]",
+     "q_d[2]",
+     "q_d[3]",
+     "thrust_body[0]",
+     "thrust_body[1]",
+     "thrust_body[2]",
+     "timestamp",
+     "yaw_sp_move_rate"
+    ]
+   },
+   "vehicle_command": {
+    "n": 2,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "command",
+     "confirmation",
+     "from_external",
+     "param1",
+     "param2",
+     "param3",
+     "param4",
+     "param5",
+     "param6",
+     "param7",
+     "source_component",
+     "source_system",
+     "target_component",
+     "target_system",
+     "timestamp"
+    ]
+   },
+   "vehicle_command_ack": {
+    "n": 169,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "command",
+     "from_external",
+     "result",
+     "result_param1",
+     "result_param2",
+     "target_component",
+     "target_system",
+     "timestamp"
+    ]
+   },
+   "vehicle_constraints": {
+    "n": 333,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "speed_down",
+     "speed_up",
+     "timestamp",
+     "want_takeoff"
+    ]
+   },
+   "vehicle_control_mode": {
+    "n": 661,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "flag_armed",
+     "flag_control_acceleration_enabled",
+     "flag_control_allocation_enabled",
+     "flag_control_altitude_enabled",
+     "flag_control_attitude_enabled",
+     "flag_control_auto_enabled",
+     "flag_control_climb_rate_enabled",
+     "flag_control_manual_enabled",
+     "flag_control_offboard_enabled",
+     "flag_control_position_enabled",
+     "flag_control_rates_enabled",
+     "flag_control_termination_enabled",
+     "flag_control_velocity_enabled",
+     "flag_multicopter_position_control_enabled",
+     "source_id",
+     "timestamp"
+    ]
+   },
+   "vehicle_global_position": {
+    "n": 1671,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "alt",
+     "alt_ellipsoid",
+     "alt_reset_counter",
+     "alt_valid",
+     "dead_reckoning",
+     "delta_alt",
+     "delta_terrain",
+     "eph",
+     "epv",
+     "lat",
+     "lat_lon_reset_counter",
+     "lat_lon_valid",
+     "lon",
+     "terrain_alt",
+     "terrain_alt_valid",
+     "terrain_reset_counter",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "vehicle_gps_position": {
+    "n": 1670,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "altitude_ellipsoid_m",
+     "altitude_msl_m",
+     "authentication_state",
+     "automatic_gain_control",
+     "c_variance_rad",
+     "cog_rad",
+     "device_id",
+     "eph",
+     "epv",
+     "fix_type",
+     "hdop",
+     "heading",
+     "heading_accuracy",
+     "heading_offset",
+     "jamming_indicator",
+     "jamming_state",
+     "latitude_deg",
+     "longitude_deg",
+     "noise_per_ms",
+     "rtcm_crc_failed",
+     "rtcm_injection_rate",
+     "rtcm_msg_used",
+     "s_variance_m_s",
+     "satellites_used",
+     "selected_rtcm_instance",
+     "spoofing_state",
+     "system_error",
+     "time_utc_usec",
+     "timestamp",
+     "timestamp_sample",
+     "timestamp_time_relative",
+     "vdop",
+     "vel_d_m_s",
+     "vel_e_m_s",
+     "vel_m_s",
+     "vel_n_m_s",
+     "vel_ned_valid"
+    ]
+   },
+   "vehicle_imu": {
+    "n": 2004,
+    "multi_ids": [
+     0,
+     1,
+     2
+    ],
+    "fields": [
+     "accel_calibration_count",
+     "accel_device_id",
+     "delta_angle[0]",
+     "delta_angle[1]",
+     "delta_angle[2]",
+     "delta_angle_clipping",
+     "delta_angle_dt",
+     "delta_velocity[0]",
+     "delta_velocity[1]",
+     "delta_velocity[2]",
+     "delta_velocity_clipping",
+     "delta_velocity_dt",
+     "gyro_calibration_count",
+     "gyro_device_id",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "vehicle_imu_status": {
+    "n": 1002,
+    "multi_ids": [
+     0,
+     1,
+     2
+    ],
+    "fields": [
+     "accel_clipping[0]",
+     "accel_clipping[1]",
+     "accel_clipping[2]",
+     "accel_device_id",
+     "accel_error_count",
+     "accel_rate_hz",
+     "accel_raw_rate_hz",
+     "accel_vibration_metric",
+     "delta_angle_coning_metric",
+     "gyro_clipping[0]",
+     "gyro_clipping[1]",
+     "gyro_clipping[2]",
+     "gyro_device_id",
+     "gyro_error_count",
+     "gyro_rate_hz",
+     "gyro_raw_rate_hz",
+     "gyro_vibration_metric",
+     "mean_accel[0]",
+     "mean_accel[1]",
+     "mean_accel[2]",
+     "mean_gyro[0]",
+     "mean_gyro[1]",
+     "mean_gyro[2]",
+     "temperature_accel",
+     "temperature_gyro",
+     "timestamp",
+     "var_accel[0]",
+     "var_accel[1]",
+     "var_accel[2]",
+     "var_gyro[0]",
+     "var_gyro[1]",
+     "var_gyro[2]"
+    ]
+   },
+   "vehicle_land_detected": {
+    "n": 337,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "at_rest",
+     "close_to_ground_or_skipped_check",
+     "freefall",
+     "ground_contact",
+     "has_low_throttle",
+     "horizontal_movement",
+     "in_descend",
+     "in_ground_effect",
+     "landed",
+     "maybe_landed",
+     "rotational_movement",
+     "timestamp",
+     "vertical_movement"
+    ]
+   },
+   "vehicle_local_position": {
+    "n": 3341,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "ax",
+     "ay",
+     "az",
+     "dead_reckoning",
+     "delta_dist_bottom",
+     "delta_heading",
+     "delta_vxy[0]",
+     "delta_vxy[1]",
+     "delta_vz",
+     "delta_xy[0]",
+     "delta_xy[1]",
+     "delta_z",
+     "dist_bottom",
+     "dist_bottom_reset_counter",
+     "dist_bottom_sensor_bitfield",
+     "dist_bottom_valid",
+     "dist_bottom_var",
+     "eph",
+     "epv",
+     "evh",
+     "evv",
+     "hagl_max_xy",
+     "hagl_max_z",
+     "hagl_min",
+     "heading",
+     "heading_good_for_control",
+     "heading_reset_counter",
+     "heading_var",
+     "ref_alt",
+     "ref_lat",
+     "ref_lon",
+     "ref_timestamp",
+     "tilt_var",
+     "timestamp",
+     "timestamp_sample",
+     "unaided_heading",
+     "v_xy_valid",
+     "v_z_valid",
+     "vx",
+     "vxy_max",
+     "vxy_reset_counter",
+     "vy",
+     "vz",
+     "vz_max",
+     "vz_reset_counter",
+     "x",
+     "xy_global",
+     "xy_reset_counter",
+     "xy_valid",
+     "y",
+     "z",
+     "z_deriv",
+     "z_global",
+     "z_reset_counter",
+     "z_valid"
+    ]
+   },
+   "vehicle_local_position_setpoint": {
+    "n": 3341,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "acceleration[0]",
+     "acceleration[1]",
+     "acceleration[2]",
+     "thrust[0]",
+     "thrust[1]",
+     "thrust[2]",
+     "timestamp",
+     "vx",
+     "vy",
+     "vz",
+     "x",
+     "y",
+     "yaw",
+     "yawspeed",
+     "z"
+    ]
+   },
+   "vehicle_magnetometer": {
+    "n": 4771,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "calibration_count",
+     "device_id",
+     "magnetometer_ga[0]",
+     "magnetometer_ga[1]",
+     "magnetometer_ga[2]",
+     "timestamp",
+     "timestamp_sample"
+    ]
+   },
+   "vehicle_rates_setpoint": {
+    "n": 66776,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "pitch",
+     "reset_integral",
+     "roll",
+     "thrust_body[0]",
+     "thrust_body[1]",
+     "thrust_body[2]",
+     "timestamp",
+     "yaw"
+    ]
+   },
+   "vehicle_status": {
+    "n": 661,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "armed_time",
+     "arming_state",
+     "calibration_enabled",
+     "can_set_nav_states_mask",
+     "component_id",
+     "executor_in_charge",
+     "failsafe",
+     "failsafe_and_user_took_over",
+     "failsafe_defer_state",
+     "failure_detector_status",
+     "gcs_connection_lost",
+     "gcs_connection_lost_counter",
+     "high_latency_data_link_lost",
+     "hil_state",
+     "in_transition_mode",
+     "in_transition_to_fw",
+     "is_vtol",
+     "is_vtol_tailsitter",
+     "latest_arming_reason",
+     "latest_disarming_reason",
+     "nav_state",
+     "nav_state_timestamp",
+     "nav_state_user_intention",
+     "open_drone_id_system_healthy",
+     "open_drone_id_system_present",
+     "parachute_system_healthy",
+     "parachute_system_present",
+     "power_input_valid",
+     "pre_flight_checks_pass",
+     "rc_calibration_in_progress",
+     "safety_button_available",
+     "safety_off",
+     "system_id",
+     "system_type",
+     "takeoff_time",
+     "timestamp",
+     "usb_connected",
+     "valid_nav_states_mask",
+     "vehicle_type"
+    ]
+   },
+   "vehicle_thrust_setpoint": {
+    "n": 94940,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "timestamp",
+     "timestamp_sample",
+     "xyz[0]",
+     "xyz[1]",
+     "xyz[2]"
+    ]
+   },
+   "vehicle_torque_setpoint": {
+    "n": 94939,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "timestamp",
+     "timestamp_sample",
+     "xyz[0]",
+     "xyz[1]",
+     "xyz[2]"
+    ]
+   },
+   "yaw_estimator_status": {
+    "n": 334,
+    "multi_ids": [
+     0
+    ],
+    "fields": [
+     "innov_ve[0]",
+     "innov_ve[1]",
+     "innov_ve[2]",
+     "innov_ve[3]",
+     "innov_ve[4]",
+     "innov_vn[0]",
+     "innov_vn[1]",
+     "innov_vn[2]",
+     "innov_vn[3]",
+     "innov_vn[4]",
+     "timestamp",
+     "timestamp_sample",
+     "weight[0]",
+     "weight[1]",
+     "weight[2]",
+     "weight[3]",
+     "weight[4]",
+     "yaw[0]",
+     "yaw[1]",
+     "yaw[2]",
+     "yaw[3]",
+     "yaw[4]",
+     "yaw_composite",
+     "yaw_composite_valid",
+     "yaw_variance"
+    ]
+   }
+  },
+  "gps_topic": "sensor_gps",
+  "gps_instance": 0,
+  "mapping": {
+   "gps.lat": "latitude_deg",
+   "gps.lon": "longitude_deg",
+   "gps.lat/lon units": "degrees (autodetected)",
+   "gps.alt": "altitude_msl_m",
+   "gps.alt units": "m (float field)",
+   "gps.vel_n": "vel_n_m_s",
+   "gps.vel_e": "vel_e_m_s",
+   "gps.fix_type": "fix_type",
+   "gps.n_sats": "satellites_used",
+   "gps.hdop": "hdop",
+   "gps.agc": "automatic_gain_control",
+   "gps.jamming_indicator": "jamming_indicator",
+   "gps.agc normalisation": "raw max 1716 treated as 13-bit counter (max<=8191); divided by 8191",
+   "gps.time_utc": "time_utc_usec",
+   "gps.jamming_state": "jamming_state",
+   "gps.spoofing_state": "spoofing_state",
+   "gps.noise_per_ms": "noise_per_ms",
+   "ref.vehicle_local_position": "vx=north, vy=east (NED) [EKF-fused]"
+  },
+  "warnings": [
+   "REFERENCE VELOCITY IS CONTAMINATED: it comes from an EKF/autopilot estimate that also fuses GNSS. A slow GNSS carry-off drags this estimate along, so the independent-reference check (the main defence against slow carry-off spoofing) is WEAKENED or BLIND. Use VIO / optical flow + range / wheel or DVL odometry as the reference for any real evaluation. (source: vehicle_local_position)",
+   "no satellite_info C/N0: signal-quality detector runs without C/N0 (spoof-by-uniform-power and jamming-by-C/N0-drop evidence unavailable)"
+  ],
+  "reference_topic": "vehicle_local_position",
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "reference_contaminated": true,
+  "n_gnss": 334,
+  "n_ref": 3341,
+  "gps_rate_hz": 1.0000150182435623,
+  "has_cn0": false,
+  "has_agc": true,
+  "has_px4_flags": true
+ }
+}
