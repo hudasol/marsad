@@ -1,6 +1,6 @@
 # Preregistration: SIH + INJECTED evaluation on sitl1.ulg
 
-Written on 2026-10-16 at 05:09 (AST), **before** `scripts/sih_inject.py` was run on `sitl1.ulg` by this author.
+Written on 2026-10-16 at 05:09 (UTC+4), **before** `scripts/sih_inject.py` was run on `sitl1.ulg` by this author.
 Committed before the run so that the commit history shows the order. No threshold, preset or detector was
 changed for this experiment, and none will be changed after seeing the result.
 
@@ -57,7 +57,7 @@ Results are reported in `docs/VALIDATION.md` next to this table, misses included
 
 ## Addendum: long clean flight (sitl2.ulg), written before the run
 
-Written on 2026-10-17 at 23:34 (AST), after the sitl1 result and its diagnosis and before `sih_inject.py` was run on
+Written on 2026-10-17 at 23:34 (UTC+4), after the sitl1 result and its diagnosis and before `sih_inject.py` was run on
 `sitl2.ulg`. These predictions are therefore informed by the sitl1 miss: the drift evidence is diluted to roughly 6%
 of its intended rate because the reference arrives at about 125 Hz and GNSS at about 8 Hz. The engine is unchanged.
 
