@@ -160,3 +160,9 @@ state changes in attack scenarios and are expected to hold.
 A detection case is a hit if the detected count matches exactly and the median latency falls inside the stated
 band. P3 to P8 are scored as stated. Results, hits and misses will be reported in [VALIDATION.md](VALIDATION.md)
 and [EVALUATION.md](EVALUATION.md) next to the v1.1.0 and v1.2.0 numbers, which stay in `docs/results/` unchanged.
+
+## Outcome
+
+Results, hits and misses are reported in [VALIDATION.md](VALIDATION.md), section "Evidence weighting fix", and in
+[EVALUATION.md](EVALUATION.md), section "After the evidence weighting fix". The remaining miss is explained in
+[KNOWN_LIMITS.md](KNOWN_LIMITS.md). This preregistration is otherwise left as it was written.
