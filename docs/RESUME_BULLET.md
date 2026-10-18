@@ -21,6 +21,6 @@ Notes on wording:
   the bullet does not name the hardware.
 * "Drifts of 0.5 m/s and faster" refers to the 230 s window of `sitl2.ulg`. In the 32 s window of `sitl1.ulg` only
   1 and 2 m/s were detected (15.7 to 27.8 s), because 0.5 m/s needs longer than 32 s.
-* The median offsets across both logs are 18.8 to 22.8 m; the bullet quotes the 230 s window only.
+* The median offsets for drifts of 0.5 m/s and faster across both logs are 18.8 to 22.8 m; the bullet quotes the 230 s window only.
 * "Not reliably detected" covers 0.25 m/s with honest GNSS velocity detected 4/4 (113.6 s) but 0/4 when the spoofer
   also shifts the velocity, and 0.1 m/s missed in both modes.
