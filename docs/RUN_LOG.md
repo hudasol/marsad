@@ -69,3 +69,6 @@ Times are local (UTC+4, matching the commit timestamps).
 * 11:54 Decision: the brief quoted the laptop throughput control as "739 to 1,212 us"; throughput_control.txt gives 738.9 to 1,211.5 us. The documents use the unrounded values.
 * 11:54 README reproduce table pointed the current engine at the v1.2.0 output files, which would overwrite published results; repointed to docs/results/weighting_fix/.
 * 11:55 Phase 1 commits: README, MILESTONES, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, outcome pointers in both preregistrations, EVALUATION soft jamming line.
+* 11:58 Phase 2: ran `python scripts/bias_trace.py sitl2.ulg --rate 0.1` (25 s) to measure the 0.1 m/s miss rather than argue it; new file docs/results/weighting_fix/bias_trace_sitl2_0.1.txt (exploratory, SIH + INJECTED). Velocity consistent: estimate reached -0.079 m/s (79% of the drift), peak z 0.55. Velocity honest: estimate near zero, peak z 1.06.
+* 12:02 Wrote docs/KNOWN_LIMITS.md. Decision: cost stated as 21.7 m (velocity consistent) and 18.8 m (honest velocity) for the slowest drift caught in both modes, 0.5 m/s.
+* 12:05 Decision: wrote a possible engine change (a guard on fast moving bias estimates) as docs/PREREGISTRATION_BIAS.md with predictions, and did not implement it, as instructed. Letting the estimator learn on every fix was considered and not proposed.
