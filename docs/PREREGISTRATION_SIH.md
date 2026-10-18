@@ -79,3 +79,8 @@ of its intended rate because the reference arrives at about 125 Hz and GNSS at a
 Reasoning: with diluted evidence only drifts that build a large z score over the longer windows (up to 240 s) should
 accumulate enough evidence inside 230 s. I expect 0.5 m/s and slower to stay TRUSTED, which would mean the long
 window does not rescue the slow cases while the evidence weighting defect remains.
+
+## Outcome
+
+Results, hits and misses are reported in [VALIDATION.md](VALIDATION.md), section "SIH + INJECTED results". This
+preregistration is otherwise left as it was written.
