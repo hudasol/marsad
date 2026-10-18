@@ -41,15 +41,16 @@ against simulator truth.
 | Drift of 0.1 m/s detected in 50 to 56% of runs, 0.05 m/s never | SIMULATED |
 | Two public PX4 flights (911 s and 334 s of GPS): zero alarms | REAL LOG |
 | Jumps of 50, 200 and 1000 m added to two PX4 SIH logs: detected 4/4 on the first attacked fix | SIH + INJECTED |
-| Drifts of 0.5 to 2 m/s in a 32 s window: 0/4 detected | SIH + INJECTED |
-| Drifts of 0.5 to 2 m/s in a 230 s window: 4/4 detected, but only after median latencies of 98.1 to 204.6 s and median offsets of 77.1 to 186.8 m; 0.1 and 0.25 m/s: 0/4 | SIH + INJECTED |
+| Drifts of 1 and 2 m/s in a 32 s window: 4/4 detected, median 15.7 to 27.8 s (v1.2.0: 0/4); 0.5 m/s and slower: 0/4 | SIH + INJECTED |
+| Drifts of 0.5 to 2 m/s in a 230 s window: 4/4 detected, median 15.7 to 48.3 s at median offsets of 18.8 to 22.4 m (v1.2.0: 98.1 to 204.6 s, 77.1 to 186.8 m) | SIH + INJECTED |
+| Drift of 0.25 m/s in a 230 s window: detected 4/4 (113.6 s) when the GNSS velocity is honest, 0/4 when the spoofer also shifts velocity; 0.1 m/s: 0/4 | SIH + INJECTED |
 | Engine cost 187.7 µs per sample (3000 samples, CPython 3.13, one cloud CPU core) | SIMULATED |
 
 The SIH results exposed a defect that simulation hid: when the reference arrives faster than GNSS (about 125 Hz
-against 8 Hz in the two PX4 SIH logs), drift evidence is weighted by the wrong time step and accrues at roughly 6% of its
-intended rate. An exploratory check that only changes the input stream brings 0.5 m/s detection down to a median of
-42.5 to 48.2 s. The fix is planned as a separate, preregistered change. It is reported because the SIH logs exposed it
-and the simulator did not.
+against 8 Hz in the two PX4 SIH logs), drift evidence was weighted by the wrong time step and accrued at roughly 6% of
+its intended rate. It was fixed in v1.3.0 after predictions were committed (PREREGISTRATION_WEIGHTING.md): 27 of 28
+predicted SIH rows were hit, and the two real flights still raise no alarm. The one miss, a velocity consistent drift
+of 0.25 m/s, is explained in KNOWN_LIMITS.md. All rows above use the v1.3.0 engine.
 
 ## 4. What it does not claim
 
@@ -83,7 +84,8 @@ and more stable references than vision over water or desert.
 
 ## 8. Risks
 
-* The evidence weighting defect must be fixed and re-evaluated before any stage 2 result is meaningful.
+* The reference bias estimator can absorb part of a slow, velocity consistent drift (KNOWN_LIMITS.md); stage 1 must
+  measure how much on partner logs with a real reference sensor before stage 2.
 * Real reference sensors drift, drop out and fail over water and featureless terrain; the bias bound may need to
   widen, which raises the slowest detectable drift.
 * Partner logs may lack the topics Marsad needs (raw GNSS, an independent velocity, receiver jamming indicators).
