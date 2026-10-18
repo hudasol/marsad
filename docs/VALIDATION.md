@@ -3,10 +3,10 @@
 | Claim | Status |
 |---|---|
 | Detection logic works against the modelled threats | **Demonstrated in simulation** (docs/EVALUATION.md) |
-| Engine runs in real time on a laptop-class CPU | **Measured** (187.7 µs/sample on one cloud core, `docs/results/throughput.json`; companion-computer class untested) |
+| Engine runs in real time on a laptop-class CPU | **Measured** (v1.3.0 engine: 892.3 to 1,263.0 µs/sample on a Windows laptop, `docs/results/weighting_fix/throughput*.{json,txt}`; v1.1.0 engine: 187.7 µs on one cloud core, `docs/results/throughput.json`; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
 | Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. Reproduce: `marsad replay flight1.ulg` and `marsad replay flight2.ulg` (output in `docs/results/real_logs.txt`). See "Real-log results" below. |
-| Detects attacks injected into a real PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. After the preregistered evidence weighting fix: 1 and 2 m/s drifts detected 4/4 at median latencies of 15.7 to 27.8 s in both logs, 0.5 m/s 4/4 at 42.5 and 48.3 s in the 230 s window (sitl2), offsets at alarm 18.8 to 22.8 m; 0.1 m/s and the velocity consistent 0.25 m/s case missed. Before the fix (v1.2.0) drifts were 0/4 in 32 s and caught only after 98.1 to 204.6 s in 230 s. See "Evidence weighting fix" below |
+| Detects attacks injected into a PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. After the preregistered evidence weighting fix: 1 and 2 m/s drifts detected 4/4 at median latencies of 15.7 to 27.8 s in both logs, 0.5 m/s 4/4 at 42.5 and 48.3 s in the 230 s window (sitl2), offsets at alarm 18.8 to 22.8 m for drifts of 0.5 m/s and faster; 0.1 m/s and the velocity consistent 0.25 m/s case missed. Before the fix (v1.2.0) drifts were 0/4 in 32 s and caught only after 98.1 to 204.6 s in 230 s. See "Evidence weighting fix" below |
 | Works on a real flight controller | **NOT validated** |
 | ROS 2 node | A CI job runs `scripts/ros2_smoke.py` with a real rclpy runtime under ROS 2 humble on synthetic messages; it passes since 2026-10-17. Never run on a robot |
 | Real GNSS spoofing/jamming data | **NOT used** |
@@ -29,7 +29,7 @@ Two public logs from review.px4.io (CC-BY), run with `marsad inspect` / `marsad 
 the logged GNSS fixes. The PX4 software, its timing and its GNSS stream are real; the vehicle, the receiver and the
 reference are simulated. This is not real spoofing and nothing here was received over the air.
 
-Reproduce: `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject.json` (console output in
+Reproduce (at tag v1.2.0; the current engine writes post fix results, so use `docs/results/weighting_fix/` paths at HEAD): `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject.json` (console output in
 `docs/results/sih_inject.txt`). Predictions were committed before the run in
 [PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md).
 
@@ -67,7 +67,7 @@ excluded here), attack from 45 s (32 s window), reference =
 
 ### Why the drifts were missed (exploratory, not preregistered)
 
-Reproduce: `python scripts/sih_diagnose.py sitl1.ulg --out docs/results/sih_diagnose.json` (console output in
+Reproduce (at tag v1.2.0): `python scripts/sih_diagnose.py sitl1.ulg --out docs/results/sih_diagnose.json` (console output in
 `docs/results/sih_diagnose.txt`). This analysis was done after seeing the miss. The engine was not changed.
 
 * The drift detector does respond. During the 2 m/s drift its z score rises from 0.02 before the attack to 7.31 at
@@ -93,12 +93,12 @@ Reproduce: `python scripts/sih_diagnose.py sitl1.ulg --out docs/results/sih_diag
 ### Long clean flight (sitl2.ulg, 230 s attack window)
 
 **Label: SIH + INJECTED.** `sitl2.ulg` is a second PX4 SIH flight, flown for this purpose with no fault injection:
-`scripts/sitl_flight.py --no-faults`, a 300 s square at 5 m/s and 10 m altitude, so the vehicle turns through every
+`scripts/sitl_flight.py --no-faults`, a 300 s square at 5 m/s and about 10 m altitude (simulator truth), so the vehicle turns through every
 heading every 2 minutes. Before use it was checked with `marsad inspect` and `scripts/sitl_timeline.py sitl2.ulg 10`:
 fix type 3 on all 3,212 fixes, GNSS error against ground truth at most 0.30 m (median 0.10 m), and Marsad TRUSTED on
 all 51,615 samples (`docs/results/sitl2_timeline.txt`).
 
-Reproduce: `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json`
+Reproduce (at tag v1.2.0): `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json`
 (console output in `docs/results/sih_inject_long.txt`, about 17 minutes). Predictions were committed before the run
 in the addendum of [PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md). The case list gained 0.1 and 0.25 m/s drifts for
 this run; rerunning the sitl1 command therefore prints two extra rows, and the rows above are unchanged.
@@ -134,7 +134,7 @@ A 2 m/s drift is caught only when the GNSS position is about 187 m from the trut
 beat. The 4 s trace of the 2 m/s north case in `docs/results/sih_diagnose_long.txt` shows the state TRUSTED at
 155.0 s, DEGRADED at 159.0 s and DENIED from 163.0 s until the log is cut, so the alarm is not a brief transient.
 
-Exploratory check, same as for sitl1 and again not preregistered:
+Exploratory check, same as for sitl1 and again not preregistered (at tag v1.2.0):
 `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json`. Fed at
 the GNSS epoch rate only (2,305 samples), Marsad detects 0.5 m/s drift 4/4 at a median of 48.2 s (velocity consistent)
 and 42.5 s (not consistent), 1.0 m/s at 27.2 and 25.5 s, and 2.0 m/s at 16.2 and 15.7 s, with no alarm on the clean
@@ -170,7 +170,9 @@ the old code the interleaved 2 m/s drift was never detected, on the new code it 
 co-sampled. All 143 tests pass (140 existing, unmodified, and 3 new). The simulated evaluation is reported in
 [EVALUATION.md](EVALUATION.md).
 
-Results are in `docs/results/weighting_fix/`. The v1.2.0 files in `docs/results/` are unchanged.
+Results are in `docs/results/weighting_fix/`. The v1.2.0 files in `docs/results/` are unchanged. Two files in that
+folder (`clean_margin.txt` and `engine_diff_heldout_fixed.json`) record the package version as 1.2.0 because they
+were produced before the version string was raised to 1.3.0; the engine code in them is the fixed one.
 
 ### SIH + INJECTED, sitl1.ulg (32 s window)
 
@@ -223,8 +225,8 @@ Against the preregistration:
 `python scripts/bias_trace.py sitl2.ulg` (output in `docs/results/weighting_fix/bias_trace_sitl2.txt`). While the
 drift z score is below 1, the engine keeps learning the reference velocity bias by comparing the reference velocity
 with the GNSS velocity. A velocity consistent spoofer shifts the GNSS velocity together with the position, so the
-estimator learned a northward bias of -0.087 m/s, about 35% of the 0.25 m/s drift, before the z score passed 1 at
-about 95 s. Integrating the bias corrected reference then hides that part of the drift, and the peak z score stayed
+estimator learned a northward bias of -0.087 m/s, 34.8% of the 0.25 m/s drift, before the z score passed 1 between
+95 and 115 s. Integrating the bias corrected reference then hides that part of the drift, and the peak z score stayed
 at 1.80, below the evidence threshold of 2. In the velocity not consistent mode the GNSS velocity is honest, the
 estimate stayed at 0.000 m/s north and the drift was caught. The trace also shows that the estimator had only 47 s
 of learning when it stopped, short of the 150 s that enables the tighter bias bound, because it learns only on fixes
@@ -247,8 +249,8 @@ are SIH logs without any injection.
 
 | log | label | min P(nominal), v1.2.0 | min P(nominal), fixed | max drift z, v1.2.0 | max drift z, fixed |
 |---|---|---|---|---|---|
-| sitl1.ulg (to 77 s) | SIH, no injection | 0.960 | 0.965 | 0.03 | 0.03 |
-| sitl2.ulg (to 290 s) | SIH, no injection | 0.960 | 0.966 | 0.08 | 0.08 |
+| sitl1.ulg (to 77 s) | SIH + INJECTED (zero offset) | 0.960 | 0.965 | 0.03 | 0.03 |
+| sitl2.ulg (to 290 s) | SIH + INJECTED (zero offset) | 0.960 | 0.966 | 0.08 | 0.08 |
 | flight1.ulg | REAL LOG | 0.961 | 0.966 | 1.17 | 1.18 |
 | flight2.ulg | REAL LOG | 0.960 | 0.965 | 0.25 | 0.25 |
 
