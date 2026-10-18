@@ -4,7 +4,9 @@
 model of what a GNSS receiver and a reference sensor would report. No flight data, no RF, no hardware.
 Read the results as "the method works against this threat model", not "Marsad is validated in the field".
 
-Reproduce: `python scripts/run_eval.py` (about 12 minutes on 4 cores). Raw results: `docs/results/*.json`.
+Reproduce: at tag v1.1.0, `python scripts/run_eval.py` (about 12 minutes on 4 cores). Raw results: `docs/results/*.json`.
+With the current engine use `python scripts/run_eval.py --out docs/results/weighting_fix`; without `--out` the script
+writes to `docs/results/` and would overwrite the published v1.1.0 files.
 
 ## Method
 
@@ -102,7 +104,7 @@ Against the preregistration:
 * **P7d hit.** `benign_obstruction`: time not TRUSTED 85% held out and 88% dev, as before; no run reaches DENIED.
 * **P7e miss.** `throughput.json` reports 1,263.0 µs per sample against a prediction of 187.7 µs ± 20%. A same
   machine control (`scripts/throughput.py`, output in `docs/results/weighting_fix/throughput_control.txt`) times
-  both engines alternately on this laptop: v1.2.0 739 to 1,182 µs, fixed engine 892 to 1,212 µs, within the spread
+  both engines alternately on this laptop: v1.2.0 738.9 to 1,181.8 µs, fixed engine 892.3 to 1,211.5 µs, within the spread
   of repeated runs. The miss reflects the machine, not the change; the prediction should not have assumed the same
   hardware. The published 187.7 µs stays the reference figure for a cloud core, and this control cannot resolve a
   difference between the two engines below about 10%.
@@ -164,7 +166,7 @@ bias bound and the sensor noise integrated over the window, not from the code pa
 
 ## Performance
 
-187.7 µs per sample (3000 samples in 0.56 s, `docs/results/throughput.json`, CPython 3.13, one cloud core, engine only; v1.0.0 was 46 µs,
+v1.1.0 engine: 187.7 µs per sample (3000 samples in 0.56 s, `docs/results/throughput.json`, CPython 3.13, one cloud core, engine only; v1.0.0 was 45.7 µs,
 the increase is the replay cross-correlation and the longer drift windows). Memory is bounded: the longest drift window is 240 s, history is pruned at 1.6× that. This is still
 well inside the budget for 5 to 50 Hz. The core is
 standard-library only. A compiled port is not needed for 5 to 50 Hz companion-computer use; it would be for
