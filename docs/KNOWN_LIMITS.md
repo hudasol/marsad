@@ -27,7 +27,7 @@ Both traces were made after the results were seen and are not preregistered. Rep
    state is TRUSTED, the engine learns the reference velocity bias as the mean of (reference velocity minus GNSS
    velocity). A spoofer that shifts the GNSS velocity together with the position makes that difference equal to
    the drift rate, so the estimator learns the drift as if it were sensor bias and subtracts it from the reference.
-   * 0.25 m/s: the north bias estimate reached -0.087 m/s (about 35% of the drift) by 115 s; from then on the z score
+   * 0.25 m/s: the north bias estimate reached -0.087 m/s (34.8% of the drift) by 115 s; from then on the z score
      stayed above 1 and learning stopped. The remaining drift raised the z score to a peak of 1.80, below the evidence
      threshold of 2, and the state stayed TRUSTED.
    * 0.1 m/s: the z score never reached 1, so learning never stopped. The estimate reached -0.079 m/s (79% of the
