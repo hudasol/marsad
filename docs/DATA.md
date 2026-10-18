@@ -1,6 +1,6 @@
 # Data
 
-The flight logs used in this repository are not stored in git (23 to 190 MB each, and `.ulg` is in `.gitignore`).
+The flight logs used in this repository are not stored in git (about 23 to 190 MB each, and `.ulg` is in `.gitignore`).
 This page identifies each file by its SHA256 checksum, says how it was obtained, and explains how to download and
 verify the two simulator logs.
 
@@ -8,8 +8,8 @@ verify the two simulator logs.
 
 | file | label | size (bytes) | SHA256 |
 |---|---|---|---|
-| `sitl1.ulg` | SIH (base log for SIH + INJECTED) | 23,109,655 | `20d61fff69f6fd2e54d75631214d3465244b39900219e24f1df31e1b9097c37e` |
-| `sitl2.ulg` | SIH (base log for SIH + INJECTED) | 93,068,353 | `22128ec8a70461c6b9e28e2020a8e4a2031700860abd40d6e4b529db4c5ea645` |
+| `sitl1.ulg` | SIH + INJECTED (base log, zero offset) | 23,109,655 | `20d61fff69f6fd2e54d75631214d3465244b39900219e24f1df31e1b9097c37e` |
+| `sitl2.ulg` | SIH + INJECTED (base log, zero offset) | 93,068,353 | `22128ec8a70461c6b9e28e2020a8e4a2031700860abd40d6e4b529db4c5ea645` |
 | `flight1.ulg` | REAL LOG | 189,862,028 | `19c756071c2f1fc4676241cd9737b195ade97b74c16f5a00f94218b5eb16f1e9` |
 | `flight2.ulg` | REAL LOG | 37,809,237 | `3cca05594bd7448c8e146d7bf563dfe3e1a2381ef536fcff63a52fb6d3b20c6d` |
 
@@ -22,16 +22,16 @@ own ULog header (`ver_sw_release`, `ver_sw`, `ver_hw`).
 PX4 v1.18.0 beta build (header release word `0x01120080`, git `fe24ec2280b62f50fe6b8e206a41a5d1687786fe`), hardware
 string `PX4_SITL`. Flown on 2026-10-10 with `python3 scripts/sitl_flight.py` as it was then (no flags; the
 `--no-faults` option did not exist), after `param set SYS_FAILURE_EN 1` and `commander takeoff`. The script injects
-timed GPS failures through PX4's failure injection; the log covers 0.6 s to 100.4 s of vehicle uptime and contains
+timed GPS failures through PX4's failure injection; the log's first and last timestamps are 0.6 s and 100.4 s of vehicle uptime (read with pyulog) and contains
 the first of them, which dropped the fix type from 3 to 2 at about 78 s (SITL FAULT). Marsad's SIH + INJECTED runs
 cut this log at 77 s, before that fault. The vehicle, receiver and reference are simulated; the PX4 software, its
 timing and its GNSS message stream are real outputs. No personal data.
 
 **`sitl2.ulg`.** Same PX4 build and simulator. Flown on 2026-10-16 with
-`python3 scripts/sitl_flight.py --no-faults` (a 300 s square at 5 m/s and 10 m altitude, no failure injection),
+`python3 scripts/sitl_flight.py --no-faults` (a 300 s square at 5 m/s and about 10 m altitude in simulator truth, no failure injection),
 started headless with `HEADLESS=1 make px4_sitl sihsim_quadx`, `commander takeoff` before the script and
-`commander land` after it. The PX4 log was `build/px4_sitl_default/rootfs/fs/log/2026-10-16/01_21_34.ulg`. It covers
-2.0 s to 402.9 s of uptime. Acceptance check before use: fix type 3 on all 3,212 fixes, GNSS error against simulator
+`commander land` after it. The PX4 log was `build/px4_sitl_default/rootfs/fs/log/2026-10-16/01_21_34.ulg`. Its first and last
+timestamps are 2.0 s and 402.9 s of uptime (read with pyulog; the last GNSS fix is stamped 403.4 s). Acceptance check before use: fix type 3 on all 3,212 fixes, GNSS error against simulator
 truth at most 0.30 m, Marsad TRUSTED on all 51,615 samples (`docs/results/sitl2_timeline.txt`). No personal data.
 
 **`flight1.ulg` and `flight2.ulg`.** Two public logs from the PX4 Flight Review database (review.px4.io), published
