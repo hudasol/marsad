@@ -1,6 +1,13 @@
 # Run log, 2026-10-16 to 2026-10-18
 
-## Summary
+## Addendum, 2026-10-18: status of the 2026-10-16 summary
+
+* Item 5 (defect found, engine not changed) is resolved: the evidence weighting fix was preregistered
+  (PREREGISTRATION_WEIGHTING.md, commit 5756142), made in commit 8c7b858 and scored in VALIDATION.md.
+* Item 10 (decide on the weighting fix) is resolved: the fix was made and is released in v1.3.0.
+* Items 3 and 4 describe the v1.2.0 engine and stay as recorded; post fix numbers are in docs/results/weighting_fix/.
+
+## Summary (2026-10-16 to 2026-10-18, v1.2.0 run)
 
 1. Done: all six phases. Preregistered predictions, ran SIH + INJECTED evaluations on sitl1 (32 s window) and a new clean 300 s SIH flight, sitl2 (230 s window), fixed CI, wrote the proposal seed, ran a hostile review, wrote the resume entry, tagged and released v1.2.0.
 2. Measured (SIH + INJECTED): jumps of 50, 200, 1000 m detected 4/4 on the first attacked fix in both logs; clean logs silent.
@@ -53,3 +60,12 @@ Times are local (UTC+4, matching the commit timestamps).
 * 23:59 Wrote docs/RESUME_BULLET.md. The SIH drift results are weak, so the second line states them as a limitation found.
 * 00:00 Hostile review by a reviewer that had not seen the work: 31 findings. Fixed the documentation and label items; logged the rest with reasons in docs/REVIEW_FINDINGS.md. No dead relative links remain.
 * 00:12 Final commit of the run; annotated tag v1.2.0 placed on it and pushed; GitHub Release v1.2.0 created and the empty v1.1.0 release notes filled from MILESTONES.md.
+
+## Log, 2026-10-18 (v1.3.0 run)
+
+* 11:51 Pulled main (weighting fix commits 5756142 to 8f0e89d, all authored without trailers). Read the state documents.
+* 11:58 Grep for stale wording found the pre fix SIH numbers (98.1 to 204.6 s) presented as current in README, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, MILESTONES and RESUME_BULLET.
+* 12:05 Decision: the brief quoted "18.8 to 21.7 m" for the post fix median offsets of drifts of 0.5 m/s and faster; docs/results/weighting_fix/sih_inject_long.txt gives 18.8 to 22.4 m (21.7 m is the 0.5 m/s velocity consistent case alone), and 18.8 to 22.8 m if sitl1 is included. The documents use 18.8 to 22.4 m for the 230 s window.
+* 12:05 Decision: the brief quoted the laptop throughput control as "739 to 1,212 us"; throughput_control.txt gives 738.9 to 1,211.5 us. The documents use the unrounded values.
+* 12:06 README reproduce table pointed the current engine at the v1.2.0 output files, which would overwrite published results; repointed to docs/results/weighting_fix/.
+* 12:15 Phase 1 commits: README, MILESTONES, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, outcome pointers in both preregistrations, EVALUATION soft jamming line.
