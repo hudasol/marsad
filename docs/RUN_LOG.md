@@ -1,5 +1,20 @@
 # Run log, 2026-10-16 to 2026-10-18
 
+## Summary, 2026-10-18 (v1.3.0 run)
+
+1. Done: all seven phases; v1.3.0 tagged on the final commit and released with sitl1.ulg, sitl2.ulg and SHA256SUMS.txt.
+2. Docs now present post fix numbers; v1.2.0 numbers appear only labelled as before (README, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, MILESTONES, RESUME_BULLET).
+3. Measured (SIH + INJECTED, exploratory): at 0.1 m/s the bias estimator absorbs 79% of a velocity consistent drift (peak z 0.55); with honest velocity peak z 1.06.
+4. Measured: 143 tests pass locally (211 s); SHA256 of all four logs recorded in DATA.md.
+5. Written: KNOWN_LIMITS.md (cost 21.7 m and 18.8 m at 0.5 m/s), PREREGISTRATION_BIAS.md (proposal only), REAL_DATA_SOURCES.md, REVIEW_FINDINGS addendum.
+6. Corrected the brief: post fix offsets are 18.8 to 22.4 m (not 21.7 m at the top); laptop control 738.9 to 1,211.5 us (unrounded).
+7. Found: README and EVALUATION reproduce commands would have overwritten published v1.1.0 and v1.2.0 results; fixed.
+8. Failed: nothing blocking; one preregistered miss remains (0.25 m/s velocity consistent).
+9. Manual: decide on PREREGISTRATION_BIAS.md (implement or drop).
+10. Manual: confirm free access to the IEEE DataPort UAV Attack Dataset before using it (page states both free account and subscription).
+11. Manual: remove the repository topic gps-spoofing-data; regenerate the dashboard screenshot.
+12. Manual: the review.px4.io identifiers of flight1 and flight2 were never recorded; recover them with download_logs.py --uuid if needed.
+
 ## Addendum, 2026-10-18: status of the 2026-10-16 summary
 
 * Item 5 (defect found, engine not changed) is resolved: the evidence weighting fix was preregistered
@@ -77,3 +92,7 @@ Times are local (UTC+4, matching the commit timestamps).
 * 12:01 Phase 4: version 1.3.0 committed; v1.3.0 changelog written in MILESTONES.md.
 * 12:02 Phase 5: resume entry rewritten with post fix numbers. Decision: median offset quoted as 18.8 to 22.4 m (230 s window), not the 18.8 to 21.7 m in the brief, which does not match the results file.
 * 12:04 Phase 6: surveyed public sources; opened every linked page; downloaded nothing. Found one directly readable source with real RF attacks on a real receiver (IEEE DataPort UAV Attack Dataset, 683.88 MB, access terms ambiguous: free account or subscription), several raw I/Q sets that need a software receiver first, and excluded one subscription dataset. No log identifier with jamming_state 2 or 3 was verified, so none is given; the method to find one is described.
+* 12:05 Phase 7: hostile review started by a reviewer that had not seen the work; full test suite run in parallel: 143 passed in 211 s.
+* 12:12 Review returned 28 findings (4 High, 11 Medium, 13 Low). Main ones: throughput 187.7 us presented as the current engine cost; reproduce commands in EVALUATION and VALIDATION that would overwrite published results. Fixed the documentation and label items in 12 per document commits; logged the rest with reasons in the REVIEW_FINDINGS addendum.
+* 12:17 Decision: the v1.3.0 engine cost is quoted as 892.3 to 1,263.0 us on a Windows laptop (control range and the run_eval figure for the fixed engine), with the v1.1.0 cloud core figure labelled as such.
+* 12:18 Final commit of the run; annotated tag v1.3.0 placed on it and pushed; GitHub Release v1.3.0 created from the MILESTONES changelog with sitl1.ulg, sitl2.ulg and SHA256SUMS.txt attached; CI checked on the tagged commit.
