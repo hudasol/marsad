@@ -15,11 +15,13 @@ operator dashboard, and exposes an **MCP server** so AI agents and decision plat
 > sponsored by EDGE Group, the Technology Innovation Institute (TII), the Advanced Technology Research Council (ATRC), or
 > any of their entities.
 >
-> **Validation status (v1.2.0).** The results table below is SIMULATED (measurement level generator). Beyond it:
+> **Validation status (v1.3.0).** The results table below is SIMULATED (measurement level generator). Beyond it:
 > two unmodified public PX4 flights replay with zero alarms (REAL LOG, no attack present), and attacks added to real
-> PX4 SIH logs are scored against simulator truth (SIH + INJECTED): jumps are caught at once, but drifts of 0.5 m/s or
-> faster are caught only after median latencies of 98.1 to 204.6 s, at median offsets of 77.1 to 186.8 m, and 0.25 m/s
-> or slower is not caught at all in a 230 s window.
+> PX4 SIH logs are scored against simulator truth (SIH + INJECTED). After the preregistered evidence weighting fix in
+> v1.3.0, jumps are caught at once and drifts of 0.5 m/s or faster are caught after median latencies of 15.7 to 48.3 s,
+> at median offsets of 18.8 to 22.4 m, in a 230 s window (v1.2.0, before the fix: 98.1 to 204.6 s and 77.1 to 186.8 m).
+> A velocity consistent drift of 0.25 m/s, and any drift of 0.1 m/s, is still not caught in 230 s
+> ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)).
 > Nothing has been run on a real flight controller or on real interference data. See
 > [docs/VALIDATION.md](docs/VALIDATION.md) for exactly what is and is not demonstrated.
 
@@ -50,16 +52,16 @@ positions from the tracks it fuses.
 | Stealth carry-off (no power signature) detected | **100%**, median 58 s | **0%** |
 | Carry-off with power signature detected | 100% | 0% |
 | Navigation error, stealth carry-off (median of max) | **20 m** (raw GNSS 145 m) | 144 m |
-| Jamming (hard / soft) detected | 100% / 100%, 2.4 s / 5.0 s | 100% / 100% |
+| Jamming (hard / soft) detected | 100% / 100%, 2.4 s / 4.6 s (soft was 5.0 s before the v1.3.0 weighting fix) | 100% / 100% |
 | Signal obstruction → DENIED | **0%** of runs | 100% |
 | Multipath → DENIED | **3%** of runs (1 of 30) | 77% |
 | Nominal flights with any alarm | 0% | 0% |
-| Engine cost | 187.7 µs / sample on one cloud core, stdlib only | |
+| Engine cost | 187.7 µs / sample on one cloud core (738.9 to 1,211.5 µs on a Windows laptop), stdlib only | |
 
 **Where it does not work** (reported in [docs/EVALUATION.md](docs/EVALUATION.md)): without an independent motion
 reference carry-off detection falls to 53% (labelled `spoofing_unclassified`) and there is no fallback position; drifts of 0.1 m/s are detected in only ~50% of runs and 0.05 m/s never; an attack at power-up has no clean baseline; in soft jamming the simple baseline's latency is lower
-(4.1 s vs 5.0 s) and its navigation error is equal (11 m); on real PX4 SIH logs drift detection is far slower than in
-simulation ([docs/VALIDATION.md](docs/VALIDATION.md)). Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
+(4.1 s vs 4.6 s), although its navigation error is now higher (11 m vs 9 m); on real PX4 SIH logs a velocity
+consistent drift of 0.25 m/s is not detected in 230 s ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)). Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
 with the same author and should be read accordingly ([docs/TRACKS.md](docs/TRACKS.md)).
 
 ## Design in one picture
@@ -109,22 +111,28 @@ print(report.state, report.trust, report.action, report.summary)
 * **What is claimed and what is not:** [docs/VALIDATION.md](docs/VALIDATION.md). Every number carries one label:
   SIMULATED, REAL LOG, SIH + INJECTED or SITL FAULT.
 * **Proposal seed:** [docs/EDGE_PROPOSAL.md](docs/EDGE_PROPOSAL.md). **Open review findings:**
-  [docs/REVIEW_FINDINGS.md](docs/REVIEW_FINDINGS.md). **Predictions written before the SIH runs:**
-  [docs/PREREGISTRATION_SIH.md](docs/PREREGISTRATION_SIH.md).
-* **Reproduce each table with one command** (from the repository root, after `pip install -e ".[dev]"`):
+  [docs/REVIEW_FINDINGS.md](docs/REVIEW_FINDINGS.md). **Predictions written before each run:**
+  [docs/PREREGISTRATION_SIH.md](docs/PREREGISTRATION_SIH.md) and [docs/PREREGISTRATION_WEIGHTING.md](docs/PREREGISTRATION_WEIGHTING.md).
+  **What is still missed:** [docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md). **Log files, checksums and downloads:**
+  [docs/DATA.md](docs/DATA.md).
+* **Reproduce each table with one command** (from the repository root, after `pip install -e ".[dev]"`). The
+  commands below run the current (v1.3.0) engine and write to `docs/results/weighting_fix/`. The v1.1.0 and v1.2.0
+  files in `docs/results/` were produced by the engine at those tags; to reproduce them, check out the tag
+  (`git checkout v1.2.0`) and run the same command with the output paths given in VALIDATION.md.
 
 | table | label | command | output |
 |---|---|---|---|
-| Held out, dev, ablation, detectability, throughput (EVALUATION.md, the table above) | SIMULATED | `python scripts/run_eval.py` (about 12 min) | `docs/results/*.md`, `*.json` |
-| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/real_flight1.json` (same for `flight2.ulg`) | `docs/results/real_logs.txt` |
-| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject.json` | `docs/results/sih_inject.txt` |
-| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json` (about 17 min) | `docs/results/sih_inject_long.txt` |
-| Exploratory diagnosis of the drift misses | SIH + INJECTED | `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json` | `docs/results/sih_diagnose_long.txt` |
+| Held out, dev, ablation, detectability, throughput (EVALUATION.md) | SIMULATED | `python scripts/run_eval.py --out docs/results/weighting_fix` (12 min on 4 cloud cores, 39 min on a Windows laptop) | `docs/results/weighting_fix/*.md`, `*.json` |
+| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json` (same for `flight2.ulg`) | `docs/results/weighting_fix/real_logs.txt` |
+| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/weighting_fix/sih_inject.json` | `docs/results/weighting_fix/sih_inject.txt` |
+| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/weighting_fix/sih_inject_long.json` (about 16 min) | `docs/results/weighting_fix/sih_inject_long.txt` |
+| Bias estimator trace for the remaining miss (exploratory) | SIH + INJECTED | `python scripts/bias_trace.py sitl2.ulg` | `docs/results/weighting_fix/bias_trace_sitl2.txt` |
+| Exploratory diagnosis of the v1.2.0 drift misses (run at tag v1.2.0) | SIH + INJECTED | `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json` | `docs/results/sih_diagnose_long.txt` |
 | Clean SIH flight acceptance check | SIH + INJECTED (control, zero offset) | `python scripts/sitl_timeline.py sitl2.ulg 10` | `docs/results/sitl2_timeline.txt` |
 
 The `.ulg` logs are not stored in git (23 to 190 MB each). `flight1.ulg` and `flight2.ulg` are public logs from
-review.px4.io; `sitl1.ulg` and `sitl2.ulg` are PX4 v1.18 SIH runs flown with `scripts/sitl_flight.py`. A new SIH
-flight flown with the same script reproduces the method, not the exact published numbers.
+review.px4.io; `sitl1.ulg` and `sitl2.ulg` are PX4 v1.18 SIH runs flown with `scripts/sitl_flight.py` and are attached
+to the v1.3.0 GitHub Release. [docs/DATA.md](docs/DATA.md) gives SHA256 checksums and the download and verify steps.
 
 ## Documentation
 
@@ -153,7 +161,7 @@ flight flown with the same script reproduces the method, not the exact published
 | `v1.0.0` | Held-out evaluation, ablations, CI, container, technical report |
 | `v1.1.0` | Replay delay estimator, reference quality gate, slow reference bias estimation, fresh seed evaluation, Docker and ROS 2 CI jobs |
 | `v1.2.0` | Real PX4 log replay (false alarm side), PX4 v1.18 adapter fields, SIH + INJECTED evaluation with preregistered predictions, CI fixes |
-| unreleased | Evidence weighting fix for mixed sample rates, preregistered (docs/PREREGISTRATION_WEIGHTING.md) and scored in docs/VALIDATION.md and docs/EVALUATION.md; results in docs/results/weighting_fix/ |
+| `v1.3.0` | Evidence weighting fix for mixed sample rates, preregistered (docs/PREREGISTRATION_WEIGHTING.md) and scored in docs/VALIDATION.md and docs/EVALUATION.md; results in docs/results/weighting_fix/ |
 | next | Bias estimator review (velocity consistent drift absorption), then advisory companion computer, then closed loop in an authorised range |
 
 All tags are listed in [docs/MILESTONES.md](docs/MILESTONES.md).
