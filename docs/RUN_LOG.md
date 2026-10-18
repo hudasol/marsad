@@ -64,8 +64,8 @@ Times are local (UTC+4, matching the commit timestamps).
 ## Log, 2026-10-18 (v1.3.0 run)
 
 * 11:51 Pulled main (weighting fix commits 5756142 to 8f0e89d, all authored without trailers). Read the state documents.
-* 11:58 Grep for stale wording found the pre fix SIH numbers (98.1 to 204.6 s) presented as current in README, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, MILESTONES and RESUME_BULLET.
-* 12:05 Decision: the brief quoted "18.8 to 21.7 m" for the post fix median offsets of drifts of 0.5 m/s and faster; docs/results/weighting_fix/sih_inject_long.txt gives 18.8 to 22.4 m (21.7 m is the 0.5 m/s velocity consistent case alone), and 18.8 to 22.8 m if sitl1 is included. The documents use 18.8 to 22.4 m for the 230 s window.
-* 12:05 Decision: the brief quoted the laptop throughput control as "739 to 1,212 us"; throughput_control.txt gives 738.9 to 1,211.5 us. The documents use the unrounded values.
-* 12:06 README reproduce table pointed the current engine at the v1.2.0 output files, which would overwrite published results; repointed to docs/results/weighting_fix/.
-* 12:15 Phase 1 commits: README, MILESTONES, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, outcome pointers in both preregistrations, EVALUATION soft jamming line.
+* 11:53 Grep for stale wording found the pre fix SIH numbers (98.1 to 204.6 s) presented as current in README, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, MILESTONES and RESUME_BULLET.
+* 11:54 Decision: the brief quoted "18.8 to 21.7 m" for the post fix median offsets of drifts of 0.5 m/s and faster; docs/results/weighting_fix/sih_inject_long.txt gives 18.8 to 22.4 m (21.7 m is the 0.5 m/s velocity consistent case alone), and 18.8 to 22.8 m if sitl1 is included. The documents use 18.8 to 22.4 m for the 230 s window.
+* 11:54 Decision: the brief quoted the laptop throughput control as "739 to 1,212 us"; throughput_control.txt gives 738.9 to 1,211.5 us. The documents use the unrounded values.
+* 11:54 README reproduce table pointed the current engine at the v1.2.0 output files, which would overwrite published results; repointed to docs/results/weighting_fix/.
+* 11:55 Phase 1 commits: README, MILESTONES, ONE_PAGER, TECHNICAL_REPORT, EDGE_PROPOSAL, outcome pointers in both preregistrations, EVALUATION soft jamming line.
