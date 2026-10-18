@@ -1,6 +1,6 @@
 # Marsad: a position trust layer for uncrewed systems in contested GNSS conditions
 
-Proposal seed, version 1.2.0, October 2026. Author: Huda Mueen. Marsad is an independent open source project
+Proposal seed, version 1.3.0, October 2026. Author: Huda Mueen. Marsad is an independent open source project
 (Apache 2.0). It has no affiliation, endorsement or partnership with EDGE Group or any other organisation; this
 document describes what a pilot could look like if a partner chose to run one.
 
@@ -30,8 +30,8 @@ MAVLink reporter cannot send commands, and a test enforces this.
 
 Every figure below is reproducible with the command listed in [VALIDATION.md](VALIDATION.md) or
 [EVALUATION.md](EVALUATION.md). Labels: SIMULATED = the repository's own generator; REAL LOG = unmodified flight,
-no attack; SIH + INJECTED = real PX4 simulation in hardware log with an offset added to the GNSS fixes, scored
-against simulator truth.
+no attack; SIH + INJECTED = PX4 software in the loop log using the SIH simulator, with an offset added to the GNSS
+fixes, scored against simulator truth.
 
 | finding | label |
 |---|---|
@@ -44,13 +44,13 @@ against simulator truth.
 | Drifts of 1 and 2 m/s in a 32 s window: 4/4 detected, median 15.7 to 27.8 s (v1.2.0: 0/4); 0.5 m/s and slower: 0/4 | SIH + INJECTED |
 | Drifts of 0.5 to 2 m/s in a 230 s window: 4/4 detected, median 15.7 to 48.3 s at median offsets of 18.8 to 22.4 m (v1.2.0: 98.1 to 204.6 s, 77.1 to 186.8 m) | SIH + INJECTED |
 | Drift of 0.25 m/s in a 230 s window: detected 4/4 (113.6 s) when the GNSS velocity is honest, 0/4 when the spoofer also shifts velocity; 0.1 m/s: 0/4 | SIH + INJECTED |
-| Engine cost 187.7 µs per sample (3000 samples, CPython 3.13, one cloud CPU core) | SIMULATED |
+| Engine cost 892.3 to 1,263.0 µs per sample on a Windows laptop (v1.3.0 engine; the v1.1.0 engine measured 187.7 µs on one cloud core) | SIMULATED |
 
 The SIH results exposed a defect that simulation hid: when the reference arrives faster than GNSS (about 125 Hz
 against 8 Hz in the two PX4 SIH logs), drift evidence was weighted by the wrong time step and accrued at roughly 6% of
 its intended rate. It was fixed in v1.3.0 after predictions were committed (PREREGISTRATION_WEIGHTING.md): 27 of 28
-predicted SIH rows were hit, and the two real flights still raise no alarm. The one miss, a velocity consistent drift
-of 0.25 m/s, is explained in KNOWN_LIMITS.md. All rows above use the v1.3.0 engine.
+predicted SIH rows were hit (SIH + INJECTED), and the two real flights still raise no alarm (REAL LOG). The one miss, a velocity consistent drift
+of 0.25 m/s, is explained in KNOWN_LIMITS.md. All rows above use the v1.3.0 engine; the SIMULATED rows are unchanged from v1.1.0 by the fix.
 
 ## 4. What it does not claim
 
