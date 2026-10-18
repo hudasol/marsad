@@ -3,7 +3,7 @@
 > Position-trust layer for autonomous systems and decision platforms.
 > This document is the source of truth for scope, architecture, milestones and the honesty rules for what we claim.
 
-Status: **v1.2.0.** This document is the original plan and is kept for history. Where it disagrees with the code or
+Status: **v1.3.0.** This document is the original plan and is kept for history. Where it disagrees with the code or
 with README.md, the code and README.md are right; known differences (for example NumPy versus standard library core,
 CLI names, CI scope, tags v0.2.0 and v0.5.0 that were never created, and the planned HARDWARE.md and ROADMAP.md that do
 not exist) are listed in docs/REVIEW_FINDINGS.md. Results and status live in README.md, docs/EVALUATION.md and
@@ -154,7 +154,7 @@ Hex-binned, time-decayed aggregation of trust events with a confidence per cell.
 
 | Area | Choice | Why |
 |---|---|---|
-| Language | Python 3.11+ (3.13 supported) | TII's public tooling and AI work is Python-heavy; fast to iterate |
+| Language | Python 3.11+ (3.13 supported) | widely used for robotics tooling; fast to iterate |
 | Numerics | NumPy (core), SciPy (bench/analysis only) | keeps the core light and portable |
 | Logs | `pyulog`, `pymavlink` | native PX4 formats |
 | Service | FastAPI + Pydantic + Uvicorn | typed schemas, OpenAPI for free |
@@ -196,7 +196,7 @@ Step 1 onward needs real logs or SITL, which this repository documents but does 
 | Detector and simulator share an author | Held-out scenario parameters, sensitivity analysis, documented failure regimes |
 | PX4 field names verified from memory, not from live docs | Adapter is field-presence-driven with fallbacks; first real log should be used to confirm; tracked in `docs/VALIDATION.md` |
 | Sensitive regional context | Framed as resilience; no attribution; measurement-level modelling only; no real interference geodata bundled |
-| Independence | README states Marsad is independent and not affiliated with or endorsed by TII, ATRC or any ATRC entity |
+| Independence | README states Marsad is independent and not affiliated with or endorsed by EDGE Group, TII, ATRC or any of their entities |
 
 ## 11. Out of scope for v1.0
 
