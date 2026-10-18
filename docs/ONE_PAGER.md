@@ -14,7 +14,8 @@ attack until GNSS agrees with dead-reckoning again (no silent re-trust), and exp
 
 **Evidence (SIMULATED, held-out).** Abrupt spoofing detected in 0.1 s; stealth carry-off in 100% of runs (median 58 s)
 vs 0% for a simplified autopilot gate; navigation error 20 m (median of max) against 145 m for raw GNSS in stealth carry-off;
-obstruction never denied, multipath in 1 of 30 runs. 187.7 µs per sample, standard-library core.
+obstruction never denied, multipath in 1 of 30 runs. Standard-library core; 892.3 to 1,263.0 µs per sample on a
+Windows laptop (v1.3.0 engine).
 **REAL LOG:** zero alarms over 1,245 s of two public PX4 flights (no attack present). **SIH + INJECTED** (v1.3.0 engine): jumps
 caught at once; drifts of 0.5 to 2 m/s caught after median latencies of 15.7 to 48.3 s at median offsets of 18.8 to
 22.4 m in a 230 s window (v1.2.0 before the weighting fix: 98.1 to 204.6 s, 77.1 to 186.8 m).
