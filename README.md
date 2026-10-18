@@ -56,12 +56,12 @@ positions from the tracks it fuses.
 | Signal obstruction → DENIED | **0%** of runs | 100% |
 | Multipath → DENIED | **3%** of runs (1 of 30) | 77% |
 | Nominal flights with any alarm | 0% | 0% |
-| Engine cost | 187.7 µs / sample on one cloud core (738.9 to 1,211.5 µs on a Windows laptop), stdlib only | |
+| Engine cost | v1.3.0 engine: 892.3 to 1,263.0 µs / sample on a Windows laptop; v1.1.0 engine: 187.7 µs on one cloud core; stdlib only | |
 
-**Where it does not work** (reported in [docs/EVALUATION.md](docs/EVALUATION.md)): without an independent motion
-reference carry-off detection falls to 53% (labelled `spoofing_unclassified`) and there is no fallback position; drifts of 0.1 m/s are detected in only ~50% of runs and 0.05 m/s never; an attack at power-up has no clean baseline; in soft jamming the simple baseline's latency is lower
-(4.1 s vs 4.6 s), although its navigation error is now higher (11 m vs 9 m); on real PX4 SIH logs a velocity
-consistent drift of 0.25 m/s is not detected in 230 s ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)). Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
+**Where it does not work** (reported in [docs/EVALUATION.md](docs/EVALUATION.md); SIMULATED unless marked): without an independent motion
+reference carry-off detection falls to 53% (labelled `spoofing_unclassified`) and there is no fallback position; drifts of 0.1 m/s are detected in only 50 to 56% of runs and 0.05 m/s never; an attack at power-up has no clean baseline; in soft jamming the simple baseline's latency is lower
+(4.1 s vs 4.6 s), although its navigation error is now higher (11 m vs 9 m); on PX4 SIH logs (SIH + INJECTED) a
+velocity consistent drift of 0.25 m/s is not detected in 230 s ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)). Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
 with the same author and should be read accordingly ([docs/TRACKS.md](docs/TRACKS.md)).
 
 ## Design in one picture
@@ -84,12 +84,12 @@ with the same author and should be read accordingly ([docs/TRACKS.md](docs/TRACK
 git clone https://github.com/hudasol/marsad && cd marsad
 python -m venv .venv && . .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-pytest                                                   # about 9 min (547 s measured on a laptop)
+pytest                                                   # about 4 min (143 tests, 211 s on a Windows laptop)
 
 marsad demo spoof_drift_stealth --seed 4                 # state transitions with evidence (SIMULATED)
 marsad serve                                             # dashboard + API at http://127.0.0.1:8000
 marsad mcp                                               # MCP server on stdio (see docs/MCP.md)
-marsad bench --split heldout --seeds 30                  # reproduce the benchmark
+marsad bench --split heldout --seeds 30                  # benchmark on seeds 0 to 29 (published tables: scripts/run_eval.py, seeds 5000+)
 marsad make-log --kind spoof_drift --out sim.ulg         # SIMULATED PX4 style ULog
 marsad inspect real_flight.ulg && marsad replay real_flight.ulg   # your own PX4 log
 ```
@@ -123,14 +123,15 @@ print(report.state, report.trust, report.action, report.summary)
 | table | label | command | output |
 |---|---|---|---|
 | Held out, dev, ablation, detectability, throughput (EVALUATION.md) | SIMULATED | `python scripts/run_eval.py --out docs/results/weighting_fix` (12 min on 4 cloud cores, 39 min on a Windows laptop) | `docs/results/weighting_fix/*.md`, `*.json` |
-| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json` (same for `flight2.ulg`) | `docs/results/weighting_fix/real_logs.txt` |
-| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/weighting_fix/sih_inject.json` | `docs/results/weighting_fix/sih_inject.txt` |
-| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/weighting_fix/sih_inject_long.json` (about 16 min) | `docs/results/weighting_fix/sih_inject_long.txt` |
-| Bias estimator trace for the remaining miss (exploratory) | SIH + INJECTED | `python scripts/bias_trace.py sitl2.ulg` | `docs/results/weighting_fix/bias_trace_sitl2.txt` |
+| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json` (same for `flight2.ulg`; console output collected in the `.txt`) | `docs/results/weighting_fix/real_logs.txt` |
+| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/weighting_fix/sih_inject.json > docs/results/weighting_fix/sih_inject.txt` | `docs/results/weighting_fix/sih_inject.txt` |
+| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/weighting_fix/sih_inject_long.json > docs/results/weighting_fix/sih_inject_long.txt` (about 16 min) | `docs/results/weighting_fix/sih_inject_long.txt` |
+| Bias estimator traces for the remaining misses (exploratory) | SIH + INJECTED | `python scripts/bias_trace.py sitl2.ulg > docs/results/weighting_fix/bias_trace_sitl2.txt` (add `--rate 0.1` for `bias_trace_sitl2_0.1.txt`) | `docs/results/weighting_fix/bias_trace_sitl2*.txt` |
+| False alarm margin on the clean logs, both engines | SIH + INJECTED (zero offset) and REAL LOG | `python scripts/clean_margin.py` | `docs/results/weighting_fix/clean_margin.txt` |
 | Exploratory diagnosis of the v1.2.0 drift misses (run at tag v1.2.0) | SIH + INJECTED | `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json` | `docs/results/sih_diagnose_long.txt` |
-| Clean SIH flight acceptance check | SIH + INJECTED (control, zero offset) | `python scripts/sitl_timeline.py sitl2.ulg 10` | `docs/results/sitl2_timeline.txt` |
+| Clean SIH flight acceptance check | SIH + INJECTED (zero offset) | `python scripts/sitl_timeline.py sitl2.ulg 10` | `docs/results/sitl2_timeline.txt` |
 
-The `.ulg` logs are not stored in git (23 to 190 MB each). `flight1.ulg` and `flight2.ulg` are public logs from
+The `.ulg` logs are not stored in git (about 23 to 190 MB each). `flight1.ulg` and `flight2.ulg` are public logs from
 review.px4.io; `sitl1.ulg` and `sitl2.ulg` are PX4 v1.18 SIH runs flown with `scripts/sitl_flight.py` and are attached
 to the v1.3.0 GitHub Release. [docs/DATA.md](docs/DATA.md) gives SHA256 checksums and the download and verify steps.
 
