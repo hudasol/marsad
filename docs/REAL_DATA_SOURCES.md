@@ -35,7 +35,7 @@ unmodified flight with no attack.
   https://github.com/PX4/flight_review/blob/main/app/download_logs.py.
 * **Content:** public PX4 flight logs from many vehicles and versions. The browse page shows type, airframe,
   hardware, software and flight modes; it has no column or filter for GNSS jamming or spoofing.
-* **Format and size:** ULog; size per log varies (the two used here are 38 MB and 190 MB).
+* **Format and size:** ULog; size per log varies (the two used here are 37,809,237 and 189,862,028 bytes).
 * **Licence and access:** CC BY, no account. The script lists logs from `https://review.px4.io/dbinfo` and fetches
   one with `https://review.px4.io/download?log=<log_id>`. Its filters are `--mav-type`, `--airframe-name`,
   `--airframe-type`, `--vehicle-name`, `--uuid`, `--git-hash`, `--flight-modes`, `--error-labels`, `--rating`,
