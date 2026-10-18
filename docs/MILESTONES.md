@@ -33,8 +33,9 @@ Every row is an annotated git tag on the public repository (`git tag -n1` lists 
   proposed with predictions in `docs/PREREGISTRATION_BIAS.md` and is not implemented.
 * **REAL LOG:** both public flights stay TRUSTED for 100% of 911 s and 334 s; the false alarm margin did not shrink
   (minimum P(nominal) 0.966 for flight1, was 0.961; 0.965 for flight2, was 0.960).
-* **SIMULATED:** only soft jamming changed (held out latency 5.0 → 4.6 s, navigation error 11 → 9 m); every
-  scenario without fix dropouts is bitwise identical to the previous engine in a same machine control.
+* **SIMULATED:** in the tables only soft jamming changed (held out latency 5.0 → 4.6 s, navigation error 11 → 9 m); every
+  scenario without fix dropouts is bitwise identical to the previous engine in a same machine control; in the JSON the
+  hard jamming recovery time and the obstruction time not TRUSTED also moved slightly (EVALUATION.md).
 * **Throughput control (prediction P7e missed).** The published 187.7 µs per sample is a cloud core figure from
   v1.1.0. On a Windows laptop, a same machine control timed both engines alternately at 738.9 to 1,211.5 µs per
   sample (v1.2.0 engine 738.9 to 1,181.8 µs, fixed engine 892.3 to 1,211.5 µs); `run_eval.py` reported 1,263.0 µs on
