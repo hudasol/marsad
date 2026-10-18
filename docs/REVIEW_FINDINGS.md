@@ -69,3 +69,48 @@ preregistered change (VALIDATION.md, "Why the drifts were missed").
 signal and engine evidence and in the bias estimator. Scored results are in VALIDATION.md ("Evidence weighting fix")
 and EVALUATION.md; the v1.1.0 and v1.2.0 results in `docs/results/` are unchanged. The fix also exposed a separate
 limitation of the bias estimator (it can absorb part of a velocity consistent drift), which is left open.
+
+## Addendum, 2026-10-18: review before v1.3.0
+
+A second hostile review was run after the evidence weighting fix and the documentation update, by a reviewer that
+had not seen the work. It confirmed that every post fix number in README, EDGE_PROPOSAL, ONE_PAGER,
+TECHNICAL_REPORT, RESUME_BULLET, KNOWN_LIMITS and DATA matches `docs/results/weighting_fix/`, that no relative link is
+dead, that there are no em or en dashes, emojis or attribution problems, and that 143 tests collect (all 143 pass
+locally, 211 s).
+
+### Fixed
+
+| severity | where | problem | fix |
+|---|---|---|---|
+| High | README, EDGE_PROPOSAL, ONE_PAGER, VALIDATION, EVALUATION | 187.7 µs (v1.1.0 engine, cloud core) shown as the current engine cost; laptop range omitted the 1,263.0 µs `run_eval.py` figure | v1.3.0 engine quoted as 892.3 to 1,263.0 µs on a Windows laptop, v1.1.0 cloud figure labelled as such |
+| High | EVALUATION.md | reproduce command without `--out` would overwrite the published v1.1.0 files | marked "at tag v1.1.0", current command given with `--out docs/results/weighting_fix` |
+| Medium | VALIDATION.md | v1.2.0 reproduce commands would overwrite v1.2.0 files if run at HEAD | each marked "at tag v1.2.0" |
+| Medium | README.md | `marsad bench --seeds 30` described as reproducing the benchmark (it uses seeds 0 to 29, the tables use 5000+) | comment corrected |
+| Medium | MILESTONES.md, TECHNICAL_REPORT.md | "only soft jamming changed" while two JSON only values also moved | scoped to the tables, JSON changes named |
+| Medium | EDGE_PROPOSAL.md | version 1.2.0; "real PX4 simulation in hardware log" suggested a flight controller | version 1.3.0; "PX4 software in the loop log using the SIH simulator" |
+| Medium | RESUME_BULLET.md, VALIDATION.md | offset range 18.8 to 22.8 m not scoped (the 0.25 m/s honest case alarmed at 27.1 m) | scoped to drifts of 0.5 m/s and faster |
+| Medium | README.md | "Where it does not work" mixed labels; "real PX4 SIH logs" | labels inline, "real" removed |
+| Low | KNOWN_LIMITS, VALIDATION, TECHNICAL_REPORT, EVALUATION | rounded figures (about 35%, 739, 1,182, 892, 1,212, 46 µs) | exact values (34.8%, 738.9, 1,181.8, 892.3, 1,211.5, 45.7 µs) |
+| Low | README.md | test time 547 s measured with 140 tests | 211 s for 143 tests, measured in this run |
+| Low | DATA.md, VALIDATION.md | timestamps and "10 m altitude" without a stated basis | pyulog first and last timestamps; altitude from simulator truth |
+| Low | README, DATA, VALIDATION | clean SIH logs labelled three different ways, none canonical | "SIH + INJECTED (zero offset)" everywhere in prose; `clean_margin.txt` keeps its generated wording |
+| Low | VALIDATION.md | "z passed 1 at about 95 s" (trace: 0.94 at 95 s, 1.20 at 115 s) | "between 95 and 115 s" |
+| Low | VALIDATION.md | two post fix result files stamped with package version 1.2.0 | note added: produced before the version bump, engine code is the fixed one |
+| Low | plan.md | status v1.2.0; language choice justified by a named institution; independence line without EDGE Group | updated |
+| Low | README.md | reproduce rows printed to the console without saying how the `.txt` files were written | output redirects added; rows for `clean_margin.py` and `bias_trace.py --rate 0.1` added |
+
+### Left alone, with reasons
+
+| severity | where | problem | why |
+|---|---|---|---|
+| Medium | README.md, TECHNICAL_REPORT.md, TRACKS.md | track trust figures (precision/recall 1.00, 3 to 15 km) have no results file | unchanged from the first review (finding 8); needs a new results run, outside a docs pass |
+| Medium | GitHub repository topics | `gps-spoofing-data` still set | repository settings are the owner's; recommended for removal |
+| Low | EVALUATION.md | 84.7%, 47.5 s, 48.1 s, 20.3 s are conventionally rounded from the JSON (84.666, 47.456, 48.086, 20.268) | standard rounding to the precision shown, not exaggeration; left as written in the post fix evaluation |
+| Low | README.md, DATA.md | sizes "about 23 to 190 MB" (189.86 MB) | marked "about"; DATA.md gives exact byte counts |
+| Low | README.md | run times (12, 39 and 16 minutes) taken from EVALUATION and VALIDATION rather than a results file | operational guidance, not results |
+| Low | VALIDATION.md | 15.8 s and 16.2 s in the mixed rate test, "about 10 times faster" | asserted by `tests/test_mixed_rate.py` and the sample counts in PREREGISTRATION_WEIGHTING.md; not separate result files |
+| Low | REVIEW_FINDINGS.md (first review) | promised script fixes (en dash placeholders in `run_eval.py` output, "real" fault wording in `sih_inject.py`) not made in the weighting fix | still open; script output changes would alter generated result files; moved here as left alone for v1.3.0 |
+| Low | README.md, DASHBOARD.md | caption colour mismatch, stale screenshot | needs a browser session with the dashboard; unchanged |
+| Low | `src/marsad/api/texts.py` | MCP limits text understates the REAL LOG result | source code string; it understates rather than overstates |
+| Low | docs/EDGE_PROPOSAL.md file name | names EDGE Group | the owner chose the name; the content disclaims any affiliation |
+| Low | DATA.md, MILESTONES.md | describe the v1.3.0 release and its assets before they exist | the release is created at the end of this run; checked afterwards |
