@@ -24,8 +24,9 @@ Every row is an annotated git tag on the public repository (`git tag -n1` lists 
   (`docs/PREREGISTRATION_SIH.md`). Results: jumps detected 4/4 at once; drifts missed in a 32 s window; in a 230 s
   window drifts of 0.5 m/s and faster detected only after 98.1 to 204.6 s (median) and 0.25 m/s or slower missed.
 * **Known defect found.** The inertial detector weights evidence by the time since the previous sample of any kind,
-  so a fast reference stream dilutes GNSS drift evidence. `scripts/sih_diagnose.py` documents it. Not fixed in this
-  release because fixing it changes engine behaviour and the v1.1.0 results.
+  so a fast reference stream dilutes GNSS drift evidence. `scripts/sih_diagnose.py` documents it. It was left
+  as it was in this release because fixing it changes engine behaviour and the v1.1.0 results; it is fixed in v1.3.0
+  (see the v1.3.0 changelog).
 * **Tools.** `scripts/sitl_flight.py --no-faults`, `scripts/sitl_timeline.py`, `scripts/dump_gnss.py`.
 * **CI.** The docker smoke test (invalid container name) and the ros2 job (pip in `ros:humble` built an `UNKNOWN`
   wheel) are fixed; all seven jobs pass.
