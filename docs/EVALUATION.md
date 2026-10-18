@@ -119,8 +119,8 @@ latency is still lower (4.1 s vs 4.6 s).
 * **Even when the baseline detects a jump it ends up wrong.** After the latch expires it accepts the spoofed
   position again (430 m median error). Marsad keeps the offset latched until the GNSS agrees with the
   dead-reckoned continuation of the last trusted track.
-* **Marsad is not better at everything.** In `jam_soft` the baseline's latency is lower (4.1 s vs 5.0 s); navigation
-  error is equal (11 m). Marsad's rewind-to-onset anchor is deliberately conservative.
+* **Marsad is not better at everything.** In `jam_soft` the baseline's latency is lower (4.1 s vs 5.0 s in v1.1.0,
+  4.1 s vs 4.6 s after the v1.3.0 fix); navigation error was equal (11 m) in v1.1.0 and is now 9 m for Marsad. Marsad's rewind-to-onset anchor is deliberately conservative.
 * **Class accuracy:** jamming vs spoofing vs environmental is separated well when AGC is available. A `replay`
   is now labelled `replay_meaconing` in 97% of runs once a delay (lag) is confirmed by cross-correlating GNSS
   and reference velocity; at the very first alarm the label is still the coarse one. Without a reference sensor a
