@@ -1,5 +1,15 @@
 # Run log, 2026-10-16 to 2026-10-18
 
+## Addendum, 2026-10-23 (bias guard decision, 25 minute run)
+
+1. Done: dashboard screenshots regenerated with Playwright and Microsoft Edge (v1.3.0 engine, SIMULATED demo, no console errors); captions labelled and matched to the legend.
+2. Done: the bias estimator guard from PREREGISTRATION_BIAS.md was implemented as written (a65372c), evaluated and rejected; reverted in 5c5ca79 (engine identical to v1.3.0). No version bump, no tag.
+3. Measured (SIMULATED, same seeds): dev nominal reached DENIED in 3% of runs (was 0%); held out multipath DENIED 7% (was 3%, prediction allowed 3 points); jump and replay navigation error 8 to 23 m and 10 to 21 m; stealth carry off latency 58.3 to 52.9 s.
+4. Measured: sitl1 rows identical (SIH + INJECTED); clean SIH logs and both REAL LOG flights stay 100% TRUSTED; 143 tests pass after the revert.
+5. Not completed: sitl2 230 s run, detectability, ablation and the full suite with the guard (stopped once rejection was certain; a process filter also stopped the sitl2 and test runs).
+6. Number check of README, RESUME_BULLET and EDGE_PROPOSAL: all decimals found in docs/results except README example inputs (now marked illustrative) and the known track figure.
+7. Manual: remove the repository topic gps-spoofing-data; any new bias estimator attempt needs a new preregistration.
+
 ## Summary, 2026-10-18 (v1.3.0 run)
 
 1. Done: all seven phases; v1.3.0 tagged on the final commit and released with sitl1.ulg, sitl2.ulg and SHA256SUMS.txt.
@@ -96,3 +106,16 @@ Times are local (UTC+4, matching the commit timestamps).
 * 12:12 Review returned 28 findings (4 High, 11 Medium, 13 Low). Main ones: throughput 187.7 us presented as the current engine cost; reproduce commands in EVALUATION and VALIDATION that would overwrite published results. Fixed the documentation and label items in 12 per document commits; logged the rest with reasons in the REVIEW_FINDINGS addendum.
 * 12:17 Decision: the v1.3.0 engine cost is quoted as 892.3 to 1,263.0 us on a Windows laptop (control range and the run_eval figure for the fixed engine), with the v1.1.0 cloud core figure labelled as such.
 * 12:18 Final commit of the run; annotated tag v1.3.0 placed on it and pushed; GitHub Release v1.3.0 created from the MILESTONES changelog with sitl1.ulg, sitl2.ulg and SHA256SUMS.txt attached; CI checked on the tagged commit.
+
+## Log, 2026-10-23 (bias guard decision)
+
+* 08:38 Read PREREGISTRATION_BIAS.md, KNOWN_LIMITS.md, the run log summary and the README reviewers section. The preregistration was already committed (2026-10-18), so it was not edited. Dismissed the pending task card for the same work.
+* 08:39 Implemented the guard exactly as written (30 s window, step = ref_bias_residual, restore and emit drift evidence at the z = 3 rule) and a test with a velocity consistent 0.25 m/s drift; the test failed on the v1.3.0 engine and passed with the guard. Committed a65372c and 4c0a40f.
+* 08:40 Started in parallel: sih_inject on sitl1 and sitl2, REAL LOG replays, clean_margin.py, the test suite and run_eval.py --out docs/results/bias_fix --workers 8.
+* 08:42 sitl1 identical to v1.3.0. Dev split: nominal 1% time not TRUSTED and 3% of runs DENIED (was 0% and 0%); jump navigation error 7 to 18 m.
+* 08:44 Held out: multipath DENIED 3% to 7%; jump 8 to 23 m and replay 10 to 21 m navigation error; stealth latency 58.3 to 52.9 s. REAL LOG 100% TRUSTED; clean margin 100% TRUSTED on all four logs.
+* 08:45 Decision: rejected (new false alarm on a clean simulated flight, regression beyond seed noise on identical seeds). Stopped run_eval; the process filter matched the shared shell wrapper, so the sitl2 and test runs stopped too. Not rerun because the rejection did not depend on them.
+* 08:45 Committed the completed results to docs/results/bias_fix/ (empty and partial files removed), then reverted the test (797be15) and the engine (5c5ca79). src/ and tests/ now match v1.3.0 exactly.
+* 08:47 Screenshots: pip installed the free playwright package and used the installed Microsoft Edge (no browser download). Replaced only the three files referenced by README and DASHBOARD.md.
+* 08:48 KNOWN_LIMITS.md records the scored negative result; outcome pointer added to PREREGISTRATION_BIAS.md.
+* 08:56 Test suite after the revert: 143 tests, exit code 0.
