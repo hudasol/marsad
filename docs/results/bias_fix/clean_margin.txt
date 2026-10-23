@@ -1,0 +1,8 @@
+engine: marsad 1.3.0, per-fix evidence scaled by the time since the previous fix (weighting fix)
+log              label               span s  TRUSTED min P(nominal) s with P<0.9 max drift z
+sitl1.ulg:77     SIH, no injection       76   100.0%          0.965          0.0        0.03
+sitl2.ulg:290    SIH, no injection      288   100.0%          0.966          0.0        0.08
+flight1.ulg      REAL LOG               911   100.0%          0.965          0.0        1.18
+flight2.ulg      REAL LOG               334   100.0%          0.965          0.0        0.25
+
+Minimum P(nominal) excludes the warm-up period. No attack is present in any log.
