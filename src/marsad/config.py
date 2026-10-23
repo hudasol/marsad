@@ -1,5 +1,6 @@
 """Engine configuration and vehicle presets."""
 from __future__ import annotations
+from typing import Optional
 from dataclasses import dataclass, field, replace
 
 
@@ -20,6 +21,8 @@ class EngineConfig:
     bias_tau: float = 900.0        # s, time constant of the (deliberately slow) bias estimator
     bias_min_s: float = 150.0      # s of clean learning before the tighter bias bound is used
     ref_bias_residual: float = 0.03  # m/s, bias bound assumed AFTER estimation (random-walk residual)
+    bias_guard_window_s: float = 30.0  # s, compare the bias estimate with its value this long ago
+    bias_guard_step: Optional[float] = None  # m/s, largest plausible move in that window (None: ref_bias_residual)
 
     # --- GNSS signal baselines (priors; adapted online while trusted) --------
     cn0_prior: float = 42.0        # dB-Hz
