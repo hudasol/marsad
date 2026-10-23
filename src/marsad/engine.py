@@ -46,6 +46,8 @@ class TrustEngine:
         self.ref_valid_since = -1e18
         self.bias = [0.0, 0.0]       # estimated reference velocity bias (m/s)
         self.bias_s = 0.0            # seconds of clean data the estimate is based on
+        self._bias_hist: list[tuple] = []   # (t, bias_e, bias_n) at each learning step, for the bias guard
+        self._bias_guard_r = 0.0     # evidence owed by the bias guard, added before the next fusion step
         self.ref_sigma = None
         # gnss bookkeeping
         self.fix_t: Optional[float] = None
@@ -127,6 +129,11 @@ class TrustEngine:
                       state=self.state, p_nominal=self.p_nom, warmup=warm)
 
         ev: list[Evidence] = []
+        if self._bias_guard_r > 0:       # a velocity consistent spoofer drags the GNSS velocity, and with it the
+            r = self._bias_guard_r       # bias estimate, faster than a real reference bias can wander
+            ev.append(Evidence("engine", "bias_estimate_moved", {H.SPOOF_DRIFT: r, H.SPOOF_JUMP: 0.4 * r, H.REPLAY: 0.3 * r},
+                               "reference bias estimate moved faster than a reference sensor bias can", None, r))
+            self._bias_guard_r = 0.0
         for d in self.detectors:
             ev.extend(d.update(ctx))
         for e in ev:                      # a takeover jump makes the long drift windows light up for minutes:
@@ -187,8 +194,16 @@ class TrustEngine:
                 lim = 1.5 * cfg.ref_bias_bound
                 be = self.bias[0] + a * ((ref.ve - g.ve) - self.bias[0])
                 bn = self.bias[1] + a * ((ref.vn - g.vn) - self.bias[1])
-                self.bias = [max(-lim, min(lim, be)), max(-lim, min(lim, bn))]
-                self.bias_s += gdt
+                be, bn = max(-lim, min(lim, be)), max(-lim, min(lim, bn))
+                old = self._bias_then(t - cfg.bias_guard_window_s) if self.bias_s >= cfg.bias_guard_window_s else None
+                step = cfg.ref_bias_residual if cfg.bias_guard_step is None else cfg.bias_guard_step
+                if old is not None and (abs(be - old[0]) > step or abs(bn - old[1]) > step):
+                    self.bias = [old[0], old[1]]      # do not learn; restore the estimate from one window ago
+                    self._bias_guard_r = 1.6 * (3.0 - cfg.drift_z0) * gdt   # drift evidence rule at z = 3
+                else:
+                    self.bias = [be, bn]
+                    self.bias_s += gdt
+                self._bias_hist.append((t, self.bias[0], self.bias[1]))
             if g is not None:
                 self.last_good = (t, pe, pn)
                 if ref_ok:
@@ -201,6 +216,16 @@ class TrustEngine:
         return self._report(t, g, pe, pn, ev, offset_m, ref_ok, warm)
 
     # ----------------------------------------------------------------- helpers
+    def _bias_then(self, t_then: float):
+        """Bias estimate at the last learning step at or before t_then, or None if history is shorter."""
+        h = self._bias_hist
+        k = bisect.bisect_right(h, (t_then, float("inf"), float("inf"))) - 1
+        if k < 0:
+            return None
+        if k > 0:
+            del h[:k]                   # older entries are no longer needed
+        return h[0][1], h[0][2]
+
     def _update_anchor(self, t, dt, oe, on):
         if self.anchor is None or not self.anchor_valid:
             self.anchor = (oe, on)
