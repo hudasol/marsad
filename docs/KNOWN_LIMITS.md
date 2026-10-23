@@ -74,7 +74,28 @@ The simulated floor is lower than the SIH floor mainly because in the simulator 
 and attacks start 150 to 260 s into each scenario (`src/marsad/sim/generator.py`), so the tighter bound is in force
 before the attack begins.
 
-## Not addressed here
+## Tried and rejected: the bias estimator guard (2026-10-23)
 
-A possible engine change (detect a fast moving bias estimate, and let the estimator learn on every fix) is written as
-a preregistered proposal in [PREREGISTRATION_BIAS.md](PREREGISTRATION_BIAS.md). It has not been implemented.
+The guard proposed in [PREREGISTRATION_BIAS.md](PREREGISTRATION_BIAS.md) was implemented exactly as written (commit
+`a65372c`), evaluated, rejected and reverted (commit `5c5ca79`). The engine in this repository is the v1.3.0 engine.
+Results of the runs that completed are in `docs/results/bias_fix/`; the v1.3.0 files are unchanged.
+
+| check | label | v1.3.0 | with the guard | prediction |
+|---|---|---|---|---|
+| sitl1, every row (32 s window) | SIH + INJECTED | see `weighting_fix/sih_inject.txt` | identical | unchanged: hit |
+| sitl1 and sitl2 clean, time TRUSTED | SIH + INJECTED (zero offset) | 100% | 100% (`bias_fix/clean_margin.txt`) | hit |
+| flight1, flight2 time TRUSTED | REAL LOG | 100% | 100% (`bias_fix/real_logs.txt`) | hit |
+| held out `benign_multipath`, runs reaching DENIED | SIMULATED | 3% | 7% | rise of at most 3 points: **miss** |
+| held out `nominal` and `benign_obstruction`, runs reaching DENIED | SIMULATED | 0% and 0% | 0% and 0% | hit |
+| held out `spoof_drift_stealth`, median latency | SIMULATED | 58.3 s | 52.9 s | no higher than 58.3 s: hit |
+| dev `nominal`, time not TRUSTED and runs reaching DENIED | SIMULATED | 0% and 0% | 1% and 3% (1 of 30) | not predicted; a new false alarm on a clean run |
+| held out navigation error (median of max), `spoof_jump` and `replay` | SIMULATED | 8 m and 10 m | 23 m and 21 m | not predicted; a regression |
+| new test (`tests/test_bias_guard.py`) | | fails | passes | hit |
+| sitl2 230 s rows (including 0.25 m/s velocity consistent), detectability sweep, ablation, full test suite with the guard | | | not completed: the runs were stopped when the rejection was already certain | not scored |
+
+**Decision: rejected.** The acceptance conditions were no new false alarm on any clean or REAL LOG run and no
+SIMULATED regression beyond seed noise. The same seeds as v1.3.0 were used, so the changes above are not seed noise:
+a clean simulated flight now reaches DENIED, multipath reaches DENIED more often, and navigation error after a jump
+or replay roughly doubles. The likely reason, not verified: in the simulator the estimator is still converging after
+30 s of learning, so the guard compares against an early, unconverged estimate and fires on honest data. The 0.25 m/s
+velocity consistent miss therefore remains, as described above. Any further attempt needs a new preregistration.
