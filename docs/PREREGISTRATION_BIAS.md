@@ -62,3 +62,9 @@ latency within 0.5 s of `docs/results/weighting_fix/`.
 ## Decision
 
 Not implemented. Recorded in [RUN_LOG.md](RUN_LOG.md) for the author to decide.
+
+## Outcome
+
+Implemented, evaluated, rejected and reverted on 2026-10-23. Scored results and the decision are in
+[KNOWN_LIMITS.md](KNOWN_LIMITS.md), section "Tried and rejected: the bias estimator guard". The predictions above
+are left as they were written.
