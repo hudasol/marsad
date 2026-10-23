@@ -11,14 +11,15 @@ python -m marsad.api            # open http://127.0.0.1:8000
 
 With `MARSAD_API_KEY` set, open `http://127.0.0.1:8000/#key=YOUR_KEY`.
 
-> Screenshots below show **SIMULATED** data from the measurement-level simulator (seed 1, dev split).
+> Screenshots below show **SIMULATED** data from the measurement-level simulator (seed 1, dev split, 50x, v1.3.0
+> engine, captured on 2026-10-23 with Playwright and Microsoft Edge about 7 s after the start).
 > Nothing on them comes from hardware. The simulator has no RF or waveform code.
 
-![Spoof-drift demo, offset view](img/dashboard-spoof-drift.png)
+![SIMULATED spoof-drift demo, offset view](img/dashboard-spoof-drift.png)
 
-![Spoof-drift demo, map view](img/dashboard-spoof-drift-map.png)
+![SIMULATED spoof-drift demo, event view](img/dashboard-spoof-drift-map.png)
 
-![Jamming demo](img/dashboard-jam-hard.png)
+![SIMULATED jamming demo, event view](img/dashboard-jam-hard.png)
 
 ## Panels
 

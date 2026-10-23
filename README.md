@@ -9,7 +9,7 @@ hardware-independent and standard-library only; it speaks PX4 ULog, MAVLink and 
 operator dashboard, and exposes an **MCP server** so AI agents and decision platforms can use it as a tool.
 
 ![dashboard](docs/img/dashboard-spoof-drift.png)
-<sub>Operator dashboard during a SIMULATED carry-off: what GNSS said (purple), what Marsad advises (orange), what was real (white).</sub>
+<sub>Operator dashboard, offset view, during a SIMULATED carry-off (seed 1, dev split, v1.3.0): what GNSS said (orchid), what Marsad advises (blue, orange while it advises the reference), what was real (white).</sub>
 
 > **Independence notice.** Marsad is an independent open-source project. It is not affiliated with, endorsed by, or
 > sponsored by EDGE Group, the Technology Innovation Institute (TII), the Advanced Technology Research Council (ATRC), or
