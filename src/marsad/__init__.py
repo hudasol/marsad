@@ -4,7 +4,7 @@ from .config import EngineConfig, preset
 from .engine import TrustEngine
 from .types import Evidence, GnssFix, Hypothesis, NavAction, NavSample, RefMotion, TrustReport, TrustState
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 __all__ = [
     "GnssFix",
     "RefMotion",
