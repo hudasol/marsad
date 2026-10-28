@@ -29,7 +29,7 @@ operator dashboard, and exposes an **MCP server** so AI agents and decision plat
 
 Public reporting from March 2026 describes navigation interference affecting more than 1,100 commercial ships within
 a day in UAE, Qatari, Omani and Iranian waters, with vessel positions displaced onto land and airports (sources in
-[docs/EDGE_PROPOSAL.md](docs/EDGE_PROPOSAL.md)). The hardest case is
+[docs/EDGE_PROPOSAL.md](docs/proposals/EDGE_PROPOSAL.md)). The hardest case is
 **carry-off spoofing**: a slow drift that stays under the sanity checks autopilots use for noise and faults, because
 a navigation filter absorbs slow drift as real motion. Navigation without GNSS exists. What is missing is the layer
 that **decides when to switch to it**, and, one level up, a way for a decision platform to stop inheriting poisoned
@@ -110,9 +110,9 @@ print(report.state, report.trust, report.action, report.summary)
 
 * **What is claimed and what is not:** [docs/VALIDATION.md](docs/VALIDATION.md). Every number carries one label:
   SIMULATED, REAL LOG, SIH + INJECTED or SITL FAULT.
-* **Proposal seed:** [docs/EDGE_PROPOSAL.md](docs/EDGE_PROPOSAL.md). **Open review findings:**
-  [docs/REVIEW_FINDINGS.md](docs/REVIEW_FINDINGS.md). **Predictions written before each run:**
-  [docs/PREREGISTRATION_SIH.md](docs/PREREGISTRATION_SIH.md) and [docs/PREREGISTRATION_WEIGHTING.md](docs/PREREGISTRATION_WEIGHTING.md).
+* **Proposal seed:** [docs/EDGE_PROPOSAL.md](docs/proposals/EDGE_PROPOSAL.md). **Open review findings:**
+  [docs/REVIEW_FINDINGS.md](docs/research/REVIEW_FINDINGS.md). **Predictions written before each run:**
+  [docs/PREREGISTRATION_SIH.md](docs/research/PREREGISTRATION_SIH.md) and [docs/PREREGISTRATION_WEIGHTING.md](docs/research/PREREGISTRATION_WEIGHTING.md).
   **What is still missed:** [docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md). **Log files, checksums and downloads:**
   [docs/DATA.md](docs/DATA.md).
 * **Reproduce each table with one command** (from the repository root, after `pip install -e ".[dev]"`). The
@@ -137,10 +137,10 @@ to the v1.3.0 GitHub Release. [docs/DATA.md](docs/DATA.md) gives SHA256 checksum
 
 ## Documentation
 
-[Build plan](plan.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
-[One-pager](docs/ONE_PAGER.md) · [Validation status](docs/VALIDATION.md) · [Adapters](docs/ADAPTERS.md) ·
+[Build plan](docs/history/plan.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
+[One-pager](docs/proposals/ONE_PAGER.md) · [Validation status](docs/VALIDATION.md) · [Adapters](docs/ADAPTERS.md) ·
 [Track trust](docs/TRACKS.md) · [API](docs/API.md) · [MCP](docs/MCP.md) · [Dashboard](docs/DASHBOARD.md) ·
-[Milestones](docs/MILESTONES.md) · [Security & responsible use](SECURITY.md)
+[Milestones](CHANGELOG.md) · [Security & responsible use](SECURITY.md)
 
 ## What it is not
 
@@ -165,7 +165,7 @@ to the v1.3.0 GitHub Release. [docs/DATA.md](docs/DATA.md) gives SHA256 checksum
 | `v1.3.0` | Evidence weighting fix for mixed sample rates, preregistered (docs/PREREGISTRATION_WEIGHTING.md) and scored in docs/VALIDATION.md and docs/EVALUATION.md; results in docs/results/weighting_fix/ |
 | next | Bias estimator review (velocity consistent drift absorption), then advisory companion computer, then closed loop in an authorised range |
 
-All tags are listed in [docs/MILESTONES.md](docs/MILESTONES.md).
+All tags are listed in [docs/MILESTONES.md](CHANGELOG.md).
 
 ## License
 

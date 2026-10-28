@@ -82,5 +82,5 @@ window does not rescue the slow cases while the evidence weighting defect remain
 
 ## Outcome
 
-Results, hits and misses are reported in [VALIDATION.md](VALIDATION.md), section "SIH + INJECTED results". This
+Results, hits and misses are reported in [VALIDATION.md](../VALIDATION.md), section "SIH + INJECTED results". This
 preregistration is otherwise left as it was written.
