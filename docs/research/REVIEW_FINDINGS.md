@@ -5,7 +5,7 @@ had not seen how the work was done. It looked for unlabelled claims, numbers tha
 mismatches between docs and code, dead links, stray files and style problems. Only documentation and labels were
 changed in response; engine behaviour, thresholds, detectors and the v1.1.0 results were not touched.
 
-**Checked and found consistent:** every held out number in README, EVALUATION, EDGE_PROPOSAL and RESUME_BULLET
+**Checked and found consistent:** every held out number in README, EVALUATION, EDGE_PROPOSAL
 against `heldout.md`; the SIH + INJECTED tables against `sih_inject.txt` and `sih_inject_long.txt`; the diagnosis
 figures against `sih_diagnose*.txt`; the sitl2 acceptance figures against `sitl2_timeline.txt`; the REAL LOG figures
 (911 s + 334 s) against `real_logs.txt`; `detectability.md` against the figure; every README CLI command against
@@ -74,7 +74,7 @@ limitation of the bias estimator (it can absorb part of a velocity consistent dr
 
 A second hostile review was run after the evidence weighting fix and the documentation update, by a reviewer that
 had not seen the work. It confirmed that every post fix number in README, EDGE_PROPOSAL, ONE_PAGER,
-TECHNICAL_REPORT, RESUME_BULLET, KNOWN_LIMITS and DATA matches `docs/results/weighting_fix/`, that no relative link is
+TECHNICAL_REPORT, KNOWN_LIMITS and DATA matches `docs/results/weighting_fix/`, that no relative link is
 dead, that there are no em or en dashes, emojis or attribution problems, and that 143 tests collect (all 143 pass
 locally, 211 s).
 
