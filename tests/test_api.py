@@ -390,3 +390,34 @@ def test_body_size_cap(monkeypatch):
     with TestClient(create_app(store=Store())) as c:
         big = {"samples": [{"t": float(i)} for i in range(100)]}
         assert c.post("/v1/vehicles/a/samples", json=big).status_code == 413
+
+
+def test_service_refuses_open_network_bind_without_a_key(monkeypatch, capsys):
+    from marsad.api.__main__ import main
+
+    monkeypatch.delenv("MARSAD_API_KEY", raising=False)
+    assert main(["--host", "0.0.0.0", "--port", "8123"]) == 2
+    assert "MARSAD_API_KEY" in capsys.readouterr().err
+
+
+def test_acknowledge_is_recorded_in_the_audit_trail(client):
+    run, samples = sim_samples("jam_hard")
+    post_all(client, "uav1", samples[:200], "uav_multirotor")
+    client.post("/v1/vehicles/uav1/acknowledge", json={"operator": "duty officer", "note": "checked on the ground"})
+    rows = client.get("/v1/audit").json()["overrides"]
+    assert rows and rows[-1]["operator"] == "duty officer" and rows[-1]["vehicle_id"] == "uav1"
+    assert rows[-1]["wall_time"].endswith("Z")
+
+
+def test_chunked_body_over_the_cap_is_refused(monkeypatch):
+    import marsad.api.app as appmod
+
+    monkeypatch.setattr(appmod, "MAX_BODY", 1000)
+    with TestClient(create_app(store=Store())) as c:
+
+        def chunks():
+            for _ in range(20):
+                yield b" " * 100
+
+        r = c.post("/v1/vehicles/x/samples", content=chunks(), headers={"content-type": "application/json"})
+        assert r.status_code == 413
