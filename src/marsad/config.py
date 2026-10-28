@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field, replace
+import json
+from dataclasses import dataclass, field, fields, replace
 
 
 @dataclass
@@ -88,3 +89,23 @@ def preset(name: str = "uav_multirotor", **overrides) -> EngineConfig:
     if name not in _PRESETS:
         raise KeyError(f"unknown preset {name!r}; choose from {sorted(_PRESETS)}")
     return EngineConfig(**{**_PRESETS[name], **overrides})
+
+
+def load_config(path: str) -> EngineConfig:
+    """Build an EngineConfig from a JSON file: an optional "preset" name plus any EngineConfig field to override.
+
+    Example: {"preset": "ground_robot", "ref_bias_bound": 0.05, "sigma_pos": 3.0}
+    Unknown keys are an error, so a typo cannot silently leave a threshold at its default.
+    """
+    with open(path, encoding="utf-8") as fh:
+        data = json.load(fh)
+    if not isinstance(data, dict):
+        raise ValueError(f"{path}: expected a JSON object")
+    name = data.pop("preset", "uav_multirotor")
+    known = {f.name for f in fields(EngineConfig)}
+    unknown = sorted(set(data) - known)
+    if unknown:
+        raise ValueError(f"{path}: unknown configuration key(s) {unknown}; valid keys: {sorted(known)}")
+    if "drift_windows" in data:
+        data["drift_windows"] = tuple(float(x) for x in data["drift_windows"])
+    return preset(name, **data)

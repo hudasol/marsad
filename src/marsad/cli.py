@@ -35,6 +35,11 @@ def main(argv=None) -> int:
     r = sub.add_parser("replay", help="replay a PX4 ULog (.ulg) or MAVLink log (.tlog) through the trust engine")
     r.add_argument("log")
     r.add_argument("--preset", default="uav_multirotor")
+    r.add_argument(
+        "--config",
+        default=None,
+        help="JSON file of engine settings (see marsad.config.load_config); overrides --preset",
+    )
     r.add_argument("--json", default=None, help="write transitions and summary as JSON")
     r.add_argument(
         "--no-contaminated-ref",
@@ -49,6 +54,11 @@ def main(argv=None) -> int:
         "connection", help="pymavlink connection string, e.g. udpin:0.0.0.0:14550, tcp:host:5760, /dev/ttyUSB0"
     )
     mo.add_argument("--preset", default="uav_multirotor")
+    mo.add_argument(
+        "--config",
+        default=None,
+        help="JSON file of engine settings (see marsad.config.load_config); overrides --preset",
+    )
     mo.add_argument(
         "--out",
         default=None,
@@ -112,12 +122,18 @@ def main(argv=None) -> int:
     return 1
 
 
+def _engine_config(a):
+    from .config import load_config, preset
+
+    return load_config(a.config) if getattr(a, "config", None) else preset(a.preset)
+
+
 def _monitor(a) -> int:
     """Read MAVLink, run the engine, print each state change; optionally publish advisory MAVLink messages."""
-    from . import TrustEngine, preset
+    from . import TrustEngine
     from .adapters.mavlink import MavlinkReporter, MavlinkSource
 
-    eng = TrustEngine(preset(a.preset))
+    eng = TrustEngine(_engine_config(a))
     src = MavlinkSource(a.connection, allow_contaminated=not a.no_contaminated_ref, idle_timeout=a.idle_timeout)
     rep = MavlinkReporter(a.out) if a.out else None
     prev = None
@@ -199,10 +215,10 @@ def _log_cmd(a) -> int:
             json.dump(info.to_dict(), open(a.json, "w"), indent=1)
         return 0
     # replay
-    from . import TrustEngine, preset
+    from . import TrustEngine
     from .adapters.replay import format_replay, replay_samples
 
-    eng = TrustEngine(preset(a.preset))
+    eng = TrustEngine(_engine_config(a))
     if ulog:
         from .adapters.ulog import load_ulog
 

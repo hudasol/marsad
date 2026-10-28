@@ -27,6 +27,9 @@ marsad monitor udpin:0.0.0.0:14550          # follow a live MAVLink link, print 
 marsad monitor udpin:0.0.0.0:14550 --out udpout:127.0.0.1:14551   # also publish advisory MSD_TRUST / MSD_STATE values
 ```
 
+`replay` and `monitor` take `--config file.json` to override engine settings for your platform, for example
+`{"preset": "ground_robot", "ref_bias_bound": 0.05, "sigma_pos": 3.0}`; unknown keys are rejected.
+
 `monitor` is the companion computer entry point: it reads GPS and reference messages from the link, runs the engine
 and prints state changes as they happen. With `--out` it uses `MavlinkReporter`, which can only send the advisory
 messages described below. It has been exercised on `.tlog` files and a localhost UDP loop, not against a real
