@@ -23,7 +23,7 @@ jobs:
       - run: twine check dist/*
       - name: install the wheel and run the CLI
         run: |
-          python -m venv /tmp/venv && /tmp/venv/bin/pip install dist/*.whl
+          python -m venv /tmp/venv && /tmp/venv/bin/pip install "$(ls dist/*.whl)[sim]"
           /tmp/venv/bin/marsad --version
           /tmp/venv/bin/marsad demo spoof_jump --seed 1
   test:
