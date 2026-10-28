@@ -62,7 +62,38 @@ median latency within 0.5 s of `docs/results/weighting_fix/`.
 
 ## Outcome
 
-Not yet scored.
+Scored 2026-10-28 against `docs/results/prior_bound/` (second run) and `docs/results/baselines/`. The first run is
+kept in `docs/results/prior_bound_run1/`; it exposed the anchor history defect described below.
+
+| prediction | result | verdict |
+|---|---|---|
+| sitl2, 0.25 m/s velocity consistent: 4/4, median 100 to 170 s | 4/4, 113.6 s | hit |
+| sitl2, 0.25 m/s not velocity consistent: 4/4, no later than 114.1 s | 4/4, 113.4 s | hit |
+| sitl2, 0.1 m/s both modes: 0/4 | 0/4 in both | hit |
+| sitl2, 0.5, 1, 2 m/s: median no later than v1.3.0 plus 0.5 s | 42.4 to 42.5 s, 25.4 to 25.5 s, 15.6 to 15.8 s; all at or below v1.3.0 | hit |
+| sitl2, jumps | 4/4 at the first fix | hit |
+| sitl1, every row unchanged | the velocity consistent rows at 1 and 2 m/s moved earlier (27.8 to 25.5 s, 16.3 to 15.8 s); the rest unchanged | **miss** (improvement) |
+| sitl1 and sitl2 clean: 0 samples not TRUSTED | 0 | hit |
+| held out nominal, obstruction: 0% and 0% DENIED | 0% and 0% | hit |
+| held out multipath: at most 6% DENIED | 3% | hit |
+| held out `spoof_drift_stealth`, `spoof_drift` no later than before plus 0.5 s | 58.0 s and 27.1 s against 58.3 s and 27.2 s | hit |
+| held out every other attack row unchanged | detection and latency unchanged; `spoof_drift_ref_outage` median navigation error 37 to 31 m and settled class accuracy 87% to 83% | **miss** |
+| detectability sweep: each cell at least as high, 0.05 m/s still 0% | 0.05 m/s is 0% in all rows; the 0.08 bias, 0.15 m/s cell fell from 100% to 94%; the 0.1 m/s cells rose (56%, 56%, 62%) | **miss** (one cell) |
+| REAL LOG flight1 and flight2: 100% TRUSTED | not run; the logs were not available to the build environment | not scored |
+| tests: all pass, one new test fails before the change | 167 pass; `test_velocity_consistent_drift_of_a_quarter_metre_per_second_is_detected` fails at the parent of the engine change | hit |
+
+Deviations from the preregistered plan:
+
+* The first scoring run showed `spoof_drift_ref_outage` seed 5015 going from 36 m to 495 m of navigation error. The
+  cause was not the new channel but an existing defect: a new anchor segment kept the anchor history of the previous
+  one, so a later rewind used samples from before the reference restarted. The fix (clear the history when a new
+  anchor starts) was not part of the preregistration. Everything was rerun after it; run 1 is kept as a record.
+* The `ref_outage` navigation error and settled class accuracy changes above are the effect of that fix and of the
+  channel together, and were not separated.
+
+Decision: kept. No nominal or benign prediction failed, the target case was detected, and the three misses are an
+improvement on two rows and a small loss on two cells. The 0.08 bias, 0.15 m/s cell is the only place detection got
+worse, and it is recorded in `docs/KNOWN_LIMITS.md`.
 
 ## Erratum, 2026-10-28, before any run was scored
 
