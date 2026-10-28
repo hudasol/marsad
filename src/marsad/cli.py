@@ -26,6 +26,7 @@ def main(argv=None) -> int:
     sv = sub.add_parser("serve", help="run the REST/SSE service and operator dashboard")
     sv.add_argument("--host", default="127.0.0.1")
     sv.add_argument("--port", type=int, default=8000)
+    sv.add_argument("--insecure", action="store_true", help="allow a non loopback bind without MARSAD_API_KEY")
     mc = sub.add_parser("mcp", help="run the MCP server (stdio by default)")
     mc.add_argument("--http", action="store_true")
     mc.add_argument("--port", type=int, default=8765)
@@ -79,7 +80,7 @@ def main(argv=None) -> int:
     if a.cmd == "serve":
         from .api.__main__ import main as serve_main
 
-        return serve_main(["--host", a.host, "--port", str(a.port)])
+        return serve_main(["--host", a.host, "--port", str(a.port)] + (["--insecure"] if a.insecure else []))
     if a.cmd == "mcp":
         from .mcp_server import main as mcp_main
 

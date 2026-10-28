@@ -6,7 +6,9 @@ signal-synthesis code and cannot be used to interfere with any receiver. Contrib
 signal generation or attack tooling will not be accepted.
 
 * Marsad does not attribute interference to any actor.
-* The service has no authentication by default. `marsad serve` binds to 127.0.0.1, but the container image
-  (`Dockerfile`) binds to 0.0.0.0 so that it can be reached through a published port. Set `MARSAD_API_KEY` and put
-  it behind TLS before exposing either. Do not expose it to untrusted networks.
+* On the loopback address the service needs no key. On any other address it refuses to start unless `MARSAD_API_KEY`
+  is set (or `--insecure` is given for a closed network). The container binds 0.0.0.0, so it needs the key:
+  `docker run -p 8000:8000 -e MARSAD_API_KEY=... marsad`. Put it behind TLS before exposing it. The key is accepted as
+  `X-API-Key` or `Authorization: Bearer`; the stream endpoint also takes `?api_key=` because EventSource cannot set
+  headers, so keep the service off shared proxies that log query strings.
 * Report vulnerabilities privately through GitHub's "Report a vulnerability" (Security tab).

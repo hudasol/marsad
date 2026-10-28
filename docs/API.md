@@ -15,7 +15,7 @@ trusted-network use. It also serves the [dashboard](DASHBOARD.md) at `/`.
 ```bash
 pip install -e ".[api]"
 python -m marsad.api                       # http://127.0.0.1:8000  (dashboard at /, OpenAPI at /docs)
-python -m marsad.api --host 0.0.0.0 --port 8080
+MARSAD_API_KEY=... python -m marsad.api --host 0.0.0.0 --port 8080   # refuses without a key
 ```
 
 Embed it:
