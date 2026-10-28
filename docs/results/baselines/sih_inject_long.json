@@ -81,8 +81,8 @@
    "attack": "drift rate=0.25, vel_consistent=True",
    "n": 4,
    "marsad": {
-    "detected": 0,
-    "median_s": null
+    "detected": 4,
+    "median_s": 113.564
    },
    "gate": {
     "detected": 0,
@@ -114,7 +114,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 113.56400000000001
+    "median_s": 113.44
    },
    "gate": {
     "detected": 0,
@@ -146,7 +146,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 48.314
+    "median_s": 42.501999999999995
    },
    "gate": {
     "detected": 0,
@@ -178,7 +178,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 42.502
+    "median_s": 42.44
    },
    "gate": {
     "detected": 0,
@@ -210,7 +210,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 27.251999999999995
+    "median_s": 25.502000000000002
    },
    "gate": {
     "detected": 0,
@@ -242,7 +242,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 25.5
+    "median_s": 25.438000000000002
    },
    "gate": {
     "detected": 0,
@@ -274,7 +274,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 16.189999999999998
+    "median_s": 15.751999999999995
    },
    "gate": {
     "detected": 0,
@@ -306,7 +306,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 15.689999999999998
+    "median_s": 15.628
    },
    "gate": {
     "detected": 0,

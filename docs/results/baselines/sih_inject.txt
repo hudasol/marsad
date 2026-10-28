@@ -9,9 +9,9 @@ clean log, samples not TRUSTED: gate 0, ekf2_gate 0, ekf2_gate_ref 0, window 0, 
 | drift rate=0.25, vel_consistent=False | 0/4 | 0/4 | 0/4 | 0/4 | 0/4 | 0/4 | 0/4 |
 | drift rate=0.5, vel_consistent=True | 0/4 | 0/4 | 0/4 | 0/4 | 4/4 31.1 s | 0/4 | 4/4 31.1 s |
 | drift rate=0.5, vel_consistent=False | 0/4 | 0/4 | 0/4 | 0/4 | 4/4 31.1 s | 0/4 | 4/4 31.1 s |
-| drift rate=1.0, vel_consistent=True | 4/4 27.8 s | 0/4 | 0/4 | 0/4 | 4/4 18.1 s | 0/4 | 4/4 18.1 s |
+| drift rate=1.0, vel_consistent=True | 4/4 25.5 s | 0/4 | 0/4 | 0/4 | 4/4 18.1 s | 0/4 | 4/4 18.1 s |
 | drift rate=1.0, vel_consistent=False | 4/4 25.5 s | 0/4 | 0/4 | 0/4 | 4/4 18.1 s | 0/4 | 4/4 18.1 s |
-| drift rate=2.0, vel_consistent=True | 4/4 16.3 s | 0/4 | 0/4 | 4/4 13.9 s | 4/4 11.4 s | 0/4 | 4/4 11.4 s |
+| drift rate=2.0, vel_consistent=True | 4/4 15.8 s | 0/4 | 0/4 | 4/4 13.9 s | 4/4 11.4 s | 0/4 | 4/4 11.4 s |
 | drift rate=2.0, vel_consistent=False | 4/4 15.7 s | 0/4 | 4/4 13.9 s | 4/4 13.9 s | 4/4 11.4 s | 0/4 | 4/4 11.4 s |
 | jump mag=50.0 | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 0/4 | 4/4 0.0 s |
 | jump mag=200.0 | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 4/4 0.0 s | 0/4 | 4/4 0.0 s |

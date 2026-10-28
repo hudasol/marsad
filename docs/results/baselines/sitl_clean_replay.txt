@@ -1,0 +1,14 @@
+../data/sitl1.ulg: 10784 samples, reference px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]
+  gate           not TRUSTED in 516 samples (4.78%)
+  ekf2_gate      not TRUSTED in 129 samples (1.20%)
+  ekf2_gate_ref  not TRUSTED in 129 samples (1.20%)
+  window         not TRUSTED in 129 samples (1.20%)
+  signal         not TRUSTED in 1218 samples (11.29%)
+  stack          not TRUSTED in 1218 samples (11.29%)
+../data/sitl2.ulg: 51615 samples, reference px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]
+  gate           not TRUSTED in 0 samples (0.00%)
+  ekf2_gate      not TRUSTED in 0 samples (0.00%)
+  ekf2_gate_ref  not TRUSTED in 0 samples (0.00%)
+  window         not TRUSTED in 0 samples (0.00%)
+  signal         not TRUSTED in 0 samples (0.00%)
+  stack          not TRUSTED in 0 samples (0.00%)
