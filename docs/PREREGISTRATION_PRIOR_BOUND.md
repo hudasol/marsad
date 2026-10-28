@@ -63,3 +63,11 @@ median latency within 0.5 s of `docs/results/weighting_fix/`.
 ## Outcome
 
 Not yet scored.
+
+## Erratum, 2026-10-28, before any run was scored
+
+The sentence "Before the estimator has tightened its bound (first 150 s of learning) both z scores are identical" is
+wrong: the estimator subtracts its current estimate from the first sample, so the two integrals differ from the
+start. A synthetic check showed the learned estimate reached -0.061 m/s while the bound was still the wide one,
+because learning stops once the drift z score passes 1. The mechanism as stated in the bullet list (always take the
+larger of the two z scores) is what is implemented. The predictions table is unchanged.
