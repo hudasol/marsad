@@ -41,6 +41,23 @@ def main(argv=None) -> int:
         action="store_true",
         help="never use EKF-fused velocity as the reference (carry-off check is then off without a real reference)",
     )
+    mo = sub.add_parser(
+        "monitor",
+        help="follow a live MAVLink link (or a .tlog) and print trust transitions; optional advisory output link",
+    )
+    mo.add_argument(
+        "connection", help="pymavlink connection string, e.g. udpin:0.0.0.0:14550, tcp:host:5760, /dev/ttyUSB0"
+    )
+    mo.add_argument("--preset", default="uav_multirotor")
+    mo.add_argument(
+        "--out",
+        default=None,
+        help="advisory output link, e.g. udpout:127.0.0.1:14551 (trust values and status text only)",
+    )
+    mo.add_argument("--idle-timeout", type=float, default=None, help="stop after this many seconds without any message")
+    mo.add_argument(
+        "--no-contaminated-ref", action="store_true", help="never use an EKF-fused velocity as the reference"
+    )
     m = sub.add_parser("make-log", help="write a SYNTHETIC PX4-style ULog from a simulated scenario")
     m.add_argument("--kind", default="spoof_drift")
     m.add_argument("--seed", type=int, default=1)
@@ -88,9 +105,40 @@ def main(argv=None) -> int:
                 print(f"t={s.t:7.1f}s  {rep.state.value:9s} trust={rep.trust:.2f}  {rep.summary}")
                 prev = rep.state
         return 0
+    if a.cmd == "monitor":
+        return _monitor(a)
     if a.cmd in ("inspect", "replay", "make-log"):
         return _log_cmd(a)
     return 1
+
+
+def _monitor(a) -> int:
+    """Read MAVLink, run the engine, print each state change; optionally publish advisory MAVLink messages."""
+    from . import TrustEngine, preset
+    from .adapters.mavlink import MavlinkReporter, MavlinkSource
+
+    eng = TrustEngine(preset(a.preset))
+    src = MavlinkSource(a.connection, allow_contaminated=not a.no_contaminated_ref, idle_timeout=a.idle_timeout)
+    rep = MavlinkReporter(a.out) if a.out else None
+    prev = None
+    n = 0
+    try:
+        for s in src.samples():
+            r = eng.update(s)
+            n += 1
+            if rep is not None:
+                rep.publish(r)
+            if r.state != prev:
+                print(f"t={s.t:10.1f}s  {r.state.value:9s} trust={r.trust:.2f}  {r.summary}", flush=True)
+                prev = r.state
+    except KeyboardInterrupt:
+        pass
+    finally:
+        src.close()
+        if rep is not None:
+            rep.close()
+    print(f"{n} samples processed; reference: {src.mapper.ref_source or 'none'}")
+    return 0
 
 
 def _is_ulog(path: str) -> bool:
