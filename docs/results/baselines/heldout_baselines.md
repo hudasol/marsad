@@ -8,8 +8,8 @@ Cell: share of runs detected / median latency in seconds. Detection is the first
 | `jam_soft` | 100% / 4.6 | 100% / 4.1 | 100% / 6.0 | 100% / 6.2 | 100% / 5.8 | 100% / 1.6 | 100% / 1.6 |
 | `spoof_jump` | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 87% / 5.5 | 100% / 0.1 |
 | `spoof_jump_transient` | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 67% / 4.4 | 100% / 0.1 |
-| `spoof_drift` | 100% / 27.2 | 0% / - | 30% / 28.9 | 53% / 24.2 | 100% / 22.6 | 0% / - | 100% / 22.6 |
-| `spoof_drift_stealth` | 100% / 58.3 | 0% / - | 0% / - | 0% / - | 100% / 43.0 | 0% / - | 100% / 43.0 |
+| `spoof_drift` | 100% / 27.1 | 0% / - | 30% / 28.9 | 53% / 24.2 | 100% / 22.6 | 0% / - | 100% / 22.6 |
+| `spoof_drift_stealth` | 100% / 58.0 | 0% / - | 0% / - | 0% / - | 100% / 43.0 | 0% / - | 100% / 43.0 |
 | `replay` | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 27% / 0.5 | 100% / 0.1 |
 | `spoof_drift_noref` | 53% / 33.1 | 0% / - | 27% / 22.8 | 27% / 22.8 | 87% / 31.1 | 0% / - | 87% / 31.1 |
 | `spoof_drift_ref_outage` | 100% / 41.1 | 0% / - | 20% / 27.2 | 43% / 53.5 | 100% / 53.7 | 0% / - | 100% / 53.7 |
@@ -25,10 +25,10 @@ Position each detector would hand to the vehicle (Marsad: its recommended positi
 | `spoof_jump` | 8 | 430 | 430 | 430 | 430 | 430 | 430 |
 | `spoof_jump_transient` | 6 | 269 | 282 | 268 | 267 | 269 | 267 |
 | `spoof_drift` | 18 | 411 | 409 | 404 | 33 | 411 | 371 |
-| `spoof_drift_stealth` | 20 | 144 | 143 | 140 | 28 | 144 | 28 |
+| `spoof_drift_stealth` | 19 | 144 | 143 | 140 | 28 | 144 | 28 |
 | `replay` | 10 | 712 | 712 | 711 | 164 | 712 | 710 |
 | `spoof_drift_noref` | 99 | 243 | 243 | 243 | 86 | 243 | 243 |
-| `spoof_drift_ref_outage` | 37 | 121 | 119 | 118 | 65 | 121 | 103 |
+| `spoof_drift_ref_outage` | 31 | 121 | 119 | 118 | 65 | 121 | 103 |
 
 ### Alarm behaviour in benign conditions: share of runs with any alarm / mean share of time not TRUSTED
 

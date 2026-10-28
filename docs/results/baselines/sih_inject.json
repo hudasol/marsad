@@ -210,7 +210,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 27.838
+    "median_s": 25.524
    },
    "gate": {
     "detected": 0,
@@ -274,7 +274,7 @@
    "n": 4,
    "marsad": {
     "detected": 4,
-    "median_s": 16.276000000000003
+    "median_s": 15.776000000000003
    },
    "gate": {
     "detected": 0,
