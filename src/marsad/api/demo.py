@@ -19,11 +19,22 @@ class DemoRunner:
     def __init__(self, store: Store):
         self.store = store
         self.task: Optional[asyncio.Task] = None
+        # start and stop change the running task; overlapping requests must not each leave a loop behind
+        self._lock: Optional[asyncio.Lock] = None
 
     def status(self) -> dict:
         return dict(self.store.demo)
 
+    def _guard(self) -> asyncio.Lock:
+        if self._lock is None:
+            self._lock = asyncio.Lock()
+        return self._lock
+
     async def start(self, kind: str, seed: int, split: str, speed: float) -> dict:
+        async with self._guard():
+            return await self._start(kind, seed, split, speed)
+
+    async def _start(self, kind: str, seed: int, split: str, speed: float) -> dict:
         sim = sim_mod()
         from ..sim.generator import KINDS, SPLITS
 
@@ -31,7 +42,7 @@ class DemoRunner:
             raise StoreError(422, f"unknown scenario {kind!r}; choose from {KINDS}")
         if split not in SPLITS:
             raise StoreError(422, f"unknown split {split!r}")
-        await self.stop(quiet=True)
+        await self._stop(quiet=True)
         run = await asyncio.to_thread(sim.generate, kind, seed, split)
         stream = []
         try:
@@ -67,6 +78,10 @@ class DemoRunner:
         return dict(st.demo)
 
     async def stop(self, quiet: bool = False) -> dict:
+        async with self._guard():
+            return await self._stop(quiet)
+
+    async def _stop(self, quiet: bool = False) -> dict:
         t, self.task = self.task, None
         if t is not None and not t.done():
             t.cancel()
