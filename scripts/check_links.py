@@ -4,6 +4,7 @@
 
 Checks inline links and images, ignores URLs, mailto links and in-page anchors.
 """
+
 import re
 import sys
 from pathlib import Path

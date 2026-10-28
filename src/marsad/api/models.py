@@ -3,6 +3,7 @@
 Field names match ``marsad.types.GnssFix`` / ``RefMotion`` so a JSON sample is a direct
 serialisation of the core dataclasses. Validation rejects NaN/Inf and out-of-range values.
 """
+
 from __future__ import annotations
 
 import os
@@ -70,7 +71,9 @@ class SampleIn(_Strict):
 
 class SamplesBody(_Strict):
     samples: list[SampleIn] = Field(..., min_length=1, max_length=MAX_BATCH)
-    preset: Optional[str] = Field(None, description=f"Vehicle preset, one of {PRESETS}. Used when the vehicle is created.")
+    preset: Optional[str] = Field(
+        None, description=f"Vehicle preset, one of {PRESETS}. Used when the vehicle is created."
+    )
 
 
 class TrackReportIn(_Strict):

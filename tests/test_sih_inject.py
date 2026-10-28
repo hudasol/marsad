@@ -23,7 +23,7 @@ def test_jump_displacement_is_exact_and_input_untouched():
     assert abs(haversine(g0.lat, g0.lon, g1.lat, g1.lon) - 100.0) < 0.5
     assert [(s.gnss.lat, s.gnss.lon) for s in smp if s.gnss][:5] == before
     g0, g1 = _pair(smp, att, 10)
-    assert (g0.lat, g0.lon) == (g1.lat, g1.lon)          # nothing changes before t_attack
+    assert (g0.lat, g0.lon) == (g1.lat, g1.lon)  # nothing changes before t_attack
 
 
 def test_drift_ramps_then_is_linear():

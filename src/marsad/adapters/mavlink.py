@@ -9,7 +9,9 @@ ADVISORY ONLY: MavlinkReporter can emit exactly NAMED_VALUE_FLOAT, STATUSTEXT an
 HEARTBEAT. It never sends commands, mode changes, position/setpoint messages or parameter writes; this is
 enforced in one choke point (`_send`) and covered by a test.
 """
+
 from __future__ import annotations
+
 import math
 import os
 from collections import deque
@@ -21,8 +23,17 @@ from .ulog import Px4Flag
 
 # MAV_ESTIMATOR_TYPE values that are independent of GNSS (verified in the 'all' dialect)
 _EST_INDEPENDENT = {2: "VISION", 3: "VIO", 6: "MOCAP", 7: "LIDAR"}
-_EST_NAMES = {0: "UNKNOWN", 1: "NAIVE", 2: "VISION", 3: "VIO", 4: "GPS", 5: "GPS_INS", 6: "MOCAP",
-              7: "LIDAR", 8: "AUTOPILOT"}
+_EST_NAMES = {
+    0: "UNKNOWN",
+    1: "NAIVE",
+    2: "VISION",
+    3: "VIO",
+    4: "GPS",
+    5: "GPS_INS",
+    6: "MOCAP",
+    7: "LIDAR",
+    8: "AUTOPILOT",
+}
 # MAV_FRAME ids we can interpret
 _F_LOCAL_NED, _F_LOCAL_ENU, _F_BODY_FRD, _F_LOCAL_FRD = 1, 4, 12, 20
 ALLOWED_OUT = frozenset({"NAMED_VALUE_FLOAT", "STATUSTEXT", "HEARTBEAT"})
@@ -34,7 +45,7 @@ def _import_mavutil(dialect: str = "all"):
     os.environ.setdefault("MAVLINK20", "1")
     try:
         from pymavlink import mavutil
-    except ImportError as e:        # pragma: no cover
+    except ImportError as e:  # pragma: no cover
         raise ImportError("MAVLink support needs pymavlink: pip install pymavlink  (or marsad[adapters])") from e
     return mavutil
 
@@ -43,6 +54,7 @@ def dialect_module(name: str = "all"):
     """The MAVLink 2 dialect module ('all' includes GNSS_INTEGRITY on current pymavlink; 'common' may not)."""
     os.environ.setdefault("MAVLINK20", "1")
     import importlib
+
     return importlib.import_module(f"pymavlink.dialects.v20.{name}")
 
 
@@ -64,13 +76,14 @@ def cn0_from_gps_status(msg) -> tuple:
     snr = list(getattr(msg, "satellite_snr", []) or [])
     used = list(getattr(msg, "satellite_used", []) or [])
     n = int(getattr(msg, "satellites_visible", len(snr)) or 0)
-    vals = [int(s) for s in snr[:max(n, 0) or len(snr)] if int(s) > 0]
+    vals = [int(s) for s in snr[: max(n, 0) or len(snr)] if int(s) > 0]
     m, sd = mean_std(vals)
     return m, sd, sum(1 for u in used if int(u)), len(vals)
 
 
-def sample_from_gps_raw_int(msg, t: Optional[float] = None, *, cn0: Optional[tuple] = None,
-                            agc: Optional[float] = None) -> GnssFix:
+def sample_from_gps_raw_int(
+    msg, t: Optional[float] = None, *, cn0: Optional[tuple] = None, agc: Optional[float] = None
+) -> GnssFix:
     """GPS_RAW_INT -> GnssFix.
 
     Units (MAVLink spec): lat/lon degE7, alt mm, eph = HDOP*100 (65535 unknown), vel = ground speed cm/s
@@ -90,11 +103,20 @@ def sample_from_gps_raw_int(msg, t: Optional[float] = None, *, cn0: Optional[tup
     nsat = getattr(msg, "satellites_visible", 255)
     tu = getattr(msg, "time_usec", 0)
     return GnssFix(
-        t=float(t), lat=msg.lat / 1e7, lon=msg.lon / 1e7, alt=msg.alt / 1e3, ve=ve, vn=vn,
-        cn0_mean=cn0[0] if cn0 else None, cn0_std=cn0[1] if cn0 else None,
-        n_sats=None if nsat == 255 else int(nsat), agc=agc,
+        t=float(t),
+        lat=msg.lat / 1e7,
+        lon=msg.lon / 1e7,
+        alt=msg.alt / 1e3,
+        ve=ve,
+        vn=vn,
+        cn0_mean=cn0[0] if cn0 else None,
+        cn0_std=cn0[1] if cn0 else None,
+        n_sats=None if nsat == 255 else int(nsat),
+        agc=agc,
         hdop=None if eph == 65535 else eph / 100.0,
-        fix_type=int(msg.fix_type), t_gnss=(tu / 1e6) if tu > 1e15 else None)
+        fix_type=int(msg.fix_type),
+        t_gnss=(tu / 1e6) if tu > 1e15 else None,
+    )
 
 
 def gnss_integrity_flag(msg, t: float) -> Px4Flag:
@@ -148,8 +170,9 @@ def ref_from_odometry(msg, t: float) -> Optional[tuple]:
     return RefMotion(t=float(t), ve=ve, vn=vn, sigma=sig, source=label), independent, label
 
 
-def ref_from_optical_flow_rad(msg, t: float, yaw: Optional[float], distance_m: Optional[float],
-                              min_quality: int = 50) -> Optional[RefMotion]:
+def ref_from_optical_flow_rad(
+    msg, t: float, yaw: Optional[float], distance_m: Optional[float], min_quality: int = 50
+) -> Optional[RefMotion]:
     """OPTICAL_FLOW_RAD (+ range) -> RefMotion. UNVERIFIED axis/sign convention (see docs)."""
     dt = msg.integration_time_us / 1e6
     d = msg.distance if msg.distance >= 0 else distance_m
@@ -173,8 +196,7 @@ def ref_from_local_position_ned(msg, t: float) -> Optional[RefMotion]:
     vn, ve = _fin(msg.vx), _fin(msg.vy)
     if vn is None or ve is None:
         return None
-    return RefMotion(t=float(t), ve=ve, vn=vn, sigma=None,
-                     source="mavlink:LOCAL_POSITION_NED[EKF-FUSED,CONTAMINATED]")
+    return RefMotion(t=float(t), ve=ve, vn=vn, sigma=None, source="mavlink:LOCAL_POSITION_NED[EKF-FUSED,CONTAMINATED]")
 
 
 # ------------------------------------------------------------------------------------ stateful map
@@ -187,20 +209,27 @@ class MavlinkMapper:
     allow_contaminated=True; a loud warning is recorded and emitted via warnings.warn.
     """
 
-    def __init__(self, *, allow_contaminated: bool = True, ref_ids: Optional[Iterable[tuple]] = None,
-                 max_cn0_age: float = 5.0, min_flow_quality: int = 50, warn: bool = True):
+    def __init__(
+        self,
+        *,
+        allow_contaminated: bool = True,
+        ref_ids: Optional[Iterable[tuple]] = None,
+        max_cn0_age: float = 5.0,
+        min_flow_quality: int = 50,
+        warn: bool = True,
+    ):
         self.allow_contaminated = allow_contaminated
-        self.ref_ids = set(ref_ids) if ref_ids else None      # {(sysid, compid)} allowed for ODOMETRY
+        self.ref_ids = set(ref_ids) if ref_ids else None  # {(sysid, compid)} allowed for ODOMETRY
         self.max_cn0_age = max_cn0_age
         self.min_flow_quality = min_flow_quality
         self.warn = warn
         self.warnings: list = []
-        self.flags: list = []                 # Px4Flag series from GNSS_INTEGRITY
+        self.flags: list = []  # Px4Flag series from GNSS_INTEGRITY
         self.ref_source: Optional[str] = None
         self.ref_contaminated = False
         self.counts: dict = {}
         self._t = -math.inf
-        self._cn0 = None                      # (t, mean, std, used, tracked)
+        self._cn0 = None  # (t, mean, std, used, tracked)
         self._yaw = None
         self._dist = None
         self._independent_seen = False
@@ -213,7 +242,7 @@ class MavlinkMapper:
     def _tick(self, msg, t):
         if t is None:
             t = float(getattr(msg, "_timestamp", None) or 0.0)
-        self._t = max(self._t, float(t))      # guard against non-monotonic log stamps
+        self._t = max(self._t, float(t))  # guard against non-monotonic log stamps
         return self._t
 
     def feed(self, msg, t: Optional[float] = None) -> list:
@@ -280,6 +309,7 @@ class MavlinkMapper:
                 self._warn(CONTAMINATED_WARNING + f" (source: {ref.source})")
                 if self.warn:
                     import warnings
+
                     warnings.warn(CONTAMINATED_WARNING, ContaminatedReferenceWarning, stacklevel=3)
         self.ref_source = ref.source
         return [NavSample(t=t, ref=ref)]
@@ -292,8 +322,16 @@ class MavlinkSource:
     without any message. The mapper (warnings, GNSS_INTEGRITY flags, reference source) is `.mapper`.
     """
 
-    def __init__(self, connection, *, allow_contaminated: bool = True, ref_ids=None,
-                 idle_timeout: Optional[float] = None, dialect: str = "all", warn: bool = True):
+    def __init__(
+        self,
+        connection,
+        *,
+        allow_contaminated: bool = True,
+        ref_ids=None,
+        idle_timeout: Optional[float] = None,
+        dialect: str = "all",
+        warn: bool = True,
+    ):
         self.connection = connection
         self.idle_timeout = idle_timeout
         self.mapper = MavlinkMapper(allow_contaminated=allow_contaminated, ref_ids=ref_ids, warn=warn)
@@ -301,7 +339,7 @@ class MavlinkSource:
             mavutil = _import_mavutil(dialect)
             self._conn = mavutil.mavlink_connection(connection, dialect=dialect)
             self.is_file = os.path.isfile(connection)
-        else:                                  # injected connection-like object (tests)
+        else:  # injected connection-like object (tests)
             self._conn = connection
             self.is_file = True
         self._closed = False
@@ -312,11 +350,12 @@ class MavlinkSource:
         self._closed = True
         try:
             self._conn.close()
-        except Exception:                      # pragma: no cover
+        except Exception:  # pragma: no cover
             pass
 
     def messages(self) -> Iterator:
         import time
+
         last = time.monotonic()
         while not self._closed:
             msg = self._conn.recv_match(blocking=not self.is_file, timeout=None if self.is_file else 1.0)
@@ -372,11 +411,19 @@ class MavlinkReporter:
     'serial:/dev/ttyAMA0:57600') or a file-like object with write(bytes) (used by tests).
     """
 
-    def __init__(self, connection, *, rate_hz: float = 2.0, system_id: int = 1, component_id: int = 191,
-                 heartbeat: bool = False, dialect: str = "all"):
+    def __init__(
+        self,
+        connection,
+        *,
+        rate_hz: float = 2.0,
+        system_id: int = 1,
+        component_id: int = 191,
+        heartbeat: bool = False,
+        dialect: str = "all",
+    ):
         self.min_interval = 1.0 / rate_hz
         self.use_heartbeat = heartbeat
-        self.sent = deque(maxlen=1000)         # names of messages sent (introspection / tests)
+        self.sent = deque(maxlen=1000)  # names of messages sent (introspection / tests)
         self._last_pub: Optional[float] = None
         self._last_hb: Optional[float] = None
         self._prev: Optional[TrustState] = None
@@ -384,8 +431,9 @@ class MavlinkReporter:
         self._mod = dialect_module(dialect)
         if isinstance(connection, str):
             mavutil = _import_mavutil(dialect)
-            self._conn = mavutil.mavlink_connection(connection, source_system=system_id,
-                                                    source_component=component_id, dialect=dialect)
+            self._conn = mavutil.mavlink_connection(
+                connection, source_system=system_id, source_component=component_id, dialect=dialect
+            )
             self._mav = self._conn.mav
         else:
             self._conn = None
@@ -393,7 +441,7 @@ class MavlinkReporter:
 
     def _send(self, msg) -> None:
         name = msg.get_type()
-        if name not in ALLOWED_OUT:            # the single choke point: advisory messages only
+        if name not in ALLOWED_OUT:  # the single choke point: advisory messages only
             raise RuntimeError(f"MavlinkReporter refuses to send {name}: advisory-only adapter")
         self._mav.send(msg)
         self.sent.append(name)
@@ -416,8 +464,11 @@ class MavlinkReporter:
                 out.append("NAMED_VALUE_FLOAT")
         if self.use_heartbeat and (self._last_hb is None or report.t - self._last_hb >= 1.0):
             self._last_hb = report.t
-            self._send(mod.MAVLink_heartbeat_message(
-                mod.MAV_TYPE_ONBOARD_CONTROLLER, mod.MAV_AUTOPILOT_INVALID, 0, 0, mod.MAV_STATE_ACTIVE, 3))
+            self._send(
+                mod.MAVLink_heartbeat_message(
+                    mod.MAV_TYPE_ONBOARD_CONTROLLER, mod.MAV_AUTOPILOT_INVALID, 0, 0, mod.MAV_STATE_ACTIVE, 3
+                )
+            )
             out.append("HEARTBEAT")
         return out
 

@@ -1,4 +1,5 @@
 """Tests for the track-trust module. All scenario data is SIMULATED."""
+
 import json
 import math
 
@@ -6,10 +7,19 @@ import pytest
 
 import marsad.tracks as T
 from marsad.geo import LocalFrame, haversine
-from marsad.tracks import (InterferenceMap, TrackConfig, TrackReport, TrackTrust, TrackTrustEngine, Zone,
-                           evaluate, make_demo_stream, make_scenario)
+from marsad.tracks import (
+    InterferenceMap,
+    TrackConfig,
+    TrackReport,
+    TrackTrust,
+    TrackTrustEngine,
+    Zone,
+    evaluate,
+    make_demo_stream,
+    make_scenario,
+)
 from marsad.tracks.geomfit import robust_circle_fit
-from marsad.tracks.sim import (AIS, KINDS, RADAR, demo_zones, make_demo_scenario, run_scenario)
+from marsad.tracks.sim import AIS, KINDS, RADAR, demo_zones, make_demo_scenario, run_scenario
 
 FR = LocalFrame(25.3, 54.8)
 
@@ -22,8 +32,16 @@ def rep(tid, src, t, e, n, **kw):
 
 # ---------------------------------------------------------------- API surface
 def test_public_exports():
-    for name in ("TrackReport", "TrackTrust", "Zone", "TrackTrustEngine", "InterferenceMap",
-                 "make_scenario", "evaluate", "make_demo_stream"):
+    for name in (
+        "TrackReport",
+        "TrackTrust",
+        "Zone",
+        "TrackTrustEngine",
+        "InterferenceMap",
+        "make_scenario",
+        "evaluate",
+        "make_demo_stream",
+    ):
         assert hasattr(T, name)
 
 
@@ -56,7 +74,9 @@ def _run(eng, reps):
 
 def test_clean_straight_track_is_trusted():
     eng = TrackTrustEngine()
-    res = _run(eng, [rep("A", "ais-like", t, 8.0 * t, 0.0, speed=8.0, course=90.0, accuracy_m=6.0) for t in range(0, 300, 10)])
+    res = _run(
+        eng, [rep("A", "ais-like", t, 8.0 * t, 0.0, speed=8.0, course=90.0, accuracy_m=6.0) for t in range(0, 300, 10)]
+    )
     assert res.state == "TRUSTED" and res.trust > 0.9 and not res.reasons
 
 
@@ -74,7 +94,9 @@ def test_teleport_single_source():
 def test_speed_displacement_mismatch():
     eng = TrackTrustEngine()
     # reports 3 m/s but moves 15 m/s (below the surface envelope, so only the consistency check can see it)
-    res = _run(eng, [rep("A", "s", t, 15.0 * t, 0.0, speed=3.0, course=90.0, accuracy_m=6.0) for t in range(0, 120, 10)])
+    res = _run(
+        eng, [rep("A", "s", t, 15.0 * t, 0.0, speed=3.0, course=90.0, accuracy_m=6.0) for t in range(0, 120, 10)]
+    )
     assert res.state != "TRUSTED"
     assert any("speed" in r["kind"] for r in res.reasons)
 
@@ -96,15 +118,22 @@ def test_forbidden_zone():
     zone = Zone("SIM-RUNWAY", zl[0], zl[1], 1500.0, {"surface"})
     eng = TrackTrustEngine(zones=[zone])
     # vessel creeps slowly into the zone (no jump, plausible kinematics)
-    reps = [rep("V", "ais-like", t, 3300.0 + 2.0 * t, 5000.0, speed=2.0, course=90.0, accuracy_m=6.0, cls="surface")
-            for t in range(0, 900, 10)]
+    reps = [
+        rep("V", "ais-like", t, 3300.0 + 2.0 * t, 5000.0, speed=2.0, course=90.0, accuracy_m=6.0, cls="surface")
+        for t in range(0, 900, 10)
+    ]
     res = _run(eng, reps)
     assert any(r["kind"] == "forbidden_zone" for r in res.reasons)
     assert res.state != "TRUSTED"
     # an aircraft over the same spot is fine
     eng = TrackTrustEngine(zones=[zone])
-    res = _run(eng, [rep("P", "ads-b-like", t, 4800.0 + 2.0 * t, 5000.0, speed=2.0, course=90.0, accuracy_m=6.0, cls="air")
-                     for t in range(0, 300, 10)])
+    res = _run(
+        eng,
+        [
+            rep("P", "ads-b-like", t, 4800.0 + 2.0 * t, 5000.0, speed=2.0, course=90.0, accuracy_m=6.0, cls="air")
+            for t in range(0, 300, 10)
+        ],
+    )
     assert res.state == "TRUSTED"
 
 
@@ -127,16 +156,19 @@ def test_proximity_association_without_shared_ids():
     for t in range(0, 400, 10):
         eng.ingest(rep("AIS-1", "ais-like", t, 5.0 * t, 0, speed=5.0, course=90.0, accuracy_m=6.0))
         off = 0.0 if t < 200 else 900.0
-        res = eng.ingest(rep("RAD-9", "radar-like", t + 2, 5.0 * (t + 2) + off, 0, speed=5.0, course=90.0, accuracy_m=35.0))
-    assert res.state != "TRUSTED"      # associated by proximity during the first 200 s, then they diverged
+        res = eng.ingest(
+            rep("RAD-9", "radar-like", t + 2, 5.0 * (t + 2) + off, 0, speed=5.0, course=90.0, accuracy_m=35.0)
+        )
+    assert res.state != "TRUSTED"  # associated by proximity during the first 200 s, then they diverged
 
 
 def test_circle_fit_and_pattern():
     import random
+
     rnd = random.Random(1)
     xs = [100 + 120 * math.cos(0.3 * i) + rnd.gauss(0, 3) for i in range(30)]
     ys = [-50 + 120 * math.sin(0.3 * i) + rnd.gauss(0, 3) for i in range(30)]
-    xs[7] += 80.0                       # outlier
+    xs[7] += 80.0  # outlier
     f = robust_circle_fit(xs, ys)
     assert abs(f["r"] - 120) < 8 and abs(f["cx"] - 100) < 8 and abs(f["cy"] + 50) < 8
     assert robust_circle_fit([float(i) for i in range(10)], [2.0 * i for i in range(10)]) is None
@@ -144,16 +176,27 @@ def test_circle_fit_and_pattern():
     def circ(speed_claim, course_follows):
         eng = TrackTrustEngine()
         res = None
-        w, r = 4.0 / 120.0, 120.0       # 4 m/s along a 120 m circle
+        w, r = 4.0 / 120.0, 120.0  # 4 m/s along a 120 m circle
         for k in range(60):
             t = 10.0 * k
             a = w * t
             crs = (90.0 - math.degrees(a + math.pi / 2)) % 360.0 if course_follows else 45.0
-            res = eng.ingest(rep("C", "ais-like", t, r * math.cos(a) + rnd.gauss(0, 5), r * math.sin(a) + rnd.gauss(0, 5),
-                                 speed=speed_claim, course=crs, accuracy_m=6.0))
+            res = eng.ingest(
+                rep(
+                    "C",
+                    "ais-like",
+                    t,
+                    r * math.cos(a) + rnd.gauss(0, 5),
+                    r * math.sin(a) + rnd.gauss(0, 5),
+                    speed=speed_claim,
+                    course=crs,
+                    accuracy_m=6.0,
+                )
+            )
         return res
-    assert circ(4.0, True).state == "TRUSTED"         # legitimate loiter: speed and course agree with the circle
-    spoof = circ(9.0, False)                          # claims 9 m/s cruising on course 45 while sitting on a circle
+
+    assert circ(4.0, True).state == "TRUSTED"  # legitimate loiter: speed and course agree with the circle
+    spoof = circ(9.0, False)  # claims 9 m/s cruising on course 45 while sitting on a circle
     assert spoof.state != "TRUSTED" and any(r["kind"] == "circle_pattern" for r in spoof.reasons)
 
 
@@ -225,7 +268,9 @@ def test_partial_offset_penalises_whole_source_but_keeps_verified_tracks_usable(
     for t in unaffected:
         assert not any(r["kind"] == "cross_source_disagreement" for r in snap[t].reasons)
     # but their source penalty is visible, and strongest on tracks nobody can verify
-    pen = {t: next((r["weight"] for r in snap[t].reasons if r["kind"] == "source_common_mode"), 0.0) for t in unaffected}
+    pen = {
+        t: next((r["weight"] for r in snap[t].reasons if r["kind"] == "source_common_mode"), 0.0) for t in unaffected
+    }
     assert all(w > 0 for w in pen.values())
     verified = [t for t in unaffected if sc.labels["radar_covered"][t]]
     unverified = [t for t in unaffected if not sc.labels["radar_covered"][t]]
@@ -242,7 +287,18 @@ def test_two_comparable_sources_cannot_attribute():
             tid = f"K{i}"
             e = 5.0 * t + 1000 * i
             eng.ingest(rep(tid, "ais-a", t, e, 0, speed=5.0, course=90.0, accuracy_m=6.0))
-            eng.ingest(rep(tid, "ais-b", t + 1, e + 5.0 + (3000.0 if t > 100 else 0.0), 0, speed=5.0, course=90.0, accuracy_m=6.0))
+            eng.ingest(
+                rep(
+                    tid,
+                    "ais-b",
+                    t + 1,
+                    e + 5.0 + (3000.0 if t > 100 else 0.0),
+                    0,
+                    speed=5.0,
+                    course=90.0,
+                    accuracy_m=6.0,
+                )
+            )
     h = eng.source_health()
     assert h["ais-a"]["flagged"] and h["ais-b"]["flagged"]
     assert h["ais-a"]["attribution"] == "shared"
@@ -253,7 +309,7 @@ def test_no_second_source_means_slow_offset_undetected():
     eng = TrackTrustEngine()
     res = None
     for t in range(0, 900, 10):
-        drift = 0.4 * t                    # 0.4 m/s extra, 360 m over the run
+        drift = 0.4 * t  # 0.4 m/s extra, 360 m over the run
         res = eng.ingest(rep("S", "ais-like", t, 6.0 * t + drift, 0, speed=6.4, course=90.0, accuracy_m=6.0))
     assert res.state == "TRUSTED"
 
@@ -336,7 +392,7 @@ def test_map_cells_hex_geometry_and_dominant():
     c = next(x for x in cells if x["dominant"] == "spoofing_drift")
     assert c["n_reports"] == 2 and len(c["polygon"]) == 6
     assert m.cell_id(25.3, 54.8) == c["id"]
-    assert InterferenceMap(cell_km=5.0).cell_id(25.3, 54.8) == c["id"]       # stable across instances
+    assert InterferenceMap(cell_km=5.0).cell_id(25.3, 54.8) == c["id"]  # stable across instances
     # hexagon circumradius = cell_km / sqrt(3); vertices equidistant from the centre
     ds = [haversine(c["lat"], c["lon"], la, lo) for la, lo in c["polygon"]]
     assert all(abs(d - 5000.0 / math.sqrt(3)) < 15.0 for d in ds)
@@ -356,7 +412,7 @@ def test_map_geojson_valid():
         assert f["type"] == "Feature" and f["geometry"]["type"] == "Polygon"
         ring = f["geometry"]["coordinates"][0]
         assert len(ring) == 7 and ring[0] == ring[-1]
-        for lon, lat in ring:                       # GeoJSON order is [lon, lat]
+        for lon, lat in ring:  # GeoJSON order is [lon, lat]
             assert 54 < lon < 56 and 24 < lat < 26
         assert 0.0 <= f["properties"]["confidence"] <= 1.0
     assert InterferenceMap().to_geojson(0.0)["features"] == []

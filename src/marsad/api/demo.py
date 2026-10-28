@@ -2,6 +2,7 @@
 
 The ground-truth position is included in the stream ONLY for the demo vehicle, flagged simulated.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -9,7 +10,7 @@ import time
 from typing import Optional
 
 from . import texts
-from .state import DEMO_VEHICLE, Store, StoreError, sim_mod, tracks_mod, Unavailable
+from .state import DEMO_VEHICLE, Store, StoreError, Unavailable, sim_mod, tracks_mod
 
 TICK = 0.1
 
@@ -25,6 +26,7 @@ class DemoRunner:
     async def start(self, kind: str, seed: int, split: str, speed: float) -> dict:
         sim = sim_mod()
         from ..sim.generator import KINDS, SPLITS
+
         if kind not in KINDS:
             raise StoreError(422, f"unknown scenario {kind!r}; choose from {KINDS}")
         if split not in SPLITS:
@@ -43,11 +45,23 @@ class DemoRunner:
             st.vehicles.pop(DEMO_VEHICLE, None)
             st.reset_tracks()
             st.clock = 0.0
-            st.demo = {"running": True, "simulated": True, "vehicle_id": DEMO_VEHICLE, "kind": kind, "seed": seed,
-                       "split": split, "speed": speed, "sim_t": 0.0, "duration": float(run.t[-1]),
-                       "event_start": run.attack_start, "event_end": run.attack_end,
-                       "label": run.truth_class, "is_attack": run.is_attack,
-                       "tracks": bool(stream), "notice": texts.SIM_NOTICE}
+            st.demo = {
+                "running": True,
+                "simulated": True,
+                "vehicle_id": DEMO_VEHICLE,
+                "kind": kind,
+                "seed": seed,
+                "split": split,
+                "speed": speed,
+                "sim_t": 0.0,
+                "duration": float(run.t[-1]),
+                "event_start": run.attack_start,
+                "event_end": run.attack_end,
+                "label": run.truth_class,
+                "is_attack": run.is_attack,
+                "tracks": bool(stream),
+                "notice": texts.SIM_NOTICE,
+            }
         st.publish("demo", dict(st.demo))
         self.task = asyncio.create_task(self._loop(run, truth, stream, speed))
         return dict(st.demo)
@@ -86,13 +100,26 @@ class DemoRunner:
                 if i > i0:
                     st.ingest_samples(DEMO_VEHICLE, samples[i0:i], simulated=True, truth=truth[i0:i])
                     rec = st.vehicles[DEMO_VEHICLE]
-                    rec.meta = {k: st.demo.get(k) for k in ("kind", "seed", "split", "event_start", "event_end", "label")}
+                    rec.meta = {
+                        k: st.demo.get(k) for k in ("kind", "seed", "split", "event_start", "event_end", "label")
+                    }
                 batch = []
                 while j < len(stream) and stream[j].t - off <= sim_t:
                     r = stream[j]
-                    batch.append({"track_id": r.track_id, "source": r.source, "t": r.t - off, "lat": r.lat,
-                                  "lon": r.lon, "speed": r.speed, "course": r.course, "cls": r.cls,
-                                  "accuracy_m": r.accuracy_m, "ident": r.ident})
+                    batch.append(
+                        {
+                            "track_id": r.track_id,
+                            "source": r.source,
+                            "t": r.t - off,
+                            "lat": r.lat,
+                            "lon": r.lon,
+                            "speed": r.speed,
+                            "course": r.course,
+                            "cls": r.cls,
+                            "accuracy_m": r.accuracy_m,
+                            "ident": r.ident,
+                        }
+                    )
                     j += 1
                 if batch:
                     st.ingest_tracks(batch, origin="demo")
@@ -106,6 +133,6 @@ class DemoRunner:
             st.maybe_publish_scene(force=True)
         except asyncio.CancelledError:
             raise
-        except Exception as e:   # surface, never crash the server
+        except Exception as e:  # surface, never crash the server
             st.demo = {**st.demo, "running": False, "error": f"{type(e).__name__}: {e}"}
             st.publish("demo", dict(st.demo))

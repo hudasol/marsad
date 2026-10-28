@@ -9,7 +9,9 @@ when found, the blamed source's health drops and every track it carries is penal
 
 Stdlib only, deterministic, bounded memory.
 """
+
 from __future__ import annotations
+
 import math
 from collections import OrderedDict, deque
 from typing import Optional
@@ -37,6 +39,7 @@ class _Pt:
 
 class _SrcState:
     """Per (track, source) memory. Bounded."""
+
     __slots__ = ("last", "prev", "win", "hist", "hist_set", "flat_run", "n", "t0", "rep_run")
 
     def __init__(self, win):
@@ -52,15 +55,14 @@ class _SrcState:
 
 
 class _Track:
-    __slots__ = ("track_id", "L", "t_L", "state", "evid", "sources", "per_src", "last_t", "n",
-                 "lat", "lon", "ekey")
+    __slots__ = ("track_id", "L", "t_L", "state", "evid", "sources", "per_src", "last_t", "n", "lat", "lon", "ekey")
 
     def __init__(self, track_id):
         self.track_id = track_id
         self.L = 0.0
         self.t_L = -math.inf
         self.state = "TRUSTED"
-        self.evid: list = []          # (t, kind, message, weight)
+        self.evid: list = []  # (t, kind, message, weight)
         self.sources: list = []
         self.per_src: dict = {}
         self.last_t = -math.inf
@@ -81,15 +83,15 @@ class TrackTrustEngine:
         self._frame: Optional[LocalFrame] = None
         self._clock = -math.inf
         self._tracks: dict[str, _Track] = {}
-        self._latest: dict = {}                 # entity key -> {source: _Pt}
-        self._alias: dict = {}                  # (source, track_id) -> entity key
-        self._ident_entity: dict = {}           # ident -> entity key
-        self._noassoc: dict = {}                # (source, track_id) -> retry time
-        self._pairs: dict = {}                  # (a, b) -> OrderedDict[track_id -> (t, de, dn, sigma)]
+        self._latest: dict = {}  # entity key -> {source: _Pt}
+        self._alias: dict = {}  # (source, track_id) -> entity key
+        self._ident_entity: dict = {}  # ident -> entity key
+        self._noassoc: dict = {}  # (source, track_id) -> retry time
+        self._pairs: dict = {}  # (a, b) -> OrderedDict[track_id -> (t, de, dn, sigma)]
         self._pair_eval_t: dict = {}
-        self._pair_info: dict = {}              # (a, b) -> dict(median_m, flag_t, vec, n, nfresh, frac)
-        self._blame: dict = {}                  # source -> dict(factor, vec, n, frac, partners, t)
-        self._src_seen: dict = {}               # source -> last report time
+        self._pair_info: dict = {}  # (a, b) -> dict(median_m, flag_t, vec, n, nfresh, frac)
+        self._blame: dict = {}  # source -> dict(factor, vec, n, frac, partners, t)
+        self._src_seen: dict = {}  # source -> last report time
         self._n_ingest = 0
 
     # ------------------------------------------------------------------ public API
@@ -103,9 +105,14 @@ class TrackTrustEngine:
         if r.source not in tr.sources:
             tr.sources.append(r.source)
 
-        ev: list = []        # (kind, message, weight)
-        if not (math.isfinite(r.t) and math.isfinite(r.lat) and math.isfinite(r.lon)
-                and -90.0 <= r.lat <= 90.0 and -180.0 <= r.lon <= 180.0):
+        ev: list = []  # (kind, message, weight)
+        if not (
+            math.isfinite(r.t)
+            and math.isfinite(r.lat)
+            and math.isfinite(r.lon)
+            and -90.0 <= r.lat <= 90.0
+            and -180.0 <= r.lon <= 180.0
+        ):
             ev.append(("invalid_report", "report has a non-finite or out-of-range time/position", 4.0))
             self._apply(tr, max(tr.last_t, 0.0) if math.isfinite(tr.last_t) else 0.0, ev)
             return self._view(tr, self._clock if math.isfinite(self._clock) else 0.0, store_state=True)
@@ -115,9 +122,18 @@ class TrackTrustEngine:
         cls = r.cls if r.cls in CLASSES else "unknown"
         acc = max(cfg.min_accuracy_m, r.accuracy_m if r.accuracy_m is not None else cfg.default_accuracy_m)
         e, n = self._frame.to_local(r.lat, r.lon)
-        pt = _Pt(r.t, e, n, r.speed if (r.speed is not None and math.isfinite(r.speed)) else None,
-                 r.course if (r.course is not None and math.isfinite(r.course)) else None,
-                 acc, cls, r.track_id, r.lat, r.lon)
+        pt = _Pt(
+            r.t,
+            e,
+            n,
+            r.speed if (r.speed is not None and math.isfinite(r.speed)) else None,
+            r.course if (r.course is not None and math.isfinite(r.course)) else None,
+            acc,
+            cls,
+            r.track_id,
+            r.lat,
+            r.lon,
+        )
 
         ps = tr.per_src.get(r.source)
         if ps is None:
@@ -134,11 +150,21 @@ class TrackTrustEngine:
 
         accepted = not out_of_order and not duplicate
         if out_of_order:
-            ev.append(("timestamp_regression",
-                       f"timestamp went backwards by {prev.t - r.t:.0f} s for source {r.source} (replay or clock fault)", 2.5))
+            ev.append(
+                (
+                    "timestamp_regression",
+                    f"timestamp went backwards by {prev.t - r.t:.0f} s for source {r.source} (replay or clock fault)",
+                    2.5,
+                )
+            )
         elif not duplicate and math.isfinite(clock_before) and r.t < clock_before - cfg.stale_s:
-            ev.append(("stale_timestamp",
-                       f"report is {clock_before - r.t:.0f} s older than the feed clock (stale / replayed)", 1.5))
+            ev.append(
+                (
+                    "stale_timestamp",
+                    f"report is {clock_before - r.t:.0f} s older than the feed clock (stale / replayed)",
+                    1.5,
+                )
+            )
 
         if accepted:
             self._check_kinematics(r, pt, prev, ps, cls, ev)
@@ -192,13 +218,18 @@ class TrackTrustEngine:
             if b:
                 off = math.hypot(*b["vec"])
             else:
-                offs = [info["median_m"] for pr, info in self._pair_info.items()
-                        if s in pr and not self._pair_active(pr, now) and "median_m" in info]
+                offs = [
+                    info["median_m"]
+                    for pr, info in self._pair_info.items()
+                    if s in pr and not self._pair_active(pr, now) and "median_m" in info
+                ]
                 off = max(offs) if offs else 0.0
-            res[s] = {"trust": round(1.0 - _sigmoid(self.cfg.prior_logit + pen), 4),
-                      "n_tracks": counts.get(s, 0),
-                      "common_mode_offset_m": round(off, 1),
-                      "flagged": bool(b)}
+            res[s] = {
+                "trust": round(1.0 - _sigmoid(self.cfg.prior_logit + pen), 4),
+                "n_tracks": counts.get(s, 0),
+                "common_mode_offset_m": round(off, 1),
+                "flagged": bool(b),
+            }
             if b:
                 res[s]["bearing_deg"] = round(_bearing_deg(*b["vec"]), 1)
                 res[s]["attribution"] = "sole" if b["factor"] >= 1.0 else "shared"
@@ -250,22 +281,32 @@ class TrackTrustEngine:
             dt = pt.t - prev.t
             if 1e-6 < dt <= cfg.gap_reset_s:
                 d = math.hypot(pt.e - prev.e, pt.n - prev.n)
-                sig = math.sqrt(prev.acc ** 2 + pt.acc ** 2)
+                sig = math.sqrt(prev.acc**2 + pt.acc**2)
                 noise = 3.5 * sig
                 allowed = vmax * dt + noise
                 teleport = False
                 if d > allowed:
                     teleport = True
                     w = min(5.0, 2.0 + 1.2 * math.log2(d / allowed) + 1.0)
-                    ev.append(("teleport", f"jumped {d:.0f} m in {dt:.0f} s (implied {d / dt:.0f} m/s, "
-                                           f"{cls} envelope {vmax:.0f} m/s)", w))
+                    ev.append(
+                        (
+                            "teleport",
+                            f"jumped {d:.0f} m in {dt:.0f} s (implied {d / dt:.0f} m/s, {cls} envelope {vmax:.0f} m/s)",
+                            w,
+                        )
+                    )
                 sp = [s for s in (prev.speed, pt.speed) if s is not None]
                 if sp and not teleport:
                     exp_max = (max(sp) * 1.3 + 1.0) * dt + noise
                     if d > exp_max:
                         w = min(4.0, 1.2 + math.log2(d / exp_max) * 1.2)
-                        ev.append(("speed_displacement_mismatch",
-                                   f"moved {d:.0f} m in {dt:.0f} s but reported speed is only {max(sp):.1f} m/s", w))
+                        ev.append(
+                            (
+                                "speed_displacement_mismatch",
+                                f"moved {d:.0f} m in {dt:.0f} s but reported speed is only {max(sp):.1f} m/s",
+                                w,
+                            )
+                        )
                 p2 = ps.prev
                 if p2 is not None and not teleport:
                     dt1 = prev.t - p2.t
@@ -273,8 +314,8 @@ class TrackTrustEngine:
                         v1e, v1n = (prev.e - p2.e) / dt1, (prev.n - p2.n) / dt1
                         v2e, v2n = (pt.e - prev.e) / dt, (pt.n - prev.n) / dt
                         a = math.hypot(v2e - v1e, v2n - v1n) / (0.5 * (dt + dt1))
-                        s0 = math.sqrt(p2.acc ** 2 + prev.acc ** 2 + pt.acc ** 2)
-                        sig_a = s0 * math.sqrt(1 / dt1 ** 2 + 1 / dt ** 2) * 1.5 / (0.5 * (dt + dt1))
+                        s0 = math.sqrt(p2.acc**2 + prev.acc**2 + pt.acc**2)
+                        sig_a = s0 * math.sqrt(1 / dt1**2 + 1 / dt**2) * 1.5 / (0.5 * (dt + dt1))
                         if a > amax + 4.0 * sig_a:
                             w = min(3.0, 1.0 + (a - amax - 4.0 * sig_a) / max(amax, 1.0))
                             ev.append(("acceleration", f"acceleration {a:.1f} m/s^2 exceeds {cls} limit {amax:.1f}", w))
@@ -289,22 +330,39 @@ class TrackTrustEngine:
                 dtb = pt.t - base.t
                 d = math.hypot(pt.e - base.e, pt.n - base.n)
                 expected = 0.5 * (pt.speed + base.speed) * dtb
-                sd = math.sqrt(base.acc ** 2 + pt.acc ** 2)
+                sd = math.sqrt(base.acc**2 + pt.acc**2)
                 tol = 3.5 * sd + cfg.speed_tol_frac * expected + 1.0
                 miss = abs(d - expected)
                 if miss > tol:
                     w = min(2.5, 0.8 + 1.5 * (miss - tol) / tol)
                     rel = "less" if d < expected else "more"
-                    ev.append(("speed_displacement_mismatch",
-                               f"moved {d:.0f} m over {dtb:.0f} s, {rel} than reported speed implies ({expected:.0f} m)", w))
+                    ev.append(
+                        (
+                            "speed_displacement_mismatch",
+                            f"moved {d:.0f} m over {dtb:.0f} s, {rel} than reported speed implies ({expected:.0f} m)",
+                            w,
+                        )
+                    )
                 elif pt.course is not None and base.course is not None and d > 6.0 * sd and expected > 6.0 * sd:
-                    mc = math.degrees(math.atan2(math.sin(math.radians(pt.course)) + math.sin(math.radians(base.course)),
-                                                 math.cos(math.radians(pt.course)) + math.cos(math.radians(base.course)))) % 360
+                    mc = (
+                        math.degrees(
+                            math.atan2(
+                                math.sin(math.radians(pt.course)) + math.sin(math.radians(base.course)),
+                                math.cos(math.radians(pt.course)) + math.cos(math.radians(base.course)),
+                            )
+                        )
+                        % 360
+                    )
                     diff = abs(wrap_deg(_bearing_deg(pt.e - base.e, pt.n - base.n) - mc))
                     if diff > cfg.course_tol_deg:
-                        ev.append(("course_displacement_mismatch",
-                                   f"track moves toward {_bearing_deg(pt.e - base.e, pt.n - base.n):.0f} deg "
-                                   f"but reports course {mc:.0f} deg", 1.5))
+                        ev.append(
+                            (
+                                "course_displacement_mismatch",
+                                f"track moves toward {_bearing_deg(pt.e - base.e, pt.n - base.n):.0f} deg "
+                                f"but reports course {mc:.0f} deg",
+                                1.5,
+                            )
+                        )
 
     # --- (d) repeats / flatline ----------------------------------------------------------------
     def _check_repeats(self, r, pt, prev, ps, ev) -> None:
@@ -318,16 +376,27 @@ class TrackTrustEngine:
             else:
                 ps.flat_run = 0
             if ps.flat_run >= cfg.flatline_n - 1:
-                ev.append(("flatline", f"position unchanged for {ps.flat_run + 1} reports while reporting "
-                                       f"{pt.speed:.1f} m/s", 1.5))
+                ev.append(
+                    (
+                        "flatline",
+                        f"position unchanged for {ps.flat_run + 1} reports while reporting {pt.speed:.1f} m/s",
+                        1.5,
+                    )
+                )
             last_key = (round(prev.lat, 6), round(prev.lon, 6))
             if moving and key != last_key and key in ps.hist_set:
                 ps.rep_run += 1
             else:
                 ps.rep_run = 0
             if ps.rep_run >= 2:
-                ev.append(("position_replay", f"{ps.rep_run} consecutive reports repeat earlier coordinates exactly "
-                                              "(noisy real tracks do not)", 3.0))
+                ev.append(
+                    (
+                        "position_replay",
+                        f"{ps.rep_run} consecutive reports repeat earlier coordinates exactly "
+                        "(noisy real tracks do not)",
+                        3.0,
+                    )
+                )
         if len(ps.hist) == ps.hist.maxlen:
             ps.hist_set.discard(ps.hist[0])
         ps.hist.append(key)
@@ -386,8 +455,14 @@ class TrackTrustEngine:
             w = 0.8
             reasons.append("no speed/course to cross-check")
         if w > 0:
-            ev.append(("circle_pattern", f"positions on a {rad:.0f} m-radius circle (arc {abs(math.degrees(net)):.0f} deg, "
-                                         f"fit rms {fit['rms']:.0f} m): " + "; ".join(reasons), min(4.5, w + 0.5)))
+            ev.append(
+                (
+                    "circle_pattern",
+                    f"positions on a {rad:.0f} m-radius circle (arc {abs(math.degrees(net)):.0f} deg, "
+                    f"fit rms {fit['rms']:.0f} m): " + "; ".join(reasons),
+                    min(4.5, w + 0.5),
+                )
+            )
 
     # --- (c) cross-source comparison ---------------------------------------------------------------------
     def _entity_key(self, r: TrackReport, pt: _Pt, ps: _SrcState):
@@ -398,7 +473,11 @@ class TrackTrustEngine:
         base = ("t", r.track_id)
         if r.ident:
             base = self._ident_entity.setdefault(r.ident, base)
-        if cfg.proximity_assoc and r.t - ps.t0 >= cfg.assoc_min_age_s and self._noassoc.get((r.source, r.track_id), -math.inf) <= r.t:
+        if (
+            cfg.proximity_assoc
+            and r.t - ps.t0 >= cfg.assoc_min_age_s
+            and self._noassoc.get((r.source, r.track_id), -math.inf) <= r.t
+        ):
             ent = self._latest.get(base)
             has_partner = ent is not None and any(s != r.source for s in ent)
             if not has_partner:
@@ -407,7 +486,7 @@ class TrackTrustEngine:
                 for k2, ent2 in self._latest.items():
                     if k2 == base or r.source in ent2:
                         continue
-                    for s2, p2 in ent2.items():
+                    for p2 in ent2.values():
                         if abs(p2.t - r.t) > cfg.max_age_s or (p2.cls != pt.cls and "unknown" not in (p2.cls, pt.cls)):
                             continue
                         dt = r.t - p2.t
@@ -447,11 +526,11 @@ class TrackTrustEngine:
                 unc = abs(dt) * 0.3 * min(cfg.v_max[p2.cls], 60.0)
             de, dn = pt.e - ee, pt.n - nn
             d = math.hypot(de, dn)
-            sig = math.sqrt(pt.acc ** 2 + p2.acc ** 2 + unc ** 2)
+            sig = math.sqrt(pt.acc**2 + p2.acc**2 + unc**2)
             z = d / sig
             if z > cfg.z_start:
                 w = min(3.5, 0.3 + 0.5 * (z - cfg.z_start))
-                msg = (f"{r.source} and {s2} disagree by {d:.0f} m ({z:.1f} sigma of combined accuracy)")
+                msg = f"{r.source} and {s2} disagree by {d:.0f} m ({z:.1f} sigma of combined accuracy)"
                 ev.append(("cross_source_disagreement", msg, w))
                 if p2.tid != r.track_id:
                     self._add_mirror(p2.tid, pt.t, "cross_source_disagreement", msg, w)
@@ -516,7 +595,7 @@ class TrackTrustEngine:
             if not self._pair_active(pair, now):
                 continue
             a, b = pair
-            vec = info["vec"]                      # a - b
+            vec = info["vec"]  # a - b
             ca, cb = self._class_of(a), self._class_of(b)
             who = None
             if ca != cb:
@@ -539,15 +618,24 @@ class TrackTrustEngine:
                     if who:
                         break
                 if not who:
-                    who = [(a, 0.5, "cannot attribute between two comparable sources"),
-                           (b, 0.5, "cannot attribute between two comparable sources")]
+                    who = [
+                        (a, 0.5, "cannot attribute between two comparable sources"),
+                        (b, 0.5, "cannot attribute between two comparable sources"),
+                    ]
             for s, f, why in who:
                 v = vec if s == a else (-vec[0], -vec[1])
                 other = b if s == a else a
                 cur = blame.get(s)
                 if cur is None or f > cur["factor"]:
-                    blame[s] = {"factor": f, "vec": v, "n": info["n"], "frac": info["frac"],
-                                "partners": [other], "why": why, "t": info["flag_t"]}
+                    blame[s] = {
+                        "factor": f,
+                        "vec": v,
+                        "n": info["n"],
+                        "frac": info["frac"],
+                        "partners": [other],
+                        "why": why,
+                        "t": info["flag_t"],
+                    }
                 elif other not in cur["partners"]:
                     cur["partners"].append(other)
         self._blame = blame
@@ -563,7 +651,11 @@ class TrackTrustEngine:
         for pair, tab in self._pairs.items():
             if source in pair:
                 v = tab.get(tid)
-                if v is not None and now - v[0] <= cfg.cm_fresh_s and math.hypot(v[1], v[2]) < 0.4 * cfg.cm_min_offset_m:
+                if (
+                    v is not None
+                    and now - v[0] <= cfg.cm_fresh_s
+                    and math.hypot(v[1], v[2]) < 0.4 * cfg.cm_min_offset_m
+                ):
                     return True
         return False
 
@@ -580,10 +672,16 @@ class TrackTrustEngine:
                 if agreed:
                     w *= 0.3
                     note = " (a second source places it there too; zone may be mis-specified)"
-                ev.append(("forbidden_zone", f"{cls} track {d:.0f} m from centre of zone '{z.name}' "
-                                             f"(radius {z.radius_m:.0f} m) where {cls} is implausible{note}", w))
+                ev.append(
+                    (
+                        "forbidden_zone",
+                        f"{cls} track {d:.0f} m from centre of zone '{z.name}' "
+                        f"(radius {z.radius_m:.0f} m) where {cls} is implausible{note}",
+                        w,
+                    )
+                )
 
-    # --- output -----------------------------------------------------------------------------------------------------------
+    # --- output ---------------------------------------------------------------------------------------------
     def _penalty(self, tr: _Track, now: float):
         """Source-level penalty applying to this track: (log-odds, message or None)."""
         cfg = self.cfg
@@ -605,9 +703,11 @@ class TrackTrustEngine:
                 best = pen
                 dist = math.hypot(*b["vec"])
                 dist_txt = f"{dist / 1000:.1f} km" if dist >= 1000 else f"{dist:.0f} m"
-                msg = (f"source '{s}' flagged for a common displacement of {dist_txt} toward "
-                       f"{_bearing_deg(*b['vec']):.0f} deg over {b['n']} tracks versus {', '.join(b['partners'])} "
-                       f"({b['why']}); {vtxt}")
+                msg = (
+                    f"source '{s}' flagged for a common displacement of {dist_txt} toward "
+                    f"{_bearing_deg(*b['vec']):.0f} deg over {b['n']} tracks versus {', '.join(b['partners'])} "
+                    f"({b['why']}); {vtxt}"
+                )
         return best, msg
 
     def _state_for(self, trust: float, prev: str) -> str:
@@ -636,7 +736,7 @@ class TrackTrustEngine:
             tr.state = state
         # reasons: decayed, merged by kind, strongest first
         best: dict = {}
-        for (t, kind, msg, w) in tr.evid:
+        for t, kind, msg, w in tr.evid:
             dw = w * math.exp(-max(0.0, now - t) / cfg.tau_s)
             if dw >= 0.3:
                 cur = best.get(kind)
@@ -645,9 +745,17 @@ class TrackTrustEngine:
         reasons = sorted(best.values(), key=lambda x: -x["weight"])[: cfg.reasons_shown]
         if pmsg:
             reasons.insert(0, {"kind": "source_common_mode", "message": pmsg, "weight": round(pen, 2), "t": now})
-        return TrackTrust(track_id=tr.track_id, trust=trust, state=state, reasons=reasons,
-                          sources=list(tr.sources), last_t=tr.last_t if math.isfinite(tr.last_t) else 0.0,
-                          n_reports=tr.n, lat=tr.lat, lon=tr.lon)
+        return TrackTrust(
+            track_id=tr.track_id,
+            trust=trust,
+            state=state,
+            reasons=reasons,
+            sources=list(tr.sources),
+            last_t=tr.last_t if math.isfinite(tr.last_t) else 0.0,
+            n_reports=tr.n,
+            lat=tr.lat,
+            lon=tr.lon,
+        )
 
     def _prune(self) -> None:
         cfg = self.cfg

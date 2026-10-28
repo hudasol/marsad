@@ -5,18 +5,24 @@ around a fixed reference point, so cell ids are stable across runs. ``cell_km`` 
 centre-to-centre spacing of neighbouring cells. Each cell keeps a decayed weight sum S (half-life
 ``half_life_s``); confidence = 1 - exp(-S), bounded to [0, 1).
 """
+
 from __future__ import annotations
+
 import math
-from typing import Optional
 
 from ..geo import LocalFrame
 
 _SQRT3 = math.sqrt(3.0)
 
-_STATE_WEIGHT = {"TRUSTED": 0.0, "DEGRADED": 0.5, "DENIED": 1.0,
-                 "SUSPECT": 0.5, "DISTRUSTED": 1.0}
-_HYP_FACTOR = {"nominal": 0.0, "environmental_degradation": 0.5, "jamming": 1.0,
-               "spoofing_jump": 1.0, "spoofing_drift": 1.0, "replay_meaconing": 1.0}
+_STATE_WEIGHT = {"TRUSTED": 0.0, "DEGRADED": 0.5, "DENIED": 1.0, "SUSPECT": 0.5, "DISTRUSTED": 1.0}
+_HYP_FACTOR = {
+    "nominal": 0.0,
+    "environmental_degradation": 0.5,
+    "jamming": 1.0,
+    "spoofing_jump": 1.0,
+    "spoofing_drift": 1.0,
+    "replay_meaconing": 1.0,
+}
 
 
 class _Cell:
@@ -30,14 +36,20 @@ class _Cell:
 
 
 class InterferenceMap:
-    def __init__(self, cell_km: float = 5.0, half_life_s: float = 1800.0,
-                 ref_lat: float = 25.0, ref_lon: float = 55.0, max_cells: int = 20000):
+    def __init__(
+        self,
+        cell_km: float = 5.0,
+        half_life_s: float = 1800.0,
+        ref_lat: float = 25.0,
+        ref_lon: float = 55.0,
+        max_cells: int = 20000,
+    ):
         if cell_km <= 0 or half_life_s <= 0:
             raise ValueError("cell_km and half_life_s must be positive")
         self.cell_km, self.half_life_s = float(cell_km), float(half_life_s)
         self.max_cells = max_cells
         self._frame = LocalFrame(ref_lat, ref_lon)
-        self._s = cell_km * 1000.0 / _SQRT3          # hex circumradius (m)
+        self._s = cell_km * 1000.0 / _SQRT3  # hex circumradius (m)
         self._cells: dict = {}
 
     # ---------------------------------------------------------------- geometry
@@ -99,8 +111,7 @@ class InterferenceMap:
         if len(self._cells) > self.max_cells:
             self._prune(t)
 
-    def report_vehicle(self, lat: float, lon: float, t: float, state: str, hypothesis: str,
-                       confidence: float) -> None:
+    def report_vehicle(self, lat: float, lon: float, t: float, state: str, hypothesis: str, confidence: float) -> None:
         """Vehicle-trust event. TRUSTED/nominal reports count as observations but add no weight."""
         state = getattr(state, "value", state)
         hypothesis = getattr(hypothesis, "value", hypothesis)
@@ -133,9 +144,18 @@ class InterferenceMap:
                 continue
             dom = max(c.hyp.items(), key=lambda kv: (kv[1], kv[0]))[0] if c.hyp else "none"
             lat, lon = self._frame.to_geo(*self._center(q, r))
-            out.append({"id": f"{q},{r}", "lat": lat, "lon": lon, "confidence": min(1.0, conf),
-                        "last_update": c.t, "n_reports": c.n, "dominant": dom,
-                        "polygon": self._polygon(q, r)})
+            out.append(
+                {
+                    "id": f"{q},{r}",
+                    "lat": lat,
+                    "lon": lon,
+                    "confidence": min(1.0, conf),
+                    "last_update": c.t,
+                    "n_reports": c.n,
+                    "dominant": dom,
+                    "polygon": self._polygon(q, r),
+                }
+            )
         out.sort(key=lambda d: (-d["confidence"], d["id"]))
         return out
 
@@ -144,10 +164,24 @@ class InterferenceMap:
         for c in self.cells(t, min_confidence):
             ring = [[lon, lat] for lat, lon in c["polygon"]]
             ring.append(ring[0])
-            feats.append({"type": "Feature", "id": c["id"],
-                          "geometry": {"type": "Polygon", "coordinates": [ring]},
-                          "properties": {"id": c["id"], "confidence": round(c["confidence"], 4),
-                                         "last_update": c["last_update"], "n_reports": c["n_reports"],
-                                         "dominant": c["dominant"], "lat": c["lat"], "lon": c["lon"]}})
-        return {"type": "FeatureCollection", "features": feats,
-                "properties": {"cell_km": self.cell_km, "half_life_s": self.half_life_s, "t": t}}
+            feats.append(
+                {
+                    "type": "Feature",
+                    "id": c["id"],
+                    "geometry": {"type": "Polygon", "coordinates": [ring]},
+                    "properties": {
+                        "id": c["id"],
+                        "confidence": round(c["confidence"], 4),
+                        "last_update": c["last_update"],
+                        "n_reports": c["n_reports"],
+                        "dominant": c["dominant"],
+                        "lat": c["lat"],
+                        "lon": c["lon"],
+                    },
+                }
+            )
+        return {
+            "type": "FeatureCollection",
+            "features": feats,
+            "properties": {"cell_km": self.cell_km, "half_life_s": self.half_life_s, "t": t},
+        }

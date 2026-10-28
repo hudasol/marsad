@@ -1,8 +1,10 @@
 """Replay a NavSample stream through the engine and summarise: state transitions with evidence, plus a
 comparison against the receiver's/autopilot's own jamming/spoofing flags (PX4 ULog or MAVLink GNSS_INTEGRITY)."""
+
 from __future__ import annotations
+
 import bisect
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from typing import Iterable, Optional
 
 from ..types import NavSample, TrustReport, TrustState
@@ -48,13 +50,14 @@ class ReplayResult:
         return d
 
 
-def replay_samples(samples: Iterable[NavSample], engine, flags: Optional[list] = None,
-           keep_reports: bool = False) -> ReplayResult:
+def replay_samples(
+    samples: Iterable[NavSample], engine, flags: Optional[list] = None, keep_reports: bool = False
+) -> ReplayResult:
     """Run the engine over samples. flags: optional list of objects with t/jam_flag/spoof_flag/jamming_state/
     spoofing_state (Px4Flag), sorted by t."""
     flags = flags or []
     informative = any((f.jamming_state or 0) or (f.spoofing_state or 0) for f in flags)
-    if not informative:          # all-zero/None states mean "receiver reports nothing": no comparison to make
+    if not informative:  # all-zero/None states mean "receiver reports nothing": no comparison to make
         flags = []
     ft = [f.t for f in flags]
     res = ReplayResult(px4_flags_available=bool(flags), reports=[] if keep_reports else None)
@@ -93,17 +96,31 @@ def replay_samples(samples: Iterable[NavSample], engine, flags: Optional[list] =
             res.first_px4_flag_t = s.t
         if rep.state != prev_state:
             ev = sorted(rep.evidence, key=lambda e: e.weight, reverse=True)[:2]
-            res.transitions.append(Transition(
-                t=s.t, state=rep.state.value, trust=round(rep.trust, 3), dominant=rep.dominant,
-                summary=rep.summary, evidence=[e.message for e in ev],
-                flags=flag_label(fl.jamming_state, fl.spoofing_state) if fl else "n/a"))
+            res.transitions.append(
+                Transition(
+                    t=s.t,
+                    state=rep.state.value,
+                    trust=round(rep.trust, 3),
+                    dominant=rep.dominant,
+                    summary=rep.summary,
+                    evidence=[e.message for e in ev],
+                    flags=flag_label(fl.jamming_state, fl.spoofing_state) if fl else "n/a",
+                )
+            )
             prev_state = rep.state
         prev_t, prev_nt, prev_fl = s.t, nt, flagged
     return res
 
 
-def format_replay(res: ReplayResult, *, label: str = "", synthetic: bool = False, source: Optional[str] = None,
-                  warnings: Iterable[str] = (), flag_source: str = "PX4 flags") -> str:
+def format_replay(
+    res: ReplayResult,
+    *,
+    label: str = "",
+    synthetic: bool = False,
+    source: Optional[str] = None,
+    warnings: Iterable[str] = (),
+    flag_source: str = "PX4 flags",
+) -> str:
     out = []
     if label:
         out.append(label)
@@ -114,7 +131,6 @@ def format_replay(res: ReplayResult, *, label: str = "", synthetic: bool = False
     for w in warnings:
         out.append(f"WARNING: {w}")
     out.append(f"{res.n_samples} samples, {res.t_start:.1f}s .. {res.t_end:.1f}s")
-    col = f"  [{flag_source}]" if res.px4_flags_available else ""
     for tr in res.transitions:
         line = f"t={tr.t:9.1f}s  {tr.state:9s} trust={tr.trust:.2f}  {tr.dominant}"
         if res.px4_flags_available:
@@ -123,15 +139,21 @@ def format_replay(res: ReplayResult, *, label: str = "", synthetic: bool = False
         for e in tr.evidence:
             out.append(f"{'':14s}- {e}")
     tot = sum(res.seconds_in_state.values()) or 1.0
-    out.append("time in state: " + ", ".join(f"{k} {v:.0f}s ({100 * v / tot:.0f}%)"
-                                              for k, v in sorted(res.seconds_in_state.items())))
+    out.append(
+        "time in state: "
+        + ", ".join(f"{k} {v:.0f}s ({100 * v / tot:.0f}%)" for k, v in sorted(res.seconds_in_state.items()))
+    )
     if not res.px4_flags_available:
         out.append(f"{flag_source}: none reported (field absent or unknown(0) throughout) -- no comparison column")
     if res.px4_flags_available:
-        out.append(f"{flag_source}: first flag at "
-                   f"{'never' if res.first_px4_flag_t is None else f'{res.first_px4_flag_t:.1f}s'}; "
-                   f"Marsad first non-TRUSTED at "
-                   f"{'never' if res.first_nontrusted_t is None else f'{res.first_nontrusted_t:.1f}s'}")
-        out.append(f"  Marsad non-TRUSTED while {flag_source} silent: {res.marsad_flagged_px4_silent_s:.0f}s;"
-                   f" {flag_source} flagged while Marsad TRUSTED: {res.px4_flagged_marsad_trusted_s:.0f}s")
+        out.append(
+            f"{flag_source}: first flag at "
+            f"{'never' if res.first_px4_flag_t is None else f'{res.first_px4_flag_t:.1f}s'}; "
+            f"Marsad first non-TRUSTED at "
+            f"{'never' if res.first_nontrusted_t is None else f'{res.first_nontrusted_t:.1f}s'}"
+        )
+        out.append(
+            f"  Marsad non-TRUSTED while {flag_source} silent: {res.marsad_flagged_px4_silent_s:.0f}s;"
+            f" {flag_source} flagged while Marsad TRUSTED: {res.px4_flagged_marsad_trusted_s:.0f}s"
+        )
     return "\n".join(out)

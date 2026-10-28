@@ -8,7 +8,9 @@ code and cannot be used to interfere with a real receiver. All results from it a
 Parameter splits: 'dev' ranges are used while tuning detectors; 'heldout' ranges are disjoint or
 more adversarial and are only used for the reported benchmark.
 """
+
 from __future__ import annotations
+
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -17,24 +19,47 @@ import numpy as np
 from ..geo import LocalFrame
 from ..types import GnssFix, NavSample, RefMotion
 
-ORIGIN = (24.4539, 54.3773)   # arbitrary open-area origin for simulation
+ORIGIN = (24.4539, 54.3773)  # arbitrary open-area origin for simulation
 DT = 0.2
 
 KINDS = [
-    "nominal", "benign_obstruction", "benign_multipath",
-    "jam_hard", "jam_soft",
-    "spoof_jump", "spoof_jump_transient", "spoof_drift", "spoof_drift_stealth", "replay",
-    "spoof_drift_noref", "spoof_drift_ref_outage",
+    "nominal",
+    "benign_obstruction",
+    "benign_multipath",
+    "jam_hard",
+    "jam_soft",
+    "spoof_jump",
+    "spoof_jump_transient",
+    "spoof_drift",
+    "spoof_drift_stealth",
+    "replay",
+    "spoof_drift_noref",
+    "spoof_drift_ref_outage",
 ]
 SPLITS = ("dev", "heldout")
-ATTACK_KINDS = {"jam_hard", "jam_soft", "spoof_jump", "spoof_jump_transient", "spoof_drift",
-                "spoof_drift_stealth", "replay", "spoof_drift_noref", "spoof_drift_ref_outage"}
+ATTACK_KINDS = {
+    "jam_hard",
+    "jam_soft",
+    "spoof_jump",
+    "spoof_jump_transient",
+    "spoof_drift",
+    "spoof_drift_stealth",
+    "replay",
+    "spoof_drift_noref",
+    "spoof_drift_ref_outage",
+}
 TRUTH_CLASS = {
-    "jam_hard": "jamming", "jam_soft": "jamming", "spoof_jump": "spoofing_jump",
-    "spoof_jump_transient": "spoofing_jump", "spoof_drift": "spoofing_drift",
-    "spoof_drift_stealth": "spoofing_drift", "replay": "replay_meaconing",
-    "spoof_drift_noref": "spoofing_drift", "spoof_drift_ref_outage": "spoofing_drift",
-    "benign_obstruction": "environmental_degradation", "benign_multipath": "environmental_degradation",
+    "jam_hard": "jamming",
+    "jam_soft": "jamming",
+    "spoof_jump": "spoofing_jump",
+    "spoof_jump_transient": "spoofing_jump",
+    "spoof_drift": "spoofing_drift",
+    "spoof_drift_stealth": "spoofing_drift",
+    "replay": "replay_meaconing",
+    "spoof_drift_noref": "spoofing_drift",
+    "spoof_drift_ref_outage": "spoofing_drift",
+    "benign_obstruction": "environmental_degradation",
+    "benign_multipath": "environmental_degradation",
 }
 
 
@@ -46,7 +71,7 @@ class Run:
     t: np.ndarray
     truth_e: np.ndarray
     truth_n: np.ndarray
-    obs_e: np.ndarray            # raw GNSS-reported position (local frame), NaN if no fix
+    obs_e: np.ndarray  # raw GNSS-reported position (local frame), NaN if no fix
     obs_n: np.ndarray
     samples: list
     attack_start: Optional[float]
@@ -79,7 +104,8 @@ def _trajectory(rng, n):
         h += np.clip(dh, -0.35 * DT, 0.35 * DT)
         s = speed0 + 1.5 * np.sin(2 * np.pi * t / 47.0)
         ve, vn = s * np.sin(h), s * np.cos(h)
-        e += ve * DT; n_ += vn * DT
+        e += ve * DT
+        n_ += vn * DT
         out[i] = (e, n_, ve, vn)
     return out
 
@@ -108,12 +134,16 @@ def _draw(kind, rng, split, duration):
     if kind == "jam_soft":
         p["cn0_drop"] = float(rng.uniform(9, 15)) if not H else float(rng.uniform(7, 18))
     if kind in ("spoof_jump", "spoof_jump_transient"):
-        p["mag"] = float(rng.uniform(80, 400)) if not H else float(rng.choice([rng.uniform(30, 80), rng.uniform(400, 1500)]))
+        p["mag"] = (
+            float(rng.uniform(80, 400)) if not H else float(rng.choice([rng.uniform(30, 80), rng.uniform(400, 1500)]))
+        )
         p["power_db"] = float(rng.uniform(3, 6)) if not H else float(rng.uniform(1.5, 3.5))
         p["clock_step"] = float(rng.choice([0.0, 0.0, 0.6]))
         p["len"] = float(rng.uniform(60, 120))
     if kind in ("spoof_drift", "spoof_drift_noref", "spoof_drift_ref_outage"):
-        p["rate"] = float(rng.uniform(0.3, 1.0)) if not H else float(rng.choice([rng.uniform(0.2, 0.3), rng.uniform(1.0, 2.0)]))
+        p["rate"] = (
+            float(rng.uniform(0.3, 1.0)) if not H else float(rng.choice([rng.uniform(0.2, 0.3), rng.uniform(1.0, 2.0)]))
+        )
         p["power_db"] = float(rng.uniform(2, 4)) if not H else float(rng.uniform(0.0, 1.5))
         p["vel_consistent"] = bool(rng.random() < 0.5)
     if kind == "spoof_drift_stealth":
@@ -127,7 +157,9 @@ def _draw(kind, rng, split, duration):
         p["outage_start"] = p["t_a"] + float(rng.uniform(-10, 10))
         p["outage_len"] = float(rng.uniform(30, 60))
     if kind == "replay":
-        p["delay"] = float(rng.uniform(20, 90)) if not H else float(rng.choice([rng.uniform(8, 20), rng.uniform(90, 200)]))
+        p["delay"] = (
+            float(rng.uniform(20, 90)) if not H else float(rng.choice([rng.uniform(8, 20), rng.uniform(90, 200)]))
+        )
         p["power_db"] = float(rng.uniform(2, 5)) if not H else float(rng.uniform(0.5, 3))
         p["smart_clock"] = bool(rng.random() < (0.3 if not H else 0.6))
     if kind == "benign_obstruction":
@@ -140,14 +172,22 @@ def _draw(kind, rng, split, duration):
     return p
 
 
-def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
-             ref_bias: Optional[float] = None, cadence: float = DT,
-             overrides: Optional[dict] = None) -> Run:
+def generate(
+    kind: str,
+    seed: int,
+    split: str = "dev",
+    duration: float = 600.0,
+    ref_bias: Optional[float] = None,
+    cadence: float = DT,
+    overrides: Optional[dict] = None,
+) -> Run:
     if kind not in KINDS:
         raise KeyError(f"unknown scenario {kind!r}; choose from {KINDS}")
     if split not in SPLITS:
         raise KeyError(split)
-    rng = np.random.default_rng([abs(hash(kind)) % (2 ** 31) if False else _kind_id(kind), seed, 0 if split == "dev" else 1])
+    rng = np.random.default_rng(
+        [abs(hash(kind)) % (2**31) if False else _kind_id(kind), seed, 0 if split == "dev" else 1]
+    )
     n = int(duration / DT)
     t = np.arange(n) * DT
     tr = _trajectory(rng, n)
@@ -176,7 +216,8 @@ def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
     bmax = 0.06 if ref_bias is None else ref_bias
     if split == "heldout" and ref_bias is None:
         bmax = 0.08
-    b0 = rng.normal(0, 1, 2); b0 = b0 / max(np.linalg.norm(b0), 1e-9) * rng.uniform(0, bmax)
+    b0 = rng.normal(0, 1, 2)
+    b0 = b0 / max(np.linalg.norm(b0), 1e-9) * rng.uniform(0, bmax)
     bias = b0 + np.cumsum(rng.normal(0, 0.0004, (n, 2)), axis=0)
     bias = np.clip(bias, -1.2 * bmax, 1.2 * bmax) if bmax > 0 else bias * 0
     rve = tve + bias[:, 0] + rng.normal(0, 0.15, n)
@@ -188,13 +229,13 @@ def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
     clean = (oe.copy(), on.copy(), ve.copy(), vn.copy(), cn0.copy(), cn0sd.copy(), nsat.copy(), agc.copy())
 
     a_end = None
-    ia = int(t_a / DT)
 
     def win(start, length):
         return (t >= start) & (t < start + length)
 
     if kind == "benign_obstruction":
-        w = win(t_a, P["len"]); a_end = t_a + P["len"]
+        w = win(t_a, P["len"])
+        a_end = t_a + P["len"]
         s = _ramp(t, t_a, 3.0) * (1 - _ramp(t, a_end - 3, 3.0))
         nsat = np.clip(np.round(nsat * (1 - (1 - P["sat_frac"]) * s)), 3, None)
         cn0 = cn0 - P["cn0_drop"] * s
@@ -202,7 +243,8 @@ def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
         oe, on = oe + extra[:, 0], on + extra[:, 1]
         valid &= ~(w & (nsat < 4))
     elif kind == "benign_multipath":
-        w = win(t_a, P["len"]); a_end = t_a + P["len"]
+        w = win(t_a, P["len"])
+        a_end = t_a + P["len"]
         flick = (rng.random(n) < 0.25) & w
         cn0 = cn0 - np.where(w, rng.uniform(2, 6, n), 0.0) * flick
         nsat = np.where(flick, np.clip(nsat - 3, 4, None), nsat)
@@ -280,16 +322,41 @@ def generate(kind: str, seed: int, split: str = "dev", duration: float = 600.0,
         gnss = None
         if valid[i] and i % stride == 0:
             lat, lon = frame.to_geo(float(oe[i]), float(on[i]))
-            gnss = GnssFix(t=ti, lat=lat, lon=lon, alt=50.0, ve=float(ve[i]), vn=float(vn[i]),
-                           cn0_mean=float(cn0[i]), cn0_std=float(cn0sd[i]), n_sats=int(nsat[i]),
-                           agc=float(agc[i]), hdop=0.9, fix_type=3 if nsat[i] >= 4 else 1,
-                           t_gnss=float(tg[i]))
-        ref = RefMotion(t=ti, ve=float(rve[i]), vn=float(rvn[i]), sigma=0.15, source="sim_vio") if ref_avail[i] else None
+            gnss = GnssFix(
+                t=ti,
+                lat=lat,
+                lon=lon,
+                alt=50.0,
+                ve=float(ve[i]),
+                vn=float(vn[i]),
+                cn0_mean=float(cn0[i]),
+                cn0_std=float(cn0sd[i]),
+                n_sats=int(nsat[i]),
+                agc=float(agc[i]),
+                hdop=0.9,
+                fix_type=3 if nsat[i] >= 4 else 1,
+                t_gnss=float(tg[i]),
+            )
+        ref = (
+            RefMotion(t=ti, ve=float(rve[i]), vn=float(rvn[i]), sigma=0.15, source="sim_vio") if ref_avail[i] else None
+        )
         samples.append(NavSample(t=ti, gnss=gnss, ref=ref))
 
-    return Run(kind=kind, seed=seed, split=split, t=t, truth_e=te, truth_n=tn, obs_e=obs_e, obs_n=obs_n,
-               samples=samples, attack_start=t_a if kind in ATTACK_KINDS else (t_a if kind.startswith("benign") else None),
-               attack_end=a_end, params=P, frame=frame)
+    return Run(
+        kind=kind,
+        seed=seed,
+        split=split,
+        t=t,
+        truth_e=te,
+        truth_n=tn,
+        obs_e=obs_e,
+        obs_n=obs_n,
+        samples=samples,
+        attack_start=t_a if kind in ATTACK_KINDS else (t_a if kind.startswith("benign") else None),
+        attack_end=a_end,
+        params=P,
+        frame=frame,
+    )
 
 
 def _kind_id(kind: str) -> int:

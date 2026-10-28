@@ -1,14 +1,16 @@
 """FastAPI application: REST + Server-Sent Events + dashboard."""
+
 from __future__ import annotations
 
 import asyncio
 import hmac
-from contextlib import asynccontextmanager
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, Path as PathParam, Query, Request
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, Request
+from fastapi import Path as PathParam
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -23,8 +25,9 @@ VID = PathParam(..., pattern=r"^[A-Za-z0-9_.\-]{1,64}$", description="Vehicle id
 DASHBOARD_DIR = Path(__file__).resolve().parent.parent / "dashboard"
 
 
-def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
-               cors_origins: Optional[list[str]] = None) -> FastAPI:
+def create_app(
+    api_key: Optional[str] = None, store: Optional[Store] = None, cors_origins: Optional[list[str]] = None
+) -> FastAPI:
     """Build the service. ``api_key`` falls back to env MARSAD_API_KEY (unset = open, for local use).
     CORS is off unless ``cors_origins`` or env MARSAD_CORS_ORIGINS (comma separated) is given."""
     st = store or get_store()
@@ -39,17 +42,27 @@ def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
         yield
         await demo.stop(quiet=True)
 
-    app = FastAPI(title="Marsad API", version="v1", lifespan=lifespan,
-                  description="Position-trust service. Advisory only. Simulated data is always flagged `simulated: true`.")
+    app = FastAPI(
+        title="Marsad API",
+        version="v1",
+        lifespan=lifespan,
+        description="Position-trust service. Advisory only. Simulated data is always flagged `simulated: true`.",
+    )
     app.state.store, app.state.demo = st, demo
     if cors_origins:
-        app.add_middleware(CORSMiddleware, allow_origins=cors_origins, allow_methods=["GET", "POST", "DELETE"],
-                           allow_headers=["X-API-Key", "Authorization", "Content-Type"])
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=cors_origins,
+            allow_methods=["GET", "POST", "DELETE"],
+            allow_headers=["X-API-Key", "Authorization", "Content-Type"],
+        )
 
     @app.exception_handler(RequestValidationError)
     async def _validation(_: Request, exc: RequestValidationError):
         # drop echoed input: it may hold NaN/Inf, which is not valid JSON
-        errs = [{"loc": list(e.get("loc", [])), "msg": e.get("msg", ""), "type": e.get("type", "")} for e in exc.errors()]
+        errs = [
+            {"loc": list(e.get("loc", [])), "msg": e.get("msg", ""), "type": e.get("type", "")} for e in exc.errors()
+        ]
         return JSONResponse({"detail": errs}, status_code=422)
 
     @app.exception_handler(StoreError)
@@ -68,7 +81,7 @@ def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
             if auth.lower().startswith("bearer "):
                 got = auth[7:].strip()
         if got is None and request.url.path.endswith("/stream"):
-            got = request.query_params.get("api_key")   # EventSource cannot set headers
+            got = request.query_params.get("api_key")  # EventSource cannot set headers
         if got is None or not hmac.compare_digest(got.encode(), key.encode()):
             raise HTTPException(401, "missing or invalid API key", headers={"WWW-Authenticate": "Bearer"})
 
@@ -118,9 +131,11 @@ def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
         return st.ingest_tracks([x.model_dump() for x in body.reports])
 
     @r.get("/tracks", tags=["tracks"])
-    def list_tracks(state: Optional[str] = Query(None, pattern="^(?i:TRUSTED|SUSPECT|DISTRUSTED)$"),
-                    max_trust: Optional[float] = Query(None, ge=0, le=1),
-                    limit: int = Query(500, ge=1, le=5000)):
+    def list_tracks(
+        state: Optional[str] = Query(None, pattern="^(?i:TRUSTED|SUSPECT|DISTRUSTED)$"),
+        max_trust: Optional[float] = Query(None, ge=0, le=1),
+        limit: int = Query(500, ge=1, le=5000),
+    ):
         """Tracks sorted most-distrusted first."""
         rows = st.list_tracks(state, max_trust, limit)
         return {"tracks": rows, "n": len(rows), "simulated": st.track_origin == "demo"}
@@ -141,12 +156,14 @@ def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
                 bb = tuple(float(x) for x in bbox.split(","))
                 assert len(bb) == 4 and bb[0] <= bb[2] and bb[1] <= bb[3]
             except Exception:
-                raise HTTPException(422, "bbox must be min_lon,min_lat,max_lon,max_lat")
+                raise HTTPException(422, "bbox must be min_lon,min_lat,max_lon,max_lat") from None
         return st.interference(bb)
 
     # ---- stream -------------------------------------------------------------------
     @r.get("/stream", tags=["stream"])
-    async def stream(max_events: Optional[int] = Query(None, ge=1, le=100000, description="close after N events (testing)")):
+    async def stream(
+        max_events: Optional[int] = Query(None, ge=1, le=100000, description="close after N events (testing)"),
+    ):
         """Server-Sent Events: hello, scene, vehicle, transition, acknowledge, demo, vehicle_deleted."""
         loop = asyncio.get_running_loop()
         sub = st.subscribe(loop)
@@ -172,8 +189,9 @@ def create_app(api_key: Optional[str] = None, store: Optional[Store] = None,
             finally:
                 st.unsubscribe(sub)
 
-        return StreamingResponse(gen(), media_type="text/event-stream",
-                                 headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+        return StreamingResponse(
+            gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"}
+        )
 
     # ---- demo ---------------------------------------------------------------------
     @r.post("/demo/start", tags=["demo"])

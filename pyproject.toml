@@ -62,5 +62,11 @@ ignore = [
     "B905",   # zip without strict: lengths are equal by construction in the numeric code
 ]
 
+[tool.ruff.lint.per-file-ignores]
+"src/marsad/api/texts.py" = ["E501"]     # operator facing prose
+"src/marsad/bench/report.py" = ["E501"]  # markdown table rows
+"scripts/*" = ["E501"]
+"tests/*" = ["E501"]
+
 [tool.ruff.lint.isort]
 known-first-party = ["marsad"]

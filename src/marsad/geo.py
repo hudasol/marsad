@@ -1,5 +1,7 @@
 """Small geodesy helpers (stdlib only). Local tangent-plane frame: x=east, y=north, metres."""
+
 from __future__ import annotations
+
 import math
 
 R_EARTH = 6378137.0

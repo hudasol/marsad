@@ -1,6 +1,6 @@
 import math
-import pytest
-from marsad import TrustEngine, preset, TrustState, NavAction, GnssFix, NavSample, RefMotion
+
+from marsad import NavAction, NavSample, RefMotion, TrustEngine, TrustState, preset
 from marsad.sim import generate
 
 
@@ -36,10 +36,13 @@ def test_jam_hard_denied_and_labelled_and_recovers():
 def test_spoof_jump_detected_immediately_and_nav_stays_near_truth():
     r, reps = run("spoof_jump")
     assert first(r, reps, 2) < 1.0
-    errs = [math.hypot(x.nav_e - r.truth_e[i], x.nav_n - r.truth_n[i]) for i, x in enumerate(reps)
-            if r.t[i] >= r.attack_start and x.nav_e is not None]
-    assert max(errs) < 40.0          # raw GNSS error is hundreds of metres
-    assert reps[-1].state == TrustState.DENIED   # persistent offset: must not silently re-trust
+    errs = [
+        math.hypot(x.nav_e - r.truth_e[i], x.nav_n - r.truth_n[i])
+        for i, x in enumerate(reps)
+        if r.t[i] >= r.attack_start and x.nav_e is not None
+    ]
+    assert max(errs) < 40.0  # raw GNSS error is hundreds of metres
+    assert reps[-1].state == TrustState.DENIED  # persistent offset: must not silently re-trust
 
 
 def test_carry_off_detected_before_large_error():
@@ -61,7 +64,7 @@ def test_replay_detected():
 
 def test_works_without_reference_sensor():
     r, reps = run("spoof_drift_noref")
-    assert first(r, reps, 1) is not None       # via the signal signature
+    assert first(r, reps, 1) is not None  # via the signal signature
     assert any(x.action == NavAction.HOLD_AND_ALERT for x in reps)
 
 
@@ -69,7 +72,9 @@ def test_report_serialises_with_evidence():
     r, reps = run("spoof_jump")
     d = reps[-1].to_dict()
     assert d["state"] == "DENIED" and d["evidence"] and "message" in d["evidence"][0]
-    import json; json.dumps(d)
+    import json
+
+    json.dumps(d)
 
 
 def test_no_gnss_at_all_does_not_crash():
@@ -80,9 +85,11 @@ def test_no_gnss_at_all_does_not_crash():
 
 
 def test_determinism():
-    a = generate("spoof_drift", 7, "dev"); b = generate("spoof_drift", 7, "dev")
+    a = generate("spoof_drift", 7, "dev")
+    b = generate("spoof_drift", 7, "dev")
     assert a.obs_e.tolist() == b.obs_e.tolist() or all(
-        (x == y) or (math.isnan(x) and math.isnan(y)) for x, y in zip(a.obs_e, b.obs_e))
+        (x == y) or (math.isnan(x) and math.isnan(y)) for x, y in zip(a.obs_e, b.obs_e)
+    )
     assert generate("spoof_drift", 8, "dev").params != a.params
 
 

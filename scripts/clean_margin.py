@@ -8,6 +8,7 @@ detector (evidence accrues above 2). SIH logs (those with a vehicle_local_positi
 truth velocity as the reference, exactly as scripts/sih_inject.py does; other logs use the adapter's reference.
 No attack is injected. To compare engine versions, run it with PYTHONPATH pointing at another checkout's src.
 """
+
 import importlib.util
 import pathlib
 import sys
@@ -55,12 +56,21 @@ def margin(path, end=None):
 
 
 def main(argv=None):
-    args = (argv if argv is not None else sys.argv[1:]) or ["sitl1.ulg:77", "sitl2.ulg:290", "flight1.ulg", "flight2.ulg"]
+    args = (argv if argv is not None else sys.argv[1:]) or [
+        "sitl1.ulg:77",
+        "sitl2.ulg:290",
+        "flight1.ulg",
+        "flight2.ulg",
+    ]
     per_fix = hasattr(Context(), "gnss_dt")
-    print(f"engine: marsad {marsad.__version__}, per-fix evidence scaled by "
-          + ("the time since the previous fix (weighting fix)" if per_fix else "the time since the previous sample"))
-    print(f"{'log':16s} {'label':18s} {'span s':>7s} {'TRUSTED':>8s} {'min P(nominal)':>14s} "
-          f"{'s with P<0.9':>12s} {'max drift z':>11s}")
+    print(
+        f"engine: marsad {marsad.__version__}, per-fix evidence scaled by "
+        + ("the time since the previous fix (weighting fix)" if per_fix else "the time since the previous sample")
+    )
+    print(
+        f"{'log':16s} {'label':18s} {'span s':>7s} {'TRUSTED':>8s} {'min P(nominal)':>14s} "
+        f"{'s with P<0.9':>12s} {'max drift z':>11s}"
+    )
     for a in args:
         path, _, end = a.partition(":")
         label, span, tt, pmin, tlow, zmax = margin(path, float(end) if end else None)

@@ -6,6 +6,7 @@ Seeds are 5000 to 5000+N-1 on the held out split, the same runs as docs/results/
 per run results are read from that file (--marsad) instead of being recomputed; pass --rerun-marsad to recompute.
 Detection = first sample at or after the scenario onset whose state is not TRUSTED. All results are SIMULATED.
 """
+
 import argparse
 import json
 import math
@@ -19,8 +20,15 @@ from marsad.sim import ATTACK_KINDS, KINDS, generate
 from marsad.types import TrustState
 
 NAMES = ["gate", "ekf2_gate", "ekf2_gate_ref", "window", "signal", "stack"]
-LABEL = {"marsad": "Marsad", "gate": "simplified gate", "ekf2_gate": "EKF2 style gate", "ekf2_gate_ref": "EKF2 style gate + reference",
-         "window": "window consistency", "signal": "signal monitor", "stack": "stack of the three"}
+LABEL = {
+    "marsad": "Marsad",
+    "gate": "simplified gate",
+    "ekf2_gate": "EKF2 style gate",
+    "ekf2_gate_ref": "EKF2 style gate + reference",
+    "window": "window consistency",
+    "signal": "signal monitor",
+    "stack": "stack of the three",
+}
 
 
 def one(args):
@@ -72,21 +80,31 @@ def summarize(runs, marsad):
             if k == "marsad":
                 if kind in ATTACK_KINDS:
                     lat = [m["lat_alarm_marsad"] for m in src]
-                    row[k] = {"rate": sum(v is not None for v in lat) / len(lat), "lat_med": med(lat),
-                              "err_med": med([m["err_max_marsad"] for m in src]),
-                              "pre_alarm": float(np.mean([m["pre_alarm_frac_marsad"] for m in src]))}
+                    row[k] = {
+                        "rate": sum(v is not None for v in lat) / len(lat),
+                        "lat_med": med(lat),
+                        "err_med": med([m["err_max_marsad"] for m in src]),
+                        "pre_alarm": float(np.mean([m["pre_alarm_frac_marsad"] for m in src])),
+                    }
                 else:
-                    row[k] = {"alarm_frac": float(np.mean([m["alarm_frac_marsad"] for m in src])),
-                              "runs_alarm": sum(m["alarm_frac_marsad"] > 0 for m in src) / len(src)}
+                    row[k] = {
+                        "alarm_frac": float(np.mean([m["alarm_frac_marsad"] for m in src])),
+                        "runs_alarm": sum(m["alarm_frac_marsad"] > 0 for m in src) / len(src),
+                    }
             else:
                 if kind in ATTACK_KINDS:
                     lat = [r[k]["latency"] for r in src]
-                    row[k] = {"rate": sum(v is not None for v in lat) / len(lat), "lat_med": med(lat),
-                              "err_med": med([r[k]["err_max"] for r in src]),
-                              "pre_alarm": float(np.mean([r[k]["pre_alarm_frac"] for r in src]))}
+                    row[k] = {
+                        "rate": sum(v is not None for v in lat) / len(lat),
+                        "lat_med": med(lat),
+                        "err_med": med([r[k]["err_max"] for r in src]),
+                        "pre_alarm": float(np.mean([r[k]["pre_alarm_frac"] for r in src])),
+                    }
                 else:
-                    row[k] = {"alarm_frac": float(np.mean([r[k]["alarm_frac"] for r in src])),
-                              "runs_alarm": sum(r[k]["alarm_frac"] > 0 for r in src) / len(src)}
+                    row[k] = {
+                        "alarm_frac": float(np.mean([r[k]["alarm_frac"] for r in src])),
+                        "runs_alarm": sum(r[k]["alarm_frac"] > 0 for r in src) / len(src),
+                    }
         rows[kind] = row
     return rows
 
@@ -99,24 +117,46 @@ def f(x, pct=False, nd=1):
 
 def markdown(rows, n):
     cols = ["marsad"] + NAMES
-    L = [f"### Detection against baselines, held out split, {n} seeds per scenario (SIMULATED)", "",
-         "Cell: share of runs detected / median latency in seconds. Detection is the first non TRUSTED sample at or after the onset.", "",
-         "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |", "|---|" + "---|" * len(cols)]
+    L = [
+        f"### Detection against baselines, held out split, {n} seeds per scenario (SIMULATED)",
+        "",
+        "Cell: share of runs detected / median latency in seconds. Detection is the first non TRUSTED sample at or after the onset.",
+        "",
+        "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |",
+        "|---|" + "---|" * len(cols),
+    ]
     for kind, r in rows.items():
         if not r["attack"]:
             continue
-        L.append(f"| `{kind}` | " + " | ".join(f"{f(r[c]['rate'], pct=True)} / {f(r[c]['lat_med'])}" for c in cols) + " |")
-    L += ["", "### Largest navigation error after onset, median over runs (m)", "",
-          "Position each detector would hand to the vehicle (Marsad: its recommended position; empty while it advises holding).", "",
-          "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |", "|---|" + "---|" * len(cols)]
+        L.append(
+            f"| `{kind}` | " + " | ".join(f"{f(r[c]['rate'], pct=True)} / {f(r[c]['lat_med'])}" for c in cols) + " |"
+        )
+    L += [
+        "",
+        "### Largest navigation error after onset, median over runs (m)",
+        "",
+        "Position each detector would hand to the vehicle (Marsad: its recommended position; empty while it advises holding).",
+        "",
+        "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |",
+        "|---|" + "---|" * len(cols),
+    ]
     for kind, r in rows.items():
         if r["attack"]:
             L.append(f"| `{kind}` | " + " | ".join(f(r[c]["err_med"], nd=0) for c in cols) + " |")
-    L += ["", "### Alarm behaviour in benign conditions: share of runs with any alarm / mean share of time not TRUSTED", "",
-          "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |", "|---|" + "---|" * len(cols)]
+    L += [
+        "",
+        "### Alarm behaviour in benign conditions: share of runs with any alarm / mean share of time not TRUSTED",
+        "",
+        "| scenario | " + " | ".join(LABEL[c] for c in cols) + " |",
+        "|---|" + "---|" * len(cols),
+    ]
     for kind, r in rows.items():
         if not r["attack"]:
-            L.append(f"| `{kind}` | " + " | ".join(f"{f(r[c]['runs_alarm'], pct=True)} / {f(r[c]['alarm_frac'], pct=True)}" for c in cols) + " |")
+            L.append(
+                f"| `{kind}` | "
+                + " | ".join(f"{f(r[c]['runs_alarm'], pct=True)} / {f(r[c]['alarm_frac'], pct=True)}" for c in cols)
+                + " |"
+            )
     return "\n".join(L) + "\n"
 
 
@@ -135,8 +175,11 @@ def main():
         runs = list(ex.map(one, jobs, chunksize=4))
     marsad = [r for r in json.load(open(a.marsad))["runs"] if r["seed"] in set(seeds)]
     rows = summarize(runs, marsad)
-    json.dump({"split": a.split, "seeds": [seeds[0], seeds[-1]], "summary": rows, "runs": runs},
-              open(f"{a.out}/heldout_baselines.json", "w"), indent=1)
+    json.dump(
+        {"split": a.split, "seeds": [seeds[0], seeds[-1]], "summary": rows, "runs": runs},
+        open(f"{a.out}/heldout_baselines.json", "w"),
+        indent=1,
+    )
     md = markdown(rows, a.seeds)
     open(f"{a.out}/heldout_baselines.md", "w", encoding="utf-8").write(md)
     print(md)

@@ -7,6 +7,7 @@ Same log, same injection, same reference (simulator truth velocity), 4 headings 
 from the JSON that scripts/sih_inject.py wrote, so both come from identical attacks. Also prints how long each
 baseline stays TRUSTED on the unmodified log (the false alarm side).
 """
+
 import argparse
 import json
 import math
@@ -17,15 +18,21 @@ import warnings
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
-from sih_inject import groundtruth_ref, inject, offset_at  # noqa: E402
+from sih_inject import groundtruth_ref, inject  # noqa: E402
 
 from marsad.adapters.ulog import load_ulog  # noqa: E402
 from marsad.bench.baselines import make_baselines  # noqa: E402
 from marsad.types import TrustState  # noqa: E402
 
-LABEL = {"marsad": "Marsad", "gate": "simplified gate", "ekf2_gate": "EKF2 style gate",
-         "ekf2_gate_ref": "EKF2 style + reference", "window": "window consistency", "signal": "signal monitor",
-         "stack": "stack of the three"}
+LABEL = {
+    "marsad": "Marsad",
+    "gate": "simplified gate",
+    "ekf2_gate": "EKF2 style gate",
+    "ekf2_gate_ref": "EKF2 style + reference",
+    "window": "window consistency",
+    "signal": "signal monitor",
+    "stack": "stack of the three",
+}
 
 
 def first_alarm(samples, t_a, bs):
@@ -61,8 +68,9 @@ def main():
     print("clean log, samples not TRUSTED: " + ", ".join(f"{k} {v}" for k, v in clean.items()) + "\n")
     marsad = {r["attack"]: r for r in json.load(open(a.marsad))["rows"]} if a.marsad else {}
     angles = [0.0, math.pi / 2, math.pi, 3 * math.pi / 2]
-    cases = ([("drift", dict(rate=r, vel_consistent=vc)) for r in (0.1, 0.25, 0.5, 1.0, 2.0) for vc in (True, False)]
-             + [("jump", dict(mag=x)) for x in (50.0, 200.0, 1000.0)])
+    cases = [("drift", dict(rate=r, vel_consistent=vc)) for r in (0.1, 0.25, 0.5, 1.0, 2.0) for vc in (True, False)] + [
+        ("jump", dict(mag=x)) for x in (50.0, 200.0, 1000.0)
+    ]
     rows = []
     cols = (["marsad"] if marsad else []) + names
     print("| attack | " + " | ".join(LABEL[c] for c in cols) + " |")
@@ -81,7 +89,11 @@ def main():
         if marsad:
             m = marsad.get(name)
             row["marsad"] = {"detected": m["marsad_detected"], "median_s": m["marsad_median_s"]} if m else None
-            cells.append(f"{m['marsad_detected']}/4 {m['marsad_median_s']:.1f} s" if m and m["marsad_median_s"] is not None else "0/4")
+            cells.append(
+                f"{m['marsad_detected']}/4 {m['marsad_median_s']:.1f} s"
+                if m and m["marsad_median_s"] is not None
+                else "0/4"
+            )
         for k in names:
             L = lats[k]
             row[k] = {"detected": len(L), "median_s": float(np.median(L)) if L else None}
@@ -89,8 +101,19 @@ def main():
         rows.append(row)
         print(f"| {name} | " + " | ".join(cells) + " |")
     if a.out:
-        json.dump({"log": a.log, "end_s": a.end, "t_attack_s": t_a, "reference": ref_src,
-                   "clean_not_trusted_samples": clean, "n_samples": len(samples), "rows": rows}, open(a.out, "w"), indent=1)
+        json.dump(
+            {
+                "log": a.log,
+                "end_s": a.end,
+                "t_attack_s": t_a,
+                "reference": ref_src,
+                "clean_not_trusted_samples": clean,
+                "n_samples": len(samples),
+                "rows": rows,
+            },
+            open(a.out, "w"),
+            indent=1,
+        )
     return 0
 
 

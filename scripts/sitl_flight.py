@@ -9,7 +9,10 @@ compared against the ground truth. Faults are injected receiver faults, NOT RF s
 usage: python3 scripts/sitl_flight.py [--no-faults]
   --no-faults  fly the same square for the same time with no fault injection (a clean log for sih_inject.py)
 """
-import argparse, sys, time
+
+import argparse
+import time
+
 from pymavlink import mavutil
 
 LEG_S, SPEED = 30, 5.0
@@ -32,7 +35,8 @@ print("connected, system", sysid)
 
 def vel(vn, ve, vd):
     m.mav.set_position_target_local_ned_send(
-        0, sysid, comp, mavutil.mavlink.MAV_FRAME_LOCAL_NED, 3527, 0, 0, 0, vn, ve, vd, 0, 0, 0, 0, 0)
+        0, sysid, comp, mavutil.mavlink.MAV_FRAME_LOCAL_NED, 3527, 0, 0, 0, vn, ve, vd, 0, 0, 0, 0, 0
+    )
 
 
 def cmd(c, *p):
@@ -54,9 +58,9 @@ def stream(vn, ve, vd, secs, tick=None):
         time.sleep(0.05)
 
 
-stream(0, 0, 0, 3)                         # offboard needs a setpoint stream first
-cmd(176, 1, 6, 0)                          # DO_SET_MODE: custom mode enabled, PX4 main mode 6 = offboard
-stream(0, 0, -1.0, 8)                      # climb ~8 m
+stream(0, 0, 0, 3)  # offboard needs a setpoint stream first
+cmd(176, 1, 6, 0)  # DO_SET_MODE: custom mode enabled, PX4 main mode 6 = offboard
+stream(0, 0, -1.0, 8)  # climb ~8 m
 legs = [(SPEED, 0), (0, SPEED), (-SPEED, 0), (0, -SPEED)]
 t0 = time.time()
 events = open("sitl_events.txt", "w")
@@ -68,11 +72,18 @@ def tick():
     t = time.time() - t0
     for i, (start, ftype, dur, name) in enumerate(FAULTS):
         if state["active"] is None and start <= t < start + dur and state["i"] == i:
-            inject(ftype, name); state["active"] = i
-            events.write(f"{t:.1f} inject gps {name}\n"); events.flush(); print(f"{t:6.1f}s inject {name}")
+            inject(ftype, name)
+            state["active"] = i
+            events.write(f"{t:.1f} inject gps {name}\n")
+            events.flush()
+            print(f"{t:6.1f}s inject {name}")
         elif state["active"] == i and t >= start + dur:
-            inject(0, "ok"); state["active"] = None; state["i"] = i + 1
-            events.write(f"{t:.1f} clear gps\n"); events.flush(); print(f"{t:6.1f}s clear")
+            inject(0, "ok")
+            state["active"] = None
+            state["i"] = i + 1
+            events.write(f"{t:.1f} clear gps\n")
+            events.flush()
+            print(f"{t:6.1f}s clear")
 
 
 k = 0
@@ -83,5 +94,6 @@ while time.time() - t0 < END_S:
 if FAULTS:
     inject(0, "ok")
 stream(0, 0, 0, 2)
-events.write(f"{time.time()-t0:.1f} end\n"); events.close()
+events.write(f"{time.time() - t0:.1f} end\n")
+events.close()
 print("done. In pxh> run: commander land")

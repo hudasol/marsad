@@ -1,11 +1,15 @@
 """Static explanatory text shared by the REST docs, the MCP resources and the dashboard."""
 
-INDEPENDENCE = ("Marsad is an independent open-source project. It is not affiliated with, endorsed by, "
-                "or sponsored by the Technology Innovation Institute (TII), the Advanced Technology "
-                "Research Council (ATRC), or any of their entities.")
+INDEPENDENCE = (
+    "Marsad is an independent open-source project. It is not affiliated with, endorsed by, "
+    "or sponsored by the Technology Innovation Institute (TII), the Advanced Technology "
+    "Research Council (ATRC), or any of their entities."
+)
 
-SIM_NOTICE = ("Everything produced by the simulator is SIMULATED, measurement-level data. It does not "
-              "come from hardware and has not been validated against real receivers or real flights.")
+SIM_NOTICE = (
+    "Everything produced by the simulator is SIMULATED, measurement-level data. It does not "
+    "come from hardware and has not been validated against real receivers or real flights."
+)
 
 ACTION_TEXT = {
     "USE_GNSS": "Use GNSS normally.",

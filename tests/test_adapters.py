@@ -1,4 +1,5 @@
 """Adapter tests: ULog writer/reader round trip, reference selection, CLI. All data is SYNTHETIC."""
+
 import json
 import math
 import struct
@@ -36,10 +37,12 @@ def transitions(samples, st):
 
 
 def test_adapters_import_is_lazy():
-    code = ("import sys, marsad.adapters as a; "
-            "assert not any(m in sys.modules for m in ('pyulog','pymavlink','rclpy')), 'eager import'; "
-            "assert 'write_ulog' in a.__all__; a.write_ulog; "
-            "print('ok')")
+    code = (
+        "import sys, marsad.adapters as a; "
+        "assert not any(m in sys.modules for m in ('pyulog','pymavlink','rclpy')), 'eager import'; "
+        "assert 'write_ulog' in a.__all__; a.write_ulog; "
+        "print('ok')"
+    )
     r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
     assert r.returncode == 0 and "ok" in r.stdout, r.stderr
 
@@ -87,14 +90,26 @@ def test_roundtrip_matches_simulator_samples(tmp_path, kind):
             assert abs(gx.cn0_mean - gy.cn0_mean) < 0.1 and abs(gx.cn0_std - gy.cn0_std) < 0.2
             assert abs(gx.agc - gy.agc) < 1e-3
             assert gx.n_sats == gy.n_sats and gx.fix_type == gy.fix_type
-            assert abs((gx.t - gx.t_gnss) - (gy.t - gy.t_gnss + UTC_BASE)) < 1e-5     # clock offset preserved (shifted by the synthetic UTC base)
+            assert (
+                abs((gx.t - gx.t_gnss) - (gy.t - gy.t_gnss + UTC_BASE)) < 1e-5
+            )  # clock offset preserved (shifted by the synthetic UTC base)
         if x.ref:
             assert abs(x.ref.ve - y.ref.ve) < 1e-5 and abs(x.ref.vn - y.ref.vn) < 1e-5
             assert abs(x.ref.sigma - y.ref.sigma) < 1e-5
 
 
-@pytest.mark.parametrize("kind,seed", [("spoof_drift", 1), ("spoof_drift", 3), ("jam_hard", 2), ("replay", 2),
-                                       ("spoof_jump", 1), ("nominal", 1), ("benign_multipath", 1)])
+@pytest.mark.parametrize(
+    "kind,seed",
+    [
+        ("spoof_drift", 1),
+        ("spoof_drift", 3),
+        ("jam_hard", 2),
+        ("replay", 2),
+        ("spoof_jump", 1),
+        ("nominal", 1),
+        ("benign_multipath", 1),
+    ],
+)
 def test_engine_verdict_on_roundtrip_matches_original(tmp_path, kind, seed):
     """Same state sequence; transition times may move by a few seconds because uint8 SNR quantisation nudges
     marginal evidence (documented)."""
@@ -157,17 +172,41 @@ def straight_rows(n=200, rate=10.0, lat_scale=1e7):
     return rows
 
 
-GPS_DEG = Topic("vehicle_gps_position", [          # legacy name, float degrees, float alt, no AGC
-    ("uint64_t", "timestamp", 0), ("double", "lat", 0), ("double", "lon", 0), ("float", "alt", 0),
-    ("float", "vel_n_m_s", 0), ("float", "vel_e_m_s", 0), ("uint16_t", "jamming_indicator", 0),
-    ("uint8_t", "fix_type", 0), ("uint8_t", "satellites_used", 0)])
+GPS_DEG = Topic(
+    "vehicle_gps_position",
+    [  # legacy name, float degrees, float alt, no AGC
+        ("uint64_t", "timestamp", 0),
+        ("double", "lat", 0),
+        ("double", "lon", 0),
+        ("float", "alt", 0),
+        ("float", "vel_n_m_s", 0),
+        ("float", "vel_e_m_s", 0),
+        ("uint16_t", "jamming_indicator", 0),
+        ("uint8_t", "fix_type", 0),
+        ("uint8_t", "satellites_used", 0),
+    ],
+)
 
 
 def test_unit_autodetect_degrees_and_legacy_topic_and_jamming_indicator_proxy(tmp_path):
     p = tmp_path / "deg.ulg"
-    rows = [("vehicle_gps_position", dict(timestamp=ts, lat=la, lon=lo, alt=100.5, vel_n_m_s=5.0, vel_e_m_s=0.0,
-                                          jamming_indicator=20 + (i > 100) * 60, fix_type=3, satellites_used=12))
-            for i, (ts, la, lo) in enumerate(straight_rows())]
+    rows = [
+        (
+            "vehicle_gps_position",
+            dict(
+                timestamp=ts,
+                lat=la,
+                lon=lo,
+                alt=100.5,
+                vel_n_m_s=5.0,
+                vel_e_m_s=0.0,
+                jamming_indicator=20 + (i > 100) * 60,
+                fix_type=3,
+                satellites_used=12,
+            ),
+        )
+        for i, (ts, la, lo) in enumerate(straight_rows())
+    ]
     build_ulog(p, [GPS_DEG], rows)
     d = load_ulog(str(p))
     assert d.info.gps_topic == "vehicle_gps_position"
@@ -182,38 +221,85 @@ def test_unit_autodetect_degrees_and_legacy_topic_and_jamming_indicator_proxy(tm
     assert d.info.has_px4_flags is False
 
 
-GPS_INT = Topic("sensor_gps", [
-    ("uint64_t", "timestamp", 0), ("int32_t", "lat", 0), ("int32_t", "lon", 0), ("int32_t", "alt", 0),
-    ("float", "vel_n_m_s", 0), ("float", "vel_e_m_s", 0), ("uint8_t", "fix_type", 0), ("uint8_t", "satellites_used", 0)])
-ODOM = Topic("vehicle_visual_odometry", [
-    ("uint64_t", "timestamp", 0), ("float", "position", 3), ("float", "q", 4), ("float", "velocity", 3),
-    ("float", "velocity_variance", 3), ("uint8_t", "pose_frame", 0), ("uint8_t", "velocity_frame", 0)])
-LPOS = Topic("vehicle_local_position", [
-    ("uint64_t", "timestamp", 0), ("float", "vx", 0), ("float", "vy", 0), ("bool", "v_xy_valid", 0)])
-FLOWVEL = Topic("vehicle_optical_flow_vel", [
-    ("uint64_t", "timestamp", 0), ("float", "vel_body", 2), ("float", "vel_ne", 2)])
+GPS_INT = Topic(
+    "sensor_gps",
+    [
+        ("uint64_t", "timestamp", 0),
+        ("int32_t", "lat", 0),
+        ("int32_t", "lon", 0),
+        ("int32_t", "alt", 0),
+        ("float", "vel_n_m_s", 0),
+        ("float", "vel_e_m_s", 0),
+        ("uint8_t", "fix_type", 0),
+        ("uint8_t", "satellites_used", 0),
+    ],
+)
+ODOM = Topic(
+    "vehicle_visual_odometry",
+    [
+        ("uint64_t", "timestamp", 0),
+        ("float", "position", 3),
+        ("float", "q", 4),
+        ("float", "velocity", 3),
+        ("float", "velocity_variance", 3),
+        ("uint8_t", "pose_frame", 0),
+        ("uint8_t", "velocity_frame", 0),
+    ],
+)
+LPOS = Topic(
+    "vehicle_local_position",
+    [("uint64_t", "timestamp", 0), ("float", "vx", 0), ("float", "vy", 0), ("bool", "v_xy_valid", 0)],
+)
+FLOWVEL = Topic(
+    "vehicle_optical_flow_vel", [("uint64_t", "timestamp", 0), ("float", "vel_body", 2), ("float", "vel_ne", 2)]
+)
 
 
 def gps_rows_int(n=200):
-    return [("sensor_gps", dict(timestamp=ts, lat=int(round(la * 1e7)), lon=int(round(lo * 1e7)), alt=50000,
-                                vel_n_m_s=5.0, vel_e_m_s=0.0, fix_type=3, satellites_used=10))
-            for ts, la, lo in straight_rows(n)]
+    return [
+        (
+            "sensor_gps",
+            dict(
+                timestamp=ts,
+                lat=int(round(la * 1e7)),
+                lon=int(round(lo * 1e7)),
+                alt=50000,
+                vel_n_m_s=5.0,
+                vel_e_m_s=0.0,
+                fix_type=3,
+                satellites_used=10,
+            ),
+        )
+        for ts, la, lo in straight_rows(n)
+    ]
 
 
 def odom_row(ts, vn, ve, frame=1, q=(1, 0, 0, 0), pos=(math.nan, math.nan, 0), pose_frame=1):
-    return ("vehicle_visual_odometry", dict(timestamp=ts, position=list(pos), q=list(q), velocity=[vn, ve, 0.0],
-                                            velocity_variance=[0.04] * 3, pose_frame=pose_frame, velocity_frame=frame))
+    return (
+        "vehicle_visual_odometry",
+        dict(
+            timestamp=ts,
+            position=list(pos),
+            q=list(q),
+            velocity=[vn, ve, 0.0],
+            velocity_variance=[0.04] * 3,
+            pose_frame=pose_frame,
+            velocity_frame=frame,
+        ),
+    )
 
 
 def test_reference_priority_prefers_independent_over_ekf(tmp_path):
     p = tmp_path / "prio.ulg"
     rows = gps_rows_int()
     rows += [odom_row(ts, 5.0, 0.0) for ts, _, _ in straight_rows()]
-    rows += [("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=0.0, v_xy_valid=True)) for ts, _, _ in straight_rows()]
+    rows += [
+        ("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=0.0, v_xy_valid=True)) for ts, _, _ in straight_rows()
+    ]
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, ODOM, LPOS], rows)
     with warnings.catch_warnings():
-        warnings.simplefilter("error")                     # no contamination warning must be raised
+        warnings.simplefilter("error")  # no contamination warning must be raised
         d = load_ulog(str(p))
     assert d.info.reference_topic == "vehicle_visual_odometry" and not d.info.reference_contaminated
     assert d.samples[5].ref.sigma == pytest.approx(0.2, rel=1e-4)
@@ -221,8 +307,9 @@ def test_reference_priority_prefers_independent_over_ekf(tmp_path):
 
 def test_contaminated_fallback_is_flagged_loudly(tmp_path):
     p = tmp_path / "ekf.ulg"
-    rows = gps_rows_int() + [("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=1.0, v_xy_valid=True))
-                             for ts, _, _ in straight_rows()]
+    rows = gps_rows_int() + [
+        ("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=1.0, v_xy_valid=True)) for ts, _, _ in straight_rows()
+    ]
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, LPOS], rows)
     with pytest.warns(ContaminatedReferenceWarning):
@@ -239,8 +326,10 @@ def test_contaminated_fallback_is_flagged_loudly(tmp_path):
 
 def test_optical_flow_velocity_reference(tmp_path):
     p = tmp_path / "flow.ulg"
-    rows = gps_rows_int() + [("vehicle_optical_flow_vel", dict(timestamp=ts, vel_body=[0, 0], vel_ne=[4.0, 3.0]))
-                             for ts, _, _ in straight_rows()]
+    rows = gps_rows_int() + [
+        ("vehicle_optical_flow_vel", dict(timestamp=ts, vel_body=[0, 0], vel_ne=[4.0, 3.0]))
+        for ts, _, _ in straight_rows()
+    ]
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, FLOWVEL], rows)
     d = load_ulog(str(p))
@@ -250,9 +339,9 @@ def test_optical_flow_velocity_reference(tmp_path):
 
 def test_odometry_frd_velocity_is_rotated_by_yaw(tmp_path):
     p = tmp_path / "frd.ulg"
-    yaw = math.pi / 2                                      # facing east
+    yaw = math.pi / 2  # facing east
     q = (math.cos(yaw / 2), 0.0, 0.0, math.sin(yaw / 2))
-    rows = gps_rows_int() + [odom_row(ts, 5.0, 0.0, frame=2, q=q) for ts, _, _ in straight_rows()]   # 5 m/s forward
+    rows = gps_rows_int() + [odom_row(ts, 5.0, 0.0, frame=2, q=q) for ts, _, _ in straight_rows()]  # 5 m/s forward
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, ODOM], rows)
     r = next(s.ref for s in load_ulog(str(p)).samples if s.ref)
@@ -276,7 +365,7 @@ def test_odometry_position_differencing_when_velocity_is_nan(tmp_path):
 def test_gnss_and_reference_rows_merge_only_within_tolerance(tmp_path):
     p = tmp_path / "m.ulg"
     rows = gps_rows_int(20)
-    rows += [odom_row(ts + 50_000, 5.0, 0.0) for ts, _, _ in straight_rows(20)]     # 50 ms later: separate
+    rows += [odom_row(ts + 50_000, 5.0, 0.0) for ts, _, _ in straight_rows(20)]  # 50 ms later: separate
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, ODOM], rows)
     s = load_ulog(str(p)).samples
@@ -315,7 +404,7 @@ def test_px4_flag_side_series_and_replay_comparison(tmp_path):
     res = replay_samples(d.samples, TrustEngine(preset("uav_multirotor")), d.px4_flags)
     assert res.px4_flags_available
     assert res.first_px4_flag_t >= t_a + 30
-    assert res.first_nontrusted_t < res.first_px4_flag_t          # Marsad flagged first on this scenario
+    assert res.first_nontrusted_t < res.first_px4_flag_t  # Marsad flagged first on this scenario
     assert res.marsad_flagged_px4_silent_s > 20
     assert res.transitions[0].flags == "jam=ok spoof=ok"
 
@@ -345,8 +434,9 @@ def test_cli_make_inspect_replay(tmp_path, capsys):
 
 def test_cli_replay_warns_on_contaminated_reference(tmp_path, capsys):
     p = tmp_path / "ekf.ulg"
-    rows = gps_rows_int() + [("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=0.0, v_xy_valid=True))
-                             for ts, _, _ in straight_rows()]
+    rows = gps_rows_int() + [
+        ("vehicle_local_position", dict(timestamp=ts, vx=5.0, vy=0.0, v_xy_valid=True)) for ts, _, _ in straight_rows()
+    ]
     rows.sort(key=lambda r: r[1]["timestamp"])
     build_ulog(p, [GPS_INT, LPOS], rows)
     assert main(["replay", str(p)]) == 0
@@ -363,8 +453,9 @@ def test_existing_demo_still_works(capsys):
 
 def test_current_px4_sensor_gps_schema_roundtrip(tmp_path):
     """PX4 main now logs latitude_deg/longitude_deg (float64) and altitude_msl_m; the legacy layout used int 1e-7."""
-    from marsad.adapters import write_ulog, read_ulog_samples
+    from marsad.adapters import read_ulog_samples, write_ulog
     from marsad.sim import generate
+
     run = generate("spoof_jump", 3, "dev", duration=120)
     p = str(tmp_path / "cur.ulg")
     write_ulog(p, run, schema="current")
@@ -376,8 +467,9 @@ def test_current_px4_sensor_gps_schema_roundtrip(tmp_path):
 
 def test_px4_v118_sensor_gnss_schema_roundtrip(tmp_path):
     """PX4 v1.18 renamed sensor_gps -> sensor_gnss (latitude, vel_north, ...); the adapter must still score it."""
-    from marsad.adapters import write_ulog, read_ulog_samples
+    from marsad.adapters import read_ulog_samples, write_ulog
     from marsad.sim import generate
+
     run = generate("spoof_jump", 3, "dev", duration=120)
     p = str(tmp_path / "gnss.ulg")
     write_ulog(p, run, schema="gnss")
@@ -390,17 +482,28 @@ def test_px4_v118_sensor_gnss_schema_roundtrip(tmp_path):
 
 def test_vehicle_gnss_nested_prefix_is_stripped():
     """vehicle_gnss nests the receiver sample; pyulog flattens it to receiver.* names."""
-    import numpy as np
     from types import SimpleNamespace
+
+    import numpy as np
+
     from marsad.adapters import ulog as U
+
     n = 5
-    d = SimpleNamespace(name="vehicle_gnss", multi_id=0, data={
-        "timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
-        "receiver.timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
-        "receiver.latitude": np.full(n, 25.2), "receiver.longitude": np.full(n, 55.3),
-        "receiver.altitude_msl": np.full(n, 10.0), "receiver.vel_north": np.ones(n, np.float32),
-        "receiver.vel_east": np.zeros(n, np.float32), "receiver.fix_type": np.full(n, 3, np.uint8),
-        "receiver.satellites_used": np.full(n, 12, np.uint8)})
+    d = SimpleNamespace(
+        name="vehicle_gnss",
+        multi_id=0,
+        data={
+            "timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
+            "receiver.timestamp": np.arange(n, dtype=np.uint64) * 1_000_000,
+            "receiver.latitude": np.full(n, 25.2),
+            "receiver.longitude": np.full(n, 55.3),
+            "receiver.altitude_msl": np.full(n, 10.0),
+            "receiver.vel_north": np.ones(n, np.float32),
+            "receiver.vel_east": np.zeros(n, np.float32),
+            "receiver.fix_type": np.full(n, 3, np.uint8),
+            "receiver.satellites_used": np.full(n, 12, np.uint8),
+        },
+    )
     ulog = SimpleNamespace(data_list=[d])
     info = U.UlogInfo()
     fixes, _ = U._gps_fixes(ulog, info, 2.0)

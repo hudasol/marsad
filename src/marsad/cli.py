@@ -1,5 +1,7 @@
 """marsad command line: bench, demo, and the log adapters (inspect, replay, make-log)."""
+
 from __future__ import annotations
+
 import argparse
 import json
 import sys
@@ -7,6 +9,7 @@ import sys
 
 def main(argv=None) -> int:
     from . import __version__
+
     ap = argparse.ArgumentParser(prog="marsad", description="Position-trust layer for autonomous systems.")
     ap.add_argument("--version", action="version", version=f"marsad {__version__}")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -33,8 +36,11 @@ def main(argv=None) -> int:
     r.add_argument("log")
     r.add_argument("--preset", default="uav_multirotor")
     r.add_argument("--json", default=None, help="write transitions and summary as JSON")
-    r.add_argument("--no-contaminated-ref", action="store_true",
-                   help="never use EKF-fused velocity as the reference (carry-off check is then off without a real reference)")
+    r.add_argument(
+        "--no-contaminated-ref",
+        action="store_true",
+        help="never use EKF-fused velocity as the reference (carry-off check is then off without a real reference)",
+    )
     m = sub.add_parser("make-log", help="write a SYNTHETIC PX4-style ULog from a simulated scenario")
     m.add_argument("--kind", default="spoof_drift")
     m.add_argument("--seed", type=int, default=1)
@@ -45,17 +51,23 @@ def main(argv=None) -> int:
 
     if a.cmd == "serve":
         from .api.__main__ import main as serve_main
+
         return serve_main(["--host", a.host, "--port", str(a.port)])
     if a.cmd == "mcp":
         from .mcp_server import main as mcp_main
+
         return mcp_main((["--http"] if a.http else []) + ["--port", str(a.port)])
     if a.cmd == "bench":
         from .bench import run_benchmark, summarize
         from .bench.report import markdown
+
         res = run_benchmark(a.split, range(a.seeds), workers=a.workers)
         summ = summarize(res)
-        md = markdown(summ, f"Benchmark: {a.split} split, {a.seeds} seeds per scenario",
-                      "All results are SIMULATED measurement-level scenarios; see docs/EVALUATION.md.")
+        md = markdown(
+            summ,
+            f"Benchmark: {a.split} split, {a.seeds} seeds per scenario",
+            "All results are SIMULATED measurement-level scenarios; see docs/EVALUATION.md.",
+        )
         print(md)
         if a.out:
             json.dump({"split": a.split, "seeds": a.seeds, "summary": summ, "runs": res}, open(a.out, "w"), indent=1)
@@ -65,6 +77,7 @@ def main(argv=None) -> int:
     if a.cmd == "demo":
         from . import TrustEngine, preset
         from .sim import generate
+
         r = generate(a.kind, a.seed, a.split)
         eng = TrustEngine(preset("uav_multirotor"))
         prev = None
@@ -87,10 +100,13 @@ def _is_ulog(path: str) -> bool:
 
 def _log_cmd(a) -> int:
     import warnings
+
     from .adapters._common import SYNTHETIC_BANNER
+
     if a.cmd == "make-log":
-        from .sim import generate
         from .adapters.ulog_writer import write_ulog
+        from .sim import generate
+
         run = generate(a.kind, a.seed, a.split)
         info = write_ulog(a.out, run, include_satellite_info=not a.no_satellite_info)
         print(f"wrote {a.out}: {info['gps_rows']} GPS rows, {info['ref_rows']} reference rows, {info['bytes']} bytes")
@@ -106,16 +122,23 @@ def _log_cmd(a) -> int:
         if not ulog:
             return _inspect_tlog(a.log)
         from .adapters.ulog import inspect_ulog
+
         info = inspect_ulog(a.log)
         print(f"file: {info.path}   duration {info.duration_s:.1f}s")
         if info.synthetic:
             print(f"*** {info.synthetic_note}")
-        print(f"GPS: {info.gps_topic} (multi_id {info.gps_instance}), {info.n_gnss} rows"
-              + (f", {info.gps_rate_hz:.1f} Hz" if info.gps_rate_hz else ""))
-        print(f"C/N0 from satellite_info: {'yes' if info.has_cn0 else 'NO'}   AGC: {'yes' if info.has_agc else 'NO'}"
-              f"   PX4 jamming/spoofing state: {'yes' if info.has_px4_flags else 'NO'}")
-        print(f"reference velocity: {info.reference_source or 'NONE'} ({info.n_ref} rows)"
-              + ("   ** CONTAMINATED **" if info.reference_contaminated else ""))
+        print(
+            f"GPS: {info.gps_topic} (multi_id {info.gps_instance}), {info.n_gnss} rows"
+            + (f", {info.gps_rate_hz:.1f} Hz" if info.gps_rate_hz else "")
+        )
+        print(
+            f"C/N0 from satellite_info: {'yes' if info.has_cn0 else 'NO'}   AGC: {'yes' if info.has_agc else 'NO'}"
+            f"   PX4 jamming/spoofing state: {'yes' if info.has_px4_flags else 'NO'}"
+        )
+        print(
+            f"reference velocity: {info.reference_source or 'NONE'} ({info.n_ref} rows)"
+            + ("   ** CONTAMINATED **" if info.reference_contaminated else "")
+        )
         print("field mapping:")
         for k, v in sorted(info.mapping.items()):
             print(f"  {k:24s} <- {v}")
@@ -129,25 +152,39 @@ def _log_cmd(a) -> int:
         return 0
     # replay
     from . import TrustEngine, preset
-    from .adapters.replay import replay_samples, format_replay
+    from .adapters.replay import format_replay, replay_samples
+
     eng = TrustEngine(preset(a.preset))
     if ulog:
         from .adapters.ulog import load_ulog
+
         with warnings.catch_warnings():
-            warnings.simplefilter("ignore")      # the same text is printed as WARNING below
+            warnings.simplefilter("ignore")  # the same text is printed as WARNING below
             d = load_ulog(a.log, allow_contaminated=not a.no_contaminated_ref, warn=False)
         res = replay_samples(d.samples, eng, d.px4_flags)
-        text = format_replay(res, label=f"replay {a.log} preset={a.preset}", synthetic=d.info.synthetic,
-                             source=d.info.reference_source or "", warnings=d.info.warnings, flag_source="PX4 flag")
+        text = format_replay(
+            res,
+            label=f"replay {a.log} preset={a.preset}",
+            synthetic=d.info.synthetic,
+            source=d.info.reference_source or "",
+            warnings=d.info.warnings,
+            flag_source="PX4 flag",
+        )
         extra = {"info": d.info.to_dict()}
     else:
         from .adapters.mavlink import MavlinkSource
+
         src = MavlinkSource(a.log, allow_contaminated=not a.no_contaminated_ref, warn=False)
         samples = list(src.samples())
         mp = src.mapper
         res = replay_samples(samples, eng, mp.flags)
-        text = format_replay(res, label=f"replay {a.log} (MAVLink) preset={a.preset}",
-                             source=mp.ref_source or "", warnings=mp.warnings, flag_source="GNSS_INTEGRITY")
+        text = format_replay(
+            res,
+            label=f"replay {a.log} (MAVLink) preset={a.preset}",
+            source=mp.ref_source or "",
+            warnings=mp.warnings,
+            flag_source="GNSS_INTEGRITY",
+        )
         extra = {"mavlink": {"ref_source": mp.ref_source, "warnings": mp.warnings, "counts": mp.counts}}
     print(text)
     if a.json:
@@ -157,6 +194,7 @@ def _log_cmd(a) -> int:
 
 def _inspect_tlog(path: str) -> int:
     from .adapters.mavlink import MavlinkSource
+
     src = MavlinkSource(path, warn=False)
     n = sum(1 for _ in src.samples())
     mp = src.mapper
