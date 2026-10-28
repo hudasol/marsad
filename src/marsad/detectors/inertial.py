@@ -9,6 +9,11 @@ visual/optical-flow/odometry reference. For each window W:
 Under nominal conditions |d_W| is bounded by GNSS noise, reference white noise and reference bias*W.
 The ratio of |d_W| to that bound is a z-score; sustained z above the threshold accrues drift evidence.
 Detectability floor: a drift slower than ~ref_bias_bound m/s cannot be separated from reference bias.
+
+Two z scores are computed per window and the larger is used. The first integrates the bias corrected reference
+with the tightened bias bound (sensitive, but a drift that moves the receiver velocity too can be learned as bias).
+The second integrates the uncorrected reference against the configured prior bound ``ref_bias_bound``, which
+the estimator cannot change (docs/PREREGISTRATION_PRIOR_BOUND.md).
 """
 from __future__ import annotations
 import bisect
@@ -25,7 +30,7 @@ class InertialDetector:
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
         self.ts: list[float] = []
-        self.rows: list[tuple] = []     # (pe-ce, pn-cn)
+        self.rows: list[tuple] = []     # (pe-ce, pn-cn, pe-cre, pn-crn)
         self.last_z = 0.0
         self.last_z_short = 0.0
         self.last_mag = 0.0
@@ -50,7 +55,7 @@ class InertialDetector:
         if g is None or not ctx.ref_ok:
             return out
         self.ts.append(ctx.t)
-        self.rows.append((ctx.pe - ctx.ce, ctx.pn - ctx.cn))
+        self.rows.append((ctx.pe - ctx.ce, ctx.pn - ctx.cn, ctx.pe - ctx.cre, ctx.pn - ctx.crn))
         self._prune(ctx.t)
         cur = self.rows[-1]
         best_rate, best_msg, best_mag, best_z = 0.0, "", 0.0, 0.0
@@ -63,12 +68,14 @@ class InertialDetector:
             if Weff < 0.8 * W or Weff > 1.6 * W or t0 < ctx.ref_valid_since:
                 continue
             r0 = self.rows[k]
+            noise2 = ((2.0 * c.sigma_pos) ** 2 * 2
+                      + (ctx.ref_noise_eff * math.sqrt(Weff * max(ctx.dt, 0.05))) ** 2)
             mag = math.hypot(cur[0] - r0[0], cur[1] - r0[1])
-            allowed = math.sqrt(
-                (2.0 * c.sigma_pos) ** 2 * 2
-                + (ctx.ref_noise_eff * math.sqrt(Weff * max(ctx.dt, 0.05))) ** 2
-                + (ctx.ref_bias_eff * Weff) ** 2)
-            z = mag / allowed
+            z = mag / math.sqrt(noise2 + (ctx.ref_bias_eff * Weff) ** 2)
+            mag_u = math.hypot(cur[2] - r0[2], cur[3] - r0[3])
+            z_u = mag_u / math.sqrt(noise2 + (c.ref_bias_bound * Weff) ** 2)
+            if z_u > z:
+                z, mag = z_u, mag_u
             rate = clamp(1.6 * (z - c.drift_z0), -0.3, 4.0)
             if z > best_z:
                 best_z, best_mag = z, mag

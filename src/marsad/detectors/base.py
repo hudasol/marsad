@@ -18,6 +18,8 @@ class Context:
     pn: float = 0.0
     ce: float = 0.0                      # integrated reference displacement (east)
     cn: float = 0.0
+    cre: float = 0.0                     # integral of the uncorrected reference velocity
+    crn: float = 0.0
     ref_ok: bool = False
     ref_valid_since: float = 0.0         # reference integral continuous since this time
     ref_bias_eff: float = 0.08           # bias bound to use for this sample (tightened once bias is estimated)
