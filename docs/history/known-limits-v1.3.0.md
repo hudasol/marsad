@@ -90,7 +90,7 @@ Results of the runs that completed are in `docs/results/bias_fix/`; the v1.3.0 f
 | held out `spoof_drift_stealth`, median latency | SIMULATED | 58.3 s | 52.9 s | no higher than 58.3 s: hit |
 | dev `nominal`, time not TRUSTED and runs reaching DENIED | SIMULATED | 0% and 0% | 1% and 3% (1 of 30) | not predicted; a new false alarm on a clean run |
 | held out navigation error (median of max), `spoof_jump` and `replay` | SIMULATED | 8 m and 10 m | 23 m and 21 m | not predicted; a regression |
-| new test (`tests/test_bias_guard.py`) | | fails | passes | hit |
+| new test (`tests/test_bias_guard.py`, removed with the guard) | | fails | passes | hit |
 | sitl2 230 s rows (including 0.25 m/s velocity consistent), detectability sweep, ablation, full test suite with the guard | | | not completed: the runs were stopped when the rejection was already certain | not scored |
 
 **Decision: rejected.** The acceptance conditions were no new false alarm on any clean or REAL LOG run and no

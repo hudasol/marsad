@@ -10,5 +10,5 @@
 | Research record | [research/](research/) (predictions written before each experiment, review findings, run log) |
 | History | [history/plan.md](history/plan.md) (the original build plan) |
 
-Raw result files are in `results/`, one folder per engine version; the commands that produce them are in the
+Raw result files are in [results/](results/README.md), one folder per run; the commands that produce them are in the
 README ("Reproduce each table").

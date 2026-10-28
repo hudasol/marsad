@@ -35,7 +35,7 @@ net effect is not predictable enough to preregister with confidence.
 ## Predictions (scored only if the change is implemented)
 
 Commands as in [VALIDATION.md](../VALIDATION.md), "Evidence weighting fix", with output to a new folder
-`docs/results/bias_guard/`. Latency is from the attack start; "unchanged" means the same detected count and a median
+`docs/results/bias_fix/`. Latency is from the attack start; "unchanged" means the same detected count and a median
 latency within 0.5 s of `docs/results/weighting_fix/`.
 
 | run | case | v1.3.0 | predicted |

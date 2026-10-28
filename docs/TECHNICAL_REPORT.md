@@ -46,7 +46,7 @@ cross-source disagreement, flatline/stale replay, forbidden zones, circle-fit si
 offset** (many tracks of one source displaced consistently against an independent source → blame the source, not 40
 tracks). A hex-binned, time-decayed interference map aggregates vehicle and track events.
 
-**Interfaces.** Core: standard-library Python, O(log n) per sample. Adapters: PX4 ULog, MAVLink, ROS 2. Service:
+**Interfaces.** Core: standard-library Python, about 240 us per sample on one cloud core (`docs/results/prior_bound/throughput.json`). Adapters: PX4 ULog, MAVLink, ROS 2. Service:
 REST + SSE + dashboard. Agent interface: an MCP server so AI agents and decision platforms can query trust and
 explanations as tools. The MAVLink reporter is advisory-only and cannot emit commands (enforced by a test).
 

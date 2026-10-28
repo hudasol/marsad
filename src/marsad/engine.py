@@ -1,4 +1,4 @@
-"""TrustEngine: the vehicle-trust module. Streaming, O(log n) per sample, stdlib-only.
+"""TrustEngine: the vehicle-trust module. Streaming, stdlib-only; about 240 us per sample on one cloud core.
 
 Feed NavSample objects in time order; get a TrustReport per sample.
 """
