@@ -94,7 +94,18 @@ def create_app(
             allow_headers=["X-API-Key", "Authorization", "Content-Type"],
         )
 
-    csp = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+    csp = "; ".join(
+        [
+            "default-src 'self'",
+            "img-src 'self' data:",
+            "style-src 'self'",
+            "script-src 'self'",
+            "connect-src 'self'",
+            "object-src 'none'",
+            "base-uri 'none'",
+            "frame-ancestors 'none'",
+        ]
+    )
 
     @app.middleware("http")
     async def _security_headers(request: Request, call_next):
