@@ -55,14 +55,17 @@ Share of runs detected, median latency in seconds. The baselines are described i
 
 | | Marsad | EKF2 style gate + reference | window consistency | signal monitor |
 |---|---|---|---|---|
-| position error after a jump (median of max, m) | **8** | 430 | 430 | 430 |
-| position error after replay (m) | **10** | 711 | 164 | 712 |
+| position handed to the vehicle after a jump (median of max error, m) | **8** | 430 | 430 | 430 |
+| position handed to the vehicle after replay (m) | **10** | 711 | 164 | 712 |
 | nominal runs with any alarm | 0% | 0% | 23% | 0% |
 | multipath runs with any alarm | 3% | 33% | 60% | 100% |
+| obstruction runs with any alarm / share of time not trusted | 100% / 85% | 60% / 23% | 73% / 23% | 100% / 95% |
 
-Read this table honestly: a plain window test is faster than Marsad on drift and better without a reference, but it
-false alarms on nominal flights and cannot classify, and every baseline follows a jump or replay where Marsad holds
-its last trusted position.
+The window test is faster than Marsad on drift and does better without a reference, but it false alarms on nominal
+flights and cannot classify. The error rows compare what each system hands to the vehicle: the baselines raise a flag
+and keep following GNSS, Marsad also recommends a fallback position, so that lead comes from having a fallback at all.
+Under obstruction Marsad leaves the trusted state in most runs but reaches DENIED in none. It is the noisiest detector
+there after the signal monitor, and that is a cost of the design.
 
 ### Slow drift on real logs with an added attack (SIH + INJECTED, `sitl2.ulg`, 230 s)
 
@@ -72,6 +75,7 @@ its last trusted position.
 | 0.25 m/s | 4/4, 113.6 s | 4/4, 57.1 s | not detected |
 | 0.5 m/s | 4/4, 42.5 s | 4/4, 31.1 s | not detected |
 | 1.0 m/s | 4/4, 25.5 s | 4/4, 18.1 s | not detected |
+| 2.0 m/s | 4/4, 15.8 s | 4/4, 11.4 s | 4/4, 13.9 s |
 
 The reference in these logs is simulator truth with no bias, which flatters every method that uses it.
 
