@@ -19,7 +19,7 @@ import numpy as np
 
 from marsad import TrustEngine, preset
 from marsad.adapters.ulog import load_ulog
-from marsad.bench.baseline import GateBaseline
+from marsad.bench.baselines import GateBaseline
 from marsad.geo import LocalFrame
 from marsad.types import RefMotion, TrustState
 

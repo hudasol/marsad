@@ -1,3 +1,3 @@
 from .runner import run_benchmark, evaluate_run, summarize
-from .baseline import GateBaseline
-__all__ = ["run_benchmark", "evaluate_run", "summarize", "GateBaseline"]
+from .baselines import GateBaseline, make_baselines
+__all__ = ["run_benchmark", "evaluate_run", "summarize", "GateBaseline", "make_baselines"]
