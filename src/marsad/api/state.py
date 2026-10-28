@@ -159,6 +159,8 @@ class Store:
         self.track_origin: Optional[str] = None
         self._last_scene = 0.0
         self.demo: dict = {"running": False, "simulated": True}
+        # who overrode a distrusted state and when; wall clock, newest last, bounded
+        self.audit: collections.deque = collections.deque(maxlen=500)
 
     # ------------------------------------------------------------- pub/sub
     def subscribe(self, loop) -> Subscriber:
@@ -363,7 +365,9 @@ class Store:
                 "meta": rec.meta,
             }
 
-    def acknowledge(self, vid: str, operator: Optional[str] = None, note: Optional[str] = None) -> dict:
+    def acknowledge(
+        self, vid: str, operator: Optional[str] = None, note: Optional[str] = None, authenticated: bool = False
+    ) -> dict:
         with self.lock:
             rec = self.get_vehicle(vid)
             rec.engine.acknowledge()
@@ -377,6 +381,9 @@ class Store:
                 "The next sample re-evaluates it.",
             }
             rec.last_state = "TRUSTED"
+            self.audit.append(
+                {**ev, "wall_time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "authenticated": authenticated}
+            )
         self.publish("acknowledge", ev)
         return ev
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hmac
+import json
 import os
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -23,6 +24,41 @@ from .state import HISTORY, Store, StoreError, dumps, get_store
 MAX_BODY = int(os.environ.get("MARSAD_MAX_BODY_BYTES", str(8 * 1024 * 1024)))
 VID = PathParam(..., pattern=r"^[A-Za-z0-9_.\-]{1,64}$", description="Vehicle id")
 DASHBOARD_DIR = Path(__file__).resolve().parent.parent / "dashboard"
+
+
+class _BodyLimit:
+    """Refuse request bodies over ``limit`` bytes while they stream, so chunked uploads cannot skip the check.
+
+    On overflow the 413 is sent at once and the application is told the client went away.
+    """
+
+    def __init__(self, app, limit: int):
+        self.app, self.limit = app, limit
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        seen = 0
+        refused = False
+
+        async def counted():
+            nonlocal seen, refused
+            msg = await receive()
+            if msg["type"] == "http.request" and not refused:
+                seen += len(msg.get("body", b""))
+                if seen > self.limit:
+                    refused = True
+                    body = json.dumps({"detail": f"request body exceeds {self.limit} bytes"}).encode()
+                    headers = [(b"content-type", b"application/json"), (b"content-length", str(len(body)).encode())]
+                    await send({"type": "http.response.start", "status": 413, "headers": headers})
+                    await send({"type": "http.response.body", "body": body})
+            return {"type": "http.disconnect"} if refused else msg
+
+        async def guarded(msg):
+            if not refused:
+                await send(msg)
+
+        await self.app(scope, counted, guarded)
 
 
 def create_app(
@@ -49,6 +85,7 @@ def create_app(
         description="Position-trust service. Advisory only. Simulated data is always flagged `simulated: true`.",
     )
     app.state.store, app.state.demo = st, demo
+    app.add_middleware(_BodyLimit, limit=MAX_BODY)
     if cors_origins:
         app.add_middleware(
             CORSMiddleware,
@@ -115,10 +152,15 @@ def create_app(
         return st.history(vid, n)
 
     @r.post("/vehicles/{vid}/acknowledge", tags=["vehicles"])
-    def vehicle_ack(body: Optional[Acknowledge] = None, vid: str = VID):
+    def vehicle_ack(request: Request, body: Optional[Acknowledge] = None, vid: str = VID):
         """Operator override: accept the current GNSS as trusted (engine.acknowledge())."""
         b = body or Acknowledge()
-        return st.acknowledge(vid, b.operator, b.note)
+        return st.acknowledge(vid, b.operator, b.note, authenticated=key is not None)
+
+    @r.get("/audit", tags=["vehicles"])
+    def audit():
+        """Operator overrides, newest last: wall clock time, vehicle, operator, note, whether a key was required."""
+        return {"overrides": list(st.audit)}
 
     @r.delete("/vehicles/{vid}", tags=["vehicles"])
     def vehicle_delete(vid: str = VID):
