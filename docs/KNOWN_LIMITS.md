@@ -17,8 +17,8 @@ per case; `docs/results/prior_bound/sih_inject_long.txt`).
 
 No baseline detects 0.1 m/s either (`docs/BASELINES.md`). Below the reference bias bound a slow drift and a
 biased reference are the same observation, so this is a limit of the information available and not only of the
-method. **SIMULATED** floor: 0.15 m/s in 100% of runs, 0.1 m/s in 50 to 56%, 0.05 m/s never
-(`docs/results/prior_bound/detectability.md`).
+method. **SIMULATED** floor: 0.15 m/s in 94 to 100% of runs, 0.1 m/s in 56 to 62%, 0.05 m/s never
+(`docs/results/prior_bound/detectability.md`; the 94% cell is a reference bias of 0.08 m/s, 1 of 16 runs lower than v1.3.0).
 
 What changed in v1.4.0: the engine now also compares the displacement against the uncorrected reference integral
 and the bound `ref_bias_bound`, so the bias estimator can no longer absorb a velocity consistent drift. The
