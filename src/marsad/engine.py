@@ -6,6 +6,7 @@ Feed NavSample objects in time order; get a TrustReport per sample.
 from __future__ import annotations
 
 import bisect
+import dataclasses
 import math
 from typing import Optional
 
@@ -16,6 +17,21 @@ from .geo import LocalFrame
 from .types import Evidence, NavAction, NavSample, TrustReport, TrustState
 from .types import Hypothesis as H
 
+_FIX_OPTIONAL = ("alt", "ve", "vn", "cn0_mean", "cn0_std", "agc", "hdop", "t_gnss")
+
+
+def _clean_fix(g):
+    """Return the fix with non finite optional fields dropped, or None when its position cannot be used.
+
+    A NaN or out of range position must never reach the local frame: the first fix defines the frame origin, and a
+    NaN there would turn every later position into NaN while the engine reports a healthy state.
+    """
+    if not (math.isfinite(g.lat) and math.isfinite(g.lon) and -90.0 <= g.lat <= 90.0 and -180.0 <= g.lon <= 180.0):
+        return None
+    bad = {k: None for k in _FIX_OPTIONAL if getattr(g, k) is not None and not math.isfinite(getattr(g, k))}
+    return dataclasses.replace(g, **bad) if bad else g
+
+
 _ORDER = {TrustState.TRUSTED: 0, TrustState.DEGRADED: 1, TrustState.DENIED: 2}
 _BY_ORDER = {v: k for k, v in _ORDER.items()}
 
@@ -24,21 +40,22 @@ class TrustEngine:
     def __init__(self, cfg: Optional[EngineConfig] = None, disable: Optional[set] = None):
         """disable: optional set of detector names ('signal','kinematic','inertial','timing') for ablations."""
         self.cfg = cfg or preset("uav_multirotor")
+        self._disable = set(disable or ())
+        self.fusion = Fusion(self.cfg)
+        self.reset()
+
+    # ------------------------------------------------------------------ state
+    def reset(self) -> None:
+        """Return to the state of a new engine. Every detector is rebuilt, so no window or latch survives."""
         self.signal = SignalDetector(self.cfg)
         self.kin = KinematicDetector(self.cfg)
         self.inertial = InertialDetector(self.cfg)
         self.timing = TimingDetector(self.cfg)
         self.replay = ReplayDetector(self.cfg)
         self.detectors = [
-            d
-            for d in (self.signal, self.kin, self.inertial, self.timing, self.replay)
-            if d.name not in (disable or set())
+            d for d in (self.signal, self.kin, self.inertial, self.timing, self.replay) if d.name not in self._disable
         ]
-        self.fusion = Fusion(self.cfg)
-        self.reset()
-
-    # ------------------------------------------------------------------ state
-    def reset(self) -> None:
+        self.n_rejected = 0  # samples whose GNSS fix or reference had to be dropped as non finite or out of range
         self.frame: Optional[LocalFrame] = None
         self.t0: Optional[float] = None
         self.t_last: Optional[float] = None
@@ -73,8 +90,6 @@ class TrustEngine:
         self._verified_since = None
         self._cut_done = False
         self.fusion.reset()
-        self.inertial.reset()
-        self.replay.reset()
 
     def acknowledge(self) -> None:
         """Operator override: accept current GNSS as trusted (e.g. after verifying by other means)."""
@@ -87,12 +102,18 @@ class TrustEngine:
     # ------------------------------------------------------------- main step
     def update(self, s: NavSample) -> TrustReport:
         cfg, t = self.cfg, s.t
+        if not math.isfinite(t):
+            raise ValueError("sample time must be finite")
         if self.t0 is None:
             self.t0 = t
         dt = 0.0 if self.t_last is None else min(max(t - self.t_last, 0.0), 5.0)
         self.t_last = t
 
         g = s.gnss if (s.gnss is not None and s.gnss.fix_type >= 3) else None
+        if g is not None:
+            g = _clean_fix(g)
+            if g is None:
+                self.n_rejected += 1
         if g is not None and self.frame is None:
             self.frame = LocalFrame(g.lat, g.lon)
         pe = pn = 0.0
@@ -106,6 +127,9 @@ class TrustEngine:
 
         # reference integration -------------------------------------------------
         ref = s.ref
+        if ref is not None and not (math.isfinite(ref.ve) and math.isfinite(ref.vn)):
+            ref = None
+            self.n_rejected += 1
         if ref is not None and ref.quality is not None and ref.quality < cfg.ref_min_quality:
             ref = None  # tracking lost: treat as a reference gap, never integrate it
         if ref is not None:
