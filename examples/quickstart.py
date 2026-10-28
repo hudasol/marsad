@@ -1,12 +1,13 @@
 """Run the trust engine on a simulated carry off spoofing scenario and print every state change.
 
-    pip install -e ".[sim]"
-    python examples/quickstart.py
+pip install -e ".[sim]"
+python examples/quickstart.py
 """
+
 from marsad import TrustEngine, preset
 from marsad.sim import generate
 
-run = generate("spoof_drift_stealth", seed=4, split="dev")      # SIMULATED, measurement level only
+run = generate("spoof_drift_stealth", seed=4, split="dev")  # SIMULATED, measurement level only
 engine = TrustEngine(preset("uav_multirotor"))
 
 previous = None
