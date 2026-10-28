@@ -6,7 +6,7 @@ preset or other detector logic will be changed in this change, and none will be 
 
 ## The defect
 
-Documented in [VALIDATION.md](VALIDATION.md) ("Why the drifts were missed") and
+Documented in [VALIDATION.md](../VALIDATION.md) ("Why the drifts were missed") and
 [REVIEW_FINDINGS.md](REVIEW_FINDINGS.md). The engine computes one time step per input sample, `dt`, the gap since
 the previous sample of any kind. Several pieces of evidence are computed only when a GNSS fix arrives but are
 multiplied by that `dt`, as if the evidence were a rate accrued over the sample interval. When the reference
@@ -158,11 +158,11 @@ state changes in attack scenarios and are expected to hold.
 ## How hits and misses will be scored
 
 A detection case is a hit if the detected count matches exactly and the median latency falls inside the stated
-band. P3 to P8 are scored as stated. Results, hits and misses will be reported in [VALIDATION.md](VALIDATION.md)
-and [EVALUATION.md](EVALUATION.md) next to the v1.1.0 and v1.2.0 numbers, which stay in `docs/results/` unchanged.
+band. P3 to P8 are scored as stated. Results, hits and misses will be reported in [VALIDATION.md](../VALIDATION.md)
+and [EVALUATION.md](../EVALUATION.md) next to the v1.1.0 and v1.2.0 numbers, which stay in `docs/results/` unchanged.
 
 ## Outcome
 
-Results, hits and misses are reported in [VALIDATION.md](VALIDATION.md), section "Evidence weighting fix", and in
-[EVALUATION.md](EVALUATION.md), section "After the evidence weighting fix". The remaining miss is explained in
-[KNOWN_LIMITS.md](KNOWN_LIMITS.md). This preregistration is otherwise left as it was written.
+Results, hits and misses are reported in [VALIDATION.md](../VALIDATION.md), section "Evidence weighting fix", and in
+[EVALUATION.md](../EVALUATION.md), section "After the evidence weighting fix". The remaining miss is explained in
+[KNOWN_LIMITS.md](../KNOWN_LIMITS.md). This preregistration is otherwise left as it was written.

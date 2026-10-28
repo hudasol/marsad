@@ -31,7 +31,7 @@ reference are simulated. This is not real spoofing and nothing here was received
 
 Reproduce (at tag v1.2.0; the current engine writes post fix results, so use `docs/results/weighting_fix/` paths at HEAD): `python scripts/sih_inject.py sitl1.ulg --out docs/results/sih_inject.json` (console output in
 `docs/results/sih_inject.txt`). Predictions were committed before the run in
-[PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md).
+[PREREGISTRATION_SIH.md](research/PREREGISTRATION_SIH.md).
 
 Disclosure: `scripts/sih_inject.py`, including its sitl1 defaults (`--end 77`, `--t-attack 45`), was committed on
 2026-10-11, before the preregistration. The repository does not record whether it had been run on sitl1 before
@@ -100,7 +100,7 @@ all 51,615 samples (`docs/results/sitl2_timeline.txt`).
 
 Reproduce (at tag v1.2.0): `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_inject_long.json`
 (console output in `docs/results/sih_inject_long.txt`, about 17 minutes). Predictions were committed before the run
-in the addendum of [PREREGISTRATION_SIH.md](PREREGISTRATION_SIH.md). The case list gained 0.1 and 0.25 m/s drifts for
+in the addendum of [PREREGISTRATION_SIH.md](research/PREREGISTRATION_SIH.md). The case list gained 0.1 and 0.25 m/s drifts for
 this run; rerunning the sitl1 command therefore prints two extra rows, and the rows above are unchanged.
 
 | attack | Marsad detected | Marsad median latency | median offset at alarm | gate baseline detected |
@@ -159,7 +159,7 @@ within 0.4 s, which is what one would expect if the evidence weighting, not the 
 ## Evidence weighting fix
 
 The defect described in "Why the drifts were missed" was fixed in a separate change after v1.2.0. Predictions were
-written and committed first, in [PREREGISTRATION_WEIGHTING.md](PREREGISTRATION_WEIGHTING.md) (commit `5756142`),
+written and committed first, in [PREREGISTRATION_WEIGHTING.md](research/PREREGISTRATION_WEIGHTING.md) (commit `5756142`),
 before any engine code was changed. The engine now scales every piece of evidence that is computed once per GNSS fix
 by the time since the previous usable fix (`gnss_dt`, capped at 1.5 s) instead of the time since the previous sample
 of any kind. The same defect was found and fixed in the kinematic position/velocity consistency evidence, the per fix

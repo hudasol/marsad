@@ -76,7 +76,7 @@ before the attack begins.
 
 ## Tried and rejected: the bias estimator guard (2026-10-23)
 
-The guard proposed in [PREREGISTRATION_BIAS.md](PREREGISTRATION_BIAS.md) was implemented exactly as written (commit
+The guard proposed in [PREREGISTRATION_BIAS.md](research/PREREGISTRATION_BIAS.md) was implemented exactly as written (commit
 `a65372c`), evaluated, rejected and reverted (commit `5c5ca79`). The engine in this repository is the v1.3.0 engine.
 Results of the runs that completed are in `docs/results/bias_fix/`; the v1.3.0 files are unchanged.
 

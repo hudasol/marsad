@@ -15,7 +15,7 @@ SITL FAULT) are explained in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ### Changed
 * The drift detector also tests the uncorrected reference integral against the prior bias bound
-  ([docs/PREREGISTRATION_PRIOR_BOUND.md](docs/PREREGISTRATION_PRIOR_BOUND.md)).
+  ([docs/PREREGISTRATION_PRIOR_BOUND.md](docs/research/PREREGISTRATION_PRIOR_BOUND.md)).
 * `marsad.bench.baseline` is now `marsad.bench.baselines` (`GateBaseline` is unchanged and still exported from
   `marsad.bench`).
 
@@ -25,7 +25,7 @@ SITL FAULT) are explained in [docs/VALIDATION.md](docs/VALIDATION.md).
 * Evidence weighting at mixed sample rates. Per fix evidence is scaled by the time since the previous usable fix
   (capped at 1.5 s), not by the time since the previous sample of any kind. With a 125 Hz reference and 8 Hz GNSS,
   drift evidence had accrued at about 6% of its intended rate. Preregistered
-  ([docs/PREREGISTRATION_WEIGHTING.md](docs/PREREGISTRATION_WEIGHTING.md)); regression test `tests/test_mixed_rate.py`.
+  ([docs/PREREGISTRATION_WEIGHTING.md](docs/research/PREREGISTRATION_WEIGHTING.md)); regression test `tests/test_mixed_rate.py`.
 
 ### Added
 * `docs/KNOWN_LIMITS.md`, `docs/DATA.md` (checksums and provenance), simulator logs as release assets.

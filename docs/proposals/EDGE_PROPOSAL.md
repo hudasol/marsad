@@ -28,8 +28,8 @@ MAVLink reporter cannot send commands, and a test enforces this.
 
 ## 3. Evidence
 
-Every figure below is reproducible with the command listed in [VALIDATION.md](VALIDATION.md) or
-[EVALUATION.md](EVALUATION.md). Labels: SIMULATED = the repository's own generator; REAL LOG = unmodified flight,
+Every figure below is reproducible with the command listed in [VALIDATION.md](../VALIDATION.md) or
+[EVALUATION.md](../EVALUATION.md). Labels: SIMULATED = the repository's own generator; REAL LOG = unmodified flight,
 no attack; SIH + INJECTED = PX4 software in the loop log using the SIH simulator, with an offset added to the GNSS
 fixes, scored against simulator truth.
 

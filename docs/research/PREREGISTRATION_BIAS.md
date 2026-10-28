@@ -6,7 +6,7 @@ before any implementation or run, and will be scored as written.
 
 ## Problem
 
-Documented in [KNOWN_LIMITS.md](KNOWN_LIMITS.md). While the drift z score is below 1, the engine learns the reference
+Documented in [KNOWN_LIMITS.md](../KNOWN_LIMITS.md). While the drift z score is below 1, the engine learns the reference
 velocity bias from (reference velocity minus GNSS velocity). A spoofer that shifts the GNSS velocity together with the
 position turns that difference into the drift rate, and the estimator absorbs it. On `sitl2.ulg` (SIH + INJECTED) the
 north estimate moved from -0.035 m/s at 75 s to -0.083 m/s at 95 s during a 0.25 m/s drift, and the drift was missed.
@@ -34,7 +34,7 @@ net effect is not predictable enough to preregister with confidence.
 
 ## Predictions (scored only if the change is implemented)
 
-Commands as in [VALIDATION.md](VALIDATION.md), "Evidence weighting fix", with output to a new folder
+Commands as in [VALIDATION.md](../VALIDATION.md), "Evidence weighting fix", with output to a new folder
 `docs/results/bias_guard/`. Latency is from the attack start; "unchanged" means the same detected count and a median
 latency within 0.5 s of `docs/results/weighting_fix/`.
 
@@ -66,5 +66,5 @@ Not implemented. Recorded in [RUN_LOG.md](RUN_LOG.md) for the author to decide.
 ## Outcome
 
 Implemented, evaluated, rejected and reverted on 2026-10-23. Scored results and the decision are in
-[KNOWN_LIMITS.md](KNOWN_LIMITS.md), section "Tried and rejected: the bias estimator guard". The predictions above
+[KNOWN_LIMITS.md](../KNOWN_LIMITS.md), section "Tried and rejected: the bias estimator guard". The predictions above
 are left as they were written.

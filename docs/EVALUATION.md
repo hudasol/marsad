@@ -68,7 +68,7 @@ Dev split numbers are in `docs/results/dev.md`.
 **SIMULATED.** The tables above are v1.1.0 and stay as published. After v1.2.0 the engine was changed so that
 evidence computed once per GNSS fix is scaled by the time since the previous usable fix rather than the time since
 the previous sample (details in [VALIDATION.md](VALIDATION.md), "Evidence weighting fix"). Predictions for this
-evaluation (P7, P8) were committed before the change in [PREREGISTRATION_WEIGHTING.md](PREREGISTRATION_WEIGHTING.md).
+evaluation (P7, P8) were committed before the change in [PREREGISTRATION_WEIGHTING.md](research/PREREGISTRATION_WEIGHTING.md).
 In the simulator GNSS and reference share one 5 Hz sample, so the change can only matter on the first fix after
 samples without a usable fix.
 

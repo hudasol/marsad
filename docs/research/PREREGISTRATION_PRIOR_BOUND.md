@@ -8,7 +8,7 @@ be scored as written, whether or not they hold. Outcome section at the end is em
 [BASELINES.md](BASELINES.md) compares the engine with detectors that share its input. A plain sliding window
 displacement test (GNSS displacement minus integrated reference velocity, fixed bias allowance, no learning)
 detects the velocity consistent 0.25 m/s drift on `sitl2.ulg` in 57 s where Marsad v1.3.0 detects nothing
-([KNOWN_LIMITS.md](KNOWN_LIMITS.md)). Marsad already has the same test in `detectors/inertial.py`. The difference is
+([KNOWN_LIMITS.md](../KNOWN_LIMITS.md)). Marsad already has the same test in `detectors/inertial.py`. The difference is
 that Marsad compares GNSS with the *bias corrected* reference integral. Once the bias estimator has learned a drift
 as sensor bias, the corrected integral follows the drift and the test sees nothing.
 
@@ -30,7 +30,7 @@ matters afterwards, which is where the absorption happens.
 
 ## Predictions (scored when implemented)
 
-Commands as in [VALIDATION.md](VALIDATION.md) and the README reproduction table; output goes to
+Commands as in [VALIDATION.md](../VALIDATION.md) and the README reproduction table; output goes to
 `docs/results/prior_bound/`. Latency is from the attack start. "Unchanged" means the same detected count and a
 median latency within 0.5 s of `docs/results/weighting_fix/`.
 
