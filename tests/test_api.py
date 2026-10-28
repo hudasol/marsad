@@ -69,7 +69,7 @@ def test_health_and_dashboard(client):
     assert client.get("/v1/health").json()["status"] == "ok"
     page = client.get("/")
     assert page.status_code == 200 and "مرصد" in page.text
-    assert "SIMULATED" in page.text
+    assert "simulated data" in page.text.lower()
     assert client.get("/app.js").status_code == 200 and client.get("/style.css").status_code == 200
 
 
@@ -77,7 +77,7 @@ def test_dashboard_is_offline_only():
     import pathlib
 
     root = pathlib.Path(__file__).resolve().parents[1] / "src" / "marsad" / "dashboard"
-    for f in ("index.html", "app.js", "style.css"):
+    for f in ("index.html", "app.js", "style.css", "scene3d.js"):
         txt = (root / f).read_text(encoding="utf-8")
         assert "http://" not in txt.replace("http://www.w3.org", "") and "https://" not in txt, f
         assert "@import" not in txt and "cdn" not in txt.lower()
@@ -421,3 +421,23 @@ def test_chunked_body_over_the_cap_is_refused(monkeypatch):
 
         r = c.post("/v1/vehicles/x/samples", content=chunks(), headers={"content-type": "application/json"})
         assert r.status_code == 413
+
+
+def test_dashboard_script_only_uses_ids_the_page_defines():
+    import pathlib
+    import re
+
+    root = pathlib.Path(__file__).resolve().parents[1] / "src" / "marsad" / "dashboard"
+    html = (root / "index.html").read_text(encoding="utf-8")
+    ids = set(re.findall(r'id="([^"]+)"', html))
+    used = set(re.findall(r'\$\("([^"]+)"\)', (root / "app.js").read_text(encoding="utf-8")))
+    assert not used - ids, f"app.js looks up ids missing from index.html: {sorted(used - ids)}"
+    assert "style=" not in html, "inline styles block a strict content security policy"
+    assert (root / "vendor" / "three.LICENSE").exists(), "the bundled three.js needs its licence"
+
+
+def test_dashboard_is_served_with_a_content_security_policy(client):
+    r = client.get("/")
+    assert "script-src 'self'" in r.headers["content-security-policy"]
+    assert r.headers["x-content-type-options"] == "nosniff"
+    assert "content-security-policy" not in client.get("/docs").headers

@@ -94,6 +94,18 @@ def create_app(
             allow_headers=["X-API-Key", "Authorization", "Content-Type"],
         )
 
+    csp = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+
+    @app.middleware("http")
+    async def _security_headers(request: Request, call_next):
+        resp = await call_next(request)
+        if not request.url.path.startswith(
+            ("/docs", "/redoc", "/openapi")
+        ):  # the interactive docs load their own assets
+            resp.headers.setdefault("Content-Security-Policy", csp)
+            resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+        return resp
+
     @app.exception_handler(RequestValidationError)
     async def _validation(_: Request, exc: RequestValidationError):
         # drop echoed input: it may hold NaN/Inf, which is not valid JSON

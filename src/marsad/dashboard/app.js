@@ -9,9 +9,9 @@ const COL = { trusted: C("--trusted"), degraded: C("--degraded"), denied: C("--d
   line: C("--line"), line2: C("--line-2"), ink: C("--ink"), panel: C("--panel") };
 const STATE_COL = { TRUSTED: COL.trusted, DEGRADED: COL.degraded, DENIED: COL.denied };
 const HYP = [  // stack order bottom -> top
-  ["nominal", "Nominal", "#2b3b48"], ["environmental_degradation", "Environmental", "#b8a95a"],
-  ["jamming", "Jamming-like", "#4aa3df"], ["spoofing_jump", "Spoof: jump", "#e56b8f"],
-  ["spoofing_drift", "Spoof: drift", "#9b7fe8"], ["replay_meaconing", "Replay", "#d9d9d9"]];
+  ["nominal", "Nominal", "#3b4349"], ["environmental_degradation", "Environmental", "#b3a35a"],
+  ["jamming", "Jamming-like", "#5a9fd0"], ["spoofing_jump", "Spoof: jump", "#d0627f"],
+  ["spoofing_drift", "Spoof: drift", "#9a82d8"], ["replay_meaconing", "Replay", "#cfcfcf"]];
 const ACTION = { USE_GNSS: "Use GNSS", USE_GNSS_WITH_CAUTION: "Use GNSS with caution",
   FALLBACK_REFERENCE: "Navigate on reference", HOLD_AND_ALERT: "Hold and alert operator" };
 const FALLBACK = new Set(["FALLBACK_REFERENCE", "HOLD_AND_ALERT"]);
@@ -102,7 +102,7 @@ function drawPlot() {
   // grid (equal aspect, metres)
   const step = niceStep(Math.max(aw, ah) / k, 6);
   ctx.save(); ctx.beginPath(); ctx.rect(pad.l, pad.t, aw, ah); ctx.clip();
-  ctx.lineWidth = 1; ctx.strokeStyle = "rgba(141,153,164,.13)"; ctx.beginPath();
+  ctx.lineWidth = 1; ctx.strokeStyle = "rgba(154,160,164,.13)"; ctx.beginPath();
   const eMin = cx - aw / 2 / k, eMax = cx + aw / 2 / k, nMin = cy - ah / 2 / k, nMax = cy + ah / 2 / k;
   for (let e = Math.ceil(eMin / step) * step; e <= eMax; e += step) { const x = Math.round(X(e)) + .5; ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ah); }
   for (let n = Math.ceil(nMin / step) * step; n <= nMax; n += step) { const y = Math.round(Y(n)) + .5; ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + aw, y); }
@@ -183,7 +183,7 @@ function drawPlot() {
     const dd = Math.hypot(rh[0] - th[0], rh[1] - th[1]);
     if (dd > 6) {
       ctxClip(); ctx.setLineDash([3, 3]); ctx.strokeStyle = COL.raw; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(X(th[0]), Y(th[1])); ctx.lineTo(X(rh[0]), Y(rh[1])); ctx.stroke(); ctx.setLineDash([]);
-      halo(ctx, `${dd.toFixed(0)} m`, (X(th[0]) + X(rh[0])) / 2 + 6, (Y(th[1]) + Y(rh[1])) / 2 - 4, COL.raw, "left", "600 11px " + C("--f-mono")); ctx.restore();
+      halo(ctx, `${dd.toFixed(0)} m`, (X(th[0]) + X(rh[0])) / 2 - 8, (Y(th[1]) + Y(rh[1])) / 2 - 4, COL.raw, "right", "600 11px " + C("--f-mono")); ctx.restore();
     }
   }
   for (const hd of heads) {
@@ -218,9 +218,9 @@ function drawOffset(o, ALL, t0) {
   R *= 1.18; const pad = { l: 20, r: 150, t: 14, b: 26 }, aw = w - pad.l - pad.r, ah = h - pad.t - pad.b;
   const k = Math.min(aw, ah) / 2 / R, cx = pad.l + aw / 2, cy = pad.t + ah / 2;
   const X = (e) => cx + e * k, Y = (n) => cy - n * k;
-  ctx.strokeStyle = "rgba(141,153,164,.16)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - R * k, cy); ctx.lineTo(cx + R * k, cy); ctx.moveTo(cx, cy - R * k); ctx.lineTo(cx, cy + R * k); ctx.stroke();
+  ctx.strokeStyle = "rgba(154,160,164,.16)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - R * k, cy); ctx.lineTo(cx + R * k, cy); ctx.moveTo(cx, cy - R * k); ctx.lineTo(cx, cy + R * k); ctx.stroke();
   const st = niceStep(R, 3); ctx.font = "10.5px " + C("--f-mono"); ctx.textAlign = "left";
-  for (let r = st; r < R; r += st) { ctx.strokeStyle = "rgba(141,153,164,.22)"; ctx.beginPath(); ctx.arc(cx, cy, r * k, 0, 6.3); ctx.stroke(); ctx.fillStyle = COL.dim; ctx.fillText(fmtM(r), cx + r * k * 0.7071 + 3, cy - r * k * 0.7071 - 3); }
+  for (let r = st; r < R; r += st) { ctx.strokeStyle = "rgba(154,160,164,.22)"; ctx.beginPath(); ctx.arc(cx, cy, r * k, 0, 6.3); ctx.stroke(); ctx.fillStyle = COL.dim; ctx.fillText(fmtM(r), cx + r * k * 0.7071 + 3, cy - r * k * 0.7071 - 3); }
   const path = (get, style, dash, lw) => { ctx.strokeStyle = style; ctx.lineWidth = lw; ctx.setLineDash(dash); ctx.lineJoin = "round"; ctx.beginPath(); let pen = false;
     for (const p of P) { const a = get(p); if (!a) { pen = false; continue; } pen ? ctx.lineTo(X(a[0]), Y(a[1])) : ctx.moveTo(X(a[0]), Y(a[1])); pen = true; } ctx.stroke(); ctx.setLineDash([]); };
   path((p) => rel(p.raw, p.truth), COL.raw, [], 2);
@@ -229,17 +229,26 @@ function drawOffset(o, ALL, t0) {
   for (const r of runs) { ctx.beginPath(); r.pts.forEach((a, i) => (i ? ctx.lineTo(X(a[0]), Y(a[1])) : ctx.moveTo(X(a[0]), Y(a[1])))); ctx.strokeStyle = r.fb ? COL.degraded : COL.advice; ctx.lineWidth = r.fb ? 3.2 : 2.4; ctx.setLineDash(r.fb ? [8, 5] : []); ctx.stroke(); ctx.setLineDash([]); }
   // reality at the centre
   ctx.strokeStyle = COL.truth; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, 7, 0, 6.3); ctx.stroke(); ctx.fillStyle = COL.truth; ctx.beginPath(); ctx.arc(cx, cy, 2, 0, 6.3); ctx.fill();
-  halo(ctx, "Reality (simulated)", cx + 12, cy + 16, COL.truth, "left", "600 11.5px " + C("--f-ui"));
   const last = ALL[ALL.length - 1], lastRel = (key) => { for (let i = P.length - 1; i >= 0; i--) { const a = rel(P[i][key], P[i].truth); if (a) return a; } return null; };
   const heads = [];
   const ra = lastRel("raw"), na = lastRel("nav");
   if (ra) heads.push({ a: ra, c: COL.raw, t: `GNSS says: ${Math.hypot(ra[0], ra[1]).toFixed(0)} m off${last.raw ? "" : " (last fix)"}` });
   if (na) heads.push({ a: na, c: FALLBACK.has(last.action) ? COL.degraded : COL.advice, t: `Marsad advises: ${Math.hypot(na[0], na[1]).toFixed(0)} m off` });
+  const readout = heads.map((x) => x.t);
+  heads.push({ a: [0, 0], c: COL.truth, t: "Reality (simulated)", fixed: true });  // labels share one stack so none overlaps
   heads.sort((a, b) => Y(a.a[1]) - Y(b.a[1])); let prev = -1e9;
-  for (const hd of heads) { const x = X(hd.a[0]), y = Y(hd.a[1]); hd.x = x; hd.y = y; ctx.fillStyle = hd.c; ctx.beginPath(); ctx.arc(x, y, 5.5, 0, 6.3); ctx.fill(); ctx.strokeStyle = COL.ink; ctx.lineWidth = 1.5; ctx.stroke(); hd.ly = Math.max(y, prev + 15); prev = hd.ly; }
-  for (const hd of heads) { const lx = Math.min(hd.x + 12, w - pad.r + 4); halo(ctx, hd.t, lx, hd.ly + 4, hd.c, "left", "600 11.5px " + C("--f-ui")); }
+  for (const hd of heads) {
+    const x = X(hd.a[0]), y = Y(hd.a[1]); hd.x = x; hd.y = y; hd.ly = Math.max(y, prev + 16); prev = hd.ly;
+    if (hd.fixed) continue;
+    ctx.fillStyle = hd.c; ctx.beginPath(); ctx.arc(x, y, 5.5, 0, 6.3); ctx.fill(); ctx.strokeStyle = COL.ink; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  for (const hd of heads) {
+    const lx = Math.min(hd.x + 14, w - pad.r + 4);
+    if (Math.abs(hd.ly - hd.y) > 5) { ctx.strokeStyle = hd.c; ctx.globalAlpha = .6; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(hd.x + (hd.fixed ? 8 : 5), hd.y); ctx.lineTo(lx - 3, hd.ly); ctx.stroke(); ctx.globalAlpha = 1; }
+    halo(ctx, hd.t, lx, hd.ly + 4, hd.c, "left", "600 11.5px " + C("--f-ui"));
+  }
   ctx.fillStyle = COL.dim; ctx.textAlign = "left"; ctx.font = "10.5px " + C("--f-mono"); ctx.fillText("Rings: distance from reality. Each trail starts at the origin.", pad.l, h - 8);
-  const ro = `t ${fmtT(last.t)}  |  positions relative to simulated ground truth  |  ` + heads.map((x) => x.t).join("  |  ");
+  const ro = `t ${fmtT(last.t)}  |  positions relative to simulated ground truth  |  ` + readout.join("  |  ");
   $("plot-readout").textContent = ro; o.c.setAttribute("aria-label", "Offset from reality. " + ro);
 }
 
@@ -250,7 +259,7 @@ function patterns(ctx) {
   const mk = (draw) => { const c = document.createElement("canvas"); c.width = c.height = 8; const g = c.getContext("2d"); draw(g); return ctx.createPattern(c, "repeat"); };
   hatch = {
     DEGRADED: mk((g) => { g.strokeStyle = COL.degraded; g.globalAlpha = .55; g.lineWidth = 1.4; g.beginPath(); g.moveTo(0, 8); g.lineTo(8, 0); g.stroke(); }),
-    DENIED: mk((g) => { g.strokeStyle = COL.denied; g.globalAlpha = .7; g.lineWidth = 1.6; g.beginPath(); g.moveTo(0, 8); g.lineTo(8, 0); g.moveTo(0, 0); g.lineTo(8, 8); g.stroke(); }),
+    DENIED: mk((g) => { g.strokeStyle = COL.denied; g.globalAlpha = .5; g.lineWidth = 1.4; g.beginPath(); g.moveTo(0, 8); g.lineTo(8, 0); g.stroke(); }),
   };
   return hatch;
 }
@@ -278,7 +287,7 @@ function drawTimeline() {
     i = j + 1;
   }
   // grid + axes
-  ctx.strokeStyle = "rgba(141,153,164,.16)"; ctx.lineWidth = 1; ctx.font = "10px " + C("--f-mono"); ctx.fillStyle = COL.dim;
+  ctx.strokeStyle = "rgba(154,160,164,.16)"; ctx.lineWidth = 1; ctx.font = "10px " + C("--f-mono"); ctx.fillStyle = COL.dim;
   ctx.textAlign = "right"; for (const v of [0, .5, 1]) { const y = Math.round(Y(v)) + .5; ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + aw, y); ctx.stroke(); ctx.fillText(v.toFixed(1), pad.l - 4, y + 3); }
   const st = niceStep(d1 - d0, Math.max(2, Math.floor(aw / 70))); ctx.textAlign = "center";
   for (let t = Math.ceil(d0 / st) * st; t <= d1; t += st) { const x = X(t); ctx.fillText(fmtT(t).slice(0, 5), x, h - 6); ctx.beginPath(); ctx.moveTo(Math.round(x) + .5, pad.t + ah); ctx.lineTo(Math.round(x) + .5, pad.t + ah + 3); ctx.stroke(); }
@@ -516,9 +525,30 @@ $("scn-form").addEventListener("submit", async (ev) => {
 });
 $("btn-stop").addEventListener("click", async () => { try { applyDemo(await api("/v1/demo/stop", { method: "POST" })); } catch (e) { $("demo-line").textContent = e.message; } });
 $("btn-ack").addEventListener("click", async () => { if (!S.vid) return; try { await api(`/v1/vehicles/${encodeURIComponent(S.vid)}/acknowledge`, { method: "POST", body: JSON.stringify({ operator: "dashboard" }) }); } catch (e) { $("live").textContent = "Acknowledge failed: " + e.message; } });
-for (const r of document.querySelectorAll("input[name=view]")) {
-  r.checked = r.value === VIEW; r.addEventListener("change", () => { VIEW = r.value; mark("banner"); try { localStorage.setItem("marsad.view", VIEW); } catch (_) {} mark("plot"); });
+// the space-time tab is a WebGL scene loaded on first use; everything else is the 2D canvas
+let stage = null, stageFailed = false;
+async function applyView() {
+  const space = VIEW === "space";
+  $("stage").hidden = !space; $("plot").hidden = space; $("plot-legend").hidden = space;
+  $("stage-legend").hidden = !space; $("plot-empty").hidden = space ? true : S.pts.length > 0;
+  if (!space) { if (stage) stage.show(false); mark("plot"); return; }
+  if (!stage && !stageFailed) {
+    try {
+      const m = await import("./scene3d.js");
+      stage = m.createSpaceTime($("stage"), () => ({ pts: S.pts, onset: onsetT(), hasTruth: S.pts.some((p) => p.truth) }));
+    } catch (e) {
+      stageFailed = true; $("plot-readout").textContent = "The space-time view needs WebGL, which this browser did not provide.";
+      VIEW = "event"; const r = $("vw-event"); r.checked = true; return applyView();
+    }
+  }
+  if (stage) stage.show(true);
+  $("plot-readout").textContent = "Drag to turn, wheel to zoom, double click to reset. Height is time.";
 }
+for (const r of document.querySelectorAll("input[name=view]")) {
+  r.checked = r.value === VIEW;
+  r.addEventListener("change", () => { VIEW = r.value; mark("banner"); try { localStorage.setItem("marsad.view", VIEW); } catch (_) {} applyView(); });
+}
+applyView();
 $("veh-select").addEventListener("change", (e) => loadVehicle(e.target.value || null));
 
 (async () => {
