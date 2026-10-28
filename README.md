@@ -1,172 +1,177 @@
 # Marsad (مرصد)
 
-**Position-trust layer for autonomous systems and decision platforms.**
+Position trust for vehicles and for tracks. Marsad takes a GNSS stream and an independent motion reference, decides
+whether the position can be believed, separates a degraded signal from a false one, and recommends what to do next.
 
-Marsad answers one question: *can I believe this position?* It detects GNSS jamming and spoofing, separates
-"GNSS is degraded" from "GNSS is lying", scores the integrity of positions coming from vehicles and from
-multi-source tracks, explains its reasoning, and recommends a fallback navigation mode. The core is
-hardware-independent and standard-library only; it speaks PX4 ULog, MAVLink and ROS 2, serves a REST/SSE API and an
-operator dashboard, and exposes an **MCP server** so AI agents and decision platforms can use it as a tool.
+[![CI](https://github.com/hudasol/marsad/actions/workflows/ci.yml/badge.svg)](https://github.com/hudasol/marsad/actions/workflows/ci.yml)
+Apache-2.0 · Python 3.10+ · version 1.4.0 · [changelog](CHANGELOG.md)
 
 ![dashboard](docs/img/dashboard-spoof-drift.png)
-<sub>Operator dashboard, offset view, during a SIMULATED carry-off (seed 1, dev split, v1.3.0): what GNSS said (orchid), what Marsad advises (blue, orange while it advises the reference), what was real (white).</sub>
+<sub>Operator dashboard during a SIMULATED carry off: what GNSS reported (orchid), what Marsad advises (blue, orange
+while it advises the reference), what was true (white).</sub>
 
-> **Independence notice.** Marsad is an independent open-source project. It is not affiliated with, endorsed by, or
-> sponsored by EDGE Group, the Technology Innovation Institute (TII), the Advanced Technology Research Council (ATRC), or
-> any of their entities.
->
-> **Validation status (v1.3.0).** The results table below is SIMULATED (measurement level generator). Beyond it:
-> two unmodified public PX4 flights replay with zero alarms (REAL LOG, no attack present), and attacks added to real
-> PX4 SIH logs are scored against simulator truth (SIH + INJECTED). After the preregistered evidence weighting fix in
-> v1.3.0, jumps are caught at once and drifts of 0.5 m/s or faster are caught after median latencies of 15.7 to 48.3 s,
-> at median offsets of 18.8 to 22.4 m, in a 230 s window (v1.2.0, before the fix: 98.1 to 204.6 s and 77.1 to 186.8 m).
-> A velocity consistent drift of 0.25 m/s, and any drift of 0.1 m/s, is still not caught in 230 s
-> ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)).
-> Nothing has been run on a real flight controller or on real interference data. See
-> [docs/VALIDATION.md](docs/VALIDATION.md) for exactly what is and is not demonstrated.
+> Marsad is an independent open source project. It is not affiliated with or endorsed by EDGE Group, the Technology
+> Innovation Institute or the Advanced Technology Research Council.
 
-## Why this exists
+## Problem
 
-Public reporting from March 2026 describes navigation interference affecting more than 1,100 commercial ships within
-a day in UAE, Qatari, Omani and Iranian waters, with vessel positions displaced onto land and airports (sources in
-[docs/EDGE_PROPOSAL.md](docs/proposals/EDGE_PROPOSAL.md)). The hardest case is
-**carry-off spoofing**: a slow drift that stays under the sanity checks autopilots use for noise and faults, because
-a navigation filter absorbs slow drift as real motion. Navigation without GNSS exists. What is missing is the layer
-that **decides when to switch to it**, and, one level up, a way for a decision platform to stop inheriting poisoned
-positions from the tracks it fuses.
+An autopilot gates GNSS against its own filter, and a filter absorbs slow drift as real motion. A spoofer that moves
+the position at a fraction of a metre per second therefore never trips the check. Navigation without GNSS exists. The
+missing piece is the layer that decides when to switch to it, and, one level up, a way for a decision platform to stop
+inheriting positions it cannot trust.
 
 ## What it does
 
-| Module | For | Output |
+| module | for | output |
 |---|---|---|
-| **Vehicle trust** | Autopilots, companion computers, robots | Trust score, `TRUSTED / DEGRADED / DENIED`, recommended navigation action, fallback position, human-readable evidence |
-| **Track trust** | Decision-support platforms, C2, AI agents | Per-track and per-source trust with reasons: plausibility, replay, forbidden zones, circle-pattern signature, cross-source disagreement, source-level common-mode offset |
-| **Interference map** | Mission planners | Hex-binned, time-decayed interference confidence (GeoJSON) |
-| **MCP server** | AI agents | `assess_vehicle_window`, `score_track`, `list_distrusted_tracks`, `explain_state`, … |
+| vehicle trust | autopilots, companion computers, robots | trust score, `TRUSTED / DEGRADED / DENIED`, recommended action, fallback position, evidence |
+| track trust | decision support, C2, agents | per track and per source trust with reasons |
+| interference map | mission planning | hex binned, time decayed confidence as GeoJSON |
+| MCP server | AI agents | `assess_vehicle_window`, `score_track`, `list_distrusted_tracks`, `explain_state` |
 
-## Results (SIMULATED, held-out seeds, 30 per scenario)
+The core engine uses only the standard library. Interfaces: PX4 ULog, MAVLink (advisory output only), ROS 2, a REST and
+SSE service with a dashboard, and the MCP server.
 
-| | Marsad | simplified autopilot-style gate |
-|---|---|---|
-| Position takeover (jump / replay) detected | 100%, median **0.1 s** | 100%, 0.1 s, but accepts the spoofed position again after its latch: median error **430 m** vs **8 m** |
-| Stealth carry-off (no power signature) detected | **100%**, median 58 s | **0%** |
-| Carry-off with power signature detected | 100% | 0% |
-| Navigation error, stealth carry-off (median of max) | **20 m** (raw GNSS 145 m) | 144 m |
-| Jamming (hard / soft) detected | 100% / 100%, 2.4 s / 4.6 s (soft was 5.0 s before the v1.3.0 weighting fix) | 100% / 100% |
-| Signal obstruction → DENIED | **0%** of runs | 100% |
-| Multipath → DENIED | **3%** of runs (1 of 30) | 77% |
-| Nominal flights with any alarm | 0% | 0% |
-| Engine cost | v1.3.0 engine: 892.3 to 1,263.0 µs / sample on a Windows laptop; v1.1.0 engine: 187.7 µs on one cloud core; stdlib only | |
+## Results
 
-**Where it does not work** (reported in [docs/EVALUATION.md](docs/EVALUATION.md); SIMULATED unless marked): without an independent motion
-reference carry-off detection falls to 53% (labelled `spoofing_unclassified`) and there is no fallback position; drifts of 0.1 m/s are detected in only 50 to 56% of runs and 0.05 m/s never; an attack at power-up has no clean baseline; in soft jamming the simple baseline's latency is lower
-(4.1 s vs 4.6 s), although its navigation error is now higher (11 m vs 9 m); on PX4 SIH logs (SIH + INJECTED) a
-velocity consistent drift of 0.25 m/s is not detected in 230 s ([docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md)). Track-trust results (precision/recall 1.00 on simulated scenes) come from a simulator and detectors
-with the same author and should be read accordingly ([docs/TRACKS.md](docs/TRACKS.md)).
+Every number carries one label. SIMULATED is a measurement level generator; the table uses held out seeds 5000 to 5029.
+SIH + INJECTED is an attack added to a real PX4 software in the loop log, scored against simulator truth. REAL LOG is a
+public flight with no attack. SITL FAULT is not scored. What is and is not shown is in
+[docs/VALIDATION.md](docs/VALIDATION.md).
 
-## Design in one picture
+### Against reference detectors (SIMULATED, held out, 30 seeds per scenario)
 
-```
- ULog / MAVLink / ROS 2 / simulator ──► adapters ──► NavSample stream (GNSS fix + independent velocity reference)
-                                                       │
-                     signal · kinematic · inertial/reference · timing detectors  → log-likelihood evidence
-                                                       │
-                recursive multi-hypothesis fusion (environmental, jamming, spoof-jump, spoof-drift, replay)
-                                                       │
-        state machine (hysteresis, anchor rewind, re-acquisition verified against dead-reckoning)
-                                                       │
-            TrustReport ──► MAVLink (advisory) · ROS 2 · REST/SSE · MCP · dashboard · interference map
-```
+Share of runs detected, median latency in seconds. The baselines are described in [docs/BASELINES.md](docs/BASELINES.md).
 
-## Quick start
+| scenario | Marsad | EKF2 style gate + reference | window consistency | signal monitor |
+|---|---|---|---|---|
+| position jump | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 87% / 5.5 |
+| replay | 100% / 0.1 | 100% / 0.1 | 100% / 0.1 | 27% / 0.5 |
+| carry off drift | 100% / 27.1 | 53% / 24.2 | 100% / 22.6 | 0% |
+| stealth carry off | 100% / 58.0 | 0% | 100% / 43.0 | 0% |
+| carry off, reference outage | 100% / 41.1 | 43% / 53.5 | 100% / 53.7 | 0% |
+| carry off, no reference | 53% / 33.1 | 27% / 22.8 | 87% / 31.1 | 0% |
+| hard jamming | 100% / 2.4 | 100% / 8.0 | 100% / 8.0 | 100% / 0.7 |
+
+| | Marsad | EKF2 style gate + reference | window consistency | signal monitor |
+|---|---|---|---|---|
+| position error after a jump (median of max, m) | **8** | 430 | 430 | 430 |
+| position error after replay (m) | **10** | 711 | 164 | 712 |
+| nominal runs with any alarm | 0% | 0% | 23% | 0% |
+| multipath runs with any alarm | 3% | 33% | 60% | 100% |
+
+Read this table honestly: a plain window test is faster than Marsad on drift and better without a reference, but it
+false alarms on nominal flights and cannot classify, and every baseline follows a jump or replay where Marsad holds
+its last trusted position.
+
+### Slow drift on real logs with an added attack (SIH + INJECTED, `sitl2.ulg`, 230 s)
+
+| drift | Marsad | window consistency | EKF2 style gate + reference |
+|---|---|---|---|
+| 0.1 m/s | not detected | not detected | not detected |
+| 0.25 m/s | 4/4, 113.6 s | 4/4, 57.1 s | not detected |
+| 0.5 m/s | 4/4, 42.5 s | 4/4, 31.1 s | not detected |
+| 1.0 m/s | 4/4, 25.5 s | 4/4, 18.1 s | not detected |
+
+The reference in these logs is simulator truth with no bias, which flatters every method that uses it.
+
+### Limits
+
+Drift of 0.1 m/s is detected by nothing here. Without an independent reference Marsad finds 53% of drifts. The SIMULATED
+generator and the detectors share an author. Nothing has run on a real flight controller or on real interference
+data. The full list is in [docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md) and the plan in [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Install
 
 ```bash
 git clone https://github.com/hudasol/marsad && cd marsad
-python -m venv .venv && . .venv/bin/activate            # Windows: .venv\Scripts\activate
+python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-pytest                                                   # about 4 min (143 tests, 211 s on a Windows laptop)
-
-marsad demo spoof_drift_stealth --seed 4                 # state transitions with evidence (SIMULATED)
-marsad serve                                             # dashboard + API at http://127.0.0.1:8000
-marsad mcp                                               # MCP server on stdio (see docs/MCP.md)
-marsad bench --split heldout --seeds 30                  # benchmark on seeds 0 to 29 (published tables: scripts/run_eval.py, seeds 5000+)
-marsad make-log --kind spoof_drift --out sim.ulg         # SIMULATED PX4 style ULog
-marsad inspect real_flight.ulg && marsad replay real_flight.ulg   # your own PX4 log
+pytest
 ```
 
-Use it as a library:
+The core needs nothing beyond the standard library. Extras: `sim` (numpy, for the simulator and benchmark), `adapters`
+(pyulog and pymavlink), `api` (the service) and `mcp` (the MCP server). `dev` installs all of them with the test and
+lint tools.
+
+## Use
+
+Command line:
+
+```bash
+marsad demo spoof_drift_stealth --seed 4          # state transitions with evidence (SIMULATED)
+marsad inspect flight.ulg                         # which fields a PX4 log provides
+marsad replay flight.ulg --config site.json       # score a log, optional JSON config
+marsad monitor udpin:0.0.0.0:14550                # live MAVLink; --out for advisory output
+marsad serve                                      # dashboard and API on http://127.0.0.1:8000
+marsad mcp                                        # MCP server on stdio
+marsad bench --split heldout --seeds 30           # benchmark
+```
+
+Library:
 
 ```python
 from marsad import TrustEngine, preset, NavSample, GnssFix, RefMotion
 
-engine = TrustEngine(preset("uav_multirotor"))     # the sample values below are illustrative inputs, not results
-report = engine.update(NavSample(t=12.4,
+engine = TrustEngine(preset("uav_multirotor"))
+report = engine.update(NavSample(
+    t=12.4,
     gnss=GnssFix(t=12.4, lat=24.45, lon=54.38, ve=8.1, vn=2.0, cn0_mean=41.0, cn0_std=3.1, n_sats=13, agc=0.31),
-    ref=RefMotion(t=12.4, ve=8.0, vn=2.1)))            # ref = visual odometry / optical flow / odometry
+    ref=RefMotion(t=12.4, ve=8.0, vn=2.1),          # visual odometry, optical flow, wheel odometry
+))
 print(report.state, report.trust, report.action, report.summary)
 ```
 
-## For reviewers
+A runnable version is in [examples/](examples/). Configuration files are described in
+[docs/ADAPTERS.md](docs/ADAPTERS.md).
 
-* **What is claimed and what is not:** [docs/VALIDATION.md](docs/VALIDATION.md). Every number carries one label:
-  SIMULATED, REAL LOG, SIH + INJECTED or SITL FAULT.
-* **Proposal seed:** [docs/EDGE_PROPOSAL.md](docs/proposals/EDGE_PROPOSAL.md). **Open review findings:**
-  [docs/REVIEW_FINDINGS.md](docs/research/REVIEW_FINDINGS.md). **Predictions written before each run:**
-  [docs/PREREGISTRATION_SIH.md](docs/research/PREREGISTRATION_SIH.md) and [docs/PREREGISTRATION_WEIGHTING.md](docs/research/PREREGISTRATION_WEIGHTING.md).
-  **What is still missed:** [docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md). **Log files, checksums and downloads:**
-  [docs/DATA.md](docs/DATA.md).
-* **Reproduce each table with one command** (from the repository root, after `pip install -e ".[dev]"`). The
-  commands below run the current (v1.3.0) engine and write to `docs/results/weighting_fix/`. The v1.1.0 and v1.2.0
-  files in `docs/results/` were produced by the engine at those tags; to reproduce them, check out the tag
-  (`git checkout v1.2.0`) and run the same command with the output paths given in VALIDATION.md.
+## How it works
 
-| table | label | command | output |
-|---|---|---|---|
-| Held out, dev, ablation, detectability, throughput (EVALUATION.md) | SIMULATED | `python scripts/run_eval.py --out docs/results/weighting_fix` (12 min on 4 cloud cores, 39 min on a Windows laptop) | `docs/results/weighting_fix/*.md`, `*.json` |
-| Real PX4 flights, false alarm side | REAL LOG | `marsad replay flight1.ulg --json docs/results/weighting_fix/real_flight1.json` (same for `flight2.ulg`; console output collected in the `.txt`) | `docs/results/weighting_fix/real_logs.txt` |
-| SIH + INJECTED, 32 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl1.ulg --out docs/results/weighting_fix/sih_inject.json > docs/results/weighting_fix/sih_inject.txt` | `docs/results/weighting_fix/sih_inject.txt` |
-| SIH + INJECTED, 230 s window | SIH + INJECTED | `python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/weighting_fix/sih_inject_long.json > docs/results/weighting_fix/sih_inject_long.txt` (about 16 min) | `docs/results/weighting_fix/sih_inject_long.txt` |
-| Bias estimator traces for the remaining misses (exploratory) | SIH + INJECTED | `python scripts/bias_trace.py sitl2.ulg > docs/results/weighting_fix/bias_trace_sitl2.txt` (add `--rate 0.1` for `bias_trace_sitl2_0.1.txt`) | `docs/results/weighting_fix/bias_trace_sitl2*.txt` |
-| False alarm margin on the clean logs, both engines | SIH + INJECTED (zero offset) and REAL LOG | `python scripts/clean_margin.py` | `docs/results/weighting_fix/clean_margin.txt` |
-| Exploratory diagnosis of the v1.2.0 drift misses (run at tag v1.2.0) | SIH + INJECTED | `python scripts/sih_diagnose.py sitl2.ulg --end 290 --t-attack 60 --out docs/results/sih_diagnose_long.json` | `docs/results/sih_diagnose_long.txt` |
-| Clean SIH flight acceptance check | SIH + INJECTED (zero offset) | `python scripts/sitl_timeline.py sitl2.ulg 10` | `docs/results/sitl2_timeline.txt` |
+```
+ ULog / MAVLink / ROS 2 / simulator -> adapters -> NavSample stream (GNSS fix + independent velocity reference)
+                                                       |
+                  signal, kinematic, inertial, timing detectors -> log likelihood evidence
+                                                       |
+            recursive multi hypothesis fusion (environment, jamming, jump, drift, replay)
+                                                       |
+      state machine (hysteresis, anchor rewind, re-acquisition checked against dead reckoning)
+                                                       |
+        TrustReport -> MAVLink (advisory) · ROS 2 · REST/SSE · MCP · dashboard · interference map
+```
 
-The `.ulg` logs are not stored in git (about 23 to 190 MB each). `flight1.ulg` and `flight2.ulg` are public logs from
-review.px4.io; `sitl1.ulg` and `sitl2.ulg` are PX4 v1.18 SIH runs flown with `scripts/sitl_flight.py` and are attached
-to the v1.3.0 GitHub Release. [docs/DATA.md](docs/DATA.md) gives SHA256 checksums and the download and verify steps.
+The drift detector compares the GNSS displacement over several windows with the integral of the reference velocity. It
+carries a slow estimate of the reference bias, and also tests against the uncorrected integral with a fixed bound so
+that the estimate cannot absorb a drift. The method and its predictions are in
+[docs/research/PREREGISTRATION_PRIOR_BOUND.md](docs/research/PREREGISTRATION_PRIOR_BOUND.md).
+
+## Reproducing the tables
+
+```bash
+python scripts/run_eval.py --out docs/results/prior_bound                    # SIMULATED tables, ablation, detectability
+python scripts/run_baselines.py --marsad docs/results/prior_bound/heldout.json
+python scripts/sih_inject.py sitl2.ulg --end 290 --t-attack 60 --out out.json  # SIH + INJECTED
+python scripts/sih_baselines.py sitl2.ulg --end 290 --t-attack 60 --marsad out.json --out base.json
+```
+
+The `.ulg` logs are not in git. `flight1.ulg` and `flight2.ulg` are public logs from review.px4.io; `sitl1.ulg` and
+`sitl2.ulg` are PX4 SIH runs made with `scripts/sitl_flight.py` and attached to the GitHub release. Checksums and
+download steps are in [docs/DATA.md](docs/DATA.md). Results of earlier versions are kept under `docs/results/`.
 
 ## Documentation
 
-[Build plan](docs/history/plan.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
-[One-pager](docs/proposals/ONE_PAGER.md) · [Validation status](docs/VALIDATION.md) · [Adapters](docs/ADAPTERS.md) ·
-[Track trust](docs/TRACKS.md) · [API](docs/API.md) · [MCP](docs/MCP.md) · [Dashboard](docs/DASHBOARD.md) ·
-[Milestones](CHANGELOG.md) · [Security & responsible use](SECURITY.md)
+[Validation](docs/VALIDATION.md) · [Baselines](docs/BASELINES.md) · [Known limits](docs/KNOWN_LIMITS.md) ·
+[Roadmap](docs/ROADMAP.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
+[Adapters](docs/ADAPTERS.md) · [Track trust](docs/TRACKS.md) · [API](docs/API.md) · [MCP](docs/MCP.md) ·
+[Dashboard](docs/DASHBOARD.md) · [Data](docs/DATA.md) · [Index](docs/README.md) · [Contributing](CONTRIBUTING.md) ·
+[Security](SECURITY.md) · [Proposal seed](docs/proposals/EDGE_PROPOSAL.md)
 
-## What it is not
+## Scope
 
-- Not a GNSS receiver or RF analyser.
-- Not a substitute for authenticated GNSS or controlled-reception antennas; it complements them where they are absent.
-- **Not an attack tool.** The simulator models attacks at the measurement level only. There is no RF signal
-  generation, SDR code, or spoofing waveform synthesis in this repository.
-- Does not command vehicles (the MAVLink reporter can only emit trust values and status text; enforced by a test).
-- Does not attribute interference to any actor.
+Marsad is not a GNSS receiver or RF analyser, not a substitute for authenticated GNSS, not an attack tool (the
+simulator works at the measurement level and there is no signal generation in this repository), and it does not
+command vehicles. The MAVLink reporter emits trust values and status text only, and a test enforces that. It does not
+attribute interference to any actor.
 
-## Roadmap
+## Licence
 
-| Tag | Content |
-|---|---|
-| `v0.1.0` | Core engine, detectors, fusion, state machine, simulator, benchmark harness |
-| `v0.3.0` | Track-trust module, interference map |
-| `v0.4.0` | PX4 ULog, MAVLink, ROS 2 adapters |
-| `v0.6.0` | REST/SSE service, MCP server, dashboard |
-| `v1.0.0` | Held-out evaluation, ablations, CI, container, technical report |
-| `v1.1.0` | Replay delay estimator, reference quality gate, slow reference bias estimation, fresh seed evaluation, Docker and ROS 2 CI jobs |
-| `v1.2.0` | Real PX4 log replay (false alarm side), PX4 v1.18 adapter fields, SIH + INJECTED evaluation with preregistered predictions, CI fixes |
-| `v1.3.0` | Evidence weighting fix for mixed sample rates, preregistered (docs/PREREGISTRATION_WEIGHTING.md) and scored in docs/VALIDATION.md and docs/EVALUATION.md; results in docs/results/weighting_fix/ |
-| next | Bias estimator review (velocity consistent drift absorption), then advisory companion computer, then closed loop in an authorised range |
-
-All tags are listed in [docs/MILESTONES.md](CHANGELOG.md).
-
-## License
-
-Apache-2.0. See [`LICENSE`](LICENSE).
+Apache-2.0. See [LICENSE](LICENSE).
