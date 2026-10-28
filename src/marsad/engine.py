@@ -250,6 +250,10 @@ class TrustEngine:
         if self.anchor is None or not self.anchor_valid:
             self.anchor = (oe, on)
             self.anchor_valid = True
+            # a new anchor starts a new segment of the reference integral: entries recorded before a reference gap
+            # are offsets against a different integral and must never be used as a rewind target
+            self._ah_t.clear()
+            self._ah.clear()
         else:
             a = min(1.0, dt / 10.0) if dt > 0 else 0.0
             self.anchor = (self.anchor[0] + a * (oe - self.anchor[0]), self.anchor[1] + a * (on - self.anchor[1]))
