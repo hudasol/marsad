@@ -2,7 +2,7 @@
 
     python scripts/run_baselines.py --out docs/results/baselines [--seeds 30] [--workers 4]
 
-Seeds are 5000 to 5000+N-1 on the held out split, the same runs as docs/results/weighting_fix/heldout.json. Marsad's
+Seeds are 5000 to 5000+N-1 on the held out split, the same runs as docs/results/prior_bound/heldout.json. Marsad's
 per run results are read from that file (--marsad) instead of being recomputed; pass --rerun-marsad to recompute.
 Detection = first sample at or after the scenario onset whose state is not TRUSTED. All results are SIMULATED.
 """
@@ -167,7 +167,7 @@ def main():
     ap.add_argument("--seeds", type=int, default=30)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--split", default="heldout")
-    ap.add_argument("--marsad", default="docs/results/weighting_fix/heldout.json")
+    ap.add_argument("--marsad", default="docs/results/prior_bound/heldout.json")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     seeds = range(5000, 5000 + a.seeds)
