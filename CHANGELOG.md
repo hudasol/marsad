@@ -6,18 +6,38 @@ SITL FAULT) are explained in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-28
+
 ### Added
 * Comparison baselines in `marsad.bench.baselines`: an EKF2 style gate (PX4 documented defaults), a sliding window
-  INS/GNSS consistency test, a receiver power monitor and their union, each with and without access to the
-  independent reference where that matters. Scored on held out SIMULATED scenarios and on injected SIH attacks
+  consistency test, a receiver power monitor and their union, each with and without access to the independent
+  reference where that matters. Scored on held out SIMULATED scenarios and on injected SIH attacks
   ([docs/BASELINES.md](docs/BASELINES.md)).
-* `scripts/calibrate_baselines.py`, `scripts/run_baselines.py`, `scripts/sih_baselines.py`.
+* `marsad monitor` follows a live MAVLink link or a `.tlog` and can publish the advisory output on a second link.
+* `--config` on `replay` and `monitor`, and `marsad.config.load_config`, read engine settings from a JSON file.
+  `marsad --version`.
+* `examples/` with a library quickstart and a platform configuration file.
+* `scripts/calibrate_baselines.py`, `run_baselines.py`, `sih_baselines.py`, `replay_baselines.py`, `check_links.py`.
+* Packaging and project files: `py.typed`, classifiers and project urls, ruff configuration, issue and pull request
+  templates, Dependabot, `CITATION.cff`, `CONTRIBUTING.md`, `docs/ROADMAP.md`, `docs/README.md` index.
+* CI jobs for lint, the link check and the package build with a wheel smoke test; a release workflow that builds the
+  sdist and wheel from a tag.
 
 ### Changed
-* The drift detector also tests the uncorrected reference integral against the prior bias bound
-  ([docs/PREREGISTRATION_PRIOR_BOUND.md](docs/research/PREREGISTRATION_PRIOR_BOUND.md)).
-* `marsad.bench.baseline` is now `marsad.bench.baselines` (`GateBaseline` is unchanged and still exported from
-  `marsad.bench`).
+* The drift detector also tests the uncorrected reference integral against the prior bias bound, so the bias
+  estimate cannot absorb a velocity consistent drift. A velocity consistent drift of 0.25 m/s on `sitl2.ulg` is now
+  detected (4/4, median 113.6 s; v1.3.0: 0/4). Preregistered and scored in
+  [docs/research/PREREGISTRATION_PRIOR_BOUND.md](docs/research/PREREGISTRATION_PRIOR_BOUND.md).
+* `marsad.bench.baseline` is now `marsad.bench.baselines`; `GateBaseline` is unchanged and still exported from
+  `marsad.bench`.
+* Research notes moved to `docs/research/`, proposals to `docs/proposals/`, the build plan to `docs/history/`.
+  `docs/KNOWN_LIMITS.md` rewritten; the v1.3.0 version is in `docs/history/`.
+* Source reformatted and lint cleaned with ruff.
+
+### Fixed
+* A new anchor segment now starts with an empty anchor history. Before, a reference outage that restarted the
+  reference integral could rewind against samples from the previous segment (held out `spoof_drift_ref_outage`,
+  seed 5015: navigation error 495 m). Regression test in `tests/test_prior_bound.py`.
 
 ## [1.3.0] - 2026-10-18
 
