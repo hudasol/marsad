@@ -1,0 +1,433 @@
+{
+ "log": "../data/sitl1.ulg",
+ "end_s": 77.0,
+ "t_attack_s": 45.0,
+ "reference": "vehicle_local_position_groundtruth (simulator truth)",
+ "clean_not_trusted_samples": {
+  "gate": 0,
+  "ekf2_gate": 0,
+  "ekf2_gate_ref": 0,
+  "window": 0,
+  "signal": 0,
+  "stack": 0
+ },
+ "n_samples": 9530,
+ "rows": [
+  {
+   "attack": "drift rate=0.1, vel_consistent=True",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 0,
+    "median_s": null
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 0,
+    "median_s": null
+   }
+  },
+  {
+   "attack": "drift rate=0.1, vel_consistent=False",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 0,
+    "median_s": null
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 0,
+    "median_s": null
+   }
+  },
+  {
+   "attack": "drift rate=0.25, vel_consistent=True",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 0,
+    "median_s": null
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 0,
+    "median_s": null
+   }
+  },
+  {
+   "attack": "drift rate=0.25, vel_consistent=False",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 0,
+    "median_s": null
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 0,
+    "median_s": null
+   }
+  },
+  {
+   "attack": "drift rate=0.5, vel_consistent=True",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 31.088
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 31.088
+   }
+  },
+  {
+   "attack": "drift rate=0.5, vel_consistent=False",
+   "n": 4,
+   "marsad": {
+    "detected": 0,
+    "median_s": null
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 31.088
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 31.088
+   }
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=True",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 27.838
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 18.088
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 18.088
+   }
+  },
+  {
+   "attack": "drift rate=1.0, vel_consistent=False",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 25.462000000000003
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 0,
+    "median_s": null
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 18.088
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 18.088
+   }
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=True",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 16.276000000000003
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate_ref": {
+    "detected": 4,
+    "median_s": 13.899999999999999
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 11.399999999999999
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 11.399999999999999
+   }
+  },
+  {
+   "attack": "drift rate=2.0, vel_consistent=False",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 15.652000000000001
+   },
+   "gate": {
+    "detected": 0,
+    "median_s": null
+   },
+   "ekf2_gate": {
+    "detected": 4,
+    "median_s": 13.899999999999999
+   },
+   "ekf2_gate_ref": {
+    "detected": 4,
+    "median_s": 13.899999999999999
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 11.399999999999999
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 11.399999999999999
+   }
+  },
+  {
+   "attack": "jump mag=50.0",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate_ref": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   }
+  },
+  {
+   "attack": "jump mag=200.0",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate_ref": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   }
+  },
+  {
+   "attack": "jump mag=1000.0",
+   "n": 4,
+   "marsad": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "ekf2_gate_ref": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "window": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   },
+   "signal": {
+    "detected": 0,
+    "median_s": null
+   },
+   "stack": {
+    "detected": 4,
+    "median_s": 0.02400000000000091
+   }
+  }
+ ]
+}

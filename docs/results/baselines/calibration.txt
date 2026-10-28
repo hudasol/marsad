@@ -1,0 +1,9 @@
+nominal dev, 30 seeds: time not TRUSTED with the shipped defaults
+  gate       mean 0.00%   worst run 0.00%
+  ekf2_gate  mean 0.00%   worst run 0.00%
+  ekf2_gate_ref mean 0.00%   worst run 0.00%
+  window     mean 0.09%   worst run 2.63%
+  signal     mean 0.00%   worst run 0.00%
+  stack      mean 0.09%   worst run 2.63%
+  |AGC - running mean|  p99.9 0.043  max 0.073  (agc_step default 0.077)
+  |C/N0 - running mean| p99.9 1.93 dB (cn0_step default 3.5)
