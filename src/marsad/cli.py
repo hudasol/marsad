@@ -6,7 +6,9 @@ import sys
 
 
 def main(argv=None) -> int:
+    from . import __version__
     ap = argparse.ArgumentParser(prog="marsad", description="Position-trust layer for autonomous systems.")
+    ap.add_argument("--version", action="version", version=f"marsad {__version__}")
     sub = ap.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("bench", help="run the simulated benchmark")
     b.add_argument("--split", default="heldout", choices=["dev", "heldout"])
