@@ -90,6 +90,7 @@ def summarize(runs, marsad):
                     row[k] = {
                         "alarm_frac": float(np.mean([m["alarm_frac_marsad"] for m in src])),
                         "runs_alarm": sum(m["alarm_frac_marsad"] > 0 for m in src) / len(src),
+                        "runs_deny": sum(m["deny_frac_marsad"] > 0 for m in src) / len(src),
                     }
             else:
                 if kind in ATTACK_KINDS:
