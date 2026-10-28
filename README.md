@@ -7,7 +7,7 @@ whether the position can be believed, separates a degraded signal from a false o
 Apache-2.0 · Python 3.10+ · version 1.4.0 · [changelog](CHANGELOG.md)
 
 ![dashboard](docs/img/dashboard-spoof-drift.png)
-<sub>Operator dashboard during a SIMULATED carry off: what GNSS reported (orchid), what Marsad advises (blue, orange
+<sub>Operator dashboard during a SIMULATED carry off: what GNSS reported (magenta), what Marsad advises (blue, orange
 while it advises the reference), what was true (white).</sub>
 
 > Marsad is an independent open source project. It is not affiliated with or endorsed by EDGE Group, the Technology

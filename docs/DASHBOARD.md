@@ -57,7 +57,7 @@ With `MARSAD_API_KEY` set, open `http://127.0.0.1:8000/#key=YOUR_KEY`.
 
 Keyboard reachable controls with visible focus; a skip link; ARIA labels on canvases; state changes are
 announced through a live region; `prefers-reduced-motion` disables the one pulse animation; state is
-encoded by shape and hatching as well as colour (blue, orange, vermilion, orchid palette, no red-green
+encoded by shape and hatching as well as colour (blue, orange, vermilion, magenta palette, no red-green
 pair); layout verified at 1366x768 and 1280x800, and collapses to one column below 1100 px.
 The server uses a system font stack that renders Arabic (the wordmark is مرصد).
 
