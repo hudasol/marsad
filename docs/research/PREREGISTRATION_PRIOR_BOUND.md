@@ -5,7 +5,7 @@ be scored as written, whether or not they hold. Outcome section at the end is em
 
 ## Why this is being tried
 
-[BASELINES.md](BASELINES.md) compares the engine with detectors that share its input. A plain sliding window
+[BASELINES.md](../BASELINES.md) compares the engine with detectors that share its input. A plain sliding window
 displacement test (GNSS displacement minus integrated reference velocity, fixed bias allowance, no learning)
 detects the velocity consistent 0.25 m/s drift on `sitl2.ulg` in 57 s where Marsad v1.3.0 detects nothing
 ([KNOWN_LIMITS.md](../KNOWN_LIMITS.md)). Marsad already has the same test in `detectors/inertial.py`. The difference is

@@ -1,7 +1,7 @@
 """Score the baselines on the same injected PX4 SIH attacks as scripts/sih_inject.py (label SIH + INJECTED).
 
     python scripts/sih_baselines.py sitl2.ulg --end 290 --t-attack 60 \
-        --marsad docs/results/weighting_fix/sih_inject_long.json --out docs/results/baselines/sih_inject_long.json
+        --marsad docs/results/prior_bound/sih_inject_long.json --out docs/results/baselines/sih_inject_long.json
 
 Same log, same injection, same reference (simulator truth velocity), 4 headings per case. Marsad's rows are read
 from the JSON that scripts/sih_inject.py wrote, so both come from identical attacks. Also prints how long each
