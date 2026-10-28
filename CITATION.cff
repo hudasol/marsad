@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use Marsad, please cite it as below."
+title: "Marsad: a position trust engine for GNSS jamming and spoofing detection"
+type: software
+authors:
+  - family-names: Mueen
+    given-names: Huda
+license: Apache-2.0
+repository-code: "https://github.com/hudasol/marsad"
+version: 1.3.0
+date-released: "2026-10-18"
+keywords:
+  - GNSS
+  - spoofing
+  - jamming
+  - resilient PNT
+  - PX4
