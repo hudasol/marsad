@@ -1,101 +1,73 @@
-# Known limits (v1.3.0)
+# Known limits (v1.4.0)
 
-This page states what Marsad still misses after the evidence weighting fix, why, and what that costs. Every number
-carries one label and comes from a file in `docs/results/`. Nothing on this page changes the engine.
+This page lists what Marsad still misses or does badly, with the evidence for each item. Every number carries one
+label and comes from a file in `docs/results/`. The analysis of the v1.3.0 misses is kept in
+[history/known-limits-v1.3.0.md](history/known-limits-v1.3.0.md).
 
-## What is missed
+## 1. Drift slower than 0.25 m/s is not detected
 
-**Label: SIH + INJECTED** (PX4 SIH log `sitl2.ulg`, offset added to the logged GNSS fixes, 230 s attack window,
-simulator truth velocity as the reference, 4 headings per case; `docs/results/weighting_fix/sih_inject_long.txt`).
+**Label: SIH + INJECTED** (`sitl2.ulg`, 230 s attack window, simulator truth velocity as the reference, 4 headings
+per case; `docs/results/prior_bound/sih_inject_long.txt`).
 
-| drift | velocity consistent (spoofer also shifts the GNSS velocity) | velocity not consistent (GNSS velocity honest) |
+| drift | velocity consistent | velocity not consistent |
 |---|---|---|
 | 0.1 m/s | 0/4 | 0/4 |
-| 0.25 m/s | **0/4** | 4/4, median 113.6 s, median offset 27.1 m |
-| 0.5 m/s | 4/4, median 48.3 s, median offset 21.7 m | 4/4, median 42.5 s, median offset 18.8 m |
+| 0.25 m/s | 4/4, median 113.6 s, offset 27.1 m (v1.3.0: 0/4) | 4/4, median 113.4 s, offset 27.1 m |
+| 0.5 m/s | 4/4, median 42.5 s, offset 18.8 m | 4/4, median 42.4 s, offset 18.7 m |
 
-In the 32 s window of `sitl1.ulg` every drift of 0.5 m/s or slower is missed (0/4 in both modes,
-`docs/results/weighting_fix/sih_inject.txt`); the window is too short for that rate, not only the method.
+No baseline detects 0.1 m/s either (`docs/BASELINES.md`). Below the reference bias bound a slow drift and a
+biased reference are the same observation, so this is a limit of the information available and not only of the
+method. **SIMULATED** floor: 0.15 m/s in 100% of runs, 0.1 m/s in 50 to 56%, 0.05 m/s never
+(`docs/results/prior_bound/detectability.md`).
 
-## Why (measured, exploratory)
+What changed in v1.4.0: the engine now also compares the displacement against the uncorrected reference integral
+and the bound `ref_bias_bound`, so the bias estimator can no longer absorb a velocity consistent drift. The
+prediction and the outcome are in [research/PREREGISTRATION_PRIOR_BOUND.md](research/PREREGISTRATION_PRIOR_BOUND.md).
 
-Both traces were made after the results were seen and are not preregistered. Reproduce:
-`python scripts/bias_trace.py sitl2.ulg` (0.25 m/s, `docs/results/weighting_fix/bias_trace_sitl2.txt`) and
-`python scripts/bias_trace.py sitl2.ulg --rate 0.1` (`docs/results/weighting_fix/bias_trace_sitl2_0.1.txt`).
+## 2. Slower than a plain window test
 
-1. **The reference bias estimator absorbs a velocity consistent drift.** While the drift z score is below 1 and the
-   state is TRUSTED, the engine learns the reference velocity bias as the mean of (reference velocity minus GNSS
-   velocity). A spoofer that shifts the GNSS velocity together with the position makes that difference equal to
-   the drift rate, so the estimator learns the drift as if it were sensor bias and subtracts it from the reference.
-   * 0.25 m/s: the north bias estimate reached -0.087 m/s (34.8% of the drift) by 115 s; from then on the z score
-     stayed above 1 and learning stopped. The remaining drift raised the z score to a peak of 1.80, below the evidence
-     threshold of 2, and the state stayed TRUSTED.
-   * 0.1 m/s: the z score never reached 1, so learning never stopped. The estimate reached -0.079 m/s (79% of the
-     drift) by 275 s and the z score peaked at 0.55.
-   * With honest GNSS velocity the estimate stays near zero (-0.000 m/s at 0.25 m/s, -0.001 m/s at 0.1 m/s), which is
-     why the same 0.25 m/s drift is caught in that mode.
-2. **The bound is wide for the first 150 s of learning.** The tighter bias bound (0.03 m/s instead of 0.08 m/s) is
-   used only after 150 s of clean learning, and the estimator learns only on fixes that share an input sample with a
-   reference sample: 1,145 of 2,305 fixes in `sitl2.ulg`. Learning reached 43.6 s and 47.0 s at 0.25 m/s and at most
-   135.7 s by 275 s at 0.1 m/s, below 150 s in every case, so the wide bound applied throughout. With honest
-   velocity at 0.1 m/s the z score peaked at 1.06: the drift is too small against the wide bound within 230 s.
+**Label: SIMULATED and SIH + INJECTED** (`docs/BASELINES.md`).
 
-## The exact condition
+A sliding window consistency test that uses the same reference detects drift sooner than Marsad: 22.6 s against
+27.1 s on `spoof_drift`, and 57.1 s against 113.6 s for 0.25 m/s drift on `sitl2.ulg`. Marsad pays this latency for
+a bias allowance and for its classification. The window test also alarms in 23% of nominal simulated runs and 60%
+of multipath runs, cannot separate drift from jump or replay, and holds no fallback position. The SIH figures are
+flattered because the SIH reference has no bias.
 
-A drift is missed on this log when **both** hold:
+## 3. Without an independent reference
 
-* the spoofer shifts the GNSS velocity consistently with the position (or the drift is so slow that the 0.08 m/s bias
-  bound covers it), and
-* the drift is slow enough that the drift z score stays below 1 for long enough for the estimator to learn a large
-  share of the drift rate; on `sitl2.ulg` this happened at 0.25 m/s and 0.1 m/s and did not happen at 0.5 m/s.
+**Label: SIMULATED.** `spoof_drift_noref` is detected in 53% of runs (median 33.1 s), labelled
+`spoofing_unclassified`, and no fallback position is produced. The window baseline reaches 87% on the same runs
+because it falls back to the receiver velocity. Marsad has no equivalent fallback channel yet; it is the first item in
+[ROADMAP.md](ROADMAP.md).
 
-The estimator's learning rate is a running mean for its first samples and then a 900 s exponential average, so the
-share it absorbs depends on how long the vehicle has flown cleanly before the attack. Here the attack started 60 s
-into the log, and the trace shows 25.7 s of learning at 55 s, the last point before the attack, which favours absorption.
+## 4. Obstruction is treated as a denial of confidence
 
-## What it costs
+**Label: SIMULATED.** In `benign_obstruction` Marsad leaves TRUSTED in 85% of the time (the signal baseline: 95%),
+though it reaches DENIED in none of the runs. The position is genuinely poor in that case; the limit is that Marsad
+does not tell an operator whether the cause is the sky view or interference.
 
-**SIH + INJECTED.** The slowest drift caught in both modes, 0.5 m/s, is caught at a median offset of **21.7 m**
-(velocity consistent) and **18.8 m** (velocity not consistent). That is the position error the vehicle accepts
-before Marsad leaves TRUSTED. For faster drifts the median offset at the alarm is 20.5 to 22.4 m. A slower,
-velocity consistent drift is not caught in 230 s at all, so its cost is unbounded within the window: a 0.25 m/s
-drift is about 56 m off when the log is cut (computed from the injected offset).
+## 5. Attack at power-up
 
-## Smallest drift rate each label supports
+There is no clean history to compare against, so anchor and bias estimates have nothing to start from. Not scored
+on any label.
 
-| label | smallest drift rate that is supported | source |
-|---|---|---|
-| SIMULATED | 0.15 m/s stealth carry off, detected in 100% of runs (median 134 to 138 s); 0.1 m/s in 50 to 56%; 0.05 m/s never | `docs/results/weighting_fix/detectability.md` (unchanged from v1.1.0) |
-| SIH + INJECTED | 0.5 m/s in both velocity modes within 230 s; 0.25 m/s only when the GNSS velocity is honest; 1 m/s within 32 s | `docs/results/weighting_fix/sih_inject*.txt` |
-| REAL LOG | none. The real logs contain no attack and support only the false alarm claim (zero alarms over 911 s and 334 s) | `docs/results/weighting_fix/real_logs.txt` |
-| SITL FAULT | none. No PX4 failure injection was scored; the fault at about 78 s in `sitl1.ulg` is cut off | |
+## 6. What has not been tested at all
 
-The simulated floor is lower than the SIH floor mainly because in the simulator the estimator learns on every sample
-and attacks start 150 to 260 s into each scenario (`src/marsad/sim/generator.py`), so the tighter bound is in force
-before the attack begins.
+| label | status |
+|---|---|
+| REAL LOG | Two public PX4 flights replay with zero alarms (911 s and 334 s, v1.3.0 engine). These contain no attack, so they support only the false alarm claim. The v1.4.0 engine and the baselines have not been replayed on them in this repository. |
+| SITL FAULT | No PX4 failure injection was scored. |
+| Real interference data | None. |
+| Real flight controller | None. The MAVLink reporter and the `monitor` command are tested against a pymavlink loopback only. |
 
-## Tried and rejected: the bias estimator guard (2026-10-23)
+## 7. Baselines are reimplementations
 
-The guard proposed in [PREREGISTRATION_BIAS.md](research/PREREGISTRATION_BIAS.md) was implemented exactly as written (commit
-`a65372c`), evaluated, rejected and reverted (commit `5c5ca79`). The engine in this repository is the v1.3.0 engine.
-Results of the runs that completed are in `docs/results/bias_fix/`; the v1.3.0 files are unchanged.
+The EKF2 style baselines follow the documented PX4 defaults but are not the EKF2 filter. A replay of recorded logs
+through PX4 with injected GNSS is the proper comparison and is on the roadmap.
 
-| check | label | v1.3.0 | with the guard | prediction |
-|---|---|---|---|---|
-| sitl1, every row (32 s window) | SIH + INJECTED | see `weighting_fix/sih_inject.txt` | identical | unchanged: hit |
-| sitl1 and sitl2 clean, time TRUSTED | SIH + INJECTED (zero offset) | 100% | 100% (`bias_fix/clean_margin.txt`) | hit |
-| flight1, flight2 time TRUSTED | REAL LOG | 100% | 100% (`bias_fix/real_logs.txt`) | hit |
-| held out `benign_multipath`, runs reaching DENIED | SIMULATED | 3% | 7% | rise of at most 3 points: **miss** |
-| held out `nominal` and `benign_obstruction`, runs reaching DENIED | SIMULATED | 0% and 0% | 0% and 0% | hit |
-| held out `spoof_drift_stealth`, median latency | SIMULATED | 58.3 s | 52.9 s | no higher than 58.3 s: hit |
-| dev `nominal`, time not TRUSTED and runs reaching DENIED | SIMULATED | 0% and 0% | 1% and 3% (1 of 30) | not predicted; a new false alarm on a clean run |
-| held out navigation error (median of max), `spoof_jump` and `replay` | SIMULATED | 8 m and 10 m | 23 m and 21 m | not predicted; a regression |
-| new test (`tests/test_bias_guard.py`) | | fails | passes | hit |
-| sitl2 230 s rows (including 0.25 m/s velocity consistent), detectability sweep, ablation, full test suite with the guard | | | not completed: the runs were stopped when the rejection was already certain | not scored |
+## Tried and rejected
 
-**Decision: rejected.** The acceptance conditions were no new false alarm on any clean or REAL LOG run and no
-SIMULATED regression beyond seed noise. The same seeds as v1.3.0 were used, so the changes above are not seed noise:
-a clean simulated flight now reaches DENIED, multipath reaches DENIED more often, and navigation error after a jump
-or replay roughly doubles. The likely reason, not verified: in the simulator the estimator is still converging after
-30 s of learning, so the guard compares against an early, unconverged estimate and fires on honest data. The 0.25 m/s
-velocity consistent miss therefore remains, as described above. Any further attempt needs a new preregistration.
+The bias estimator guard (2026-10-23), preregistered in [research/PREREGISTRATION_BIAS.md](research/PREREGISTRATION_BIAS.md),
+raised false alarms on clean and multipath runs and doubled navigation error after a jump. It was reverted. Details
+and the table are in [history/known-limits-v1.3.0.md](history/known-limits-v1.3.0.md).
