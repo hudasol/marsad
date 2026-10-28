@@ -63,12 +63,13 @@ jobs:
       - run: docker build -t marsad:ci .
       - name: smoke-test the container
         run: |
-          docker run -d --name marsad-ci -p 8000:8000 marsad:ci
+          docker run -d --name marsad-ci -p 8000:8000 -e MARSAD_API_KEY=ci-key marsad:ci
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8000/v1/health && break || sleep 1; done
           curl -fsS http://127.0.0.1:8000/v1/version
-          curl -fsS -X POST http://127.0.0.1:8000/v1/demo/start -H 'content-type: application/json' -d '{"kind":"spoof_jump","seed":1,"split":"dev","speed":50}'
+          curl -fsS -X POST http://127.0.0.1:8000/v1/demo/start -H 'X-API-Key: ci-key' -H 'content-type: application/json' -d '{"kind":"spoof_jump","seed":1,"split":"dev","speed":50}'
           sleep 5
-          curl -fsS http://127.0.0.1:8000/v1/vehicles/demo/trust | head -c 400
+          curl -fsS -H 'X-API-Key: ci-key' http://127.0.0.1:8000/v1/vehicles/demo/trust | head -c 400
+          if docker run --rm marsad:ci; then echo 'started without an API key'; exit 1; fi
           docker logs marsad-ci | tail -5
   ros2:
     # real rclpy runtime; synthetic NavSatFix/Odometry only
