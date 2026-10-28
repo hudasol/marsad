@@ -34,8 +34,8 @@ A review written from the position of an engineer who had not seen the project b
 | Dashboard looked generated | Fixed. New palette, one title bar, three.js space time view |
 | No content security policy | Fixed. Script and style from self only |
 | `TrustEngine.update` is long and holds magic numbers | Open |
-| `pop(0)` windows in the kinematic detector | Open |
-| Bare `except Exception` and `assert` used as validation in a few modules | Open |
+| `pop(0)` window in the kinematic detector | Fixed. `deque` |
+| `assert` used as validation in the bbox parser | Fixed. Explicit 422. Broad handlers elsewhere remain open |
 | No type hints or mypy on the core | Open |
 | No property based tests or coverage gate | Open |
 | Workflow actions are pinned by tag, not by commit | Open |
@@ -44,8 +44,7 @@ A review written from the position of an engineer who had not seen the project b
 ## Plan for the open items
 
 1. Split `update` into stages (input cleaning, reference integration, evidence, state, learning). Move the constants into `EngineConfig`. Gate every step on `scripts/check_heldout.py` so the held out output stays byte identical.
-2. Switch the detector windows to `collections.deque`.
-3. Replace `assert` checks with explicit errors and narrow the broad exception handlers.
-4. Add type hints to the core and run mypy in CI.
-5. Add hypothesis tests for the engine input path and a coverage threshold.
-6. Pin action versions by commit and add a separate credential for acknowledgements.
+2. Narrow the remaining broad exception handlers.
+3. Add type hints to the core and run mypy in CI.
+4. Add hypothesis tests for the engine input path and a coverage threshold.
+5. Pin action versions by commit and add a separate credential for acknowledgements.

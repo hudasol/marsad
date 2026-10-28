@@ -4,6 +4,7 @@ and position/velocity self-consistency over a short window."""
 from __future__ import annotations
 
 import math
+from collections import deque
 
 from ..config import EngineConfig
 from ..geo import clamp
@@ -18,7 +19,7 @@ class KinematicDetector:
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
         self._prev = None  # (t, e, n, ve, vn)
-        self._win = []  # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
+        self._win = deque()  # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
         self._cum = [0.0, 0.0]
         self._xe = 0.0  # EWMA of normalised innovation (noise inflation => degraded/jammed receiver)
         self._last_jump = None  # (t, res_e, res_n, llr) for revert (multipath spike) detection
@@ -111,7 +112,7 @@ class KinematicDetector:
                 self._cum[1] += 0.5 * (self._prev[4] + g.vn) * dt if self._prev[4] is not None else g.vn * dt
             self._win.append((ctx.t, ctx.pe, ctx.pn, self._cum[0], self._cum[1]))
             while self._win and ctx.t - self._win[0][0] > 12.0:
-                self._win.pop(0)
+                self._win.popleft()
             w0 = self._win[0]
             W = ctx.t - w0[0]
             if W >= 8.0:

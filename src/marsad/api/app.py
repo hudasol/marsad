@@ -219,9 +219,10 @@ def create_app(
         if bbox:
             try:
                 bb = tuple(float(x) for x in bbox.split(","))
-                assert len(bb) == 4 and bb[0] <= bb[2] and bb[1] <= bb[3]
-            except Exception:
-                raise HTTPException(422, "bbox must be min_lon,min_lat,max_lon,max_lat") from None
+            except ValueError:
+                bb = ()
+            if len(bb) != 4 or bb[0] > bb[2] or bb[1] > bb[3]:
+                raise HTTPException(422, "bbox must be min_lon,min_lat,max_lon,max_lat")
         return st.interference(bb)
 
     # ---- stream -------------------------------------------------------------------
