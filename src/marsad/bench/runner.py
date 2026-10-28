@@ -16,7 +16,7 @@ from ..engine import TrustEngine
 from ..sim import generate, KINDS, ATTACK_KINDS
 from ..sim.generator import TRUTH_CLASS
 from ..types import TrustState
-from .baseline import GateBaseline
+from .baselines import GateBaseline
 
 
 def _nav_err(nav_e, nav_n, te, tn):
