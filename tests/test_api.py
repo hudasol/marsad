@@ -317,6 +317,19 @@ def test_demo_start_stop_flags_simulated_and_truth(client):
     assert client.get("/v1/vehicles").json()["vehicles"][0]["n_samples"] == n1, "no samples after stop"
 
 
+def test_overlapping_demo_starts_leave_one_replay_loop(client):
+    # two starts in flight at once used to leave a second loop writing the same vehicle (non-decreasing time error)
+    from concurrent.futures import ThreadPoolExecutor
+
+    body = {"kind": "nominal", "seed": 1, "speed": 100}
+    with ThreadPoolExecutor(2) as ex:
+        a, b = [f.result() for f in [ex.submit(client.post, "/v1/demo/start", json=body) for _ in range(2)]]
+    assert a.status_code == 200 and b.status_code == 200
+    time.sleep(1.5)
+    assert client.get("/v1/demo/status").json().get("error") is None
+    client.post("/v1/demo/stop")
+
+
 def test_demo_vehicle_rejects_real_data_and_bad_input(client):
     assert client.post("/v1/demo/start", json={"kind": "nope"}).status_code == 422
     assert client.post("/v1/demo/start", json={"kind": "nominal", "speed": 1000}).status_code == 422
