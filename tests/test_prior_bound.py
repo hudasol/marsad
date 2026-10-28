@@ -60,3 +60,18 @@ def test_clean_flight_stays_trusted():
 
 def test_drift_below_the_prior_bound_floor_is_not_claimed():
     assert _first_alarm(0.1) is None
+
+
+def test_rewind_never_lands_on_an_anchor_from_before_a_reference_outage():
+    """Held out ref_outage run 5015: the stronger drift channel raises suspicion earlier, so the anchor rewind
+    reached back past the outage, where anchor offsets belong to a different reference integral (error 495 m)."""
+    from marsad.sim import generate
+
+    run = generate("spoof_drift_ref_outage", 5015, "heldout")
+    eng = TrustEngine(preset("uav_multirotor"))
+    worst = 0.0
+    for i, s in enumerate(run.samples):
+        r = eng.update(s)
+        if s.t >= run.attack_start and r.action.value == "FALLBACK_REFERENCE" and r.nav_e is not None:
+            worst = max(worst, math.hypot(r.nav_e - run.truth_e[i], r.nav_n - run.truth_n[i]))
+    assert worst < 100.0
