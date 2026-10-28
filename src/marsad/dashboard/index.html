@@ -12,34 +12,36 @@
 <a class="skip" href="#plot-panel">Skip to position plot</a>
 
 <header id="top" class="top" data-state="TRUSTED">
-  <div class="brand" lang="ar">
-    <span class="wordmark-ar" lang="ar" dir="rtl">مرصد</span>
-    <span class="wordmark-en" lang="en">Marsad</span>
+  <div class="titlebar">
+    <div class="brand" lang="ar">
+      <span class="wordmark-ar" lang="ar" dir="rtl">مرصد</span>
+      <span class="wordmark-en" lang="en">MARSAD</span>
+      <span class="brand-sub">position trust</span>
+    </div>
+    <div class="top-right">
+      <span id="sim-badge" class="badge sim" hidden title="Everything on screen comes from the measurement level simulator, not hardware.">Simulated data</span>
+      <span id="conn" class="conn" data-s="connecting" role="status"><i aria-hidden="true"></i><span id="conn-text">Connecting</span></span>
+      <label class="veh-pick"><span>Vehicle</span>
+        <select id="veh-select" aria-label="Vehicle to display"><option value="">none</option></select>
+      </label>
+    </div>
   </div>
 
-  <section id="banner" class="banner" aria-labelledby="state-word" aria-live="polite">
+  <section id="banner" class="banner" aria-labelledby="state-word">
     <span id="state-glyph" class="glyph" aria-hidden="true"></span>
     <div class="state-block">
       <h1 id="state-word" class="state-word">NO DATA</h1>
       <p id="state-sub" class="state-sub">Waiting for a vehicle. Start a simulated scenario or post samples.</p>
     </div>
     <div class="trust-block">
-      <div id="trust-num" class="trust-num" aria-label="Trust score">--</div>
-      <div class="trust-cap">trust</div>
+      <div id="trust-num" class="trust-num" aria-label="Trust score from 0 to 1">--</div>
+      <div class="trust-cap">trust, 0 to 1</div>
     </div>
     <div class="action-block">
       <div class="action-cap">Recommended action</div>
       <div id="action-text" class="action-text">--</div>
     </div>
   </section>
-
-  <div class="top-right">
-    <span id="sim-badge" class="badge sim" hidden title="Everything on screen comes from the measurement-level simulator, not hardware.">SIMULATED</span>
-    <span id="conn" class="conn" data-s="connecting" role="status"><i aria-hidden="true"></i><span id="conn-text">Connecting</span></span>
-    <label class="veh-pick"><span>Vehicle</span>
-      <select id="veh-select" aria-label="Vehicle to display"><option value="">none</option></select>
-    </label>
-  </div>
 </header>
 
 <main class="grid">
@@ -90,16 +92,23 @@
           <input type="radio" name="view" id="vw-event" value="event"><label for="vw-event" title="Zoom on the last two minutes, or the event if there is one">Event</label>
           <input type="radio" name="view" id="vw-full" value="full"><label for="vw-full" title="Whole recorded track">Full track</label>
           <input type="radio" name="view" id="vw-offset" value="offset" disabled><label for="vw-offset" title="Simulated demos only: every position relative to ground truth, so slow drift is visible">Offset</label>
+          <input type="radio" name="view" id="vw-space" value="space"><label for="vw-space" title="East and north on the floor, time as height">Space-time</label>
         </fieldset>
       </div>
       <ul class="legend plot-legend" id="plot-legend" aria-label="Plot legend">
-        <li><i class="sw thick" style="color:var(--raw)"></i>GNSS said</li>
-        <li><i class="sw thick" style="color:var(--advice)"></i>Marsad advises</li>
-        <li><i class="sw thick dash" style="color:var(--degraded)"></i>Marsad on reference</li>
-        <li id="lg-truth" hidden><i class="sw dots" style="color:var(--truth)"></i>Reality (simulated)</li>
-        <li id="lg-whisk"><i class="sw dots" style="color:var(--raw);opacity:.7"></i>Claim vs reference</li>
+        <li><i class="sw thick c-raw"></i>GNSS said</li>
+        <li><i class="sw thick c-advice"></i>Marsad advises</li>
+        <li><i class="sw thick dash c-degraded"></i>Marsad on reference</li>
+        <li id="lg-truth" hidden><i class="sw dots c-truth"></i>Reality (simulated)</li>
+        <li id="lg-whisk"><i class="sw dots c-raw-soft"></i>Claim vs reference</li>
       </ul>
-      <div class="canvas-wrap"><canvas id="plot" role="img" aria-label="Position plot"></canvas>
+      <ul class="legend plot-legend" id="stage-legend" aria-label="Space-time legend" hidden>
+        <li><i class="sw thick c-raw"></i>GNSS said</li>
+        <li><i class="sw thick c-advice"></i>Marsad advises</li>
+        <li><i class="sw dash c-truth"></i>Reality (simulated)</li>
+        <li><i class="sw dash c-degraded"></i>Onset</li>
+      </ul>
+      <div class="canvas-wrap"><div id="stage" class="stage" hidden></div><canvas id="plot" role="img" aria-label="Position plot"></canvas>
         <div id="plot-empty" class="empty">No position data yet.</div></div>
       <p id="plot-readout" class="readout mono" aria-live="off"></p>
     </section>
@@ -142,9 +151,7 @@
 </main>
 
 <footer class="foot">
-  <span>Advisory only. Never commands a vehicle.</span>
-  <span id="foot-sim">Simulated data is measurement-level and not validated on hardware.</span>
-  <span>Independent project, not affiliated with or endorsed by TII, ATRC or any ATRC entity.</span>
+  <span>Advisory output only. Marsad never commands a vehicle.</span>
   <span class="mono" id="foot-ver"></span>
 </footer>
 
