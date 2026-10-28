@@ -114,11 +114,13 @@ Library:
 from marsad import TrustEngine, preset, NavSample, GnssFix, RefMotion
 
 engine = TrustEngine(preset("uav_multirotor"))
-report = engine.update(NavSample(
-    t=12.4,
-    gnss=GnssFix(t=12.4, lat=24.45, lon=54.38, ve=8.1, vn=2.0, cn0_mean=41.0, cn0_std=3.1, n_sats=13, agc=0.31),
-    ref=RefMotion(t=12.4, ve=8.0, vn=2.1),          # visual odometry, optical flow, wheel odometry
-))
+report = engine.update(
+    NavSample(
+        t=12.4,
+        gnss=GnssFix(t=12.4, lat=24.45, lon=54.38, ve=8.1, vn=2.0, cn0_mean=41.0, cn0_std=3.1, n_sats=13, agc=0.31),
+        ref=RefMotion(t=12.4, ve=8.0, vn=2.1),  # visual odometry, optical flow, wheel odometry
+    )
+)
 print(report.state, report.trust, report.action, report.summary)
 ```
 
