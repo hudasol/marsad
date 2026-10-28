@@ -8,7 +8,9 @@ ROS message packages are imported lazily/guardedly: this module imports fine wit
 Conventions (REP-103/105): ROS world frames are ENU (x east, y north). NavSatFix has no velocity, so GNSS
 velocity is optional via a separate TwistStamped/TwistWithCovarianceStamped topic.
 """
+
 from __future__ import annotations
+
 import math
 from types import SimpleNamespace
 from typing import Callable, Optional
@@ -18,16 +20,17 @@ from ..engine import TrustEngine
 from ..types import GnssFix, RefMotion, TrustReport, TrustState
 from ._common import CONTAMINATED_WARNING, mean_std
 
-try:                                        # pragma: no cover - exercised only with ROS installed
+try:  # pragma: no cover - exercised only with ROS installed
     import rclpy
     from rclpy.node import Node
+
     HAVE_ROS2 = True
-except Exception:                           # ImportError or a broken ROS environment
+except Exception:  # ImportError or a broken ROS environment
     rclpy = None
     Node = object
     HAVE_ROS2 = False
 
-DIAG_LEVEL = {TrustState.TRUSTED: 0, TrustState.DEGRADED: 1, TrustState.DENIED: 2}   # OK / WARN / ERROR
+DIAG_LEVEL = {TrustState.TRUSTED: 0, TrustState.DEGRADED: 1, TrustState.DENIED: 2}  # OK / WARN / ERROR
 
 
 def _stamp(msg, default: Optional[float] = None) -> Optional[float]:
@@ -52,8 +55,9 @@ def _yaw_from_quat(q) -> Optional[float]:
     return math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
 
 
-def process_navsat(msg, t: Optional[float] = None, *, vel: Optional[tuple] = None,
-                   cn0: Optional[tuple] = None, uere_m: float = 3.0) -> Optional[GnssFix]:
+def process_navsat(
+    msg, t: Optional[float] = None, *, vel: Optional[tuple] = None, cn0: Optional[tuple] = None, uere_m: float = 3.0
+) -> Optional[GnssFix]:
     """sensor_msgs/NavSatFix (duck-typed) -> GnssFix, or None for NaN lat/lon.
 
     status.status: -1 NO_FIX -> fix_type 1; >=0 (FIX/SBAS/GBAS) -> 3 (NavSatFix cannot express 2D vs 3D).
@@ -74,14 +78,26 @@ def process_navsat(msg, t: Optional[float] = None, *, vel: Optional[tuple] = Non
             hdop = math.sqrt(v) / uere_m
     alt = float(getattr(msg, "altitude", 0.0))
     tt = t if t is not None else _stamp(msg, 0.0)
-    return GnssFix(t=float(tt), lat=lat, lon=lon, alt=alt if math.isfinite(alt) else 0.0,
-                   ve=vel[0] if vel else None, vn=vel[1] if vel else None,
-                   cn0_mean=cn0[0] if cn0 else None, cn0_std=cn0[1] if cn0 else None,
-                   n_sats=None, agc=None, hdop=hdop, fix_type=1 if status < 0 else 3, t_gnss=None)
+    return GnssFix(
+        t=float(tt),
+        lat=lat,
+        lon=lon,
+        alt=alt if math.isfinite(alt) else 0.0,
+        ve=vel[0] if vel else None,
+        vn=vel[1] if vel else None,
+        cn0_mean=cn0[0] if cn0 else None,
+        cn0_std=cn0[1] if cn0 else None,
+        n_sats=None,
+        agc=None,
+        hdop=hdop,
+        fix_type=1 if status < 0 else 3,
+        t_gnss=None,
+    )
 
 
-def process_odom(msg, t: Optional[float] = None, *, twist_frame: str = "child",
-                 source: str = "ros2:odom") -> Optional[RefMotion]:
+def process_odom(
+    msg, t: Optional[float] = None, *, twist_frame: str = "child", source: str = "ros2:odom"
+) -> Optional[RefMotion]:
     """nav_msgs/Odometry, geometry_msgs/TwistStamped or TwistWithCovarianceStamped -> RefMotion (ENU).
 
     twist_frame='child' (REP-105 default for Odometry): linear velocity is in the child (body) frame and
@@ -94,7 +110,7 @@ def process_odom(msg, t: Optional[float] = None, *, twist_frame: str = "child",
     tw = getattr(msg, "twist", None)
     if tw is None:
         return None
-    if hasattr(tw, "twist"):                        # Odometry / TwistWithCovarianceStamped
+    if hasattr(tw, "twist"):  # Odometry / TwistWithCovarianceStamped
         lin = tw.twist.linear
         cov = getattr(tw, "covariance", None)
         if cov is not None and len(cov) > 0 and math.isfinite(cov[0]) and cov[0] > 0:
@@ -102,12 +118,12 @@ def process_odom(msg, t: Optional[float] = None, *, twist_frame: str = "child",
         yaw = None
         if twist_frame == "child":
             yaw = _yaw_from_quat(getattr(getattr(getattr(msg, "pose", None), "pose", None), "orientation", None))
-    else:                                           # TwistStamped
+    else:  # TwistStamped
         lin, yaw = tw.linear, None
     vx, vy = float(lin.x), float(lin.y)
     if not (math.isfinite(vx) and math.isfinite(vy)):
         return None
-    if yaw is not None:                             # body (x fwd, y left) -> ENU
+    if yaw is not None:  # body (x fwd, y left) -> ENU
         ve = vx * math.cos(yaw) - vy * math.sin(yaw)
         vn = vx * math.sin(yaw) + vy * math.cos(yaw)
     else:
@@ -131,16 +147,27 @@ def process_cn0(msg) -> Optional[tuple]:
     return None if m is None else (m, sd)
 
 
-def build_diagnostic(report: TrustReport, *, name: str = "marsad/gnss_trust", hardware_id: str = "gnss",
-                     status_cls: Optional[Callable] = None, value_cls: Optional[Callable] = None):
+def build_diagnostic(
+    report: TrustReport,
+    *,
+    name: str = "marsad/gnss_trust",
+    hardware_id: str = "gnss",
+    status_cls: Optional[Callable] = None,
+    value_cls: Optional[Callable] = None,
+):
     """TrustReport -> diagnostic_msgs/DiagnosticStatus-shaped object (SimpleNamespace unless classes given).
 
     level: OK(0) TRUSTED, WARN(1) DEGRADED, ERROR(2) DENIED. With real classes the level is encoded as
     bytes (ROS 2 DiagnosticStatus.level is a byte)."""
     level = DIAG_LEVEL[report.state]
-    kv = [("trust", f"{report.trust:.4f}"), ("state", report.state.value), ("action", report.action.value),
-          ("dominant_hypothesis", report.dominant), ("warmup", str(report.warmup)),
-          ("gnss_offset_m", "" if report.gnss_offset_m is None else f"{report.gnss_offset_m:.1f}")]
+    kv = [
+        ("trust", f"{report.trust:.4f}"),
+        ("state", report.state.value),
+        ("action", report.action.value),
+        ("dominant_hypothesis", report.dominant),
+        ("warmup", str(report.warmup)),
+        ("gnss_offset_m", "" if report.gnss_offset_m is None else f"{report.gnss_offset_m:.1f}"),
+    ]
     for i, e in enumerate(report.evidence[:3]):
         kv.append((f"evidence_{i}", e.message))
     if value_cls is None:
@@ -152,8 +179,9 @@ def build_diagnostic(report: TrustReport, *, name: str = "marsad/gnss_trust", ha
             kvm.key, kvm.value = k, v
             values.append(kvm)
     if status_cls is None:
-        return SimpleNamespace(level=level, name=name, message=report.summary or report.state.value,
-                               hardware_id=hardware_id, values=values)
+        return SimpleNamespace(
+            level=level, name=name, message=report.summary or report.state.value, hardware_id=hardware_id, values=values
+        )
     st = status_cls()
     st.level = bytes([level])
     st.name, st.message, st.hardware_id = name, report.summary or report.state.value, hardware_id
@@ -164,9 +192,16 @@ def build_diagnostic(report: TrustReport, *, name: str = "marsad/gnss_trust", ha
 class RosBridge:
     """ROS-agnostic pipeline: callbacks in, TrustEngine, outputs out. This is what the node wires to topics."""
 
-    def __init__(self, engine: Optional[TrustEngine] = None, *, twist_frame: str = "child",
-                 ref_contaminated: bool = False, vel_max_age: float = 0.5, uere_m: float = 3.0,
-                 clock: Optional[Callable[[], float]] = None):
+    def __init__(
+        self,
+        engine: Optional[TrustEngine] = None,
+        *,
+        twist_frame: str = "child",
+        ref_contaminated: bool = False,
+        vel_max_age: float = 0.5,
+        uere_m: float = 3.0,
+        clock: Optional[Callable[[], float]] = None,
+    ):
         self.engine = engine or TrustEngine(preset("ground_robot"))
         self.twist_frame, self.ref_contaminated = twist_frame, ref_contaminated
         self.vel_max_age, self.uere_m, self.clock = vel_max_age, uere_m, clock
@@ -176,8 +211,8 @@ class RosBridge:
         self.last_report: Optional[TrustReport] = None
         self.dropped_out_of_order = 0
         self._t = -math.inf
-        self._vel = None        # (t, ve, vn)
-        self._cn0 = None        # (t, mean, std)
+        self._vel = None  # (t, ve, vn)
+        self._cn0 = None  # (t, mean, std)
 
     def _time(self, msg) -> float:
         t = _stamp(msg, None)
@@ -198,6 +233,7 @@ class RosBridge:
 
     def on_navsat(self, msg) -> Optional[TrustReport]:
         from ..types import NavSample
+
         t = self._time(msg)
         if t < self._t:
             self.dropped_out_of_order += 1
@@ -214,12 +250,17 @@ class RosBridge:
 
     def on_odom(self, msg) -> Optional[TrustReport]:
         from ..types import NavSample
+
         t = self._time(msg)
         if t < self._t:
             self.dropped_out_of_order += 1
             return None
-        ref = process_odom(msg, t, twist_frame=self.twist_frame,
-                           source="ros2:odom" + ("[CONTAMINATED]" if self.ref_contaminated else ""))
+        ref = process_odom(
+            msg,
+            t,
+            twist_frame=self.twist_frame,
+            source="ros2:odom" + ("[CONTAMINATED]" if self.ref_contaminated else ""),
+        )
         if ref is None:
             return None
         self._t = t
@@ -229,11 +270,10 @@ class RosBridge:
     @staticmethod
     def outputs(report: TrustReport) -> dict:
         """What the node publishes: trust (Float32.data), state (String.data), diagnostic (namespace)."""
-        return {"trust": float(report.trust), "state": report.state.value,
-                "diagnostic": build_diagnostic(report)}
+        return {"trust": float(report.trust), "state": report.state.value, "diagnostic": build_diagnostic(report)}
 
 
-LAUNCH_SNIPPET = '''\
+LAUNCH_SNIPPET = """\
 # launch/marsad.launch.py   (UNTESTED on a live ROS 2 system -- adjust topic names)
 from launch import LaunchDescription
 from launch_ros.actions import Node
@@ -251,10 +291,10 @@ def generate_launch_description():
             "cn0_topic": "", "cn0_type": "std_msgs/msg/Float32MultiArray",
             "preset": "ground_robot",
         }])])
-'''
+"""
 
 
-class MarsadNode(Node):                     # type: ignore[misc]
+class MarsadNode(Node):  # type: ignore[misc]
     """rclpy node: subscribes to NavSatFix + reference odometry (+optional GNSS twist, C/N0), publishes
     ~/trust (std_msgs/Float32), ~/state (std_msgs/String), ~/diagnostics (diagnostic_msgs/DiagnosticStatus).
     Advisory only: it publishes, it never commands. UNTESTED against a real ROS 2 runtime."""
@@ -264,9 +304,11 @@ class MarsadNode(Node):                     # type: ignore[misc]
             raise ImportError("rclpy is not available; source a ROS 2 environment (this node is untested here)")
         super().__init__("marsad_trust")
         from importlib import import_module
-        from std_msgs.msg import Float32, String
+
         from diagnostic_msgs.msg import DiagnosticStatus, KeyValue
         from sensor_msgs.msg import NavSatFix
+        from std_msgs.msg import Float32, String
+
         P = self.declare_parameter
         navsat_topic = P("navsat_topic", "/gps/fix").value
         gnss_vel_topic = P("gnss_vel_topic", "").value
@@ -277,8 +319,9 @@ class MarsadNode(Node):                     # type: ignore[misc]
         cn0_topic = P("cn0_topic", "").value
         cn0_type = P("cn0_type", "std_msgs/msg/Float32MultiArray").value
         pname = P("preset", "ground_robot").value
-        self._bridge = bridge or RosBridge(TrustEngine(preset(pname)), twist_frame=twist_frame,
-                                           ref_contaminated=contaminated, clock=self._now)
+        self._bridge = bridge or RosBridge(
+            TrustEngine(preset(pname)), twist_frame=twist_frame, ref_contaminated=contaminated, clock=self._now
+        )
         for w in self._bridge.warnings:
             self.get_logger().warn(w)
         self._DS, self._KV = DiagnosticStatus, KeyValue
@@ -289,12 +332,15 @@ class MarsadNode(Node):                     # type: ignore[misc]
         self.create_subscription(NavSatFix, navsat_topic, self._on_navsat, 10)
         if odom_type == "odometry":
             from nav_msgs.msg import Odometry
+
             self.create_subscription(Odometry, odom_topic, self._on_odom, 10)
         else:
             from geometry_msgs.msg import TwistStamped
+
             self.create_subscription(TwistStamped, odom_topic, self._on_odom, 10)
         if gnss_vel_topic:
             from geometry_msgs.msg import TwistStamped
+
             self.create_subscription(TwistStamped, gnss_vel_topic, self._bridge.on_gnss_vel, 10)
         if cn0_topic:
             pkg, _, cls = cn0_type.replace("/msg/", "/").partition("/")
@@ -312,12 +358,16 @@ class MarsadNode(Node):                     # type: ignore[misc]
         if rep is None:
             return
         out = self._bridge.outputs(rep)
-        a = self._Float32(); a.data = out["trust"]; self._pub_trust.publish(a)
-        b = self._String(); b.data = out["state"]; self._pub_state.publish(b)
+        a = self._Float32()
+        a.data = out["trust"]
+        self._pub_trust.publish(a)
+        b = self._String()
+        b.data = out["state"]
+        self._pub_state.publish(b)
         self._pub_diag.publish(build_diagnostic(rep, status_cls=self._DS, value_cls=self._KV))
 
 
-def main(args=None):                        # pragma: no cover
+def main(args=None):  # pragma: no cover
     if not HAVE_ROS2:
         raise SystemExit("rclpy not available")
     rclpy.init(args=args)
@@ -329,5 +379,5 @@ def main(args=None):                        # pragma: no cover
         rclpy.shutdown()
 
 
-if __name__ == "__main__":      # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     main()

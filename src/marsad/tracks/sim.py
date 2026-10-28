@@ -8,7 +8,9 @@ Sources:
   'ais-like'   cooperative, GNSS-derived, sigma ~6 m, can be spoofed/offset
   'radar-like' independent of GNSS, sigma ~35 m, not affected by the injected faults
 """
+
 from __future__ import annotations
+
 import math
 import random
 from dataclasses import dataclass, field
@@ -19,7 +21,7 @@ from .config import TrackConfig
 from .engine import TrackTrustEngine
 from .types import TrackReport, Zone
 
-ORIGIN = (25.30, 54.80)          # arbitrary simulation origin
+ORIGIN = (25.30, 54.80)  # arbitrary simulation origin
 KINDS = ("ais_common_offset", "teleport", "replay", "flatline", "circle_spoof", "forbidden_zone")
 AIS, RADAR = "ais-like", "radar-like"
 _FRAME = LocalFrame(*ORIGIN)
@@ -28,8 +30,10 @@ _FRAME = LocalFrame(*ORIGIN)
 def demo_zones() -> list:
     """Fictional zones used by the simulator (SIMULATED)."""
     out = []
-    for name, (e, n), rad in (("SIM-AIRFIELD", (-25000.0, 8000.0), 2500.0),
-                              ("SIM-INLAND", (-42000.0, -15000.0), 9000.0)):
+    for name, (e, n), rad in (
+        ("SIM-AIRFIELD", (-25000.0, 8000.0), 2500.0),
+        ("SIM-INLAND", (-42000.0, -15000.0), 9000.0),
+    ):
         lat, lon = _FRAME.to_geo(e, n)
         out.append(Zone(name, lat, lon, rad, {"surface"}))
     return out
@@ -38,7 +42,7 @@ def demo_zones() -> list:
 @dataclass
 class Scenario:
     seed: int
-    reports: list                       # TrackReport in arrival order
+    reports: list  # TrackReport in arrival order
     zones: list
     labels: dict
     meta: dict = field(default_factory=dict)
@@ -96,9 +100,16 @@ def _norm_faults(faults) -> dict:
     return out
 
 
-def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults=None,
-                  allow_stale_ts: bool = True, loiter: bool = False, radar_coverage: float = 0.7,
-                  radar_sigma: float = 35.0) -> Scenario:
+def make_scenario(
+    seed: int,
+    n_tracks: int = 20,
+    duration: float = 900.0,
+    faults=None,
+    allow_stale_ts: bool = True,
+    loiter: bool = False,
+    radar_coverage: float = 0.7,
+    radar_sigma: float = 35.0,
+) -> Scenario:
     """Deterministic SIMULATED two-source scenario.
 
     faults: None | list of kinds | {kind: params}. Params (all optional):
@@ -122,21 +133,46 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
         ais, t = [], rng.uniform(0, dt_a)
         while t <= duration:
             e, n, v, c = _at(truth, t)
-            ais.append({"ta": t, "t": t, "e": e + rng.gauss(0, 6), "n": n + rng.gauss(0, 6),
-                        "speed": max(0.0, v + rng.gauss(0, 0.3 if cls == "surface" else 1.0)),
-                        "course": (c + rng.gauss(0, 2.0)) % 360.0, "truth": (e, n)})
+            ais.append(
+                {
+                    "ta": t,
+                    "t": t,
+                    "e": e + rng.gauss(0, 6),
+                    "n": n + rng.gauss(0, 6),
+                    "speed": max(0.0, v + rng.gauss(0, 0.3 if cls == "surface" else 1.0)),
+                    "course": (c + rng.gauss(0, 2.0)) % 360.0,
+                    "truth": (e, n),
+                }
+            )
             t += dt_a + rng.uniform(-0.3, 0.3)
         radar = []
         if covered:
             t = rng.uniform(0, 6.0)
             while t <= duration:
                 e, n, v, c = _at(truth, t)
-                radar.append({"ta": t, "t": t, "e": e + rng.gauss(0, radar_sigma), "n": n + rng.gauss(0, radar_sigma),
-                              "speed": max(0.0, v + rng.gauss(0, 1.5)),
-                              "course": (c + rng.gauss(0, 5.0)) % 360.0})
+                radar.append(
+                    {
+                        "ta": t,
+                        "t": t,
+                        "e": e + rng.gauss(0, radar_sigma),
+                        "n": n + rng.gauss(0, radar_sigma),
+                        "speed": max(0.0, v + rng.gauss(0, 1.5)),
+                        "course": (c + rng.gauss(0, 5.0)) % 360.0,
+                    }
+                )
                 t += 6.0 + rng.uniform(-0.3, 0.3)
-        tracks.append({"id": f"T{i:03d}", "cls": cls, "radar_cls": radar_cls, "truth": truth,
-                       "covered": covered, "ais": ais, "radar": radar, "ident": f"SIM{700000 + i}"})
+        tracks.append(
+            {
+                "id": f"T{i:03d}",
+                "cls": cls,
+                "radar_cls": radar_cls,
+                "truth": truth,
+                "covered": covered,
+                "ais": ais,
+                "radar": radar,
+                "ident": f"SIM{700000 + i}",
+            }
+        )
 
     if loiter:
         # legitimate tight loiter: speed/course consistent with the circle (hard negative)
@@ -149,16 +185,42 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
         t = rng.uniform(0, 10)
         while t <= duration:
             a = ph + w * t
-            ais.append({"ta": t, "t": t, "e": cx + r * math.cos(a) + rng.gauss(0, 6), "n": cy + r * math.sin(a) + rng.gauss(0, 6),
-                        "speed": v + rng.gauss(0, 0.3), "course": (90.0 - math.degrees(a + math.pi / 2)) % 360.0 + rng.gauss(0, 2),
-                        "truth": (cx + r * math.cos(a), cy + r * math.sin(a))})
+            ais.append(
+                {
+                    "ta": t,
+                    "t": t,
+                    "e": cx + r * math.cos(a) + rng.gauss(0, 6),
+                    "n": cy + r * math.sin(a) + rng.gauss(0, 6),
+                    "speed": v + rng.gauss(0, 0.3),
+                    "course": (90.0 - math.degrees(a + math.pi / 2)) % 360.0 + rng.gauss(0, 2),
+                    "truth": (cx + r * math.cos(a), cy + r * math.sin(a)),
+                }
+            )
             t += 10.0 + rng.uniform(-0.3, 0.3)
-        tracks.append({"id": f"T{i:03d}", "cls": "surface", "radar_cls": "surface", "truth": None,
-                       "covered": False, "ais": ais, "radar": radar, "ident": f"SIM{700000 + i}", "loiter": True})
+        tracks.append(
+            {
+                "id": f"T{i:03d}",
+                "cls": "surface",
+                "radar_cls": "surface",
+                "truth": None,
+                "covered": False,
+                "ais": ais,
+                "radar": radar,
+                "ident": f"SIM{700000 + i}",
+                "loiter": True,
+            }
+        )
 
-    labels = {"label": "SIMULATED", "seed": seed, "faulted_tracks": {}, "compromised_sources": {},
-              "tainted_tracks": [], "radar_covered": {t["id"]: t["covered"] for t in tracks},
-              "loiter_tracks": [t["id"] for t in tracks if t.get("loiter")], "faults": faults}
+    labels = {
+        "label": "SIMULATED",
+        "seed": seed,
+        "faulted_tracks": {},
+        "compromised_sources": {},
+        "tainted_tracks": [],
+        "radar_covered": {t["id"]: t["covered"] for t in tracks},
+        "loiter_tracks": [t["id"] for t in tracks if t.get("loiter")],
+        "faults": faults,
+    }
 
     # ---- fault injection (order fixed; track faults first, source-level last) ----
     used: set = set()
@@ -166,8 +228,11 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
     def pick(kind, need_surface):
         p = faults[kind]
         k = int(p.get("n", 3))
-        pool = [t for t in tracks if t["id"] not in used and not t.get("loiter")
-                and (t["cls"] == "surface" or not need_surface)]
+        pool = [
+            t
+            for t in tracks
+            if t["id"] not in used and not t.get("loiter") and (t["cls"] == "surface" or not need_surface)
+        ]
         k = min(k, len(pool))
         chosen = master.sample(pool, k) if k else []
         chosen.sort(key=lambda t: t["id"])
@@ -175,8 +240,9 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
         return chosen
 
     def mark(tr, kind, t_on, t_off, **extra):
-        d = labels["faulted_tracks"].setdefault(tr["id"], {"kinds": [], "t_on": t_on, "t_off": t_off,
-                                                           "source": AIS, "radar_covered": tr["covered"]})
+        d = labels["faulted_tracks"].setdefault(
+            tr["id"], {"kinds": [], "t_on": t_on, "t_off": t_off, "source": AIS, "radar_covered": tr["covered"]}
+        )
         d["kinds"].append(kind)
         d["t_on"] = min(d["t_on"], t_on)
         d["t_off"] = max(d["t_off"], t_off)
@@ -188,8 +254,13 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
         p = faults[kind]
         for tr in pick(kind, need_surface=kind in ("circle_spoof", "forbidden_zone")):
             a = tr["ais"]
-            lo, hi = {"teleport": (0.3, 0.7), "replay": (0.4, 0.55), "flatline": (0.3, 0.6),
-                      "circle_spoof": (0.25, 0.45), "forbidden_zone": (0.3, 0.6)}[kind]
+            lo, hi = {
+                "teleport": (0.3, 0.7),
+                "replay": (0.4, 0.55),
+                "flatline": (0.3, 0.6),
+                "circle_spoof": (0.25, 0.45),
+                "forbidden_zone": (0.3, 0.6),
+            }[kind]
             t_on = float(p.get("t_on", master.uniform(lo, hi) * duration))
             if kind == "teleport":
                 mag, brg = p.get("magnitude_m", master.uniform(4000, 20000)), master.uniform(0, 2 * math.pi)
@@ -264,9 +335,14 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
                     r["e"] += k * mag * math.sin(brg)
                     r["n"] += k * mag * math.cos(brg)
             mark(tr, "ais_common_offset", t_on, duration)
-        labels["compromised_sources"][AIS] = {"type": "common_offset", "magnitude_m": round(mag),
-                                              "bearing_deg": round(math.degrees(brg) % 360, 1),
-                                              "t_on": t_on, "fraction": frac, "ramp_s": ramp}
+        labels["compromised_sources"][AIS] = {
+            "type": "common_offset",
+            "magnitude_m": round(mag),
+            "bearing_deg": round(math.degrees(brg) % 360, 1),
+            "t_on": t_on,
+            "fraction": frac,
+            "ramp_s": ramp,
+        }
         labels["tainted_tracks"] = sorted(t["id"] for t in tracks)
 
     # ---- assemble in arrival order ----
@@ -274,25 +350,67 @@ def make_scenario(seed: int, n_tracks: int = 20, duration: float = 900.0, faults
     for tr in tracks:
         for r in tr["ais"]:
             lat, lon = _FRAME.to_geo(r["e"], r["n"])
-            entries.append((r["ta"], 0, tr["id"], TrackReport(
-                tr["id"], AIS, round(r["t"], 3), round(lat, 6), round(lon, 6), round(r["speed"], 2),
-                round(r["course"], 1), tr["cls"], 6.0, tr["ident"])))
+            entries.append(
+                (
+                    r["ta"],
+                    0,
+                    tr["id"],
+                    TrackReport(
+                        tr["id"],
+                        AIS,
+                        round(r["t"], 3),
+                        round(lat, 6),
+                        round(lon, 6),
+                        round(r["speed"], 2),
+                        round(r["course"], 1),
+                        tr["cls"],
+                        6.0,
+                        tr["ident"],
+                    ),
+                )
+            )
         for r in tr["radar"]:
             lat, lon = _FRAME.to_geo(r["e"], r["n"])
-            entries.append((r["ta"], 1, tr["id"], TrackReport(
-                tr["id"], RADAR, round(r["t"], 3), round(lat, 6), round(lon, 6), round(r["speed"], 2),
-                round(r["course"], 1), tr["radar_cls"], radar_sigma, None)))
+            entries.append(
+                (
+                    r["ta"],
+                    1,
+                    tr["id"],
+                    TrackReport(
+                        tr["id"],
+                        RADAR,
+                        round(r["t"], 3),
+                        round(lat, 6),
+                        round(lon, 6),
+                        round(r["speed"], 2),
+                        round(r["course"], 1),
+                        tr["radar_cls"],
+                        radar_sigma,
+                        None,
+                    ),
+                )
+            )
     entries.sort(key=lambda x: (x[0], x[1], x[2]))
-    meta = {"label": "SIMULATED", "n_tracks": len(tracks), "duration": duration, "sources": [AIS, RADAR],
-            "origin": ORIGIN, "n_reports": len(entries)}
+    meta = {
+        "label": "SIMULATED",
+        "n_tracks": len(tracks),
+        "duration": duration,
+        "sources": [AIS, RADAR],
+        "origin": ORIGIN,
+        "n_reports": len(entries),
+    }
     return Scenario(seed, [e[3] for e in entries], zones, labels, meta)
 
 
 def make_demo_scenario(seed: int = 7) -> Scenario:
     """SIMULATED demo: one of each track fault plus a partial source offset late in the run."""
-    f = {"circle_spoof": {"n": 1, "t_on": 200.0}, "flatline": {"n": 1, "t_on": 320.0},
-         "teleport": {"n": 1, "t_on": 420.0}, "forbidden_zone": {"n": 1, "t_on": 520.0},
-         "ais_common_offset": {"fraction": 0.6, "t_on": 620.0, "magnitude_m": 6000.0}}
+    f = {
+        "circle_spoof": {"n": 1, "t_on": 200.0},
+        "flatline": {"n": 1, "t_on": 320.0},
+        "teleport": {"n": 1, "t_on": 420.0},
+        "forbidden_zone": {"n": 1, "t_on": 520.0},
+        "ais_common_offset": {"fraction": 0.6, "t_on": 620.0, "magnitude_m": 6000.0},
+    }
     sc = make_scenario(seed, n_tracks=24, duration=900.0, faults=f)
     sc.reports.sort(key=lambda r: (r.t, r.source, r.track_id))
     return sc
@@ -314,7 +432,7 @@ def run_scenario(sc: Scenario, config: Optional[TrackConfig] = None) -> dict:
     reasons: dict = {}
     n_flag = 0
     src_first: dict = {}
-    clock = -math.inf                      # arrival-time proxy (stale-timestamp replays carry old stamps)
+    clock = -math.inf  # arrival-time proxy (stale-timestamp replays carry old stamps)
     for i, r in enumerate(sc.reports):
         clock = max(clock, r.t)
         res = eng.ingest(r)
@@ -332,13 +450,24 @@ def run_scenario(sc: Scenario, config: Optional[TrackConfig] = None) -> dict:
     for s, h in eng.source_health().items():
         if h["flagged"]:
             src_first.setdefault(s, sc.reports[-1].t)
-    return {"first_flag": first_flag, "ever_flag": ever_flag, "reasons": reasons,
-            "flag_fraction": n_flag / max(1, len(sc.reports)), "source_flags": src_first,
-            "blame": {s: h for s, h in eng.source_health().items()}, "engine": eng}
+    return {
+        "first_flag": first_flag,
+        "ever_flag": ever_flag,
+        "reasons": reasons,
+        "flag_fraction": n_flag / max(1, len(sc.reports)),
+        "source_flags": src_first,
+        "blame": {s: h for s, h in eng.source_health().items()},
+        "engine": eng,
+    }
 
 
-def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, duration: float = 900.0,
-             config: Optional[TrackConfig] = None, kinds: Iterable[str] = KINDS) -> dict:
+def evaluate(
+    seed_range: Iterable[int] = range(0, 20),
+    n_tracks: int = 20,
+    duration: float = 900.0,
+    config: Optional[TrackConfig] = None,
+    kinds: Iterable[str] = KINDS,
+) -> dict:
     """SIMULATED evaluation. For each seed: one clean scenario (with one legitimate loiter track
     every other seed) and one single-fault scenario per kind. Metrics:
 
@@ -351,8 +480,18 @@ def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, durat
     seeds = list(seed_range)
     kinds = list(kinds)
     tp = fn = fp = 0
-    by_kind: dict = {k: {"n": 0, "detected": 0, "latencies": [], "covered_n": 0, "covered_det": 0,
-                         "ais_only_n": 0, "ais_only_det": 0} for k in kinds}
+    by_kind: dict = {
+        k: {
+            "n": 0,
+            "detected": 0,
+            "latencies": [],
+            "covered_n": 0,
+            "covered_det": 0,
+            "ais_only_n": 0,
+            "ais_only_det": 0,
+        }
+        for k in kinds
+    }
     clean_tracks = clean_flagged = clean_scn = 0
     clean_flag_time = 0.0
     clean_src_false = 0
@@ -383,8 +522,15 @@ def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, durat
                         d["latencies"].append(res["first_flag"][tid] - ft[tid]["t_on"])
                     else:
                         fn += 1
-                        failures.append({"seed": seed, "kind": kind, "track": tid, "radar_covered": cov,
-                                         "note": "faulted track never flagged"})
+                        failures.append(
+                            {
+                                "seed": seed,
+                                "kind": kind,
+                                "track": tid,
+                                "radar_covered": cov,
+                                "note": "faulted track never flagged",
+                            }
+                        )
                 elif tid in tainted:
                     continue
                 else:
@@ -398,15 +544,28 @@ def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, durat
                             clean_flagged += 1
                         else:
                             fa_tracks_fault_scn_flagged += 1
-                        failures.append({"seed": seed, "kind": kind or "clean", "track": tid,
-                                         "note": "false flag", "top_reasons": res["reasons"].get(tid)})
+                        failures.append(
+                            {
+                                "seed": seed,
+                                "kind": kind or "clean",
+                                "track": tid,
+                                "note": "false flag",
+                                "top_reasons": res["reasons"].get(tid),
+                            }
+                        )
             if kind is None:
                 clean_scn += 1
                 clean_flag_time += res["flag_fraction"]
                 if res["source_flags"]:
                     clean_src_false += 1
-                    failures.append({"seed": seed, "kind": "clean", "note": "false source flag",
-                                     "sources": sorted(res["source_flags"])})
+                    failures.append(
+                        {
+                            "seed": seed,
+                            "kind": "clean",
+                            "note": "false source flag",
+                            "sources": sorted(res["source_flags"]),
+                        }
+                    )
             elif kind == "ais_common_offset":
                 src_n += 1
                 if AIS in res["source_flags"]:
@@ -419,8 +578,14 @@ def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, durat
                 else:
                     failures.append({"seed": seed, "kind": kind, "note": "compromised source not flagged"})
             elif res["source_flags"]:
-                failures.append({"seed": seed, "kind": kind, "note": "source flagged in track-fault scenario",
-                                 "sources": sorted(res["source_flags"])})
+                failures.append(
+                    {
+                        "seed": seed,
+                        "kind": kind,
+                        "note": "source flagged in track-fault scenario",
+                        "sources": sorted(res["source_flags"]),
+                    }
+                )
 
     def med(x):
         x = sorted(x)
@@ -435,22 +600,43 @@ def evaluate(seed_range: Iterable[int] = range(0, 20), n_tracks: int = 20, durat
     return {
         "label": "SIMULATED",
         "seeds": [seeds[0], seeds[-1]] if seeds else [],
-        "n_seeds": len(seeds), "n_scenarios": n_scn, "n_tracks_per_scenario": n_tracks, "duration_s": duration,
+        "n_seeds": len(seeds),
+        "n_scenarios": n_scn,
+        "n_tracks_per_scenario": n_tracks,
+        "duration_s": duration,
         "track_level": {"precision": prec, "recall": rec, "f1": f1, "tp": tp, "fp": fp, "fn": fn},
-        "by_fault": {k: {"n": v["n"], "detected": v["detected"], "recall": rate(v["detected"], v["n"]),
-                         "median_latency_s": med(v["latencies"]),
-                         "recall_radar_covered": rate(v["covered_det"], v["covered_n"]),
-                         "recall_ais_only": rate(v["ais_only_det"], v["ais_only_n"])}
-                     for k, v in by_kind.items()},
-        "clean": {"scenarios": clean_scn, "tracks": clean_tracks, "tracks_flagged": clean_flagged,
-                  "false_flag_rate": rate(clean_flagged, clean_tracks),
-                  "mean_flagged_report_fraction": round(clean_flag_time / max(1, clean_scn), 5),
-                  "scenarios_with_false_source_flag": clean_src_false},
-        "clean_tracks_in_fault_scenarios": {"tracks": fa_tracks_fault_scn, "flagged": fa_tracks_fault_scn_flagged,
-                                            "false_flag_rate": rate(fa_tracks_fault_scn_flagged, fa_tracks_fault_scn)},
-        "source_level": {"scenarios": src_n, "detected": src_det, "correctly_attributed": src_attr,
-                         "median_latency_s": med(src_lat)},
-        "failures": failures[:60], "n_failures": len(failures),
+        "by_fault": {
+            k: {
+                "n": v["n"],
+                "detected": v["detected"],
+                "recall": rate(v["detected"], v["n"]),
+                "median_latency_s": med(v["latencies"]),
+                "recall_radar_covered": rate(v["covered_det"], v["covered_n"]),
+                "recall_ais_only": rate(v["ais_only_det"], v["ais_only_n"]),
+            }
+            for k, v in by_kind.items()
+        },
+        "clean": {
+            "scenarios": clean_scn,
+            "tracks": clean_tracks,
+            "tracks_flagged": clean_flagged,
+            "false_flag_rate": rate(clean_flagged, clean_tracks),
+            "mean_flagged_report_fraction": round(clean_flag_time / max(1, clean_scn), 5),
+            "scenarios_with_false_source_flag": clean_src_false,
+        },
+        "clean_tracks_in_fault_scenarios": {
+            "tracks": fa_tracks_fault_scn,
+            "flagged": fa_tracks_fault_scn_flagged,
+            "false_flag_rate": rate(fa_tracks_fault_scn_flagged, fa_tracks_fault_scn),
+        },
+        "source_level": {
+            "scenarios": src_n,
+            "detected": src_det,
+            "correctly_attributed": src_attr,
+            "median_latency_s": med(src_lat),
+        },
+        "failures": failures[:60],
+        "n_failures": len(failures),
     }
 
 
@@ -464,13 +650,25 @@ STRESS_CASES = {
     "offset_6km_radar_coverage_20pct": ({"ais_common_offset": {"magnitude_m": 6000.0}}, {"radar_coverage": 0.2}),
     "offset_6km_no_radar": ({"ais_common_offset": {"magnitude_m": 6000.0}}, {"radar_coverage": 0.0}),
     "offset_6km_radar_sigma_150m": ({"ais_common_offset": {"magnitude_m": 6000.0}}, {"radar_sigma": 150.0}),
-    "offset_6km_ramp_800s_no_radar": ({"ais_common_offset": {"magnitude_m": 6000.0, "ramp_s": 800.0, "t_on": 50.0}},
-                                      {"radar_coverage": 0.0}),
-    "offset_1500m_ramp_800s_no_radar": ({"ais_common_offset": {"magnitude_m": 1500.0, "ramp_s": 800.0, "t_on": 50.0}},
-                                        {"radar_coverage": 0.0}),
+    "offset_6km_ramp_800s_no_radar": (
+        {"ais_common_offset": {"magnitude_m": 6000.0, "ramp_s": 800.0, "t_on": 50.0}},
+        {"radar_coverage": 0.0},
+    ),
+    "offset_1500m_ramp_800s_no_radar": (
+        {"ais_common_offset": {"magnitude_m": 1500.0, "ramp_s": 800.0, "t_on": 50.0}},
+        {"radar_coverage": 0.0},
+    ),
     "mixed_all_faults_n2_offset_50pct": (
-        {"teleport": {"n": 2}, "replay": {"n": 2}, "flatline": {"n": 2}, "circle_spoof": {"n": 2},
-         "forbidden_zone": {"n": 2}, "ais_common_offset": {"fraction": 0.5, "magnitude_m": 8000.0}}, {}),
+        {
+            "teleport": {"n": 2},
+            "replay": {"n": 2},
+            "flatline": {"n": 2},
+            "circle_spoof": {"n": 2},
+            "forbidden_zone": {"n": 2},
+            "ais_common_offset": {"fraction": 0.5, "magnitude_m": 8000.0},
+        },
+        {},
+    ),
     "teleport_no_radar": (["teleport"], {"radar_coverage": 0.0}),
     "replay_no_radar": (["replay"], {"radar_coverage": 0.0}),
     "circle_no_radar": (["circle_spoof"], {"radar_coverage": 0.0}),
@@ -504,9 +702,14 @@ def stress(seed_range: Iterable[int] = range(1000, 1020), config: Optional[Track
                 if AIS in res["source_flags"]:
                     sd += 1
                     sa += RADAR not in res["source_flags"]
-        d = {"seeds": len(seeds), "faulted_tracks": nf, "faulted_flagged": nd,
-             "track_recall": None if nf == 0 else round(nd / nf, 3),
-             "clean_tracks": ncl, "clean_flagged": nclf}
+        d = {
+            "seeds": len(seeds),
+            "faulted_tracks": nf,
+            "faulted_flagged": nd,
+            "track_recall": None if nf == 0 else round(nd / nf, 3),
+            "clean_tracks": ncl,
+            "clean_flagged": nclf,
+        }
         if faults and "ais_common_offset" in (faults if isinstance(faults, dict) else {}):
             d["source_flagged_seeds"] = sd
             d["source_blamed_alone_seeds"] = sa

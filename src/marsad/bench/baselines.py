@@ -14,22 +14,32 @@ isolates the detection logic and not the sensor.
 
 None of these is PX4 or ArduPilot code; see docs/BASELINES.md for what each reproduces and what it does not.
 """
+
 from __future__ import annotations
+
 import math
 from collections import deque
 from typing import Optional
+
 from ..geo import LocalFrame
 from ..types import NavSample, TrustState
 
 
 class GateBaseline:
     def __init__(self, sigma_pos=2.0, gate_sigmas=5.0, min_sats=6, latch_s=10.0, gap_s=2.0, a_max=8.0):
-        self.sp, self.gs, self.min_sats, self.latch, self.gap, self.a_max = sigma_pos, gate_sigmas, min_sats, latch_s, gap_s, a_max
+        self.sp, self.gs, self.min_sats, self.latch, self.gap, self.a_max = (
+            sigma_pos,
+            gate_sigmas,
+            min_sats,
+            latch_s,
+            gap_s,
+            a_max,
+        )
         self.frame = None
         self.prev = None
         self.ce = self.cn = 0.0
         self.ref_t = None
-        self.acc = None           # (pos_e - ce, pos_n - cn) at last accepted fix
+        self.acc = None  # (pos_e - ce, pos_n - cn) at last accepted fix
         self.latch_until = -1.0
         self.last_fix_t = None
         self.state = TrustState.TRUSTED
@@ -38,7 +48,8 @@ class GateBaseline:
         t = s.t
         if s.ref is not None:
             if self.ref_t is not None and t - self.ref_t < 2.0:
-                self.ce += s.ref.ve * (t - self.ref_t); self.cn += s.ref.vn * (t - self.ref_t)
+                self.ce += s.ref.ve * (t - self.ref_t)
+                self.cn += s.ref.vn * (t - self.ref_t)
             self.ref_t = t
         g = s.gnss if (s.gnss is not None and s.gnss.fix_type >= 3) else None
         pos = None
@@ -47,7 +58,7 @@ class GateBaseline:
                 self.frame = LocalFrame(g.lat, g.lon)
             e, n = self.frame.to_local(g.lat, g.lon)
             self.last_fix_t = t
-            ok = (g.n_sats is None or g.n_sats >= self.min_sats)
+            ok = g.n_sats is None or g.n_sats >= self.min_sats
             if self.prev is not None and 0 < t - self.prev[0] <= 2.0:
                 dt = t - self.prev[0]
                 pe = self.prev[1] + (g.ve or 0.0) * dt
@@ -149,14 +160,25 @@ class Ekf2Gate:
     ``pos_noise`` is not a PX4 default; it is calibrated on nominal dev scenarios (scripts/calibrate_baselines.py).
     """
 
-    def __init__(self, use_reference=False, pos_noise=1.9, vel_noise=0.3, gate_p=5.0, gate_v=5.0, min_sats=6,
-                 reset_timeout_s=7.0, noaid_timeout_s=5.0, vel_walk=0.1, ref_sigma=0.15):
+    def __init__(
+        self,
+        use_reference=False,
+        pos_noise=1.9,
+        vel_noise=0.3,
+        gate_p=5.0,
+        gate_v=5.0,
+        min_sats=6,
+        reset_timeout_s=7.0,
+        noaid_timeout_s=5.0,
+        vel_walk=0.1,
+        ref_sigma=0.15,
+    ):
         self.use_ref = use_reference
-        self.R, self.Rv, self.gp, self.gv = pos_noise ** 2, vel_noise ** 2, gate_p, gate_v
+        self.R, self.Rv, self.gp, self.gv = pos_noise**2, vel_noise**2, gate_p, gate_v
         self.min_sats, self.reset_to, self.noaid_to = min_sats, reset_timeout_s, noaid_timeout_s
-        self.q, self.ref_sigma = vel_walk ** 2, ref_sigma
+        self.q, self.ref_sigma = vel_walk**2, ref_sigma
         self.mo = _Motion(use_reference)
-        self.p = None                # filter position (e, n)
+        self.p = None  # filter position (e, n)
         self.P = 0.0
         self.last_accept_t: Optional[float] = None
         self.last_fix_t: Optional[float] = None
@@ -179,20 +201,20 @@ class Ekf2Gate:
             else:
                 S = self.P + self.R
                 ie, in_ = e - self.p[0], n - self.p[1]
-                ok = max(ie * ie, in_ * in_) <= (self.gp ** 2) * S
+                ok = max(ie * ie, in_ * in_) <= (self.gp**2) * S
                 if ok and g.ve is not None and g.vn is not None:
-                    sv = self.Rv + (self.ref_sigma ** 2 if self.use_ref else 0.0) + 0.25   # 0.25: manoeuvre allowance
-                    ok = max((g.ve - self.mo.vel[0]) ** 2, (g.vn - self.mo.vel[1]) ** 2) <= (self.gv ** 2) * sv
+                    sv = self.Rv + (self.ref_sigma**2 if self.use_ref else 0.0) + 0.25  # 0.25: manoeuvre allowance
+                    ok = max((g.ve - self.mo.vel[0]) ** 2, (g.vn - self.mo.vel[1]) ** 2) <= (self.gv**2) * sv
                 if ok:
                     k = self.P / S
                     self.p = (self.p[0] + k * ie, self.p[1] + k * in_)
-                    self.P *= (1 - k)
+                    self.P *= 1 - k
                     self.last_accept_t, self.rejecting = s.t, False
                     self.mo.accept(*self.p)
                     self.mo.accept_velocity(g)
                 else:
                     self.rejecting = True
-                    if s.t - self.last_accept_t > self.reset_to:      # the estimator resets to the GNSS fix
+                    if s.t - self.last_accept_t > self.reset_to:  # the estimator resets to the GNSS fix
                         self.p, self.P, self.last_accept_t = (e, n), self.R, s.t
                         self.rejecting = False
                         self.mo.accept(e, n)
@@ -219,12 +241,21 @@ class WindowConsistency:
     reference (0.08 m/s on the held out split).
     """
 
-    def __init__(self, window_s=60.0, pos_noise=1.3, z=4.3, bias_bound=0.08, ref_sigma=0.15, min_sats=6,
-                 deny_after_s=5.0, sample_dt=0.2):
+    def __init__(
+        self,
+        window_s=60.0,
+        pos_noise=1.3,
+        z=4.3,
+        bias_bound=0.08,
+        ref_sigma=0.15,
+        min_sats=6,
+        deny_after_s=5.0,
+        sample_dt=0.2,
+    ):
         self.W, self.sg, self.z, self.b = window_s, pos_noise, z, bias_bound
         self.ref_sigma, self.min_sats, self.deny_after, self.sdt = ref_sigma, min_sats, deny_after_s, sample_dt
         self.mo = _Motion(True)
-        self.hist: deque = deque()   # (t, e, n, ce, cn) at each usable fix
+        self.hist: deque = deque()  # (t, e, n, ce, cn) at each usable fix
         self.last_fix_t: Optional[float] = None
         self.alarm = False
         self.state = TrustState.TRUSTED
@@ -235,7 +266,7 @@ class WindowConsistency:
         pos = None
         if g is not None:
             if self.last_fix_t is not None and s.t - self.last_fix_t > self.deny_after:
-                self.hist.clear()     # a long outage breaks the displacement chain
+                self.hist.clear()  # a long outage breaks the displacement chain
             self.last_fix_t = s.t
             self.mo.accept_velocity(g)
             e, n = self.mo.local(g)
@@ -247,7 +278,7 @@ class WindowConsistency:
             span = s.t - t0
             if span >= 0.5 * self.W:
                 d = math.hypot((e - e0) - (self.mo.ce - ce0), (n - n0) - (self.mo.cn - cn0))
-                sd = math.sqrt(2 * self.sg ** 2 + (self.ref_sigma ** 2) * span * self.sdt)
+                sd = math.sqrt(2 * self.sg**2 + (self.ref_sigma**2) * span * self.sdt)
                 self.alarm = d > self.z * sd + self.b * span
             if not self.alarm:
                 self.mo.accept(e, n)

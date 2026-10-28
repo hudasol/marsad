@@ -9,10 +9,14 @@ approximation: old evidence fades, but spoofing hypotheses keep a longer memory 
 environmental ones. Quiet detectors contribute (near-)zero, so a missing sensor never
 counts as evidence of attack.
 """
+
 from __future__ import annotations
+
 import math
+
 from .config import EngineConfig
-from .types import Evidence, Hypothesis as H
+from .types import Evidence
+from .types import Hypothesis as H
 
 HYPS = [H.ENV, H.JAM, H.SPOOF_JUMP, H.SPOOF_DRIFT, H.REPLAY]
 
@@ -21,7 +25,7 @@ class Fusion:
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
         self.L = {h: 0.0 for h in HYPS}
-        self.T = {h: 0.0 for h in HYPS}   # unclipped, slow-decaying evidence used only to LABEL the event type
+        self.T = {h: 0.0 for h in HYPS}  # unclipped, slow-decaying evidence used only to LABEL the event type
 
     def reset(self) -> None:
         for h in HYPS:

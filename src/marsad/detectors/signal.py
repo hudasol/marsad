@@ -4,10 +4,13 @@ Separates 'GNSS is degraded' (obstruction/multipath: C/N0 and satellites fall, A
 from 'GNSS is jammed' (C/N0 falls AND AGC rises) and flags the spoofing power signature
 (C/N0 rises, spread across satellites collapses).
 """
+
 from __future__ import annotations
-from ..geo import clamp
-from ..types import Evidence, Hypothesis as H
+
 from ..config import EngineConfig
+from ..geo import clamp
+from ..types import Evidence
+from ..types import Hypothesis as H
 from .base import Context
 
 
@@ -43,14 +46,22 @@ class SignalDetector:
         # --- loss of fix (accrues with elapsed time, on every sample) ----------
         if ctx.gnss_gap > c.gnss_gap_timeout:
             r = 2.5 * ctx.dt
-            out.append(Evidence(self.name, "fix_loss", {H.JAM: r, H.ENV: 0.8 * r},
-                                f"no usable GNSS fix for {ctx.gnss_gap:.1f} s", ctx.gnss_gap, r))
+            out.append(
+                Evidence(
+                    self.name,
+                    "fix_loss",
+                    {H.JAM: r, H.ENV: 0.8 * r},
+                    f"no usable GNSS fix for {ctx.gnss_gap:.1f} s",
+                    ctx.gnss_gap,
+                    r,
+                )
+            )
         g = ctx.gnss
         if g is None:
             return out
-        if self._n < 10:      # calibrating baselines from the first trusted fixes (assumes no attack at power-up)
+        if self._n < 10:  # calibrating baselines from the first trusted fixes (assumes no attack at power-up)
             return out
-        dt = ctx.gnss_dt      # everything below is computed once per fix
+        dt = ctx.gnss_dt  # everything below is computed once per fix
         agc_known = g.agc is not None and self.agc_b is not None
         # --- power / satellites down: jamming vs environmental ----------------
         down = 0.0
@@ -64,26 +75,57 @@ class SignalDetector:
             if agc_known:
                 rise = g.agc - self.agc_b
                 jam_share = clamp((rise - c.agc_rise) / c.agc_rise, 0.0, 1.0)
-                out.append(Evidence(
-                    self.name, "signal_down",
-                    {H.JAM: 1.5 * down * jam_share * dt + (-0.1 * dt if jam_share == 0 else 0.0),
-                     H.ENV: down * (1.0 - jam_share) * dt},
-                    ("C/N0/satellites down with AGC "
-                     + (f"up +{rise:.2f} (jamming signature)" if jam_share > 0.5 else "flat (obstruction-like)")),
-                    down, down * dt))
+                out.append(
+                    Evidence(
+                        self.name,
+                        "signal_down",
+                        {
+                            H.JAM: 1.5 * down * jam_share * dt + (-0.1 * dt if jam_share == 0 else 0.0),
+                            H.ENV: down * (1.0 - jam_share) * dt,
+                        },
+                        (
+                            "C/N0/satellites down with AGC "
+                            + (f"up +{rise:.2f} (jamming signature)" if jam_share > 0.5 else "flat (obstruction-like)")
+                        ),
+                        down,
+                        down * dt,
+                    )
+                )
             else:
-                out.append(Evidence(self.name, "signal_down",
-                                    {H.JAM: 0.5 * down * dt, H.ENV: down * dt},
-                                    "C/N0/satellites down; no AGC available to separate jamming from obstruction",
-                                    down, down * dt))
+                out.append(
+                    Evidence(
+                        self.name,
+                        "signal_down",
+                        {H.JAM: 0.5 * down * dt, H.ENV: down * dt},
+                        "C/N0/satellites down; no AGC available to separate jamming from obstruction",
+                        down,
+                        down * dt,
+                    )
+                )
         elif down < 0:
-            out.append(Evidence(self.name, "signal_ok", {H.JAM: down * dt * 0.5, H.ENV: down * dt * 0.5},
-                                "signal quality nominal", down, 0.0))
+            out.append(
+                Evidence(
+                    self.name,
+                    "signal_ok",
+                    {H.JAM: down * dt * 0.5, H.ENV: down * dt * 0.5},
+                    "signal quality nominal",
+                    down,
+                    0.0,
+                )
+            )
         # --- jamming signature via AGC alone ---------------------------------
         if agc_known and g.agc - self.agc_b > 2 * c.agc_rise:
             r = clamp((g.agc - self.agc_b - c.agc_rise) / c.agc_rise, 0.0, 3.0) * dt
-            out.append(Evidence(self.name, "agc_rise", {H.JAM: 1.5 * r},
-                                f"AGC +{g.agc - self.agc_b:.2f} above baseline", g.agc - self.agc_b, r))
+            out.append(
+                Evidence(
+                    self.name,
+                    "agc_rise",
+                    {H.JAM: 1.5 * r},
+                    f"AGC +{g.agc - self.agc_b:.2f} above baseline",
+                    g.agc - self.agc_b,
+                    r,
+                )
+            )
         # --- spoofing power signature ----------------------------------------
         sp = 0.0
         if g.cn0_mean is not None:
@@ -95,8 +137,14 @@ class SignalDetector:
                 sp = max(sp, 0.7)
         if sp > 0:
             r = 0.8 * sp * dt
-            out.append(Evidence(self.name, "spoof_power_signature",
-                                {H.SPOOF_JUMP: r, H.SPOOF_DRIFT: r, H.REPLAY: r},
-                                "C/N0 above baseline with collapsed per-satellite spread (spoofer-like)",
-                                sp, r))
+            out.append(
+                Evidence(
+                    self.name,
+                    "spoof_power_signature",
+                    {H.SPOOF_JUMP: r, H.SPOOF_DRIFT: r, H.REPLAY: r},
+                    "C/N0 above baseline with collapsed per-satellite spread (spoofer-like)",
+                    sp,
+                    r,
+                )
+            )
         return out

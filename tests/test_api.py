@@ -1,4 +1,5 @@
 """REST/SSE service tests (FastAPI TestClient). All simulated data is labelled as such."""
+
 import json
 import threading
 import time
@@ -17,6 +18,7 @@ from marsad.sim import generate  # noqa: E402
 
 try:
     import marsad.tracks  # noqa: F401
+
     HAVE_TRACKS = True
 except Exception:  # pragma: no cover
     HAVE_TRACKS = False
@@ -46,7 +48,7 @@ def client():
 def post_all(c, vid, samples, preset=None, step=500):
     out = None
     for i in range(0, len(samples), step):
-        body = {"samples": samples[i:i + step]}
+        body = {"samples": samples[i : i + step]}
         if preset:
             body["preset"] = preset
         r = c.post(f"/v1/vehicles/{vid}/samples", json=body)
@@ -73,6 +75,7 @@ def test_health_and_dashboard(client):
 
 def test_dashboard_is_offline_only():
     import pathlib
+
     root = pathlib.Path(__file__).resolve().parents[1] / "src" / "marsad" / "dashboard"
     for f in ("index.html", "app.js", "style.css"):
         txt = (root / f).read_text(encoding="utf-8")
@@ -97,18 +100,35 @@ def test_samples_to_trust_and_transitions(client):
 
 def test_validation_errors(client):
     ok = {"t": 1.0, "gnss": {"lat": 24.0, "lon": 54.0}}
-    assert client.post("/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 91, "lon": 0}}]}).status_code == 422
-    assert client.post("/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 0, "lon": 181}}]}).status_code == 422
-    r = client.post("/v1/vehicles/a/samples", content='{"samples":[{"t":1,"gnss":{"lat":NaN,"lon":0}}]}',
-                    headers={"content-type": "application/json"})
+    assert (
+        client.post("/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 91, "lon": 0}}]}).status_code
+        == 422
+    )
+    assert (
+        client.post("/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 0, "lon": 181}}]}).status_code
+        == 422
+    )
+    r = client.post(
+        "/v1/vehicles/a/samples",
+        content='{"samples":[{"t":1,"gnss":{"lat":NaN,"lon":0}}]}',
+        headers={"content-type": "application/json"},
+    )
     assert r.status_code == 422
     assert client.post("/v1/vehicles/a/samples", json={"samples": []}).status_code == 422
-    assert client.post("/v1/vehicles/a/samples", json={"samples": [{"t": i} for i in range(MAX_BATCH + 1)]}).status_code == 422
-    assert client.post("/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 0, "lon": 0, "bogus": 1}}]}).status_code == 422
+    assert (
+        client.post("/v1/vehicles/a/samples", json={"samples": [{"t": i} for i in range(MAX_BATCH + 1)]}).status_code
+        == 422
+    )
+    assert (
+        client.post(
+            "/v1/vehicles/a/samples", json={"samples": [{"t": 1, "gnss": {"lat": 0, "lon": 0, "bogus": 1}}]}
+        ).status_code
+        == 422
+    )
     assert client.post("/v1/vehicles/bad id!/samples", json={"samples": [ok]}).status_code == 422
     assert client.post("/v1/vehicles/a/samples", json={"samples": [ok], "preset": "nope"}).status_code == 422
     assert client.post("/v1/vehicles/a/samples", json={"samples": [ok, {"t": 0.5}]}).status_code == 422
-    assert client.get("/v1/vehicles").json()["vehicles"] == []   # failed batches leave no vehicle behind
+    assert client.get("/v1/vehicles").json()["vehicles"] == []  # failed batches leave no vehicle behind
 
 
 def test_preset_conflict_and_out_of_order(client):
@@ -138,10 +158,46 @@ def test_unknown_vehicle_404(client):
 @needs_tracks
 def test_tracks_flow(client):
     reports = [
-        {"track_id": "A", "source": "s1", "t": 0.0, "lat": 24.5, "lon": 54.4, "speed": 5.0, "course": 90.0, "cls": "vessel"},
-        {"track_id": "A", "source": "s1", "t": 60.0, "lat": 24.5, "lon": 54.4 + 0.0027, "speed": 5.0, "course": 90.0, "cls": "vessel"},
-        {"track_id": "B", "source": "s1", "t": 0.0, "lat": 24.6, "lon": 54.4, "speed": 5.0, "course": 90.0, "cls": "vessel"},
-        {"track_id": "B", "source": "s1", "t": 10.0, "lat": 25.6, "lon": 55.4, "speed": 5.0, "course": 90.0, "cls": "vessel"},  # teleport
+        {
+            "track_id": "A",
+            "source": "s1",
+            "t": 0.0,
+            "lat": 24.5,
+            "lon": 54.4,
+            "speed": 5.0,
+            "course": 90.0,
+            "cls": "vessel",
+        },
+        {
+            "track_id": "A",
+            "source": "s1",
+            "t": 60.0,
+            "lat": 24.5,
+            "lon": 54.4 + 0.0027,
+            "speed": 5.0,
+            "course": 90.0,
+            "cls": "vessel",
+        },
+        {
+            "track_id": "B",
+            "source": "s1",
+            "t": 0.0,
+            "lat": 24.6,
+            "lon": 54.4,
+            "speed": 5.0,
+            "course": 90.0,
+            "cls": "vessel",
+        },
+        {
+            "track_id": "B",
+            "source": "s1",
+            "t": 10.0,
+            "lat": 25.6,
+            "lon": 55.4,
+            "speed": 5.0,
+            "course": 90.0,
+            "cls": "vessel",
+        },  # teleport
     ]
     r = client.post("/v1/tracks/reports", json={"reports": reports})
     assert r.status_code == 200 and r.json()["n"] == 4
@@ -172,13 +228,18 @@ def test_map_is_geojson_and_fed_by_vehicle_reports(client):
 
 def test_tracks_unavailable_degrades_to_501(monkeypatch):
     import marsad.api.state as st
+
     monkeypatch.setattr(st, "tracks_mod", lambda: (_ for _ in ()).throw(st.Unavailable("Track trust")))
     with TestClient(create_app(store=Store())) as c:
         assert c.get("/v1/tracks").status_code == 501
         assert c.get("/v1/sources").status_code == 501
-        assert c.post("/v1/tracks/reports", json={"reports": [
-            {"track_id": "A", "source": "s", "t": 0, "lat": 1, "lon": 1}]}).status_code == 501
-        assert c.get("/v1/health").status_code == 200   # vehicle side keeps working
+        assert (
+            c.post(
+                "/v1/tracks/reports", json={"reports": [{"track_id": "A", "source": "s", "t": 0, "lat": 1, "lon": 1}]}
+            ).status_code
+            == 501
+        )
+        assert c.get("/v1/health").status_code == 200  # vehicle side keeps working
 
 
 # ------------------------------------------------------------------ SSE
@@ -237,8 +298,14 @@ def test_demo_scenarios_list(client):
 def test_demo_start_stop_flags_simulated_and_truth(client):
     r = client.post("/v1/demo/start", json={"kind": "jam_hard", "seed": 1, "speed": 100})
     assert r.status_code == 200 and r.json()["simulated"] is True and r.json()["running"] is True
-    assert _wait(lambda: client.get("/v1/demo/status").json()["sim_t"] > 5 or client.get("/v1/vehicles").json()["vehicles"])
-    assert _wait(lambda: any(v["vehicle_id"] == "demo" and v["n_samples"] > 50 for v in client.get("/v1/vehicles").json()["vehicles"]))
+    assert _wait(
+        lambda: client.get("/v1/demo/status").json()["sim_t"] > 5 or client.get("/v1/vehicles").json()["vehicles"]
+    )
+    assert _wait(
+        lambda: any(
+            v["vehicle_id"] == "demo" and v["n_samples"] > 50 for v in client.get("/v1/vehicles").json()["vehicles"]
+        )
+    )
     h = client.get("/v1/vehicles/demo/history?n=20").json()
     assert h["simulated"] is True
     assert any(p.get("truth") for p in h["points"]), "ground truth is included for the simulated demo vehicle"
@@ -282,7 +349,7 @@ def test_api_key():
         with c.stream("GET", "/v1/stream?max_events=1&api_key=s3cret") as r:
             assert r.status_code == 200
             list(r.iter_lines())
-        assert c.get("/").status_code == 200   # the static dashboard shell stays open
+        assert c.get("/").status_code == 200  # the static dashboard shell stays open
 
 
 def test_api_key_from_env(monkeypatch):
@@ -305,6 +372,7 @@ def test_cors_off_by_default_and_opt_in():
 
 def test_body_size_cap(monkeypatch):
     import marsad.api.app as appmod
+
     monkeypatch.setattr(appmod, "MAX_BODY", 200)
     with TestClient(create_app(store=Store())) as c:
         big = {"samples": [{"t": float(i)} for i in range(100)]}

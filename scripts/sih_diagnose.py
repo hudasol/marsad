@@ -15,6 +15,7 @@ inertial detector multiplies its evidence by on a GNSS epoch is the gap to the p
 Part 3 changes the input stream, not the engine. It is a post hoc check of one explanation for the miss and is
 labelled exploratory. Label for every number: SIH + INJECTED. No RF is generated.
 """
+
 import argparse
 import importlib.util
 import json
@@ -41,8 +42,10 @@ ANGLES = [0.0, math.pi / 2, math.pi, 3 * math.pi / 2]
 def gnss_epochs(path, samples, sigma=0.1):
     """One sample per GNSS fix, with simulator-truth velocity interpolated to the fix time as the reference."""
     from pyulog import ULog
-    f = next(x for x in ULog(path, disable_str_exceptions=True).data_list
-             if x.name == "vehicle_local_position_groundtruth").data
+
+    f = next(
+        x for x in ULog(path, disable_str_exceptions=True).data_list if x.name == "vehicle_local_position_groundtruth"
+    ).data
     t = f["timestamp"] / 1e6
     vn, ve = np.asarray(f["vx"], float), np.asarray(f["vy"], float)
     out = []
@@ -50,8 +53,14 @@ def gnss_epochs(path, samples, sigma=0.1):
         if s.gnss is None:
             continue
         s = deepcopy(s)
-        s.ref = RefMotion(t=s.t, ve=float(np.interp(s.t, t, ve)), vn=float(np.interp(s.t, t, vn)),
-                          sigma=sigma, source="sih_groundtruth", quality=1.0)
+        s.ref = RefMotion(
+            t=s.t,
+            ve=float(np.interp(s.t, t, ve)),
+            vn=float(np.interp(s.t, t, vn)),
+            sigma=sigma,
+            source="sih_groundtruth",
+            quality=1.0,
+        )
         out.append(s)
     return out
 
@@ -74,9 +83,14 @@ def main(argv=None):
     ts = np.array([s.t for s in full])
     tg = np.array([s.t for s in full if s.gnss is not None])
     tr = np.array([s.t for s in full if s.ref is not None])
-    struct = {"samples": len(ts), "gnss_samples": len(tg), "ref_samples": len(tr),
-              "median_gap_all_s": float(np.median(np.diff(ts))), "median_gap_gnss_s": float(np.median(np.diff(tg))),
-              "median_gap_ref_s": float(np.median(np.diff(tr)))}
+    struct = {
+        "samples": len(ts),
+        "gnss_samples": len(tg),
+        "ref_samples": len(tr),
+        "median_gap_all_s": float(np.median(np.diff(ts))),
+        "median_gap_gnss_s": float(np.median(np.diff(tg))),
+        "median_gap_ref_s": float(np.median(np.diff(tr))),
+    }
     print(f"{a.log}: to {a.end:.0f}s, attack from {t_a:.0f}s")
     print("1. sample structure as fed by sih_inject.py")
     for k, v in struct.items():
@@ -90,15 +104,22 @@ def main(argv=None):
         r = eng.update(s)
         if s.gnss is not None and s.t >= nxt:
             nxt = s.t + 4.0
-            row = (round(s.t, 1), r.state.value, round(eng.inertial.last_z, 2), round(eng.inertial.last_mag, 1),
-                   round(eng.p_nom, 3))
+            row = (
+                round(s.t, 1),
+                r.state.value,
+                round(eng.inertial.last_z, 2),
+                round(eng.inertial.last_mag, 1),
+                round(eng.p_nom, 3),
+            )
             trace.append(row)
             print(f"   {row[0]:6.1f} {row[1]:8} {row[2]:7.2f} {row[3]:8.1f} {row[4]:10.3f}")
 
     ep = gnss_epochs(a.log, raw)
     m, b = S.run(ep)
-    clean = {"marsad": sum(st != TrustState.TRUSTED for _, st in m),
-             "baseline": sum(st != TrustState.TRUSTED for _, st in b)}
+    clean = {
+        "marsad": sum(st != TrustState.TRUSTED for _, st in m),
+        "baseline": sum(st != TrustState.TRUSTED for _, st in b),
+    }
     print(f"\n3. fed at the GNSS epoch rate only ({len(ep)} samples). Exploratory, not preregistered.")
     print(f"   clean (no attack): Marsad non-TRUSTED samples {clean['marsad']}, gate baseline {clean['baseline']}")
     print(f"   {'attack':36s} {'Marsad':>14s} {'baseline':>10s}")
@@ -117,15 +138,31 @@ def main(argv=None):
             fm = f"{len(lat)}/4 med {np.median(lat):.1f}s" if lat else "0/4"
             fb = f"{len(latb)}/4" if latb else "0/4"
             print(f"   {name:36s} {fm:>14s} {fb:>10s}")
-            rows.append({"attack": name, "marsad_detected": len(lat),
-                         "marsad_median_s": float(np.median(lat)) if lat else None,
-                         "baseline_detected": len(latb), "n": len(ANGLES)})
+            rows.append(
+                {
+                    "attack": name,
+                    "marsad_detected": len(lat),
+                    "marsad_median_s": float(np.median(lat)) if lat else None,
+                    "baseline_detected": len(latb),
+                    "n": len(ANGLES),
+                }
+            )
     print("\nLabel: SIH + INJECTED. Part 3 is exploratory (post hoc); it changes the input stream, not the engine.")
     if a.out:
-        json.dump({"log": a.log, "end_s": a.end, "t_attack_s": t_a, "sample_structure": struct,
-                   "trace_drift_2mps_north": trace, "epoch_rate_clean_non_trusted": clean,
-                   "epoch_rate_rows": rows, "label": "SIH + INJECTED, exploratory"},
-                  open(a.out, "w"), indent=1)
+        json.dump(
+            {
+                "log": a.log,
+                "end_s": a.end,
+                "t_attack_s": t_a,
+                "sample_structure": struct,
+                "trace_drift_2mps_north": trace,
+                "epoch_rate_clean_non_trusted": clean,
+                "epoch_rate_rows": rows,
+                "label": "SIH + INJECTED, exploratory",
+            },
+            open(a.out, "w"),
+            indent=1,
+        )
     return 0
 
 

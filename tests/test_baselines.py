@@ -1,5 +1,4 @@
 """The baselines are comparison points, so they get their own behavioural tests."""
-import math
 
 import pytest
 
@@ -28,7 +27,7 @@ def _straight(seconds=200, rate=5.0, drift=0.0, t_drift=100.0, jump=0.0, t_jump=
         e = 5.0 * t
         off = max(0.0, t - t_drift) * drift + (jump if t >= t_jump else 0.0)
         lat, lon = fr.to_geo(e + off, 0.0)
-        v = 5.0 + (drift if t >= t_drift else 0.0)          # spoofer shifts the receiver velocity consistently
+        v = 5.0 + (drift if t >= t_drift else 0.0)  # spoofer shifts the receiver velocity consistently
         g = GnssFix(t=t, lat=lat, lon=lon, ve=v, vn=0.0, cn0_mean=42.0, n_sats=n_sats, agc=0.3, fix_type=3)
         out.append(NavSample(t=t, gnss=g, ref=RefMotion(t=t, ve=5.0, vn=0.0, sigma=0.15) if ref else None))
     return out
@@ -76,14 +75,14 @@ def test_ekf2_gate_resets_to_gnss_after_seven_seconds_of_rejection():
         if s.t >= 100.0:
             states.append((s.t, st))
     denied = [t for t, st in states if st != T]
-    assert denied and max(denied) - min(denied) <= 7.5          # alarm ends with the reset
+    assert denied and max(denied) - min(denied) <= 7.5  # alarm ends with the reset
     assert states[-1][1] == T
 
 
 def test_low_satellite_count_is_not_used_by_the_ekf2_gate():
     det = Ekf2Gate()
     t = _alarm_time(det, _straight(n_sats=4), 0.0)
-    assert t is not None                                        # no usable fix => estimate becomes stale
+    assert t is not None  # no usable fix => estimate becomes stale
 
 
 def test_signal_monitor_sees_a_power_step_but_not_a_matched_power_spoof():

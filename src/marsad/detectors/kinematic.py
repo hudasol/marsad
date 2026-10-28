@@ -1,10 +1,14 @@
 """Kinematic detector: position innovation vs velocity-propagated prediction, implied speed,
 and position/velocity self-consistency over a short window."""
+
 from __future__ import annotations
+
 import math
-from ..geo import clamp
-from ..types import Evidence, Hypothesis as H
+
 from ..config import EngineConfig
+from ..geo import clamp
+from ..types import Evidence
+from ..types import Hypothesis as H
 from .base import Context
 
 
@@ -13,11 +17,11 @@ class KinematicDetector:
 
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
-        self._prev = None            # (t, e, n, ve, vn)
-        self._win = []               # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
+        self._prev = None  # (t, e, n, ve, vn)
+        self._win = []  # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
         self._cum = [0.0, 0.0]
-        self._xe = 0.0               # EWMA of normalised innovation (noise inflation => degraded/jammed receiver)
-        self._last_jump = None       # (t, res_e, res_n, llr) for revert (multipath spike) detection
+        self._xe = 0.0  # EWMA of normalised innovation (noise inflation => degraded/jammed receiver)
+        self._last_jump = None  # (t, res_e, res_n, llr) for revert (multipath spike) detection
 
     def learn(self, ctx: Context) -> None:  # no learned baselines
         pass
@@ -41,28 +45,64 @@ class KinematicDetector:
             self._xe += min(1.0, dt / 2.0) * (min(x, 6.0) - self._xe)
             if self._xe > 1.2:
                 r = 1.5 * min(2.0, self._xe - 1.2) * dt
-                out.append(Evidence(self.name, "noise_inflation", {H.JAM: r, H.ENV: r},
-                                    f"GNSS position noise inflated ({self._xe:.1f}x nominal innovation)", self._xe, r))
+                out.append(
+                    Evidence(
+                        self.name,
+                        "noise_inflation",
+                        {H.JAM: r, H.ENV: r},
+                        f"GNSS position noise inflated ({self._xe:.1f}x nominal innovation)",
+                        self._xe,
+                        r,
+                    )
+                )
             llr = clamp(0.9 * (x - c.jump_x0), -0.1, 8.0)
             disp = math.hypot(ctx.pe - prev[1], ctx.pn - prev[2])
             speed = disp / dt
             if llr > 0.05:
                 re_, rn_ = ctx.pe - pe, ctx.pn - pn
                 lj = self._last_jump
-                if (lj is not None and ctx.t - lj[0] <= 4.0 and re_ * lj[1] + rn_ * lj[2] < 0
-                        and math.hypot(re_ + lj[1], rn_ + lj[2]) < 0.6 * math.hypot(lj[1], lj[2])):
+                if (
+                    lj is not None
+                    and ctx.t - lj[0] <= 4.0
+                    and re_ * lj[1] + rn_ * lj[2] < 0
+                    and math.hypot(re_ + lj[1], rn_ + lj[2]) < 0.6 * math.hypot(lj[1], lj[2])
+                ):
                     # the position snapped back: a transient excursion (multipath), not a takeover
                     c_ = -(lj[3] + llr)
-                    out.append(Evidence(self.name, "jump_reverted", {H.SPOOF_JUMP: c_, H.REPLAY: 0.5 * c_},
-                                        "position excursion reverted within seconds (multipath-like, not takeover)", res, 0.0))
+                    out.append(
+                        Evidence(
+                            self.name,
+                            "jump_reverted",
+                            {H.SPOOF_JUMP: c_, H.REPLAY: 0.5 * c_},
+                            "position excursion reverted within seconds (multipath-like, not takeover)",
+                            res,
+                            0.0,
+                        )
+                    )
                     self._last_jump = None
                 else:
-                    out.append(Evidence(self.name, "position_jump", {H.SPOOF_JUMP: llr, H.REPLAY: 0.5 * llr},
-                                        f"position innovation {res:.1f} m vs {allowed:.1f} m allowed", res, llr))
+                    out.append(
+                        Evidence(
+                            self.name,
+                            "position_jump",
+                            {H.SPOOF_JUMP: llr, H.REPLAY: 0.5 * llr},
+                            f"position innovation {res:.1f} m vs {allowed:.1f} m allowed",
+                            res,
+                            llr,
+                        )
+                    )
                     self._last_jump = (ctx.t, re_, rn_, llr)
             if disp > 1.5 * c.v_max * dt + 5.0 * math.sqrt(2.0) * c.sigma_pos:
-                out.append(Evidence(self.name, "implied_speed", {H.SPOOF_JUMP: 4.0, H.REPLAY: 2.0},
-                                    f"implied speed {speed:.0f} m/s exceeds platform envelope", speed, 4.0))
+                out.append(
+                    Evidence(
+                        self.name,
+                        "implied_speed",
+                        {H.SPOOF_JUMP: 4.0, H.REPLAY: 2.0},
+                        f"implied speed {speed:.0f} m/s exceeds platform envelope",
+                        speed,
+                        4.0,
+                    )
+                )
         # --- pos/vel self-consistency over ~10 s window ----------------------
         if have_v:
             if self._prev is not None and 0 < ctx.t - self._prev[0] <= 2.0:
@@ -82,9 +122,15 @@ class KinematicDetector:
                 z = mag / allowed
                 r = clamp(2.0 * (z - 1.0), -0.2, 3.0) * ctx.gnss_dt
                 if r > 0.01:
-                    out.append(Evidence(self.name, "pos_vel_inconsistent",
-                                        {H.SPOOF_DRIFT: r, H.SPOOF_JUMP: 0.5 * r},
-                                        f"position moved {mag:.1f} m more than reported velocity explains over {W:.0f} s",
-                                        mag, r))
+                    out.append(
+                        Evidence(
+                            self.name,
+                            "pos_vel_inconsistent",
+                            {H.SPOOF_DRIFT: r, H.SPOOF_JUMP: 0.5 * r},
+                            f"position moved {mag:.1f} m more than reported velocity explains over {W:.0f} s",
+                            mag,
+                            r,
+                        )
+                    )
         self._prev = (ctx.t, ctx.pe, ctx.pn, g.ve if have_v else None, g.vn if have_v else None)
         return out

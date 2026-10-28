@@ -9,6 +9,7 @@ Runs the held out split (seeds 5000+, as scripts/run_eval.py) and stores the sum
 summaries made on the same machine separates engine changes from platform differences in floating point (the
 published results were produced on another machine). Label: SIMULATED.
 """
+
 import argparse
 import json
 import sys
@@ -33,6 +34,7 @@ def main(argv=None):
         return 0
     import marsad
     from marsad.bench import run_benchmark, summarize
+
     base = 5000 if a.split == "heldout" else 0
     res = run_benchmark(a.split, range(base, base + a.seeds), workers=a.workers)
     json.dump({"marsad": marsad.__version__, "split": a.split, "summary": summarize(res)}, open(a.out, "w"), indent=1)

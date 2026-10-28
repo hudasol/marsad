@@ -4,6 +4,7 @@ Reproduces the SIH shape: 125 Hz reference, 8 Hz fixes, the attack starts 60 s i
 the 150 s it needs to tighten its bound), the spoofer shifts position and velocity together. See
 docs/PREREGISTRATION_PRIOR_BOUND.md.
 """
+
 import math
 import random
 
@@ -18,7 +19,7 @@ def _first_alarm(rate, t_att=60.0, t_end=290.0, seed=1):
     eng = TrustEngine(preset("uav_multirotor"))
     t, dt, next_fix, e, n = 0.0, 0.008, 0.0, 0.0, 0.0
     while t < t_end:
-        ang = (int(t // 40) % 4) * math.pi / 2                  # square track at 5 m/s
+        ang = (int(t // 40) % 4) * math.pi / 2  # square track at 5 m/s
         vx, vy = 5 * math.cos(ang), 5 * math.sin(ang)
         e, n = e + vx * dt, n + vy * dt
         ref = RefMotion(t=t, ve=vx + rnd.gauss(0, 0.1), vn=vy + rnd.gauss(0, 0.1), sigma=0.1)
@@ -28,8 +29,19 @@ def _first_alarm(rate, t_att=60.0, t_end=290.0, seed=1):
             off = max(0.0, t - t_att) * rate * math.sqrt(0.5)
             lat, lon = fr.to_geo(e + rnd.gauss(0, 0.5) + off, n + rnd.gauss(0, 0.5) + off)
             dv = rate * math.sqrt(0.5) if t >= t_att else 0.0
-            g = GnssFix(t=t, lat=lat, lon=lon, ve=vx + dv + rnd.gauss(0, 0.05), vn=vy + dv + rnd.gauss(0, 0.05),
-                        cn0_mean=42 + rnd.gauss(0, 0.3), cn0_std=3.0, n_sats=14, agc=0.3, hdop=0.9, fix_type=3)
+            g = GnssFix(
+                t=t,
+                lat=lat,
+                lon=lon,
+                ve=vx + dv + rnd.gauss(0, 0.05),
+                vn=vy + dv + rnd.gauss(0, 0.05),
+                cn0_mean=42 + rnd.gauss(0, 0.3),
+                cn0_std=3.0,
+                n_sats=14,
+                agc=0.3,
+                hdop=0.9,
+                fix_type=3,
+            )
         rep = eng.update(NavSample(t=t, gnss=g, ref=ref))
         if t >= t_att and rep.state != TrustState.TRUSTED:
             return t - t_att

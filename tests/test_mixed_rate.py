@@ -4,10 +4,10 @@ A PX4 log delivers the reference at about 125 Hz and GNSS at about 8 Hz as separ
 a GNSS fix used to be scaled by the gap to the previous sample of any kind (the reference interval), which diluted
 it to the ratio of the two rates. These tests feed the same synthetic flight co-sampled and interleaved.
 """
-import math
+
 import random
 
-from marsad import TrustEngine, preset, TrustState, GnssFix, NavSample, RefMotion
+from marsad import GnssFix, NavSample, RefMotion, TrustEngine, TrustState, preset
 from marsad.geo import LocalFrame
 
 ORIGIN = (24.45, 54.38)
@@ -38,8 +38,20 @@ def flight(*, ref_hz, gnss_hz, interleaved, rate=2.0, duration=100.0, seed=3):
         e, n, ve, vn = _truth(t)
         d, v = _drift(t, rate)
         lat, lon = fr.to_geo(e + rng.gauss(0, 0.3), n + d + rng.gauss(0, 0.3))
-        return GnssFix(t=t, lat=lat, lon=lon, alt=50.0, ve=ve + rng.gauss(0, 0.05), vn=vn + v + rng.gauss(0, 0.05),
-                       cn0_mean=42.0, cn0_std=3.0, n_sats=14, agc=0.3, fix_type=3, t_gnss=t - 2.0)
+        return GnssFix(
+            t=t,
+            lat=lat,
+            lon=lon,
+            alt=50.0,
+            ve=ve + rng.gauss(0, 0.05),
+            vn=vn + v + rng.gauss(0, 0.05),
+            cn0_mean=42.0,
+            cn0_std=3.0,
+            n_sats=14,
+            agc=0.3,
+            fix_type=3,
+            t_gnss=t - 2.0,
+        )
 
     def ref(t):
         _, _, ve, vn = _truth(t)

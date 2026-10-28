@@ -8,6 +8,7 @@ Reference: vehicle_local_position_groundtruth velocity (simulator truth, NOT EKF
 reference check is genuinely independent. The log is cut at --end, before the real receiver fix-loss fault.
 Results are labelled "SIH log + injected attack": not real spoofing, not pure simulation. No RF is generated.
 """
+
 import argparse
 import json
 import math
@@ -27,6 +28,7 @@ from marsad.types import RefMotion, TrustState
 def groundtruth_ref(path, samples, sigma=0.1):
     """Replace every sample's reference with simulator-truth velocity. Returns (samples, source) or raises."""
     from pyulog import ULog
+
     u = ULog(path, disable_str_exceptions=True)
     d = next((x for x in u.data_list if x.name == "vehicle_local_position_groundtruth"), None)
     if d is None:
@@ -35,13 +37,19 @@ def groundtruth_ref(path, samples, sigma=0.1):
     if "vx" not in f or "vy" not in f:
         raise SystemExit(f"groundtruth has no vx/vy; fields: {sorted(f)}")
     t = f["timestamp"] / 1e6
-    vn, ve = np.asarray(f["vx"], float), np.asarray(f["vy"], float)       # NED: x=north, y=east
+    vn, ve = np.asarray(f["vx"], float), np.asarray(f["vy"], float)  # NED: x=north, y=east
     out = []
     for s in samples:
         s = deepcopy(s)
         if s.ref is not None:
-            s.ref = RefMotion(t=s.t, ve=float(np.interp(s.t, t, ve)), vn=float(np.interp(s.t, t, vn)),
-                              sigma=sigma, source="sih_groundtruth", quality=1.0)
+            s.ref = RefMotion(
+                t=s.t,
+                ve=float(np.interp(s.t, t, ve)),
+                vn=float(np.interp(s.t, t, vn)),
+                sigma=sigma,
+                source="sih_groundtruth",
+                quality=1.0,
+            )
         out.append(s)
     return out, "vehicle_local_position_groundtruth (simulator truth)"
 
@@ -120,8 +128,9 @@ def main(argv=None):
     print(f"clean (no attack): Marsad non-TRUSTED samples {clean_m}, gate baseline {clean_b}\n")
 
     angles = [0.0, math.pi / 2, math.pi, 3 * math.pi / 2]
-    cases = ([("drift", dict(rate=r, vel_consistent=vc)) for r in (0.1, 0.25, 0.5, 1.0, 2.0) for vc in (True, False)]
-             + [("jump", dict(mag=x)) for x in (50.0, 200.0, 1000.0)])
+    cases = [("drift", dict(rate=r, vel_consistent=vc)) for r in (0.1, 0.25, 0.5, 1.0, 2.0) for vc in (True, False)] + [
+        ("jump", dict(mag=x)) for x in (50.0, 200.0, 1000.0)
+    ]
     rows = []
     print(f"{'attack':34s} {'Marsad':>14s} {'offset@alarm':>13s} {'baseline':>14s}")
     for kind, p in cases:
@@ -140,15 +149,31 @@ def main(argv=None):
         fb = f"{len(latb)}/4 med {np.median(latb):.1f}s" if latb else "0/4"
         fo = f"{np.median(off_m):.1f} m" if off_m else "-"
         print(f"{name:34s} {fm:>14s} {fo:>13s} {fb:>14s}")
-        rows.append({"attack": name, "marsad_detected": len(lat), "marsad_median_s": float(np.median(lat)) if lat else None,
-                     "offset_at_alarm_m": float(np.median(off_m)) if off_m else None,
-                     "baseline_detected": len(latb), "baseline_median_s": float(np.median(latb)) if latb else None,
-                     "n": len(angles)})
+        rows.append(
+            {
+                "attack": name,
+                "marsad_detected": len(lat),
+                "marsad_median_s": float(np.median(lat)) if lat else None,
+                "offset_at_alarm_m": float(np.median(off_m)) if off_m else None,
+                "baseline_detected": len(latb),
+                "baseline_median_s": float(np.median(latb)) if latb else None,
+                "n": len(angles),
+            }
+        )
     print("\nLabel: SIH log + injected attack (4 headings per case). Window is short; slow drifts may not complete.")
     if a.out:
-        json.dump({"log": a.log, "end_s": a.end, "t_attack_s": t_a, "reference": ref_src,
-                   "clean_non_trusted": {"marsad": clean_m, "baseline": clean_b}, "rows": rows},
-                  open(a.out, "w"), indent=1)
+        json.dump(
+            {
+                "log": a.log,
+                "end_s": a.end,
+                "t_attack_s": t_a,
+                "reference": ref_src,
+                "clean_non_trusted": {"marsad": clean_m, "baseline": clean_b},
+                "rows": rows,
+            },
+            open(a.out, "w"),
+            indent=1,
+        )
     return 0
 
 

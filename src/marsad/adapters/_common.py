@@ -1,5 +1,7 @@
 """Shared helpers for the adapters (no heavy imports)."""
+
 from __future__ import annotations
+
 import math
 from typing import Optional, Sequence
 
@@ -8,7 +10,8 @@ CONTAMINATED_WARNING = (
     "REFERENCE VELOCITY IS CONTAMINATED: it comes from an EKF/autopilot estimate that also fuses GNSS. "
     "A slow GNSS carry-off drags this estimate along, so the independent-reference check (the main defence "
     "against slow carry-off spoofing) is WEAKENED or BLIND. Use VIO / optical flow + range / wheel or DVL "
-    "odometry as the reference for any real evaluation.")
+    "odometry as the reference for any real evaluation."
+)
 
 
 class ContaminatedReferenceWarning(UserWarning):
@@ -37,6 +40,7 @@ def normalise_agc(values) -> tuple[list, str]:
     changes sensitivity (a 0.06 rise is the default jamming signature) but not the sign of the effect.
     """
     import numpy as np
+
     a = np.asarray(values, dtype=float)
     fin = a[np.isfinite(a)]
     if fin.size == 0:

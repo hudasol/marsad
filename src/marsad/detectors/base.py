@@ -1,5 +1,7 @@
 """Shared per-sample context and detector protocol."""
+
 from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Optional, Protocol
 
@@ -9,22 +11,22 @@ from ..types import Evidence, GnssFix, RefMotion, TrustState
 @dataclass
 class Context:
     t: float = 0.0
-    dt: float = 0.0                      # seconds since the previous sample of any kind
-    gnss_dt: float = 0.0                 # seconds since the previous usable fix (0 without a fix this tick);
-                                         # scales evidence computed once per fix, whatever the reference rate
-    gnss: Optional[GnssFix] = None       # fix delivered this tick (None = nothing new)
+    dt: float = 0.0  # seconds since the previous sample of any kind
+    gnss_dt: float = 0.0  # seconds since the previous usable fix (0 without a fix this tick);
+    # scales evidence computed once per fix, whatever the reference rate
+    gnss: Optional[GnssFix] = None  # fix delivered this tick (None = nothing new)
     ref: Optional[RefMotion] = None
-    pe: float = 0.0                      # GNSS position, local frame (valid iff gnss is not None)
+    pe: float = 0.0  # GNSS position, local frame (valid iff gnss is not None)
     pn: float = 0.0
-    ce: float = 0.0                      # integrated reference displacement (east)
+    ce: float = 0.0  # integrated reference displacement (east)
     cn: float = 0.0
-    cre: float = 0.0                     # integral of the uncorrected reference velocity
+    cre: float = 0.0  # integral of the uncorrected reference velocity
     crn: float = 0.0
     ref_ok: bool = False
-    ref_valid_since: float = 0.0         # reference integral continuous since this time
-    ref_bias_eff: float = 0.08           # bias bound to use for this sample (tightened once bias is estimated)
+    ref_valid_since: float = 0.0  # reference integral continuous since this time
+    ref_bias_eff: float = 0.08  # bias bound to use for this sample (tightened once bias is estimated)
     ref_noise_eff: float = 0.2
-    gnss_gap: float = 0.0                # seconds since last usable fix
+    gnss_gap: float = 0.0  # seconds since last usable fix
     state: TrustState = TrustState.TRUSTED
     p_nominal: float = 1.0
     warmup: bool = True
@@ -34,4 +36,4 @@ class Detector(Protocol):
     name: str
 
     def update(self, ctx: Context) -> list[Evidence]: ...
-    def learn(self, ctx: Context) -> None: ...   # adapt baselines; only called while trusted
+    def learn(self, ctx: Context) -> None: ...  # adapt baselines; only called while trusted

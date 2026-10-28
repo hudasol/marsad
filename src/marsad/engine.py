@@ -2,17 +2,19 @@
 
 Feed NavSample objects in time order; get a TrustReport per sample.
 """
+
 from __future__ import annotations
+
 import bisect
 import math
 from typing import Optional
 
 from .config import EngineConfig, preset
-from .detectors import (Context, SignalDetector, KinematicDetector, InertialDetector, TimingDetector,
-                        ReplayDetector)
+from .detectors import Context, InertialDetector, KinematicDetector, ReplayDetector, SignalDetector, TimingDetector
 from .fusion import Fusion
 from .geo import LocalFrame
-from .types import (Evidence, Hypothesis as H, NavAction, NavSample, TrustReport, TrustState)
+from .types import Evidence, NavAction, NavSample, TrustReport, TrustState
+from .types import Hypothesis as H
 
 _ORDER = {TrustState.TRUSTED: 0, TrustState.DEGRADED: 1, TrustState.DENIED: 2}
 _BY_ORDER = {v: k for k, v in _ORDER.items()}
@@ -27,8 +29,11 @@ class TrustEngine:
         self.inertial = InertialDetector(self.cfg)
         self.timing = TimingDetector(self.cfg)
         self.replay = ReplayDetector(self.cfg)
-        self.detectors = [d for d in (self.signal, self.kin, self.inertial, self.timing, self.replay)
-                          if d.name not in (disable or set())]
+        self.detectors = [
+            d
+            for d in (self.signal, self.kin, self.inertial, self.timing, self.replay)
+            if d.name not in (disable or set())
+        ]
         self.fusion = Fusion(self.cfg)
         self.reset()
 
@@ -43,16 +48,16 @@ class TrustEngine:
         # reference integration
         self.ref_t: Optional[float] = None
         self.ce = self.cn = 0.0
-        self.cre = self.crn = 0.0      # integral of the uncorrected reference velocity (no bias subtracted)
+        self.cre = self.crn = 0.0  # integral of the uncorrected reference velocity (no bias subtracted)
         self.ref_valid_since = -1e18
-        self.bias = [0.0, 0.0]       # estimated reference velocity bias (m/s)
-        self.bias_s = 0.0            # seconds of clean data the estimate is based on
+        self.bias = [0.0, 0.0]  # estimated reference velocity bias (m/s)
+        self.bias_s = 0.0  # seconds of clean data the estimate is based on
         self.ref_sigma = None
         # gnss bookkeeping
         self.fix_t: Optional[float] = None
-        self.last_good = None      # (t, e, n) last position while TRUSTED
+        self.last_good = None  # (t, e, n) last position while TRUSTED
         # anchor: smoothed (p_gnss - c) while trusted, with history for rewind
-        self.anchor = None         # (e, n) or None
+        self.anchor = None  # (e, n) or None
         self.anchor_valid = False
         self._ah_t: list[float] = []
         self._ah: list[tuple] = []
@@ -91,7 +96,7 @@ class TrustEngine:
         if g is not None and self.frame is None:
             self.frame = LocalFrame(g.lat, g.lon)
         pe = pn = 0.0
-        gdt = 0.0      # per-fix step: evidence computed on a fix must not shrink when the reference runs faster
+        gdt = 0.0  # per-fix step: evidence computed on a fix must not shrink when the reference runs faster
         if g is not None and self.frame is not None:
             pe, pn = self.frame.to_local(g.lat, g.lon)
             if self.fix_t is not None:
@@ -102,7 +107,7 @@ class TrustEngine:
         # reference integration -------------------------------------------------
         ref = s.ref
         if ref is not None and ref.quality is not None and ref.quality < cfg.ref_min_quality:
-            ref = None                      # tracking lost: treat as a reference gap, never integrate it
+            ref = None  # tracking lost: treat as a reference gap, never integrate it
         if ref is not None:
             if self.ref_t is not None:
                 dtr = t - self.ref_t
@@ -122,18 +127,35 @@ class TrustEngine:
             self.anchor_valid = False
 
         warm = (t - self.t0) < cfg.warmup_s
-        ctx = Context(t=t, dt=dt, gnss_dt=gdt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn, cre=self.cre, crn=self.crn,
-                      ref_ok=ref_ok, ref_valid_since=self.ref_valid_since, gnss_gap=gap,
-                      ref_bias_eff=(cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s)
-                                    else cfg.ref_bias_bound),
-                      ref_noise_eff=(max(cfg.ref_noise * 0.5, ref.sigma) if (ref is not None and ref.sigma) else cfg.ref_noise),
-                      state=self.state, p_nominal=self.p_nom, warmup=warm)
+        ctx = Context(
+            t=t,
+            dt=dt,
+            gnss_dt=gdt,
+            gnss=g,
+            ref=ref,
+            pe=pe,
+            pn=pn,
+            ce=self.ce,
+            cn=self.cn,
+            cre=self.cre,
+            crn=self.crn,
+            ref_ok=ref_ok,
+            ref_valid_since=self.ref_valid_since,
+            gnss_gap=gap,
+            ref_bias_eff=(
+                cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s) else cfg.ref_bias_bound
+            ),
+            ref_noise_eff=(max(cfg.ref_noise * 0.5, ref.sigma) if (ref is not None and ref.sigma) else cfg.ref_noise),
+            state=self.state,
+            p_nominal=self.p_nom,
+            warmup=warm,
+        )
 
         ev: list[Evidence] = []
         for d in self.detectors:
             ev.extend(d.update(ctx))
-        for e in ev:                      # a takeover jump makes the long drift windows light up for minutes:
-            if e.kind == "position_jump" and e.weight > 2.0:      # attribute that to the jump, not to a drift
+        for e in ev:  # a takeover jump makes the long drift windows light up for minutes:
+            if e.kind == "position_jump" and e.weight > 2.0:  # attribute that to the jump, not to a drift
                 self._last_jump_t = t
         if t - self._last_jump_t < 1.7 * max(self.cfg.drift_windows):
             for e in ev:
@@ -147,33 +169,45 @@ class TrustEngine:
         if g is not None and dr is not None:
             offset_m = math.hypot(pe - dr[0], pn - dr[1])
         reacq_ok = self._reacquisition_ok(g, offset_m, t)
-        if (self.state != TrustState.TRUSTED and offset_m is not None and not reacq_ok
-                and not self.unverifiable):
+        if self.state != TrustState.TRUSTED and offset_m is not None and not reacq_ok and not self.unverifiable:
             replay_now = self.replay.lag is not None
             if replay_now:
                 hp = H.REPLAY
-            else:   # reinforce whichever spoofing hypothesis the onset evidence pointed to
+            else:  # reinforce whichever spoofing hypothesis the onset evidence pointed to
                 hp = max((H.SPOOF_JUMP, H.SPOOF_DRIFT, H.REPLAY), key=lambda h: self.fusion.T[h])
-            ev.append(Evidence("engine", "persistent_offset", {hp: 1.2 * gdt},
-                               f"GNSS is {offset_m:.0f} m from the dead-reckoned continuation of the last trusted track",
-                               offset_m, 1.2 * gdt))
+            ev.append(
+                Evidence(
+                    "engine",
+                    "persistent_offset",
+                    {hp: 1.2 * gdt},
+                    f"GNSS is {offset_m:.0f} m from the dead-reckoned continuation of the last trusted track",
+                    offset_m,
+                    1.2 * gdt,
+                )
+            )
 
-        verified = (self.state != TrustState.TRUSTED and g is not None and offset_m is not None and reacq_ok)
+        verified = self.state != TrustState.TRUSTED and g is not None and offset_m is not None and reacq_ok
         if verified:
             if self._verified_since is None:
                 self._verified_since = t
             elif t - self._verified_since >= 10.0 and not self._cut_done:
-                self.inertial.reset()      # drop windows that straddle the (now resolved) event
+                self.inertial.reset()  # drop windows that straddle the (now resolved) event
                 self._cut_done = True
         else:
             self._verified_since = None
             self._cut_done = False
         if verified and self.inertial.last_z_short < 1.0:
             r = -2.0 * gdt  # independent proof of continuity with the dead-reckoned track
-            ev.append(Evidence("engine", "verified_continuity",
-                               {H.JAM: r, H.ENV: r, H.SPOOF_JUMP: r, H.SPOOF_DRIFT: r, H.REPLAY: r},
-                               "GNSS agrees with the dead-reckoned continuation of the last trusted track",
-                               offset_m, 0.0))
+            ev.append(
+                Evidence(
+                    "engine",
+                    "verified_continuity",
+                    {H.JAM: r, H.ENV: r, H.SPOOF_JUMP: r, H.SPOOF_DRIFT: r, H.REPLAY: r},
+                    "GNSS agrees with the dead-reckoned continuation of the last trusted track",
+                    offset_m,
+                    0.0,
+                )
+            )
         self.probs = self.fusion.step(dt, ev)
         self.p_nom = self.probs[H.NOMINAL.value]
 
@@ -184,9 +218,17 @@ class TrustEngine:
         if self.state == TrustState.TRUSTED and prev_state == TrustState.TRUSTED and self.p_nom > 0.9:
             for d in self.detectors:
                 d.learn(ctx)
-            if (cfg.bias_est and g is not None and ref is not None and g.ve is not None and g.vn is not None
-                    and ref_ok and self.inertial.last_z < 1.0 and gdt > 0):
-                a = min(1.0, max(gdt / cfg.bias_tau, gdt / (self.bias_s + gdt)))   # running mean first, slow EWMA later
+            if (
+                cfg.bias_est
+                and g is not None
+                and ref is not None
+                and g.ve is not None
+                and g.vn is not None
+                and ref_ok
+                and self.inertial.last_z < 1.0
+                and gdt > 0
+            ):
+                a = min(1.0, max(gdt / cfg.bias_tau, gdt / (self.bias_s + gdt)))  # running mean first, slow EWMA later
                 lim = 1.5 * cfg.ref_bias_bound
                 be = self.bias[0] + a * ((ref.ve - g.ve) - self.bias[0])
                 bn = self.bias[1] + a * ((ref.vn - g.vn) - self.bias[1])
@@ -210,12 +252,12 @@ class TrustEngine:
             self.anchor_valid = True
         else:
             a = min(1.0, dt / 10.0) if dt > 0 else 0.0
-            self.anchor = (self.anchor[0] + a * (oe - self.anchor[0]),
-                           self.anchor[1] + a * (on - self.anchor[1]))
+            self.anchor = (self.anchor[0] + a * (oe - self.anchor[0]), self.anchor[1] + a * (on - self.anchor[1]))
         self._ah_t.append(t)
         self._ah.append(self.anchor)
         if len(self._ah_t) > 3000:
-            del self._ah_t[:1000]; del self._ah[:1000]
+            del self._ah_t[:1000]
+            del self._ah[:1000]
 
     def _freeze_anchor(self, t):
         if not self.anchor_valid or not self._ah_t:
@@ -227,13 +269,18 @@ class TrustEngine:
         self.anchor = self._ah[k]
         self.dr_t0 = self._ah_t[k]
         # stale history beyond the rewind point is contaminated; drop it
-        del self._ah_t[k + 1:]; del self._ah[k + 1:]
+        del self._ah_t[k + 1 :]
+        del self._ah[k + 1 :]
 
     def _dead_reckon(self, t):
         if self.state == TrustState.TRUSTED and not self.anchor_valid:
             return None
-        if not (self.anchor_valid and self.anchor is not None and self.ref_t is not None
-                and t - self.ref_t <= self.cfg.ref_timeout):
+        if not (
+            self.anchor_valid
+            and self.anchor is not None
+            and self.ref_t is not None
+            and t - self.ref_t <= self.cfg.ref_timeout
+        ):
             return None
         return (self.ce + self.anchor[0], self.cn + self.anchor[1])
 
@@ -243,7 +290,7 @@ class TrustEngine:
             return False
         if offset_m is None:
             self.unverifiable = False
-            return True   # no reference: rely on signal + kinematic evidence decaying
+            return True  # no reference: rely on signal + kinematic evidence decaying
         if self.state == TrustState.TRUSTED:
             return True
         dtt = max(t - self.dr_t0, 0.0)
@@ -269,8 +316,7 @@ class TrustEngine:
         if p_spoof > 0.2:
             self._spoof_hold_until = t + cfg.spoof_hold_s
         cur = self.state
-        if (_ORDER[target] < _ORDER[cur] and target == TrustState.TRUSTED
-                and t < self._spoof_hold_until):
+        if _ORDER[target] < _ORDER[cur] and target == TrustState.TRUSTED and t < self._spoof_hold_until:
             target = TrustState.DEGRADED
         if _ORDER[target] > _ORDER[cur]:
             self.state = target
@@ -292,11 +338,13 @@ class TrustEngine:
             self._down_since = None
 
     def _report(self, t, g, pe, pn, ev, offset_m, ref_ok, warm) -> TrustReport:
-        cfg = self.cfg
         probs = self.probs
         non_nom = {k: v for k, v in probs.items() if k != H.NOMINAL.value}
-        dh = H.REPLAY if (self.replay.lag is not None and self.fusion.T[H.REPLAY] > 0 and self.p_nom < 0.95) \
+        dh = (
+            H.REPLAY
+            if (self.replay.lag is not None and self.fusion.T[H.REPLAY] > 0 and self.p_nom < 0.95)
             else self.fusion.dominant()
+        )
         if self.p_nom >= 0.95:
             dominant = "none"
         elif dh is not None:
@@ -304,7 +352,7 @@ class TrustEngine:
         else:
             dominant = max(non_nom, key=non_nom.get)
             if dominant in ("spoofing_jump", "spoofing_drift", "replay_meaconing"):
-                dominant = "spoofing_unclassified"   # spoof signature present but nothing says which kind
+                dominant = "spoofing_unclassified"  # spoof signature present but nothing says which kind
         dr = self._dead_reckon(t)
         gnss_ok_now = g is not None
         if self.state == TrustState.TRUSTED:
@@ -330,7 +378,7 @@ class TrustEngine:
                 self._recent.append((t, e))
         self._recent = [(tt, e) for tt, e in self._recent if t - tt <= 15.0][-200:]
         best: dict = {}
-        for tt, e in self._recent:
+        for _tt, e in self._recent:
             k = (e.detector, e.kind)
             if k not in best or e.weight > best[k].weight:
                 best[k] = e
@@ -338,20 +386,37 @@ class TrustEngine:
         lat = lon = None
         if pos[0] is not None and self.frame is not None:
             lat, lon = self.frame.to_geo(pos[0], pos[1])
-        report = TrustReport(t=t, state=self.state, trust=trust, probs=dict(probs), dominant=dominant,
-                             action=action, evidence=top, nav_e=pos[0], nav_n=pos[1], nav_lat=lat,
-                             nav_lon=lon, gnss_offset_m=offset_m, ref_ok=ref_ok, warmup=warm)
+        report = TrustReport(
+            t=t,
+            state=self.state,
+            trust=trust,
+            probs=dict(probs),
+            dominant=dominant,
+            action=action,
+            evidence=top,
+            nav_e=pos[0],
+            nav_n=pos[1],
+            nav_lat=lat,
+            nav_lon=lon,
+            gnss_offset_m=offset_m,
+            ref_ok=ref_ok,
+            warmup=warm,
+        )
         report.summary = self._summary(report)
         return report
 
     def _summary(self, r: TrustReport) -> str:
         if r.state == TrustState.TRUSTED:
             return "GNSS position consistent with all checks." + (" (warming up baselines)" if r.warmup else "")
-        label = {"environmental_degradation": "environmental degradation (obstruction/multipath)",
-                 "jamming": "jamming-like signal loss", "spoofing_jump": "position-takeover spoofing",
-                 "spoofing_drift": "gradual carry-off spoofing", "replay_meaconing": "replay/meaconing",
-                 "spoofing_unclassified": "spoofing-like signal anomaly (type undetermined)",
-                 "none": "unexplained anomaly"}.get(r.dominant, r.dominant)
+        label = {
+            "environmental_degradation": "environmental degradation (obstruction/multipath)",
+            "jamming": "jamming-like signal loss",
+            "spoofing_jump": "position-takeover spoofing",
+            "spoofing_drift": "gradual carry-off spoofing",
+            "replay_meaconing": "replay/meaconing",
+            "spoofing_unclassified": "spoofing-like signal anomaly (type undetermined)",
+            "none": "unexplained anomaly",
+        }.get(r.dominant, r.dominant)
         why = r.evidence[0].message if r.evidence else "see evidence"
         extra = " Re-acquisition cannot be verified against the reference." if self.unverifiable else ""
         return f"{r.state.value}: most likely {label}. {why}.{extra} Action: {r.action.value}."

@@ -7,14 +7,16 @@ docs/ADAPTERS.md ("known unknowns") and run `marsad inspect <log>` on the first 
 
 pyulog is imported lazily.
 """
+
 from __future__ import annotations
+
 import math
 import warnings
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from typing import Iterator, Optional
 
 from ..types import GnssFix, NavSample, RefMotion
-from ._common import (CONTAMINATED_WARNING, ContaminatedReferenceWarning, mean_std, normalise_agc)
+from ._common import CONTAMINATED_WARNING, ContaminatedReferenceWarning, normalise_agc
 
 # sensor_gps: v1.13-v1.17; vehicle_gps_position: pre-v1.13; vehicle_gnss / sensor_gnss: PX4 v1.18+ (renamed).
 # vehicle_gnss nests the receiver sample as `receiver.*` (flattened by pyulog), at a higher rate than sensor_gnss.
@@ -53,6 +55,7 @@ ALIASES = {
 @dataclass
 class Px4Flag:
     """PX4/receiver's own jamming/spoofing indicators at time t (side-series, never fed to the engine)."""
+
     t: float
     jamming_state: Optional[int] = None
     spoofing_state: Optional[int] = None
@@ -60,11 +63,11 @@ class Px4Flag:
 
     @property
     def jam_flag(self) -> bool:
-        return (self.jamming_state or 0) >= 2     # UNVERIFIED enum: 0 unknown, 1 ok, 2 warning, 3 critical
+        return (self.jamming_state or 0) >= 2  # UNVERIFIED enum: 0 unknown, 1 ok, 2 warning, 3 critical
 
     @property
     def spoof_flag(self) -> bool:
-        return (self.spoofing_state or 0) >= 2    # UNVERIFIED enum: 0 unknown, 1 ok, 2 indicated, 3 multiple
+        return (self.spoofing_state or 0) >= 2  # UNVERIFIED enum: 0 unknown, 1 ok, 2 indicated, 3 multiple
 
 
 @dataclass
@@ -73,10 +76,10 @@ class UlogInfo:
     duration_s: float = 0.0
     synthetic: bool = False
     synthetic_note: str = ""
-    topics: dict = field(default_factory=dict)        # name -> {"n": rows, "multi_ids": [...], "fields": [...]}
+    topics: dict = field(default_factory=dict)  # name -> {"n": rows, "multi_ids": [...], "fields": [...]}
     gps_topic: Optional[str] = None
     gps_instance: Optional[int] = None
-    mapping: dict = field(default_factory=dict)       # logical field -> how it was obtained
+    mapping: dict = field(default_factory=dict)  # logical field -> how it was obtained
     warnings: list = field(default_factory=list)
     reference_topic: Optional[str] = None
     reference_source: Optional[str] = None
@@ -103,7 +106,7 @@ class UlogData:
 def _import_pyulog():
     try:
         from pyulog import ULog
-    except ImportError as e:        # pragma: no cover
+    except ImportError as e:  # pragma: no cover
         raise ImportError("ULog support needs pyulog: pip install pyulog  (or marsad[adapters])") from e
     return ULog
 
@@ -121,6 +124,7 @@ def _is_int(arr) -> bool:
 
 def _yaw_from_q(w, x, y, z):
     import numpy as np
+
     return np.arctan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
 
 
@@ -142,8 +146,7 @@ def _pick_dataset(ulog, names, info: UlogInfo, what: str):
         return None
     n_inst = len(_datasets(ulog, (best.name,)))
     if n_inst > 1:
-        info.warnings.append(f"{what}: {n_inst} instances of {best.name}; using multi_id={best.multi_id} "
-                             f"(most rows)")
+        info.warnings.append(f"{what}: {n_inst} instances of {best.name}; using multi_id={best.multi_id} (most rows)")
     return best
 
 
@@ -151,6 +154,7 @@ def _pick_dataset(ulog, names, info: UlogInfo, what: str):
 def _odom_velocity(d, info: UlogInfo, topic: str):
     """vehicle_(visual|mocap_)odometry-style dataset -> (t, ve, vn, sigma) numpy arrays or None."""
     import numpy as np
+
     f = d.data
     t = f["timestamp"] / 1e6
     _, vx = _first(f, ("velocity[0]", "vx"))
@@ -172,8 +176,10 @@ def _odom_velocity(d, info: UlogInfo, topic: str):
             frame = int(np.bincount(fr.astype(int)).argmax()) if fr is not None and len(fr) else None
             if frame in (None, 0, 1):
                 if frame in (None, 0):
-                    info.warnings.append(f"{topic}: velocity_frame {'missing' if frame is None else 'UNKNOWN(0)'};"
-                                         f" assuming NED (x=north, y=east)")
+                    info.warnings.append(
+                        f"{topic}: velocity_frame {'missing' if frame is None else 'UNKNOWN(0)'};"
+                        f" assuming NED (x=north, y=east)"
+                    )
                 vn, ve, how = vx, vy, "velocity[0..1] as NED (N,E)"
             elif frame in (2, 3) and have_q:
                 yaw = _yaw_from_q(*qn)
@@ -181,8 +187,10 @@ def _odom_velocity(d, info: UlogInfo, topic: str):
                 ve = vx * np.sin(yaw) + vy * np.cos(yaw)
                 how = f"velocity[0..1] in frame {frame} (FRD) rotated to NED by yaw from q (ignores roll/pitch)"
             else:
-                info.warnings.append(f"{topic}: velocity_frame={frame} needs attitude q which is missing; "
-                                     f"velocity unusable, trying position differencing")
+                info.warnings.append(
+                    f"{topic}: velocity_frame={frame} needs attitude q which is missing; "
+                    f"velocity unusable, trying position differencing"
+                )
     if ve is None:
         _, px = _first(f, ("position[0]", "x"))
         _, py = _first(f, ("position[1]", "y"))
@@ -218,7 +226,6 @@ def _odom_velocity(d, info: UlogInfo, topic: str):
 
 
 def _attitude_yaw(ulog):
-    import numpy as np
     for d in _datasets(ulog, ("vehicle_attitude",)):
         f = d.data
         if all(f"q[{i}]" in f for i in range(4)):
@@ -228,6 +235,7 @@ def _attitude_yaw(ulog):
 
 def _flowvel(d, info: UlogInfo, topic: str):
     import numpy as np
+
     f = d.data
     t = f["timestamp"] / 1e6
     if "vel_ne[0]" in f and "vel_ne[1]" in f:
@@ -242,6 +250,7 @@ def _flowvel(d, info: UlogInfo, topic: str):
 def _flow(d, info: UlogInfo, topic: str, ulog):
     """vehicle_optical_flow (integrated flow + range) -> NE velocity using attitude yaw. UNVERIFIED conventions."""
     import numpy as np
+
     f = d.data
     need = ("pixel_flow[0]", "pixel_flow[1]", "integration_timespan_us", "distance_m")
     if not all(k in f for k in need):
@@ -266,13 +275,16 @@ def _flow(d, info: UlogInfo, topic: str, ulog):
     yaw = np.interp(t, att[0], att[1])
     vn = vbx * np.cos(yaw) - vby * np.sin(yaw)
     ve = vbx * np.sin(yaw) + vby * np.cos(yaw)
-    info.mapping[f"ref.{topic}"] = ("vx_b=pixel_flow[1]*dist/dt, vy_b=-pixel_flow[0]*dist/dt, gyro-compensated by "
-                                    "delta_angle if present, rotated by vehicle_attitude yaw (UNVERIFIED axes/signs)")
+    info.mapping[f"ref.{topic}"] = (
+        "vx_b=pixel_flow[1]*dist/dt, vy_b=-pixel_flow[0]*dist/dt, gyro-compensated by "
+        "delta_angle if present, rotated by vehicle_attitude yaw (UNVERIFIED axes/signs)"
+    )
     return t[ok], ve[ok], vn[ok], None
 
 
 def _localpos(d, info: UlogInfo, topic: str):
     import numpy as np
+
     f = d.data
     if "vx" not in f or "vy" not in f:
         return None
@@ -287,18 +299,23 @@ def _localpos(d, info: UlogInfo, topic: str):
 def _select_reference(ulog, info: UlogInfo, reference: str, allow_contaminated: bool):
     cands = REF_CANDIDATES if reference == "auto" else tuple(c for c in REF_CANDIDATES if c[0] == reference)
     if not cands:
-        raise ValueError(f"unknown reference topic {reference!r}; choose 'auto' or one of "
-                         f"{[c[0] for c in REF_CANDIDATES]}")
+        raise ValueError(
+            f"unknown reference topic {reference!r}; choose 'auto' or one of {[c[0] for c in REF_CANDIDATES]}"
+        )
     for topic, kind, independent in cands:
         if not independent and not allow_contaminated:
             continue
         for d in _datasets(ulog, (topic,)):
             if len(d.data["timestamp"]) < 3:
                 continue
-            res = {"odom": lambda: _odom_velocity(d, info, topic),
-                   "flowvel": lambda: _flowvel(d, info, topic),
-                   "flow": lambda: _flow(d, info, topic, ulog),
-                   "localpos": lambda: _localpos(d, info, topic)}[kind]()
+            if kind == "odom":
+                res = _odom_velocity(d, info, topic)
+            elif kind == "flowvel":
+                res = _flowvel(d, info, topic)
+            elif kind == "flow":
+                res = _flow(d, info, topic, ulog)
+            else:
+                res = _localpos(d, info, topic)
             if res is None or len(res[0]) < 3:
                 continue
             info.reference_topic = topic
@@ -308,9 +325,12 @@ def _select_reference(ulog, info: UlogInfo, reference: str, allow_contaminated: 
                 info.warnings.insert(0, CONTAMINATED_WARNING + f" (source: {topic})")
             return res, info.reference_source
     if reference == "auto":
-        info.warnings.insert(0, "NO velocity reference found (looked for " +
-                             ", ".join(c[0] for c in cands if c[2] or allow_contaminated) +
-                             "): slow carry-off spoofing cannot be detected without an independent reference.")
+        info.warnings.insert(
+            0,
+            "NO velocity reference found (looked for "
+            + ", ".join(c[0] for c in cands if c[2] or allow_contaminated)
+            + "): slow carry-off spoofing cannot be detected without an independent reference.",
+        )
     else:
         info.warnings.insert(0, f"requested reference topic {reference!r} absent or unusable")
     return None, None
@@ -320,6 +340,7 @@ def _select_reference(ulog, info: UlogInfo, reference: str, allow_contaminated: 
 def _sat_cn0(ulog, info: UlogInfo):
     """satellite_info -> (t[], mean[], std[]) or None."""
     import numpy as np
+
     d = _pick_dataset(ulog, SAT_TOPICS, info, "satellites")
     if d is None:
         return None
@@ -334,7 +355,7 @@ def _sat_cn0(ulog, info: UlogInfo):
     mean = np.full(len(t), np.nan)
     std = np.full(len(t), np.nan)
     for i in range(len(t)):
-        row = snr[i, :min(cnt[i], snr.shape[1])]
+        row = snr[i, : min(cnt[i], snr.shape[1])]
         row = row[row > 0]
         if row.size:
             mean[i], std[i] = row.mean(), row.std()
@@ -347,14 +368,15 @@ def _sat_cn0(ulog, info: UlogInfo):
 
 def _gps_fixes(ulog, info: UlogInfo, max_cn0_age: float):
     import numpy as np
+
     d = _pick_dataset(ulog, GPS_TOPICS, info, "GPS")
     if d is None:
         info.warnings.append(f"no GPS topic found (looked for {GPS_TOPICS}); nothing to score")
         return [], []
     info.gps_topic, info.gps_instance = d.name, d.multi_id
     f = d.data
-    if d.name == "vehicle_gnss":                      # nested SensorGnss receiver: strip the "receiver." prefix
-        f = {(k[len("receiver."):] if k.startswith("receiver.") else k): v for k, v in f.items()}
+    if d.name == "vehicle_gnss":  # nested SensorGnss receiver: strip the "receiver." prefix
+        f = {(k[len("receiver.") :] if k.startswith("receiver.") else k): v for k, v in f.items()}
         f["timestamp"] = d.data["timestamp"]
         info.mapping["gps.nested"] = "vehicle_gnss: receiver.* fields"
     n = len(f["timestamp"])
@@ -399,8 +421,10 @@ def _gps_fixes(ulog, info: UlogInfo, max_cn0_age: float):
         agc, why = normalise_agc(jind)
         m["gps.agc"] = "PROXY: jamming_indicator (not a true AGC reading)"
         m["gps.agc normalisation"] = why
-        info.warnings.append("no AGC field; using jamming_indicator as an AGC proxy (different quantity, "
-                             "scale unverified). Jamming sensitivity may differ from true AGC.")
+        info.warnings.append(
+            "no AGC field; using jamming_indicator as an AGC proxy (different quantity, "
+            "scale unverified). Jamming sensitivity may differ from true AGC."
+        )
     else:
         agc = [None] * n
     info.has_agc = agc_raw is not None or jind is not None
@@ -412,8 +436,10 @@ def _gps_fixes(ulog, info: UlogInfo, max_cn0_age: float):
     sat = _sat_cn0(ulog, info)
     info.has_cn0 = sat is not None
     if sat is None:
-        info.warnings.append("no satellite_info C/N0: signal-quality detector runs without C/N0 "
-                             "(spoof-by-uniform-power and jamming-by-C/N0-drop evidence unavailable)")
+        info.warnings.append(
+            "no satellite_info C/N0: signal-quality detector runs without C/N0 "
+            "(spoof-by-uniform-power and jamming-by-C/N0-drop evidence unavailable)"
+        )
 
     fixes, flags = [], []
     sj = 0
@@ -430,20 +456,32 @@ def _gps_fixes(ulog, info: UlogInfo, max_cn0_age: float):
         tg = None
         if tutc is not None and tutc[i] > 0:
             tg = float(tutc[i]) / 1e6
-        fixes.append(GnssFix(
-            t=float(t[i]), lat=lat_i, lon=lon_i,
-            alt=float(alt[i]) if alt is not None else 0.0,
-            ve=_fin(ve_[i]) if ve_ is not None else None,
-            vn=_fin(vn_[i]) if vn_ is not None else None,
-            cn0_mean=cm, cn0_std=cs,
-            n_sats=int(ns[i]) if ns is not None else None,
-            agc=agc[i], hdop=_fin(hdop[i]) if hdop is not None else None,
-            fix_type=int(fix[i]) if fix is not None else 3, t_gnss=tg))
+        fixes.append(
+            GnssFix(
+                t=float(t[i]),
+                lat=lat_i,
+                lon=lon_i,
+                alt=float(alt[i]) if alt is not None else 0.0,
+                ve=_fin(ve_[i]) if ve_ is not None else None,
+                vn=_fin(vn_[i]) if vn_ is not None else None,
+                cn0_mean=cm,
+                cn0_std=cs,
+                n_sats=int(ns[i]) if ns is not None else None,
+                agc=agc[i],
+                hdop=_fin(hdop[i]) if hdop is not None else None,
+                fix_type=int(fix[i]) if fix is not None else 3,
+                t_gnss=tg,
+            )
+        )
         if info.has_px4_flags:
-            flags.append(Px4Flag(t=float(t[i]),
-                                 jamming_state=int(jam_s[i]) if jam_s is not None else None,
-                                 spoofing_state=int(spoof_s[i]) if spoof_s is not None else None,
-                                 jamming_indicator=_fin(jind[i]) if jind is not None else None))
+            flags.append(
+                Px4Flag(
+                    t=float(t[i]),
+                    jamming_state=int(jam_s[i]) if jam_s is not None else None,
+                    spoofing_state=int(spoof_s[i]) if spoof_s is not None else None,
+                    jamming_indicator=_fin(jind[i]) if jind is not None else None,
+                )
+            )
     if len(t) > 1:
         info.gps_rate_hz = float((len(t) - 1) / max(t[-1] - t[0], 1e-9))
     return fixes, flags
@@ -455,8 +493,15 @@ def _fin(x) -> Optional[float]:
 
 
 # --------------------------------------------------------------------------------------- public
-def load_ulog(path: str, *, reference: str = "auto", allow_contaminated: bool = True,
-              merge_tol: float = 0.002, max_cn0_age: float = 5.0, warn: bool = True) -> UlogData:
+def load_ulog(
+    path: str,
+    *,
+    reference: str = "auto",
+    allow_contaminated: bool = True,
+    merge_tol: float = 0.002,
+    max_cn0_age: float = 5.0,
+    warn: bool = True,
+) -> UlogData:
     """Parse a ULog into NavSamples (time ordered) + UlogInfo + PX4 flag side-series.
 
     reference: 'auto' (priority: visual odometry, mocap, optical-flow velocity, optical flow, then the
@@ -503,21 +548,28 @@ def load_ulog(path: str, *, reference: str = "auto", allow_contaminated: bool = 
         samples.append(NavSample(t=t, gnss=obj if kind == 0 else None, ref=obj if kind == 1 else None))
     # NavSample.t = first event time; keep monotone
     for a, b in zip(samples, samples[1:]):
-        if b.t < a.t:           # pragma: no cover (merge can only move forward)
+        if b.t < a.t:  # pragma: no cover (merge can only move forward)
             b.t = a.t
     if warn and info.reference_contaminated:
         warnings.warn(CONTAMINATED_WARNING, ContaminatedReferenceWarning, stacklevel=3)
     return UlogData(samples=samples, info=info, px4_flags=flags)
 
 
-def read_ulog_samples(path: str, *, reference: str = "auto", allow_contaminated: bool = True,
-                      merge_tol: float = 0.002, max_cn0_age: float = 5.0) -> Iterator[NavSample]:
+def read_ulog_samples(
+    path: str,
+    *,
+    reference: str = "auto",
+    allow_contaminated: bool = True,
+    merge_tol: float = 0.002,
+    max_cn0_age: float = 5.0,
+) -> Iterator[NavSample]:
     """Iterate NavSamples from a ULog. Use load_ulog() when you also need the metadata / PX4 flags.
 
     Emits ContaminatedReferenceWarning (via warnings) if the only reference is EKF-fused.
     """
-    data = load_ulog(path, reference=reference, allow_contaminated=allow_contaminated,
-                     merge_tol=merge_tol, max_cn0_age=max_cn0_age)
+    data = load_ulog(
+        path, reference=reference, allow_contaminated=allow_contaminated, merge_tol=merge_tol, max_cn0_age=max_cn0_age
+    )
     yield from data.samples
 
 

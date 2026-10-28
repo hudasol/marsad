@@ -1,7 +1,9 @@
 """Small stdlib-only geometric helpers: robust circle fit and angle utilities."""
+
 from __future__ import annotations
+
 import math
-from typing import Optional, Sequence
+from typing import Sequence
 
 
 def wrap_pi(a: float) -> float:
@@ -30,7 +32,7 @@ def _kasa(xs: Sequence[float], ys: Sequence[float]):
     det = sxx * syy - sxy * sxy
     if det <= 1e-9 * (sxx + syy) ** 2 or det <= 0.0:
         return None
-    a = (sxz * syy - syz * sxy) / det / 2.0     # solves [sxx sxy; sxy syy][2a; 2b] = [sxz; syz]
+    a = (sxz * syy - syz * sxy) / det / 2.0  # solves [sxx sxy; sxy syy][2a; 2b] = [sxz; syz]
     b = (syz * sxx - sxz * sxy) / det / 2.0
     r2 = zbar + a * a + b * b
     if r2 <= 0:

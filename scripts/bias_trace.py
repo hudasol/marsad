@@ -8,6 +8,7 @@ estimated reference velocity bias (east, north), the seconds of clean learning b
 P(nominal). Written after the weighting fix run to explain a miss; post hoc, not preregistered.
 Label: SIH + INJECTED. No RF is generated.
 """
+
 import argparse
 import importlib.util
 import pathlib
@@ -38,7 +39,9 @@ def main(argv=None):
     n_fix = sum(s.gnss is not None for s in full)
     n_fix_ref = sum(s.gnss is not None and s.ref is not None for s in full)
     print(f"{a.log}: to {a.end:.0f}s, northward drift {a.rate} m/s from {a.t_attack:.0f}s")
-    print(f"GNSS fixes {n_fix}, of which carry a reference sample {n_fix_ref} (the bias estimator learns only on those)")
+    print(
+        f"GNSS fixes {n_fix}, of which carry a reference sample {n_fix_ref} (the bias estimator learns only on those)"
+    )
     for vc in (True, False):
         print(f"\nvelocity consistent: {vc}")
         print(f"  {'t(s)':>6} {'state':8} {'drift z':>7} {'bias e':>7} {'bias n':>7} {'bias s':>6} {'P(nominal)':>10}")
@@ -47,8 +50,10 @@ def main(argv=None):
             r = eng.update(s)
             if s.gnss is not None and s.t >= nxt:
                 nxt += a.every
-                print(f"  {s.t:6.1f} {r.state.value:8} {eng.inertial.last_z:7.2f} {eng.bias[0]:+7.3f} "
-                      f"{eng.bias[1]:+7.3f} {eng.bias_s:6.1f} {eng.p_nom:10.3f}")
+                print(
+                    f"  {s.t:6.1f} {r.state.value:8} {eng.inertial.last_z:7.2f} {eng.bias[0]:+7.3f} "
+                    f"{eng.bias[1]:+7.3f} {eng.bias_s:6.1f} {eng.p_nom:10.3f}"
+                )
     print("\nLabel: SIH + INJECTED. Exploratory (post hoc), not preregistered.")
     return 0
 

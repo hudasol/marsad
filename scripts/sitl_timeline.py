@@ -6,6 +6,7 @@ Prints, every `step` seconds of log time: Marsad state/trust, GNSS horizontal er
 *_groundtruth topic (SIH only), PX4 nav_state and whether the vehicle is landed. This is how a SITL
 fault window is matched to the detector's reaction. Measurement-level only; nothing is injected here.
 """
+
 import math
 import sys
 import warnings
@@ -14,7 +15,6 @@ import numpy as np
 from pyulog import ULog
 
 from marsad import TrustEngine, preset
-from marsad.adapters.replay import replay_samples
 from marsad.adapters.ulog import load_ulog
 
 
@@ -41,7 +41,6 @@ def main():
     eng = TrustEngine(preset("uav_multirotor"))
     reports = [eng.update(s) for s in d.samples]
     u = ULog(path)
-    t_start = u.start_timestamp / 1e6
 
     # GNSS fixes (as the adapter read them) and ground truth
     fixes = [(s.t, s.gnss.lat, s.gnss.lon) for s in d.samples if s.gnss is not None]
@@ -72,7 +71,9 @@ def main():
         k = int(np.searchsorted(ts, t, side="right")) - 1
         return None if k < 0 else tab[key][k]
 
-    print(f"{path}: {len(reports)} reports; time axis = vehicle uptime (s). groundtruth: {'yes' if gt_t is not None else 'NO'}")
+    print(
+        f"{path}: {len(reports)} reports; time axis = vehicle uptime (s). groundtruth: {'yes' if gt_t is not None else 'NO'}"
+    )
     print(f"{'t(s)':>7} {'marsad':8} {'trust':>5} {'gnss_err_m':>10} {'nav_state':>9} {'landed':>6}  dominant")
     nxt = t0
     for r in reports:
@@ -82,9 +83,11 @@ def main():
         e = err(r.t)
         ns = at(vs, "nav_state", r.t)
         ln = at(ld, "landed", r.t)
-        print(f"{r.t:7.1f} {r.state.value:8} {r.trust:5.2f} "
-              f"{'' if e is None else f'{e:10.1f}':>10} {'' if ns is None else int(ns):>9} "
-              f"{'' if ln is None else int(ln):>6}  {r.dominant}")
+        print(
+            f"{r.t:7.1f} {r.state.value:8} {r.trust:5.2f} "
+            f"{'' if e is None else f'{e:10.1f}':>10} {'' if ns is None else int(ns):>9} "
+            f"{'' if ln is None else int(ln):>6}  {r.dominant}"
+        )
 
 
 if __name__ == "__main__":

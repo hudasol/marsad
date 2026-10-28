@@ -1,9 +1,12 @@
 import math
-from marsad.geo import LocalFrame, haversine
-from marsad.fusion import Fusion
-from marsad.config import preset, EngineConfig
-from marsad.types import Evidence, Hypothesis as H
+
 import pytest
+
+from marsad.config import preset
+from marsad.fusion import Fusion
+from marsad.geo import LocalFrame, haversine
+from marsad.types import Evidence
+from marsad.types import Hypothesis as H
 
 
 def test_local_frame_roundtrip():

@@ -1,7 +1,10 @@
 """Timing detector: step changes / non-monotonic behaviour of GNSS time against the host clock."""
+
 from __future__ import annotations
-from ..types import Evidence, Hypothesis as H
+
 from ..config import EngineConfig
+from ..types import Evidence
+from ..types import Hypothesis as H
 from .base import Context
 
 
@@ -25,8 +28,16 @@ class TimingDetector:
         if g is None or g.t_gnss is None:
             return out
         if self._last_tg is not None and g.t_gnss <= self._last_tg:
-            out.append(Evidence(self.name, "time_non_monotonic", {H.REPLAY: 3.0, H.SPOOF_JUMP: 1.5},
-                                "GNSS time did not advance (stale or replayed data)", g.t_gnss - self._last_tg, 3.0))
+            out.append(
+                Evidence(
+                    self.name,
+                    "time_non_monotonic",
+                    {H.REPLAY: 3.0, H.SPOOF_JUMP: 1.5},
+                    "GNSS time did not advance (stale or replayed data)",
+                    g.t_gnss - self._last_tg,
+                    3.0,
+                )
+            )
         self._last_tg = g.t_gnss
         if self._off is None:
             self._off = g.t - g.t_gnss
@@ -34,6 +45,14 @@ class TimingDetector:
         step = (g.t - g.t_gnss) - self._off
         if abs(step) > self.cfg.clock_step_s:
             llr = min(6.0, 2.0 + abs(step) / self.cfg.clock_step_s)
-            out.append(Evidence(self.name, "clock_step", {H.REPLAY: llr, H.SPOOF_JUMP: llr},
-                                f"GNSS clock stepped {step:+.2f} s against the host clock", step, llr))
+            out.append(
+                Evidence(
+                    self.name,
+                    "clock_step",
+                    {H.REPLAY: llr, H.SPOOF_JUMP: llr},
+                    f"GNSS clock stepped {step:+.2f} s against the host clock",
+                    step,
+                    llr,
+                )
+            )
         return out

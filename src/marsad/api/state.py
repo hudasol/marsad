@@ -3,6 +3,7 @@
 Nothing here touches the filesystem or network. Vehicles each own a ``TrustEngine``; tracks and the
 interference map come from ``marsad.tracks`` (imported lazily so the vehicle side works without it).
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -14,7 +15,8 @@ import threading
 import time
 from typing import Any, Optional
 
-from .. import TrustEngine, preset as make_preset, __version__
+from .. import TrustEngine, __version__
+from .. import preset as make_preset
 from ..types import NavSample
 from . import texts
 from .models import PRESETS
@@ -58,20 +60,22 @@ def dumps(o: Any) -> str:
 def tracks_mod():
     try:
         import marsad.tracks as m
+
         for n in ("TrackReport", "TrackTrustEngine", "InterferenceMap"):
             if not hasattr(m, n):
                 raise ImportError(n)
         return m
     except Exception:
-        raise Unavailable("Track trust (marsad.tracks)")
+        raise Unavailable("Track trust (marsad.tracks)") from None
 
 
 def sim_mod():
     try:
         from .. import sim
+
         return sim
     except Exception:
-        raise Unavailable("The scenario simulator (needs numpy)")
+        raise Unavailable("The scenario simulator (needs numpy)") from None
 
 
 def explain_report(d: dict, simulated: bool = False) -> str:
@@ -128,9 +132,17 @@ class VehicleRec:
 
     def summary(self) -> dict:
         r = self.last or {}
-        return {"vehicle_id": self.vid, "preset": self.preset, "simulated": self.simulated,
-                "state": r.get("state"), "trust": r.get("trust"), "action": r.get("action"),
-                "t": r.get("t"), "n_samples": self.n, "origin": self.origin()}
+        return {
+            "vehicle_id": self.vid,
+            "preset": self.preset,
+            "simulated": self.simulated,
+            "state": r.get("state"),
+            "trust": r.get("trust"),
+            "action": r.get("action"),
+            "t": r.get("t"),
+            "n_samples": self.n,
+            "origin": self.origin(),
+        }
 
 
 class Store:
@@ -171,7 +183,7 @@ class Store:
             try:
                 s.loop.call_soon_threadsafe(s._put, item)
             except RuntimeError:
-                pass   # loop closed
+                pass  # loop closed
 
     # ------------------------------------------------------------- vehicles
     def _new_vehicle(self, vid, preset_name, simulated) -> VehicleRec:
@@ -194,20 +206,35 @@ class Store:
         if truth is not None and fr is not None:
             e, n = fr.to_local(*truth)
             tr = [round(e, 2), round(n, 2)]
-        pt = {"t": round(s.t, 3), "state": rep.state.value, "trust": round(rep.trust, 4),
-              "action": rep.action.value, "dominant": rep.dominant,
-              "probs": {k: round(v, 3) for k, v in rep.probs.items()},
-              "raw": raw, "nav": nav, "offset": None if rep.gnss_offset_m is None else round(rep.gnss_offset_m, 1)}
+        pt = {
+            "t": round(s.t, 3),
+            "state": rep.state.value,
+            "trust": round(rep.trust, 4),
+            "action": rep.action.value,
+            "dominant": rep.dominant,
+            "probs": {k: round(v, 3) for k, v in rep.probs.items()},
+            "raw": raw,
+            "nav": nav,
+            "offset": None if rep.gnss_offset_m is None else round(rep.gnss_offset_m, 1),
+        }
         if rec.simulated:
             pt["truth"] = tr
         rec.history.append(pt)
         rec.n += 1
         trans = None
         if rec.last_state is not None and rep.state.value != rec.last_state:
-            trans = {"vehicle_id": rec.vid, "t": round(s.t, 3), "from": rec.last_state, "to": rep.state.value,
-                     "trust": round(rep.trust, 3), "action": rep.action.value, "dominant": rep.dominant,
-                     "summary": rep.summary, "evidence": [e.message for e in rep.evidence[:3]],
-                     "simulated": rec.simulated}
+            trans = {
+                "vehicle_id": rec.vid,
+                "t": round(s.t, 3),
+                "from": rec.last_state,
+                "to": rep.state.value,
+                "trust": round(rep.trust, 3),
+                "action": rep.action.value,
+                "dominant": rep.dominant,
+                "summary": rep.summary,
+                "evidence": [e.message for e in rep.evidence[:3]],
+                "simulated": rec.simulated,
+            }
             rec.transitions.append(trans)
         rec.last_state = rep.state.value
         self.clock = max(self.clock, s.t)
@@ -219,18 +246,27 @@ class Store:
             if lat is not None:
                 rec.last_imap_t = s.t
                 try:
-                    self._get_imap().report_vehicle(lat, lon, s.t, rep.state.value, rep.dominant,
-                                                    max(0.0, min(1.0, 1.0 - rep.trust)))
+                    self._get_imap().report_vehicle(
+                        lat, lon, s.t, rep.state.value, rep.dominant, max(0.0, min(1.0, 1.0 - rep.trust))
+                    )
                 except StoreError:
                     pass
         return rep, pt, trans
 
-    def ingest_samples(self, vid: str, samples: list, preset_name: Optional[str] = None, *,
-                       simulated: bool = False, truth: Optional[list] = None, publish: bool = True) -> dict:
+    def ingest_samples(
+        self,
+        vid: str,
+        samples: list,
+        preset_name: Optional[str] = None,
+        *,
+        simulated: bool = False,
+        truth: Optional[list] = None,
+        publish: bool = True,
+    ) -> dict:
         if preset_name is not None and preset_name not in PRESETS:
             raise StoreError(422, f"unknown preset {preset_name!r}; choose from {list(PRESETS)}")
         prev = -math.inf
-        for s in samples:       # validate order before any state is created or changed
+        for s in samples:  # validate order before any state is created or changed
             if s.t < prev:
                 raise StoreError(422, f"sample times must be non-decreasing (got t={s.t} after t={prev})")
             prev = s.t
@@ -240,11 +276,17 @@ class Store:
                 rec = self._new_vehicle(vid, preset_name or DEFAULT_PRESET, simulated)
             else:
                 if rec.simulated != simulated:
-                    raise StoreError(409, f"vehicle {vid!r} is reserved for simulated data" if rec.simulated
-                                     else f"vehicle {vid!r} holds real data and cannot take simulated samples")
+                    raise StoreError(
+                        409,
+                        f"vehicle {vid!r} is reserved for simulated data"
+                        if rec.simulated
+                        else f"vehicle {vid!r} holds real data and cannot take simulated samples",
+                    )
                 if preset_name is not None and preset_name != rec.preset:
-                    raise StoreError(409, f"vehicle {vid!r} already exists with preset {rec.preset!r}; "
-                                          f"delete it to change the preset")
+                    raise StoreError(
+                        409,
+                        f"vehicle {vid!r} already exists with preset {rec.preset!r}; delete it to change the preset",
+                    )
             tl = rec.engine.t_last
             if tl is not None and samples and samples[0].t < tl:
                 raise StoreError(422, f"sample times must be non-decreasing (got t={samples[0].t} after t={tl})")
@@ -257,13 +299,27 @@ class Store:
             rec.last = rep.to_dict()
             rec.last["vehicle_id"] = vid
             rec.last["explanation"] = explain_report(rec.last, simulated)
-            out = {"vehicle_id": vid, "simulated": simulated, "n_samples": len(samples),
-                   "report": rec.last, "transitions": trans}
+            out = {
+                "vehicle_id": vid,
+                "simulated": simulated,
+                "n_samples": len(samples),
+                "report": rec.last,
+                "transitions": trans,
+            }
             ev_pts = pts if len(pts) <= 300 else pts[:: math.ceil(len(pts) / 300)] + [pts[-1]]
             origin = rec.origin()
         if publish:
-            self.publish("vehicle", {"vehicle_id": vid, "simulated": simulated, "origin": origin,
-                                     "points": ev_pts, "report": rec.last, "n_samples": rec.n})
+            self.publish(
+                "vehicle",
+                {
+                    "vehicle_id": vid,
+                    "simulated": simulated,
+                    "origin": origin,
+                    "points": ev_pts,
+                    "report": rec.last,
+                    "n_samples": rec.n,
+                },
+            )
             for t in trans:
                 self.publish("transition", t)
             self.maybe_publish_scene()
@@ -284,25 +340,42 @@ class Store:
             rec = self.get_vehicle(vid)
             if rec.last is None:
                 raise StoreError(404, f"vehicle {vid!r} has no samples yet")
-            return {"vehicle_id": vid, "simulated": rec.simulated, "preset": rec.preset,
-                    "report": rec.last, "explanation": rec.last["explanation"],
-                    "recent_transitions": list(rec.transitions)[-5:], "origin": rec.origin()}
+            return {
+                "vehicle_id": vid,
+                "simulated": rec.simulated,
+                "preset": rec.preset,
+                "report": rec.last,
+                "explanation": rec.last["explanation"],
+                "recent_transitions": list(rec.transitions)[-5:],
+                "origin": rec.origin(),
+            }
 
     def history(self, vid: str, n: int = 600) -> dict:
         with self.lock:
             rec = self.get_vehicle(vid)
             pts = list(rec.history)[-n:]
-            return {"vehicle_id": vid, "simulated": rec.simulated, "origin": rec.origin(),
-                    "points": pts, "transitions": list(rec.transitions), "meta": rec.meta}
+            return {
+                "vehicle_id": vid,
+                "simulated": rec.simulated,
+                "origin": rec.origin(),
+                "points": pts,
+                "transitions": list(rec.transitions),
+                "meta": rec.meta,
+            }
 
     def acknowledge(self, vid: str, operator: Optional[str] = None, note: Optional[str] = None) -> dict:
         with self.lock:
             rec = self.get_vehicle(vid)
             rec.engine.acknowledge()
-            ev = {"vehicle_id": vid, "t": rec.engine.t_last, "kind": "operator_acknowledge",
-                  "operator": operator, "note": note,
-                  "message": "Operator acknowledged the current GNSS position; trust state reset to TRUSTED. "
-                             "The next sample re-evaluates it."}
+            ev = {
+                "vehicle_id": vid,
+                "t": rec.engine.t_last,
+                "kind": "operator_acknowledge",
+                "operator": operator,
+                "note": note,
+                "message": "Operator acknowledged the current GNSS position; trust state reset to TRUSTED. "
+                "The next sample re-evaluates it.",
+            }
             rec.last_state = "TRUSTED"
         self.publish("acknowledge", ev)
         return ev
@@ -351,12 +424,20 @@ class Store:
                 self._track_ids.add(r["track_id"])
                 self.clock = max(self.clock, r["t"])
                 d = touched[r["track_id"]]
-                if d.get("state") != "TRUSTED" and d.get("reasons") \
-                        and r["t"] - self._track_imap_t.get(r["track_id"], -1e18) >= 5.0:
+                if (
+                    d.get("state") != "TRUSTED"
+                    and d.get("reasons")
+                    and r["t"] - self._track_imap_t.get(r["track_id"], -1e18) >= 5.0
+                ):
                     top = max(d["reasons"], key=lambda x: x.get("weight", 0))
                     self._track_imap_t[r["track_id"]] = r["t"]
-                    self._get_imap().report_track_anomaly(d.get("lat", r["lat"]), d.get("lon", r["lon"]),
-                                                          r["t"], top.get("kind", "anomaly"), top.get("weight", 0.5))
+                    self._get_imap().report_track_anomaly(
+                        d.get("lat", r["lat"]),
+                        d.get("lon", r["lon"]),
+                        r["t"],
+                        top.get("kind", "anomaly"),
+                        top.get("weight", 0.5),
+                    )
             if self.track_origin in (None, origin):
                 self.track_origin = origin
             else:
@@ -366,7 +447,9 @@ class Store:
             self.maybe_publish_scene()
         return out
 
-    def list_tracks(self, state: Optional[str] = None, max_trust: Optional[float] = None, limit: int = 500) -> list[dict]:
+    def list_tracks(
+        self, state: Optional[str] = None, max_trust: Optional[float] = None, limit: int = 500
+    ) -> list[dict]:
         with self.lock:
             if self._track_engine is None:
                 tracks_mod()
@@ -405,6 +488,7 @@ class Store:
                 gj = self._imap.to_geojson(self.clock)
         gj = dict(gj)
         if bbox is not None:
+
             def inside(f):
                 try:
                     ring = f["geometry"]["coordinates"][0]
@@ -413,18 +497,28 @@ class Store:
                 except Exception:
                     return True
                 return bbox[0] <= lon <= bbox[2] and bbox[1] <= lat <= bbox[3]
+
             gj["features"] = [f for f in gj.get("features", []) if inside(f)]
         gj["simulated"] = self.track_origin == "demo" or any(v.simulated for v in self.vehicles.values())
         return gj
 
     def scene(self) -> dict:
         try:
-            return {"tracks": self.list_tracks(), "sources": self.source_health(),
-                    "map": self.interference(), "simulated": self.track_origin == "demo",
-                    "available": True}
+            return {
+                "tracks": self.list_tracks(),
+                "sources": self.source_health(),
+                "map": self.interference(),
+                "simulated": self.track_origin == "demo",
+                "available": True,
+            }
         except Unavailable:
-            return {"tracks": [], "sources": {}, "map": {"type": "FeatureCollection", "features": []},
-                    "simulated": False, "available": False}
+            return {
+                "tracks": [],
+                "sources": {},
+                "map": {"type": "FeatureCollection", "features": []},
+                "simulated": False,
+                "available": False,
+            }
 
     def maybe_publish_scene(self, force: bool = False) -> None:
         now = time.monotonic()
@@ -442,29 +536,51 @@ class Store:
             tr = True
         except Unavailable:
             tr = False
-        return {"name": "marsad", "version": __version__, "api": API_VERSION,
-                "independence_notice": texts.INDEPENDENCE, "simulation_notice": texts.SIM_NOTICE,
-                "advisory_only": True, "capabilities": {"vehicle_trust": True, "track_trust": tr,
-                                                        "presets": list(PRESETS)}}
+        return {
+            "name": "marsad",
+            "version": __version__,
+            "api": API_VERSION,
+            "independence_notice": texts.INDEPENDENCE,
+            "simulation_notice": texts.SIM_NOTICE,
+            "advisory_only": True,
+            "capabilities": {"vehicle_trust": True, "track_trust": tr, "presets": list(PRESETS)},
+        }
 
     def health(self) -> dict:
         with self.lock:
-            return {"status": "ok", "vehicles": len(self.vehicles), "tracks": len(self._track_ids),
-                    "subscribers": len(self.subs), "demo_running": bool(self.demo.get("running"))}
+            return {
+                "status": "ok",
+                "vehicles": len(self.vehicles),
+                "tracks": len(self._track_ids),
+                "subscribers": len(self.subs),
+                "demo_running": bool(self.demo.get("running")),
+            }
 
     # ------------------------------------------------------------- scenarios
     def scenarios(self) -> dict:
         sim = sim_mod()
         from ..sim.generator import ATTACK_KINDS, TRUTH_CLASS
-        return {"simulated": True, "notice": texts.SIM_NOTICE, "splits": list(sim.SPLITS),
-                "scenarios": [{"kind": k, "is_attack": k in ATTACK_KINDS,
-                               "truth_class": TRUTH_CLASS.get(k), "description": texts.SCENARIO_INFO.get(k, "")}
-                              for k in sim.KINDS]}
+
+        return {
+            "simulated": True,
+            "notice": texts.SIM_NOTICE,
+            "splits": list(sim.SPLITS),
+            "scenarios": [
+                {
+                    "kind": k,
+                    "is_attack": k in ATTACK_KINDS,
+                    "truth_class": TRUTH_CLASS.get(k),
+                    "description": texts.SCENARIO_INFO.get(k, ""),
+                }
+                for k in sim.KINDS
+            ],
+        }
 
     def run_scenario_sync(self, kind: str, seed: int = 1, split: str = "dev", vid: Optional[str] = None) -> dict:
         """Run a whole simulated scenario through a fresh engine, store it as a simulated vehicle."""
         sim = sim_mod()
         from ..sim.generator import KINDS, SPLITS
+
         if kind not in KINDS:
             raise StoreError(422, f"unknown scenario {kind!r}; choose from {KINDS}")
         if split not in SPLITS:
@@ -476,11 +592,18 @@ class Store:
         truth = [run.frame.to_geo(float(e), float(n)) for e, n in zip(run.truth_e, run.truth_n)]
         out = None
         for i in range(0, len(run.samples), 500):
-            out = self.ingest_samples(vid, run.samples[i:i + 500], simulated=True,
-                                      truth=truth[i:i + 500], publish=False)
+            out = self.ingest_samples(
+                vid, run.samples[i : i + 500], simulated=True, truth=truth[i : i + 500], publish=False
+            )
         rec = self.vehicles[vid]
-        rec.meta = {"kind": kind, "seed": seed, "split": split, "attack_start": run.attack_start,
-                    "attack_end": run.attack_end, "label": run.truth_class}
+        rec.meta = {
+            "kind": kind,
+            "seed": seed,
+            "split": split,
+            "attack_start": run.attack_start,
+            "attack_end": run.attack_end,
+            "label": run.truth_class,
+        }
         return self.scenario_summary(rec, run, out)
 
     def scenario_summary(self, rec: VehicleRec, run, out: dict) -> dict:
@@ -491,6 +614,7 @@ class Store:
             if p.get(k) is None or p.get("truth") is None:
                 return None
             return math.hypot(p[k][0] - p["truth"][0], p[k][1] - p["truth"][1])
+
         first_alarm = next((p for p in pts if a0 is not None and p["t"] >= a0 and p["state"] != "TRUSTED"), None)
         first_denied = next((p for p in pts if a0 is not None and p["t"] >= a0 and p["state"] == "DENIED"), None)
         pre = [p for p in pts if a0 is not None and p["t"] >= a0 and (first_alarm is None or p["t"] < first_alarm["t"])]
@@ -500,23 +624,39 @@ class Store:
         false_alarm_s = 0.0
         if a0 is None or not run.is_attack:
             false_alarm_s = sum(0.2 for p in pts if p["state"] != "TRUSTED")
-        return {"simulated": True, "notice": texts.SIM_NOTICE, "vehicle_id": rec.vid,
-                "scenario": {"kind": run.kind, "seed": run.seed, "split": run.split, "label": run.truth_class,
-                             "is_attack": run.is_attack, "event_start": a0, "event_end": run.attack_end,
-                             "duration_s": float(run.t[-1]) if len(run.t) else 0.0},
-                "final": {"state": rec.last["state"], "trust": rec.last["trust"], "action": rec.last["action"]},
-                "transitions": [{k: t[k] for k in ("t", "from", "to", "trust", "dominant", "summary")}
-                                for t in rec.transitions],
-                "detection": {"first_non_trusted_t": first_alarm["t"] if first_alarm else None,
-                              "latency_to_non_trusted_s": round(first_alarm["t"] - a0, 1) if first_alarm and a0 is not None else None,
-                              "latency_to_denied_s": round(first_denied["t"] - a0, 1) if first_denied and a0 is not None else None,
-                              "detected": first_alarm is not None},
-                "ground_truth_errors_m": {"max_raw_gnss_error_before_alarm": round(max(raw_pre), 1) if raw_pre else None,
-                                          "max_raw_gnss_error_during_event": round(max(raw_all), 1) if raw_all else None,
-                                          "max_marsad_nav_error_during_event": round(max(nav_all), 1) if nav_all else None},
-                "seconds_not_trusted_in_non_attack_scenario": round(false_alarm_s, 1) if not run.is_attack else None,
-                "evidence": [e["message"] for e in rec.last.get("evidence", [])[:4]],
-                "explanation": ("SIMULATED scenario. " + rec.last["explanation"])}
+        return {
+            "simulated": True,
+            "notice": texts.SIM_NOTICE,
+            "vehicle_id": rec.vid,
+            "scenario": {
+                "kind": run.kind,
+                "seed": run.seed,
+                "split": run.split,
+                "label": run.truth_class,
+                "is_attack": run.is_attack,
+                "event_start": a0,
+                "event_end": run.attack_end,
+                "duration_s": float(run.t[-1]) if len(run.t) else 0.0,
+            },
+            "final": {"state": rec.last["state"], "trust": rec.last["trust"], "action": rec.last["action"]},
+            "transitions": [
+                {k: t[k] for k in ("t", "from", "to", "trust", "dominant", "summary")} for t in rec.transitions
+            ],
+            "detection": {
+                "first_non_trusted_t": first_alarm["t"] if first_alarm else None,
+                "latency_to_non_trusted_s": round(first_alarm["t"] - a0, 1) if first_alarm and a0 is not None else None,
+                "latency_to_denied_s": round(first_denied["t"] - a0, 1) if first_denied and a0 is not None else None,
+                "detected": first_alarm is not None,
+            },
+            "ground_truth_errors_m": {
+                "max_raw_gnss_error_before_alarm": round(max(raw_pre), 1) if raw_pre else None,
+                "max_raw_gnss_error_during_event": round(max(raw_all), 1) if raw_all else None,
+                "max_marsad_nav_error_during_event": round(max(nav_all), 1) if nav_all else None,
+            },
+            "seconds_not_trusted_in_non_attack_scenario": round(false_alarm_s, 1) if not run.is_attack else None,
+            "evidence": [e["message"] for e in rec.last.get("evidence", [])[:4]],
+            "explanation": ("SIMULATED scenario. " + rec.last["explanation"]),
+        }
 
 
 _store: Optional[Store] = None
