@@ -43,6 +43,7 @@ class TrustEngine:
         # reference integration
         self.ref_t: Optional[float] = None
         self.ce = self.cn = 0.0
+        self.cre = self.crn = 0.0      # integral of the uncorrected reference velocity (no bias subtracted)
         self.ref_valid_since = -1e18
         self.bias = [0.0, 0.0]       # estimated reference velocity bias (m/s)
         self.bias_s = 0.0            # seconds of clean data the estimate is based on
@@ -111,6 +112,8 @@ class TrustEngine:
                 else:
                     self.ce += (ref.ve - self.bias[0]) * dtr
                     self.cn += (ref.vn - self.bias[1]) * dtr
+                    self.cre += ref.ve * dtr
+                    self.crn += ref.vn * dtr
             else:
                 self.ref_valid_since = t
             self.ref_t = t
@@ -119,7 +122,7 @@ class TrustEngine:
             self.anchor_valid = False
 
         warm = (t - self.t0) < cfg.warmup_s
-        ctx = Context(t=t, dt=dt, gnss_dt=gdt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn,
+        ctx = Context(t=t, dt=dt, gnss_dt=gdt, gnss=g, ref=ref, pe=pe, pn=pn, ce=self.ce, cn=self.cn, cre=self.cre, crn=self.crn,
                       ref_ok=ref_ok, ref_valid_since=self.ref_valid_since, gnss_gap=gap,
                       ref_bias_eff=(cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s)
                                     else cfg.ref_bias_bound),
