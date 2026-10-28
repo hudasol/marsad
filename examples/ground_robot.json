@@ -1,0 +1,6 @@
+{
+  "preset": "ground_robot",
+  "ref_bias_bound": 0.05,
+  "ref_noise": 0.1,
+  "sigma_pos": 3.0
+}
