@@ -311,6 +311,16 @@ def test_cli_replay_on_tlog(tmp_path, capsys):
     assert "GNSS_INTEGRITY samples: 1" in capsys.readouterr().out
 
 
+def test_cli_monitor_follows_a_tlog_and_reports_the_takeover(tmp_path, capsys):
+    from marsad.cli import main
+
+    p = tmp_path / "m.tlog"
+    write_tlog(str(p), sim_to_mavlink(generate("spoof_jump", 1, "dev")))
+    assert main(["monitor", str(p)]) == 0
+    out = capsys.readouterr().out
+    assert "DENIED" in out and "samples processed" in out
+
+
 # ----------------------------------------------------------------------------------- reporter
 class Capture(io.BytesIO):
     pass

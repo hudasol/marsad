@@ -23,7 +23,14 @@ marsad inspect sim.ulg                      # topics, field mapping, reference s
 marsad replay  sim.ulg --preset uav_multirotor --json out.json
 marsad replay  flight.tlog                  # MAVLink log (pymavlink)
 marsad replay  flight.ulg --no-contaminated-ref   # never use an EKF-fused velocity as the reference
+marsad monitor udpin:0.0.0.0:14550          # follow a live MAVLink link, print each trust transition
+marsad monitor udpin:0.0.0.0:14550 --out udpout:127.0.0.1:14551   # also publish advisory MSD_TRUST / MSD_STATE values
 ```
+
+`monitor` is the companion computer entry point: it reads GPS and reference messages from the link, runs the engine
+and prints state changes as they happen. With `--out` it uses `MavlinkReporter`, which can only send the advisory
+messages described below. It has been exercised on `.tlog` files and a localhost UDP loop, not against a real
+autopilot.
 
 `replay` prints state transitions with their top evidence and, when the log carries the autopilot/receiver's
 own jamming/spoofing state (`sensor_gps.jamming_state/spoofing_state`, or MAVLink `GNSS_INTEGRITY`), a
