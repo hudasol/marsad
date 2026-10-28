@@ -44,7 +44,7 @@ marsad = "marsad.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-marsad = ["dashboard/*", "py.typed"]
+marsad = ["dashboard/*", "dashboard/vendor/*", "py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
