@@ -13,7 +13,7 @@ Detectability floor: a drift slower than ~ref_bias_bound m/s cannot be separated
 Two z scores are computed per window and the larger is used. The first integrates the bias corrected reference
 with the tightened bias bound (sensitive, but a drift that moves the receiver velocity too can be learned as bias).
 The second integrates the uncorrected reference against the configured prior bound ``ref_bias_bound``, which
-the estimator cannot change (docs/PREREGISTRATION_PRIOR_BOUND.md).
+the estimator cannot change (docs/research/PREREGISTRATION_PRIOR_BOUND.md).
 """
 
 from __future__ import annotations

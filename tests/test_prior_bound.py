@@ -2,7 +2,7 @@
 
 Reproduces the SIH shape: 125 Hz reference, 8 Hz fixes, the attack starts 60 s in (before the bias estimator has
 the 150 s it needs to tighten its bound), the spoofer shifts position and velocity together. See
-docs/PREREGISTRATION_PRIOR_BOUND.md.
+docs/research/PREREGISTRATION_PRIOR_BOUND.md.
 """
 
 import math
