@@ -6,7 +6,8 @@
 | Engine runs in real time on a laptop-class CPU | **Measured** (v1.3.0 engine: 892.3 to 1,263.0 µs/sample on a Windows laptop, `docs/results/weighting_fix/throughput*.{json,txt}`; v1.1.0 engine: 187.7 µs on one cloud core, `docs/results/throughput.json`; companion-computer class untested) |
 | ULog / MAVLink round trip is lossless on synthetic logs | **Tested** (synthetic logs written by this repo) |
 | Works on real PX4 logs | **Partly validated (false-alarm side only)**: two public PX4 review logs (v1.15.3 and v1.17.0 multicopters, 911 s and 334 s of GPS) replay end to end with every `sensor_gps` field mapped and zero Marsad alarms. No attack is present in either log, the reference velocity is EKF-fused (contaminated) and neither has C/N0. Reproduce: `marsad replay flight1.ulg` and `marsad replay flight2.ulg` (output in `docs/results/real_logs.txt`). See "Real-log results" below. |
-| Detects attacks injected into a PX4 SIH log | **Partly (SIH + INJECTED)**: jumps of 50 to 1000 m detected 4/4 at once. After the preregistered evidence weighting fix: 1 and 2 m/s drifts detected 4/4 at median latencies of 15.7 to 27.8 s in both logs, 0.5 m/s 4/4 at 42.5 and 48.3 s in the 230 s window (sitl2), offsets at alarm 18.8 to 22.8 m for drifts of 0.5 m/s and faster; 0.1 m/s and the velocity consistent 0.25 m/s case missed. Before the fix (v1.2.0) drifts were 0/4 in 32 s and caught only after 98.1 to 204.6 s in 230 s. See "Evidence weighting fix" below |
+| Detects attacks injected into a PX4 SIH log | **Partly (SIH + INJECTED)**, v1.4.0 engine, 230 s window (sitl2): jumps of 50 to 1000 m detected 4/4 at once; drifts of 0.25 m/s and faster detected 4/4 in both velocity modes, median 113.6 s at 0.25 m/s, 42.5 s at 0.5 m/s, 25.5 s at 1 m/s, 15.8 s at 2 m/s, offsets at alarm 18.7 to 27.1 m; 0.1 m/s missed. In the 32 s window (sitl1) only 1 and 2 m/s drifts are detected. See "Prior bound channel and baselines (v1.4.0)" below |
+| Compared with reference detectors | **Done for SIMULATED and SIH + INJECTED** with reimplemented baselines (EKF2 style gate, window consistency, signal monitor). A plain window test is faster on drift and false alarms more; Marsad holds a far smaller navigation error after a jump or replay. `docs/BASELINES.md`. No baseline was run in PX4 itself and none was scored on a REAL LOG |
 | Works on a real flight controller | **NOT validated** |
 | ROS 2 node | A CI job runs `scripts/ros2_smoke.py` with a real rclpy runtime under ROS 2 humble on synthetic messages; it passes since 2026-10-17. Never run on a robot |
 | Real GNSS spoofing/jamming data | **NOT used** |
@@ -258,12 +259,27 @@ DEGRADED starts below P(nominal) 0.5 and drift evidence accrues above z = 2. The
 "GNSS agrees with the reference" evidence also accrues at its intended rate now, which keeps P(nominal) slightly
 higher. This is still the false alarm side only; the flights contain no attack and their reference is contaminated.
 
+## Prior bound channel and baselines (v1.4.0)
+
+**Labels: SIMULATED, SIH + INJECTED.** The change and its predictions were committed before any engine code
+([research/PREREGISTRATION_PRIOR_BOUND.md](research/PREREGISTRATION_PRIOR_BOUND.md)); the outcome table there lists
+ten hits, three misses (two of them on rows that improved) and one row not scored.
+
+* The velocity consistent 0.25 m/s drift on `sitl2.ulg`, missed by v1.3.0, is detected 4/4 with a median of 113.6 s
+  (`docs/results/prior_bound/sih_inject_long.txt`). 0.1 m/s is still missed, as predicted.
+* SIMULATED held out results are unchanged in detection and latency; `spoof_drift_stealth` is 58.0 s (58.3 s before).
+  Nominal and obstruction runs reach DENIED in 0% of runs and multipath in 3%
+  (`docs/results/prior_bound/heldout.md`).
+* One detectability cell got worse: reference bias 0.08 m/s, drift 0.15 m/s, 100% to 94% (15 of 16 runs).
+* Engine cost on one cloud core: 243 us per sample (`docs/results/prior_bound/throughput.json`; a different machine
+  from the Windows laptop figures above, so the two are not comparable).
+* Not run: REAL LOG replay of the v1.4.0 engine. `marsad replay flight1.ulg` and `flight2.ulg` still need to be run
+  by the author, who holds the files.
+
 ## The path from here
 
-1. **Evidence weighting for mixed sample rates**: fixed and rerun against preregistered predictions (above). Still
-   open: the bias estimator can absorb part of a velocity consistent drift, and it learns only on fixes that share a
-   sample with the reference. Real-log replay on clean flights is done (two logs); more logs, including GNSS
-   degraded ones, are still needed.
+1. **Detection gaps** are ranked in [ROADMAP.md](ROADMAP.md). Real-log replay on clean flights is done (two logs, v1.3.0
+   engine); more logs, including GNSS degraded ones, and a replay of the v1.4.0 engine are still needed.
 2. **Real interference logs.** Any logged episode of known jamming/spoofing (with ground truth from a controlled
    test, or a cooperating range). Measure detection latency against the PX4 `jamming_state`/`spoofing_state`
    flags the receiver itself reports.
