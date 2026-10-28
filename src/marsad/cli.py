@@ -125,7 +125,11 @@ def main(argv=None) -> int:
 def _engine_config(a):
     from .config import load_config, preset
 
-    return load_config(a.config) if getattr(a, "config", None) else preset(a.preset)
+    try:
+        return load_config(a.config) if getattr(a, "config", None) else preset(a.preset)
+    except (OSError, ValueError, KeyError) as e:
+        print(f"error: {e}", file=sys.stderr)
+        raise SystemExit(2) from None
 
 
 def _monitor(a) -> int:
