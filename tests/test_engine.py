@@ -1,5 +1,7 @@
 import math
 
+import numpy as np
+
 from marsad import NavAction, NavSample, RefMotion, TrustEngine, TrustState, preset
 from marsad.sim import generate
 
@@ -81,15 +83,14 @@ def test_no_gnss_at_all_does_not_crash():
     eng = TrustEngine()
     for i in range(50):
         rep = eng.update(NavSample(t=i * 0.2, gnss=None, ref=RefMotion(t=i * 0.2, ve=1.0, vn=0.0)))
-    assert rep.state in (TrustState.DENIED, TrustState.TRUSTED, TrustState.DEGRADED)
+    # no fix and no history to fall back on: the engine must say so rather than claim trust
+    assert rep.state == TrustState.DENIED and rep.action.name == "HOLD_AND_ALERT"
 
 
 def test_determinism():
     a = generate("spoof_drift", 7, "dev")
     b = generate("spoof_drift", 7, "dev")
-    assert a.obs_e.tolist() == b.obs_e.tolist() or all(
-        (x == y) or (math.isnan(x) and math.isnan(y)) for x, y in zip(a.obs_e, b.obs_e)
-    )
+    assert np.array_equal(a.obs_e, b.obs_e, equal_nan=True)
     assert generate("spoof_drift", 8, "dev").params != a.params
 
 
