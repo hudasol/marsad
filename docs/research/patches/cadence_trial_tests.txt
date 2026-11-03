@@ -1,0 +1,85 @@
+
+# tests/test_engine_cadence.py (new file in the trial)
+from marsad import TrustEngine, preset
+from marsad.types import GnssFix, NavSample, RefMotion, TrustState
+
+
+def fix(t: float) -> NavSample:
+    g = GnssFix(
+        t=t,
+        lat=24.4539,
+        lon=54.3773,
+        alt=50.0,
+        ve=0.0,
+        vn=0.0,
+        cn0_mean=42.0,
+        cn0_std=3.0,
+        n_sats=12,
+        agc=0.3,
+        hdop=0.9,
+    )
+    return NavSample(t=t, gnss=g)
+
+
+def run(times):
+    eng = TrustEngine(preset("uav_multirotor"))
+    states = []
+    for t in times:
+        states.append(eng.update(fix(t)).state)
+    return eng, states
+
+
+def test_one_missed_epoch_at_one_hz_is_not_a_loss():
+    # 1 Hz fixes with a 10 Hz reference between them, as in a PX4 log; the fix at 30 s is missing (a 2 s gap)
+    eng = TrustEngine(preset("uav_multirotor"))
+    states = []
+    for k in range(400):
+        t = k * 0.1
+        ref = RefMotion(t=t, ve=0.0, vn=0.0, sigma=0.1)
+        has_fix = k % 10 == 0 and k != 300
+        s = fix(t) if has_fix else NavSample(t=t)
+        s.ref = ref
+        states.append(eng.update(s).state)
+    assert all(s == TrustState.TRUSTED for s in states[250:])
+    assert eng._gap_timeout() == 3.0
+
+
+def test_same_gap_at_five_hz_is_still_a_loss():
+    times = [i * 0.2 for i in range(200)]
+    gap_start = times.index(20.0)
+    times = times[:gap_start] + [t for t in times[gap_start:] if t >= 22.0]
+    eng, states = run(times)
+    assert eng._gap_timeout() == 1.5
+    i = [k for k, t in enumerate(times) if t >= 22.0][0]
+    assert states[i - 1] == TrustState.TRUSTED
+    # the engine is told only when the fix returns, but the gap exceeded the configured timeout
+    eng2 = TrustEngine(preset("uav_multirotor"))
+    for t in times[:i]:
+        eng2.update(fix(t))
+    rep = eng2.update(NavSample(t=21.9))  # a tick without a fix inside the gap
+    assert rep.state == TrustState.DENIED
+
+
+def test_timeout_is_capped():
+    eng, _ = run([i * 10.0 for i in range(10)])  # 0.1 Hz
+    assert eng._gap_timeout() == 6.0
+
+
+def test_no_loss_evidence_before_the_first_fix():
+    eng = TrustEngine(preset("uav_multirotor"))
+    for k in range(120):  # 60 s of samples without a fix
+        eng.update(NavSample(t=k * 0.5))
+    rep = eng.update(fix(60.0))
+    assert rep.probs["jamming"] < 0.2
+    assert eng.fusion is not None
+
+
+def test_loss_evidence_still_accrues_after_a_fix_was_seen():
+    eng = TrustEngine(preset("uav_multirotor"))
+    for k in range(60):
+        eng.update(fix(k * 0.2))
+    rep = None
+    for k in range(120):
+        rep = eng.update(NavSample(t=12.0 + k * 0.5))
+    assert rep is not None and rep.state == TrustState.DENIED
+    assert rep.probs["jamming"] > 0.3

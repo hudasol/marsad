@@ -1,0 +1,142 @@
+diff --git a/src/marsad/config.py b/src/marsad/config.py
+index 31d9742..88960d6 100644
+--- a/src/marsad/config.py
++++ b/src/marsad/config.py
+@@ -30,6 +30,10 @@ class EngineConfig:
+     cn0_std_prior: float = 3.0
+     nsat_prior: float = 12.0
+     gnss_gap_timeout: float = 1.5  # s without a usable fix => loss
++    gap_cadence_factor: float = 3.0  # loss timeout is at least this many median fix intervals ...
++    gap_cadence_window: int = 20  # ... of the last this many usable fixes ...
++    gap_cadence_min_fixes: int = 5  # ... once this many fixes have been seen ...
++    gap_cadence_cap_s: float = 6.0  # ... and never longer than this
+     warmup_s: float = 20.0
+ 
+     # --- detector tunables -------------------------------------------------
+diff --git a/src/marsad/detectors/base.py b/src/marsad/detectors/base.py
+index bf57828..331164e 100644
+--- a/src/marsad/detectors/base.py
++++ b/src/marsad/detectors/base.py
+@@ -27,6 +27,8 @@ class Context:
+     ref_bias_eff: float = 0.08  # bias bound to use for this sample (tightened once bias is estimated)
+     ref_noise_eff: float = 0.2
+     gnss_gap: float = 0.0  # seconds since last usable fix
++    gap_timeout: Optional[float] = None  # loss timeout in force for this receiver's cadence (None = config value)
++    had_fix: bool = True  # a usable fix has been seen since the engine started
+     state: TrustState = TrustState.TRUSTED
+     p_nominal: float = 1.0
+     warmup: bool = True
+diff --git a/src/marsad/detectors/signal.py b/src/marsad/detectors/signal.py
+index 36ef00b..7397f19 100644
+--- a/src/marsad/detectors/signal.py
++++ b/src/marsad/detectors/signal.py
+@@ -47,7 +47,8 @@ class SignalDetector:
+         c = self.cfg
+         out: list[Evidence] = []
+         # --- loss of fix (accrues with elapsed time, on every sample) ----------
+-        if ctx.gnss_gap > c.gnss_gap_timeout:
++        timeout = c.gnss_gap_timeout if ctx.gap_timeout is None else ctx.gap_timeout
++        if ctx.gnss_gap > timeout and ctx.had_fix:  # never having had a fix is not a lost fix
+             r = 2.5 * ctx.dt
+             out.append(
+                 Evidence(
+diff --git a/src/marsad/engine.py b/src/marsad/engine.py
+index a24ba04..778791c 100644
+--- a/src/marsad/engine.py
++++ b/src/marsad/engine.py
+@@ -6,8 +6,10 @@ Feed NavSample objects in time order; get a TrustReport per sample.
+ from __future__ import annotations
+ 
+ import bisect
++import collections
+ import dataclasses
+ import math
++import statistics
+ from typing import Any, Optional
+ 
+ from .config import EngineConfig, preset
+@@ -74,6 +76,7 @@ class TrustEngine:
+         self.ref_sigma = None
+         # gnss bookkeeping
+         self.fix_t: Optional[float] = None
++        self._fix_dts: collections.deque[float] = collections.deque(maxlen=self.cfg.gap_cadence_window)
+         self.last_good: Optional[tuple] = None  # (t, e, n) last position while TRUSTED
+         # anchor: smoothed (p_gnss - c) while trusted, with history for rewind
+         self.anchor: Optional[tuple] = None  # (e, n) or None
+@@ -118,7 +121,7 @@ class TrustEngine:
+         self.probs = self.fusion.step(dt, ev)
+         self.p_nom = self.probs[H.NOMINAL.value]
+         prev_state = self.state
+-        self._advance_state(t, gap, reacq_ok)
++        self._advance_state(t, gap, reacq_ok, g is not None)
+         self._learn(ctx, prev_state, g, ref, ref_ok, pe, pn, gdt, t)
+         return self._report(t, g, pe, pn, ev, offset_m, ref_ok, warm)
+ 
+@@ -146,7 +149,6 @@ class TrustEngine:
+ 
+     def _locate(self, g: Optional[GnssFix], t: float) -> tuple[float, float, float, float]:
+         """Local position of the fix, the per fix step and the time since the last usable fix."""
+-        cfg = self.cfg
+         if g is not None and self.frame is None:
+             self.frame = LocalFrame(g.lat, g.lon)
+         pe = pn = 0.0
+@@ -154,7 +156,9 @@ class TrustEngine:
+         if g is not None and self.frame is not None:
+             pe, pn = self.frame.to_local(g.lat, g.lon)
+             if self.fix_t is not None:
+-                gdt = min(max(t - self.fix_t, 0.0), cfg.gnss_gap_timeout)
++                gdt = min(max(t - self.fix_t, 0.0), self._gap_timeout())
++                if t > self.fix_t:
++                    self._fix_dts.append(t - self.fix_t)
+             self.fix_t = t
+         gap = (
+             0.0
+@@ -163,6 +167,17 @@ class TrustEngine:
+         )
+         return pe, pn, gdt, gap
+ 
++    def _gap_timeout(self) -> float:
++        """Seconds without a usable fix that count as loss: the configured value, or 3 median fix intervals if longer.
++
++        A receiver at 5 Hz or faster keeps the configured value; a 1 Hz receiver that misses one epoch is not lost.
++        """
++        cfg = self.cfg
++        if len(self._fix_dts) < cfg.gap_cadence_min_fixes:
++            return cfg.gnss_gap_timeout
++        m = statistics.median(self._fix_dts)
++        return min(cfg.gap_cadence_cap_s, max(cfg.gnss_gap_timeout, cfg.gap_cadence_factor * m))
++
+     def _integrate_reference(self, ref: Optional[RefMotion], t: float) -> tuple[Optional[RefMotion], bool]:
+         """Integrate the reference velocity (corrected and uncorrected) and decide whether it is usable now."""
+         cfg = self.cfg
+@@ -216,6 +231,8 @@ class TrustEngine:
+             ref_ok=ref_ok,
+             ref_valid_since=self.ref_valid_since,
+             gnss_gap=gap,
++            gap_timeout=self._gap_timeout(),
++            had_fix=self.fix_t is not None,
+             ref_bias_eff=(
+                 cfg.ref_bias_residual if (cfg.bias_est and self.bias_s >= cfg.bias_min_s) else cfg.ref_bias_bound
+             ),
+@@ -397,10 +414,10 @@ class TrustEngine:
+         self.unverifiable = False
+         return offset_m <= allowed
+ 
+-    def _advance_state(self, t: float, gap: float, reacq_ok: bool) -> None:
++    def _advance_state(self, t: float, gap: float, reacq_ok: bool, has_fix: bool) -> None:
+         cfg, p = self.cfg, self.probs
+         p_spoof = p[H.SPOOF_JUMP.value] + p[H.SPOOF_DRIFT.value] + p[H.REPLAY.value]
+-        lost = gap > cfg.gnss_gap_timeout
++        lost = gap > self._gap_timeout()
+         if p_spoof >= cfg.deny_spoof_above or p[H.JAM.value] >= cfg.deny_jam_above or lost:
+             target = TrustState.DENIED
+         elif self.p_nom < cfg.degrade_below:
+@@ -420,6 +437,8 @@ class TrustEngine:
+             self._down_since = None
+             return
+         if _ORDER[target] < _ORDER[cur]:
++            if not has_fix:  # a tick without a fix verifies nothing: it neither starts nor clears the dwell timer
++                return
+             if not reacq_ok:
+                 self._down_since = None
+                 return

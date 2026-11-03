@@ -88,4 +88,50 @@ subset gets worse (more flights with an alarm than before).
 
 ## Outcome
 
-Empty until scored.
+Scored 2026-11-03 (UTC+4). The trial engine (changes 1 to 3) was run once on the 101 scoring flights, on the held out SIMULATED family and on the design subset. Label: REAL LOG for the corpus rows, SIMULATED for the held out rows. Results are in `docs/results/cadence_trial_real_corpus/`, `docs/results/cadence_trial_design_c12/`, `docs/results/cadence_trial_design_c123/` and `docs/results/cadence_trial_simulated/`. The code diff is `docs/research/patches/cadence_trial.patch` and the tests are in `docs/research/patches/cadence_trial_tests.txt`.
+
+| Row | Result | Verdict |
+|---|---|---|
+| C1 | `check_heldout.py` style comparison shows 480 differing fields; jam_soft denial share moved as expected, but 7 spoofing runs have a first alarm 0.2 s later and one `spoof_drift_ref_outage` run changed its label from drift to jump | MISS |
+| C2 | design subset: 9 of 30 flights with an alarm with changes 1 and 2, and 9 of 30 with changes 1 to 3 (was 10); predicted at most 7 | MISS |
+| C3 | scoring set: 62 of 101 flights 100% TRUSTED (61.4%, 95% interval 51.2% to 70.9%); predicted at least 68 | MISS |
+| C4 | scoring set: 38 of 101 flights with a DENIED sample (37.6%, interval 28.2% to 47.8%); predicted at most 32 | MISS |
+| C5 | plain gate alarms on 25 of 101 flights, Marsad on 39 (47 with v1.4.0); the gate still alarms on fewer | HIT |
+| C6 | not run: the REAL LOG + INJECTED study was run with the v1.4.0 engine only, because the trial was not adopted (see below) | NOT SCORED |
+
+Other measured changes. Alarm episodes per flight hour rose from 3.03 to 4.17, which is worse: the denial was split into more, shorter episodes. The paired comparison with the plain gate did not change in direction (McNemar exact p 0.009 with 20 flights where only Marsad alarms and 6 where only the gate alarms, against 25 and 3 before).
+
+Kill criteria. The amended criterion required that no attack scenario lose detection. Seven held out spoofing runs have a first alarm one tick (0.2 s) later, their alarm fraction fell by about 0.05 percentage points, and one label changed. These are small, but they are in the direction the criterion forbids, so I read it as triggered. Where the wording is ambiguous the weaker claim is taken.
+
+Decision. The engine change is not adopted. The release engine keeps v1.4.0 behaviour, the working tree changes were removed in the same step, and the diff is kept as a record. The study is reported as a partial negative: the mechanism diagnosis was right for 8 flights (54 to 62 flights fully trusted) but it did not reach the predicted size, did not improve the design subset beyond one flight, and the largest group of alarms (fix loss under 3 s on 1 Hz receivers, 26 flights) is still present in the corpus numbers of the release. This matters for the headline: the real flight false alarm rate reported in the README is the v1.4.0 value.
+
+Not independent: the causes were diagnosed on the scoring flights as well as on the design subset, so C3 and C4 were partly in sample and would be expected to look better than a fresh set. They still missed.
+
+## Amendment 1, 2026-11-03: a third change, found on the design subset
+
+Before any scoring flight was run with the new engine, the design subset was replayed with changes 1 and 2
+(`docs/results/real_corpus_v15_design/`). Flights with an alarm fell from 10 to 9 of 30, so prediction C2 (at most 7)
+was missed on the design data. Reading the four flights that stayed alarmed (`HNBQ_KAKUTEH7`, `AUAV_H9`, `HEX_MBV2`,
+`ED_ASBNN`; all in the design subset) showed a mechanism I had attributed to the reacquisition cap but that is simpler:
+the engine says P(nominal) is 0.96 and still stays DENIED or DEGRADED for the whole flight.
+
+Cause: the dwell timer that lets the state recover (`_down_since`) is cleared on every tick that carries no GNSS fix,
+because a tick without a fix cannot "verify re-acquisition". In a PX4 log the reference arrives between fixes, so about
+nine ticks in ten carry no fix at 1 Hz and the timer is cleared before it can run. The simulator and the SIH logs used
+in earlier packages put a fix in nearly every sample, so the defect never showed there.
+
+Change 3: a tick without a fix carries no new information for the recovery decision. It neither starts nor clears the
+dwell timer, and the decision is taken only on ticks with a fix. A failed verification on a fix still clears the timer.
+
+Consequences stated in advance:
+
+* This changes behaviour wherever a simulated or injected run has isolated invalid fixes while the state is recovering
+  (the jamming and obstruction scenarios). Time to recover after such a scenario may become shorter. The SIMULATED
+  tables are therefore regenerated in the commit that makes the change, and `check_heldout.py` is expected to show
+  differences. The kill criterion on `check_heldout.py` is replaced for this change by: no attack scenario may lose
+  detection (latency of first alarm and fraction of attack time alarmed for the spoofing scenarios must not fall), and no
+  nominal or benign scenario may gain an alarm.
+* SIH + INJECTED results of `sitl1.ulg` and `sitl2.ulg` cannot be regenerated here (the logs are not in this
+  environment); their tables stay labelled as produced by the v1.4.0 engine.
+* Prediction C2 is not amended; its miss on the design subset stays on the record and C3 and C4 are scored as
+  written, on the scoring set, with all three changes.
