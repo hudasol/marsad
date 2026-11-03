@@ -101,19 +101,50 @@ class TrustEngine:
 
     # ------------------------------------------------------------- main step
     def update(self, s: NavSample) -> TrustReport:
-        cfg, t = self.cfg, s.t
+        """One step: clean the input, integrate the reference, gather evidence, fuse, move the state, learn."""
+        t = s.t
         if not math.isfinite(t):
             raise ValueError("sample time must be finite")
+        dt = self._tick(t)
+        g, ref = self._clean_input(s)
+        pe, pn, gdt, gap = self._locate(g, t)
+        ref, ref_ok = self._integrate_reference(ref, t)
+        warm = (t - self.t0) < self.cfg.warmup_s
+        ctx = self._context(t, dt, gdt, g, ref, pe, pn, gap, ref_ok, warm)
+        ev = self._collect_evidence(ctx)
+        offset_m, reacq_ok = self._continuity_evidence(ev, g, pe, pn, gdt, t)
+        self.probs = self.fusion.step(dt, ev)
+        self.p_nom = self.probs[H.NOMINAL.value]
+        prev_state = self.state
+        self._advance_state(t, gap, reacq_ok)
+        self._learn(ctx, prev_state, g, ref, ref_ok, pe, pn, gdt, t)
+        return self._report(t, g, pe, pn, ev, offset_m, ref_ok, warm)
+
+    # ----------------------------------------------------------- update stages
+    def _tick(self, t):
+        """Start time and the clamped step since the previous sample."""
         if self.t0 is None:
             self.t0 = t
-        dt = 0.0 if self.t_last is None else min(max(t - self.t_last, 0.0), 5.0)
+        dt = 0.0 if self.t_last is None else min(max(t - self.t_last, 0.0), self.cfg.dt_max_s)
         self.t_last = t
+        return dt
 
+    def _clean_input(self, s):
+        """Input cleaning: a fix of type 3 or better that is finite and in range, and a finite reference."""
         g = s.gnss if (s.gnss is not None and s.gnss.fix_type >= 3) else None
         if g is not None:
             g = _clean_fix(g)
             if g is None:
                 self.n_rejected += 1
+        ref = s.ref
+        if ref is not None and not (math.isfinite(ref.ve) and math.isfinite(ref.vn)):
+            ref = None
+            self.n_rejected += 1
+        return g, ref
+
+    def _locate(self, g, t):
+        """Local position of the fix, the per fix step and the time since the last usable fix."""
+        cfg = self.cfg
         if g is not None and self.frame is None:
             self.frame = LocalFrame(g.lat, g.lon)
         pe = pn = 0.0
@@ -124,12 +155,11 @@ class TrustEngine:
                 gdt = min(max(t - self.fix_t, 0.0), cfg.gnss_gap_timeout)
             self.fix_t = t
         gap = 0.0 if (g is not None) else (t - self.fix_t if self.fix_t is not None else t - self.t0)
+        return pe, pn, gdt, gap
 
-        # reference integration -------------------------------------------------
-        ref = s.ref
-        if ref is not None and not (math.isfinite(ref.ve) and math.isfinite(ref.vn)):
-            ref = None
-            self.n_rejected += 1
+    def _integrate_reference(self, ref, t):
+        """Integrate the reference velocity (corrected and uncorrected) and decide whether it is usable now."""
+        cfg = self.cfg
         if ref is not None and ref.quality is not None and ref.quality < cfg.ref_min_quality:
             ref = None  # tracking lost: treat as a reference gap, never integrate it
         if ref is not None:
@@ -149,9 +179,11 @@ class TrustEngine:
         ref_ok = self.ref_t is not None and (t - self.ref_t) <= cfg.ref_timeout
         if not ref_ok:
             self.anchor_valid = False
+        return ref, ref_ok
 
-        warm = (t - self.t0) < cfg.warmup_s
-        ctx = Context(
+    def _context(self, t, dt, gdt, g, ref, pe, pn, gap, ref_ok, warm):
+        cfg = self.cfg
+        return Context(
             t=t,
             dt=dt,
             gnss_dt=gdt,
@@ -175,19 +207,28 @@ class TrustEngine:
             warmup=warm,
         )
 
+    def _collect_evidence(self, ctx):
+        """Evidence from every detector, with long drift windows not blamed on a takeover jump."""
+        cfg, t = self.cfg, ctx.t
         ev: list[Evidence] = []
         for d in self.detectors:
             ev.extend(d.update(ctx))
         for e in ev:  # a takeover jump makes the long drift windows light up for minutes:
-            if e.kind == "position_jump" and e.weight > 2.0:  # attribute that to the jump, not to a drift
+            if e.kind == "position_jump" and e.weight > cfg.jump_attribution_weight:  # attribute that to the jump
                 self._last_jump_t = t
-        if t - self._last_jump_t < 1.7 * max(self.cfg.drift_windows):
+        if t - self._last_jump_t < cfg.jump_attribution_windows * max(cfg.drift_windows):
             for e in ev:
                 if e.kind == "gnss_vs_reference_drift":
                     r = e.llr.get(H.SPOOF_DRIFT, 0.0)
-                    e.llr = {H.SPOOF_JUMP: r, H.REPLAY: 0.3 * r}
+                    e.llr = {H.SPOOF_JUMP: r, H.REPLAY: cfg.jump_replay_share * r}
+        return ev
 
-        # persistent offset against dead-reckoned continuation (used while not trusted)
+    def _continuity_evidence(self, ev, g, pe, pn, gdt, t):
+        """Evidence from the dead reckoned continuation of the last trusted track (appended to ev).
+
+        Returns the offset of the fix from that continuation and whether re-acquisition is acceptable.
+        """
+        cfg = self.cfg
         offset_m = None
         dr = self._dead_reckon(t)
         if g is not None and dr is not None:
@@ -203,10 +244,10 @@ class TrustEngine:
                 Evidence(
                     "engine",
                     "persistent_offset",
-                    {hp: 1.2 * gdt},
+                    {hp: cfg.persistent_offset_rate * gdt},
                     f"GNSS is {offset_m:.0f} m from the dead-reckoned continuation of the last trusted track",
                     offset_m,
-                    1.2 * gdt,
+                    cfg.persistent_offset_rate * gdt,
                 )
             )
 
@@ -214,14 +255,14 @@ class TrustEngine:
         if verified:
             if self._verified_since is None:
                 self._verified_since = t
-            elif t - self._verified_since >= 10.0 and not self._cut_done:
+            elif t - self._verified_since >= cfg.verify_hold_s and not self._cut_done:
                 self.inertial.reset()  # drop windows that straddle the (now resolved) event
                 self._cut_done = True
         else:
             self._verified_since = None
             self._cut_done = False
-        if verified and self.inertial.last_z_short < 1.0:
-            r = -2.0 * gdt  # independent proof of continuity with the dead-reckoned track
+        if verified and self.inertial.last_z_short < cfg.verify_z_max:
+            r = cfg.verified_rate * gdt  # independent proof of continuity with the dead-reckoned track
             ev.append(
                 Evidence(
                     "engine",
@@ -232,14 +273,12 @@ class TrustEngine:
                     0.0,
                 )
             )
-        self.probs = self.fusion.step(dt, ev)
-        self.p_nom = self.probs[H.NOMINAL.value]
+        return offset_m, reacq_ok
 
-        prev_state = self.state
-        self._advance_state(t, gap, reacq_ok)
-
-        # learning / anchoring only from clean, trusted data ------------------
-        if self.state == TrustState.TRUSTED and prev_state == TrustState.TRUSTED and self.p_nom > 0.9:
+    def _learn(self, ctx, prev_state, g, ref, ref_ok, pe, pn, gdt, t):
+        """Learning and anchoring, only from clean trusted data; freeze the anchor when trust is lost."""
+        cfg = self.cfg
+        if self.state == TrustState.TRUSTED and prev_state == TrustState.TRUSTED and self.p_nom > cfg.learn_p_nominal:
             for d in self.detectors:
                 d.learn(ctx)
             if (
@@ -253,7 +292,7 @@ class TrustEngine:
                 and gdt > 0
             ):
                 a = min(1.0, max(gdt / cfg.bias_tau, gdt / (self.bias_s + gdt)))  # running mean first, slow EWMA later
-                lim = 1.5 * cfg.ref_bias_bound
+                lim = cfg.bias_limit_factor * cfg.ref_bias_bound
                 be = self.bias[0] + a * ((ref.ve - g.ve) - self.bias[0])
                 bn = self.bias[1] + a * ((ref.vn - g.vn) - self.bias[1])
                 self.bias = [max(-lim, min(lim, be)), max(-lim, min(lim, bn))]
@@ -262,12 +301,10 @@ class TrustEngine:
                 self.last_good = (t, pe, pn)
                 if ref_ok:
                     self._update_anchor(t, gdt, pe - self.ce, pn - self.cn)
-        if self.fusion.attack_onset_evidence() < 0.5 and self.state == TrustState.TRUSTED:
+        if self.fusion.attack_onset_evidence() < cfg.clean_onset_below and self.state == TrustState.TRUSTED:
             self.last_clean_t = t
         if prev_state == TrustState.TRUSTED and self.state != TrustState.TRUSTED:
             self._freeze_anchor(t)
-
-        return self._report(t, g, pe, pn, ev, offset_m, ref_ok, warm)
 
     # ----------------------------------------------------------------- helpers
     def _update_anchor(self, t, dt, oe, on):
@@ -279,13 +316,13 @@ class TrustEngine:
             self._ah_t.clear()
             self._ah.clear()
         else:
-            a = min(1.0, dt / 10.0) if dt > 0 else 0.0
+            a = min(1.0, dt / self.cfg.anchor_tau_s) if dt > 0 else 0.0
             self.anchor = (self.anchor[0] + a * (oe - self.anchor[0]), self.anchor[1] + a * (on - self.anchor[1]))
         self._ah_t.append(t)
         self._ah.append(self.anchor)
-        if len(self._ah_t) > 3000:
-            del self._ah_t[:1000]
-            del self._ah[:1000]
+        if len(self._ah_t) > self.cfg.anchor_history_max:
+            del self._ah_t[: self.cfg.anchor_history_trim]
+            del self._ah[: self.cfg.anchor_history_trim]
 
     def _freeze_anchor(self, t):
         if not self.anchor_valid or not self._ah_t:
@@ -322,7 +359,7 @@ class TrustEngine:
         if self.state == TrustState.TRUSTED:
             return True
         dtt = max(t - self.dr_t0, 0.0)
-        allowed = 3.0 * cfg.sigma_pos + 1.25 * cfg.ref_bias_bound * dtt
+        allowed = cfg.reacq_sigma_factor * cfg.sigma_pos + cfg.reacq_bias_factor * cfg.ref_bias_bound * dtt
         if allowed > cfg.reacq_cap_m:
             self.unverifiable = True
             return False
@@ -341,7 +378,7 @@ class TrustEngine:
             target = TrustState.DEGRADED
         else:
             target = TrustState.TRUSTED
-        if p_spoof > 0.2:
+        if p_spoof > cfg.spoof_hold_trigger:
             self._spoof_hold_until = t + cfg.spoof_hold_s
         cur = self.state
         if _ORDER[target] < _ORDER[cur] and target == TrustState.TRUSTED and t < self._spoof_hold_until:
@@ -366,14 +403,15 @@ class TrustEngine:
             self._down_since = None
 
     def _report(self, t, g, pe, pn, ev, offset_m, ref_ok, warm) -> TrustReport:
+        cfg = self.cfg
         probs = self.probs
         non_nom = {k: v for k, v in probs.items() if k != H.NOMINAL.value}
         dh = (
             H.REPLAY
-            if (self.replay.lag is not None and self.fusion.T[H.REPLAY] > 0 and self.p_nom < 0.95)
+            if (self.replay.lag is not None and self.fusion.T[H.REPLAY] > 0 and self.p_nom < cfg.replay_report_below)
             else self.fusion.dominant()
         )
-        if self.p_nom >= 0.95:
+        if self.p_nom >= cfg.none_report_above:
             dominant = "none"
         elif dh is not None:
             dominant = dh.value
@@ -397,20 +435,20 @@ class TrustEngine:
             pos = self.last_good[1:] if self.last_good else (None, None)
         trust = self.p_nom
         if self.state == TrustState.DEGRADED:
-            trust = min(trust, 0.49)
+            trust = min(trust, cfg.trust_cap_degraded)
         elif self.state == TrustState.DENIED:
-            trust = min(trust, 0.14)
+            trust = min(trust, cfg.trust_cap_denied)
         # recent, de-duplicated evidence for explanation
         for e in ev:
-            if e.weight > 0.02 and e.llr and max(e.llr.values()) > 0:
+            if e.weight > cfg.explain_min_weight and e.llr and max(e.llr.values()) > 0:
                 self._recent.append((t, e))
-        self._recent = [(tt, e) for tt, e in self._recent if t - tt <= 15.0][-200:]
+        self._recent = [(tt, e) for tt, e in self._recent if t - tt <= cfg.explain_window_s][-cfg.explain_keep :]
         best: dict = {}
         for _tt, e in self._recent:
             k = (e.detector, e.kind)
             if k not in best or e.weight > best[k].weight:
                 best[k] = e
-        top = sorted(best.values(), key=lambda e: -e.weight)[:4]
+        top = sorted(best.values(), key=lambda e: -e.weight)[: cfg.explain_top]
         lat = lon = None
         if pos[0] is not None and self.frame is not None:
             lat, lon = self.frame.to_geo(pos[0], pos[1])

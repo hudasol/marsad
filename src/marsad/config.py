@@ -73,6 +73,33 @@ class EngineConfig:
     reacq_cap_m: float = 60.0  # beyond this dead-reckoning uncertainty, re-acquisition is unverifiable
     rewind_margin_s: float = 3.0  # anchor rewind margin before first suspicious evidence
 
+    # --- engine bookkeeping (values unchanged from version 1.4.0; moved out of the update method) -------------------
+    dt_max_s: float = 5.0  # s, largest time step the engine integrates over
+    jump_attribution_weight: float = 2.0  # a position jump heavier than this explains the drift windows lighting up
+    jump_attribution_windows: float = 1.7  # ... for this multiple of the longest drift window
+    jump_replay_share: float = 0.3  # share of that drift evidence passed to the replay hypothesis
+    persistent_offset_rate: float = 1.2  # evidence per second while GNSS sits off the dead reckoned track
+    verify_hold_s: float = 10.0  # s of verified agreement before the inertial windows are cut
+    verify_z_max: float = 1.0  # short window z below which agreement counts as independent proof
+    verified_rate: float = -2.0  # evidence per second against every attack hypothesis while verified
+    learn_p_nominal: float = 0.9  # learn and anchor only while P(nominal) is above this
+    bias_limit_factor: float = 1.5  # estimated bias is clipped to this multiple of the prior bound
+    anchor_tau_s: float = 10.0  # s, smoothing time of the anchor
+    anchor_history_max: int = 3000  # entries kept for the anchor rewind
+    anchor_history_trim: int = 1000  # entries dropped when the history is full
+    clean_onset_below: float = 0.5  # onset evidence below this counts as clean for the rewind point
+    reacq_sigma_factor: float = 3.0  # re-acquisition allowance: this many position sigmas ...
+    reacq_bias_factor: float = 1.25  # ... plus this multiple of the bias bound times the elapsed time
+    spoof_hold_trigger: float = 0.2  # spoof probability above this restarts the spoof hold timer
+    replay_report_below: float = 0.95  # P(nominal) below which a measured replay lag decides the reported class
+    none_report_above: float = 0.95  # P(nominal) at or above which no dominant class is reported
+    trust_cap_degraded: float = 0.49  # reported trust ceiling while DEGRADED
+    trust_cap_denied: float = 0.14  # reported trust ceiling while DENIED
+    explain_window_s: float = 15.0  # s, how long evidence stays available for the explanation
+    explain_keep: int = 200  # evidence entries kept
+    explain_top: int = 4  # evidence entries reported
+    explain_min_weight: float = 0.02  # weight below which evidence is not listed
+
     def with_(self, **kw) -> "EngineConfig":
         return replace(self, **kw)
 
