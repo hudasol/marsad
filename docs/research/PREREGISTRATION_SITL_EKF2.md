@@ -65,4 +65,31 @@ None; this is a measurement.
 
 ## Outcome
 
-Empty until scored.
+Scored on 2026-11-03 (UTC+4) with the v1.4.0 engine (commit b25b502, run from a separate checkout so that later engine
+changes did not enter). 48 runs (44 attack, 4 clean) at a simulator speed factor of 6, PX4 `fe24ec22` with the offset
+patch. Files: `docs/results/sitl_ekf2/{runs.json,summary.md}`. The PX4 logs (70 MB each, 3.3 GB) are not committed.
+Label: **SITL EKF2**. n is 4 per cell, so every share is one of 0, 0.25, 0.5, 0.75, 1 with a wide interval.
+
+| id | prediction | measured | result |
+|---|---|---|---|
+| E1 | jump of 1000 m: EKF2's estimate within 50 m of the shifted position 60 s after onset in at least 3 of 4 runs | EKF2 position error against truth was 1000 m at 60 s in 4 of 4 runs, i.e. EKF2 sat on the shifted position (it rejected the fixes for a few seconds, then accepted them) | **HIT** |
+| E2 | velocity consistent drift at 1.0 m/s: no EKF2 rejection run of 1 s or longer in at least 3 of 4 runs | 0 of 4 runs had a rejection run of 1 s or longer; EKF2 was carried 55 m at 60 s | **HIT** |
+| E3 | arm (a), velocity consistent drift at 1.0 m/s: Marsad detects in at most 2 of 4 runs, arm (b) in 4 of 4 | arm (a) 0 of 4, arm (b) 4 of 4 | **HIT** |
+| E4 | jumps of 200 m and 1000 m: Marsad detects in 4 of 4 runs in both arms | 4 of 4 in both arms, at 0.0 to 0.1 s | **HIT** |
+| E5 | clean runs: no Marsad alarm in 4 of 4 runs, both arms | 0 of 4 alarms in either arm; no baseline alarm before any onset | **HIT** |
+| E6 | arm (a), velocity consistent drift at 0.25 m/s: Marsad detects in at most 1 of 4 runs | 0 of 4 | **HIT** |
+
+What the study shows, beyond the table: when the reference is EKF2's own fused velocity, which the spoofed fixes
+drag along, Marsad v1.4.0 detected none of the 16 velocity consistent drift runs at 0.25 to 2.0 m/s, whereas it
+detected all 16 with the simulator truth reference. Position only drifts were detected at 0.5, 1.0 and 2.0 m/s in 4 of 4
+runs each (median latency 62.0, 34.6 and 19.4 s) and not at 0.25 m/s. The window consistency and stack baselines
+gave the same detections as Marsad on position only drifts at 0.5 m/s and above and none on velocity consistent
+drifts. The plain gate detected no drift at all. EKF2 itself never rejected a drifting fix for 1 s or longer. Jumps of 50
+to 1000 m were detected by every method within 0.1 s, while EKF2 accepted the shifted position after rejecting it for a
+few seconds. This is the central limit of the approach and goes into the README headline area: with a reference that
+is derived from the same fixes, a velocity consistent carry off is invisible.
+
+Deviation, 2026-11-03: the preregistration said the simulator speed factor "may be raised"; it was raised from 1 to 6,
+and one earlier test run at speed 3 (a jump of 200 m, heading 0) was used only to check the pipeline and is not in the
+results. A first version of the driver set integer parameters with the wrong bit pattern, so no offset was applied in
+the first two test runs; this was found before any scored run and fixed in `scripts/sitl_ekf2_spoof.py`.

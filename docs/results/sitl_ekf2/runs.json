@@ -1,0 +1,2844 @@
+{
+ "runs": [
+  {
+   "name": "clean_h0",
+   "case": "clean",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": null,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 1.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 1,
+     "longest_s": 1.0
+    },
+    "cs_gnss_fault_after_onset": false
+   }
+  },
+  {
+   "name": "clean_h180",
+   "case": "clean",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": null,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 0.6240000000000001
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 1,
+     "longest_s": 0.6240000000000001
+    },
+    "cs_gnss_fault_after_onset": false
+   }
+  },
+  {
+   "name": "clean_h270",
+   "case": "clean",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": null,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 1.128
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 1,
+     "longest_s": 1.128
+    },
+    "cs_gnss_fault_after_onset": false
+   }
+  },
+  {
+   "name": "clean_h90",
+   "case": "clean",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": null,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 1.128
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 1,
+     "longest_s": 1.128
+    },
+    "cs_gnss_fault_after_onset": false
+   }
+  },
+  {
+   "name": "drift0.25_h0_pos",
+   "case": "drift:0.25",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.78,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.112,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 57.864000000000004,
+     "stack": 57.864000000000004
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 0.7366762883741075,
+    "ekf_pos_err_m_at_30s": 5.70041476947304,
+    "ekf_pos_err_m_at_60s": 13.21427770704324,
+    "ekf_pos_err_m_at_120s": 28.158738763493016,
+    "ekf_pos_err_m_max_after": 46.15485983528006,
+    "ekf_pos_err_m_before": 0.10696005290484875
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h0_vel",
+   "case": "drift:0.25",
+   "heading": 0.0,
+   "velcons": true,
+   "onset_log_s": 125.116,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.652,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 57.775999999999996,
+     "stack": 57.775999999999996
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.2089660211798818,
+    "ekf_pos_err_m_at_30s": 6.300901564430301,
+    "ekf_pos_err_m_at_60s": 13.73143289015152,
+    "ekf_pos_err_m_at_120s": 28.75039591067687,
+    "ekf_pos_err_m_max_after": 46.790196232379465,
+    "ekf_pos_err_m_before": 0.09454126443947168
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h180_pos",
+   "case": "drift:0.25",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 126.056,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 112.716,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 56.33999999999999,
+     "stack": 56.33999999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 0.7547611052715694,
+    "ekf_pos_err_m_at_30s": 5.657222969712231,
+    "ekf_pos_err_m_at_60s": 13.248978174565815,
+    "ekf_pos_err_m_at_120s": 28.153940383764507,
+    "ekf_pos_err_m_max_after": 46.20175554654926,
+    "ekf_pos_err_m_before": 0.1065592863945503
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h180_vel",
+   "case": "drift:0.25",
+   "heading": 180.0,
+   "velcons": true,
+   "onset_log_s": 124.912,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.732,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 56.732,
+     "stack": 56.732
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.2262613910360818,
+    "ekf_pos_err_m_at_30s": 6.179588255773298,
+    "ekf_pos_err_m_at_60s": 13.750957664478502,
+    "ekf_pos_err_m_at_120s": 28.723811438756872,
+    "ekf_pos_err_m_max_after": 46.72301299928002,
+    "ekf_pos_err_m_before": 0.1128785949100611
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h270_pos",
+   "case": "drift:0.25",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 127.452,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 112.44800000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 57.44800000000001,
+     "stack": 57.44800000000001
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 0.8033279321257181,
+    "ekf_pos_err_m_at_30s": 5.687754899210584,
+    "ekf_pos_err_m_at_60s": 13.161298619189802,
+    "ekf_pos_err_m_at_120s": 28.18080341952529,
+    "ekf_pos_err_m_max_after": 46.352767972780306,
+    "ekf_pos_err_m_before": 0.11264818258043047
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h270_vel",
+   "case": "drift:0.25",
+   "heading": 270.0,
+   "velcons": true,
+   "onset_log_s": 126.228,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.41600000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 57.664,
+     "stack": 57.664
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.2519714399739368,
+    "ekf_pos_err_m_at_30s": 6.218876799688491,
+    "ekf_pos_err_m_at_60s": 13.72152802847303,
+    "ekf_pos_err_m_at_120s": 28.74834418666599,
+    "ekf_pos_err_m_max_after": 46.811816209958316,
+    "ekf_pos_err_m_before": 0.10919946016224763
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h90_pos",
+   "case": "drift:0.25",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 126.524,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.49199999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 56.744,
+     "stack": 56.744
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 0.7915222167983345,
+    "ekf_pos_err_m_at_30s": 5.6918157542566705,
+    "ekf_pos_err_m_at_60s": 13.177952348058476,
+    "ekf_pos_err_m_at_120s": 28.19412305378378,
+    "ekf_pos_err_m_max_after": 46.160000617571896,
+    "ekf_pos_err_m_before": 0.12522466550346753
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.25_h90_vel",
+   "case": "drift:0.25",
+   "heading": 90.0,
+   "velcons": true,
+   "onset_log_s": 126.308,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 113.33999999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 56.212,
+     "stack": 56.212
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.240951778287954,
+    "ekf_pos_err_m_at_30s": 6.21969908413102,
+    "ekf_pos_err_m_at_60s": 13.747794433337207,
+    "ekf_pos_err_m_at_120s": 28.74874399846515,
+    "ekf_pos_err_m_max_after": 46.86675114645918,
+    "ekf_pos_err_m_before": 0.09786337673607078
+   },
+   "case_rate": 0.25
+  },
+  {
+   "name": "drift0.5_h0_pos",
+   "case": "drift:0.5",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 124.436,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 61.95599999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 45.45599999999999,
+     "stack": 45.45599999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.708,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 31.45599999999999,
+     "stack": 31.45599999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.568077839591512,
+    "ekf_pos_err_m_at_30s": 11.386008514930156,
+    "ekf_pos_err_m_at_60s": 26.363646520329997,
+    "ekf_pos_err_m_at_120s": 56.3291922042745,
+    "ekf_pos_err_m_max_after": 92.45121014403443,
+    "ekf_pos_err_m_before": 0.1078904238563253
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h0_vel",
+   "case": "drift:0.5",
+   "heading": 0.0,
+   "velcons": true,
+   "onset_log_s": 125.684,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.96000000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 31.584000000000003,
+     "stack": 31.584000000000003
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 2.4195840570238527,
+    "ekf_pos_err_m_at_30s": 12.483969049951378,
+    "ekf_pos_err_m_at_60s": 27.4311513566975,
+    "ekf_pos_err_m_at_120s": 57.45369510612882,
+    "ekf_pos_err_m_max_after": 93.70440276662787,
+    "ekf_pos_err_m_before": 0.09877689176182117
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h180_pos",
+   "case": "drift:0.5",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 125.568,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 61.95200000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 45.32799999999999,
+     "stack": 45.32799999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.08,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 30.952000000000012,
+     "stack": 30.952000000000012
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.511806656286226,
+    "ekf_pos_err_m_at_30s": 11.30245397491444,
+    "ekf_pos_err_m_at_60s": 26.326222246610367,
+    "ekf_pos_err_m_at_120s": 56.309228031018925,
+    "ekf_pos_err_m_max_after": 92.27398246859404,
+    "ekf_pos_err_m_before": 0.11477788626772382
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h180_vel",
+   "case": "drift:0.5",
+   "heading": 180.0,
+   "velcons": true,
+   "onset_log_s": 125.972,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.17200000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 30.796000000000006,
+     "stack": 30.796000000000006
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 2.418705218600411,
+    "ekf_pos_err_m_at_30s": 12.41544087045894,
+    "ekf_pos_err_m_at_60s": 27.457735471579387,
+    "ekf_pos_err_m_at_120s": 57.47911105889943,
+    "ekf_pos_err_m_max_after": 93.49676914864907,
+    "ekf_pos_err_m_before": 0.08655532427248086
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h270_pos",
+   "case": "drift:0.5",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 128.028,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 64.644,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 44.144000000000005,
+     "stack": 44.144000000000005
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.391999999999996,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 30.391999999999996,
+     "stack": 30.391999999999996
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.6350109506364712,
+    "ekf_pos_err_m_at_30s": 11.432354978819678,
+    "ekf_pos_err_m_at_60s": 26.421155168133012,
+    "ekf_pos_err_m_at_120s": 56.44782739231552,
+    "ekf_pos_err_m_max_after": 92.394592272653,
+    "ekf_pos_err_m_before": 0.08935518379181116
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h270_vel",
+   "case": "drift:0.5",
+   "heading": 270.0,
+   "velcons": true,
+   "onset_log_s": 127.304,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.347999999999985,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 30.47200000000001,
+     "stack": 30.47200000000001
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 2.4501903670536773,
+    "ekf_pos_err_m_at_30s": 12.44893423769531,
+    "ekf_pos_err_m_at_60s": 27.447388216863043,
+    "ekf_pos_err_m_at_120s": 57.4396818580397,
+    "ekf_pos_err_m_max_after": 93.73586749268318,
+    "ekf_pos_err_m_before": 0.08689774382818612
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h90_pos",
+   "case": "drift:0.5",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 126.024,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 61.367999999999995,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 44.99199999999999,
+     "stack": 44.99199999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.49199999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 31.744,
+     "stack": 31.744
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1.5812909142103435,
+    "ekf_pos_err_m_at_30s": 11.28579905027334,
+    "ekf_pos_err_m_at_60s": 26.363995529451582,
+    "ekf_pos_err_m_at_120s": 56.37629394727142,
+    "ekf_pos_err_m_max_after": 92.44425625116412,
+    "ekf_pos_err_m_before": 0.09469683639778056
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift0.5_h90_vel",
+   "case": "drift:0.5",
+   "heading": 90.0,
+   "velcons": true,
+   "onset_log_s": 125.852,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 42.53999999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 31.663999999999987,
+     "stack": 31.663999999999987
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 2.4616350953683024,
+    "ekf_pos_err_m_at_30s": 12.457936281389639,
+    "ekf_pos_err_m_at_60s": 27.479717593015014,
+    "ekf_pos_err_m_at_120s": 57.502687007952474,
+    "ekf_pos_err_m_max_after": 93.66264391968832,
+    "ekf_pos_err_m_before": 0.0962253590511064
+   },
+   "case_rate": 0.5
+  },
+  {
+   "name": "drift1.0_h0_pos",
+   "case": "drift:1.0",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.84,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 34.55199999999999,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 25.304000000000002,
+     "stack": 25.304000000000002
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.675999999999988,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.304000000000002,
+     "stack": 18.304000000000002
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 3.245148459502903,
+    "ekf_pos_err_m_at_30s": 22.767294953211415,
+    "ekf_pos_err_m_at_60s": 52.72729274038935,
+    "ekf_pos_err_m_at_120s": 112.77125127317244,
+    "ekf_pos_err_m_max_after": 184.78781249475867,
+    "ekf_pos_err_m_before": 0.09622868241647836
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h0_vel",
+   "case": "drift:1.0",
+   "heading": 0.0,
+   "velcons": true,
+   "onset_log_s": 124.704,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.688000000000002,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.064000000000007,
+     "stack": 18.064000000000007
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 4.883723785344162,
+    "ekf_pos_err_m_at_30s": 24.980365083535705,
+    "ekf_pos_err_m_at_60s": 54.94630734111266,
+    "ekf_pos_err_m_at_120s": 114.91962757468018,
+    "ekf_pos_err_m_max_after": 186.66983151768193,
+    "ekf_pos_err_m_before": 0.09508481499717818
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h180_pos",
+   "case": "drift:1.0",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 126.02,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 34.62400000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 24.995999999999995,
+     "stack": 24.995999999999995
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.495999999999995,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.12400000000001,
+     "stack": 18.12400000000001
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 3.2116490231496195,
+    "ekf_pos_err_m_at_30s": 22.653444420326643,
+    "ekf_pos_err_m_at_60s": 52.73430312424223,
+    "ekf_pos_err_m_at_120s": 112.71793070383765,
+    "ekf_pos_err_m_max_after": 184.77068331415578,
+    "ekf_pos_err_m_before": 0.12373477599039853
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h180_vel",
+   "case": "drift:1.0",
+   "heading": 180.0,
+   "velcons": true,
+   "onset_log_s": 125.948,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.444000000000003,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.067999999999998,
+     "stack": 18.067999999999998
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 4.938077675950335,
+    "ekf_pos_err_m_at_30s": 24.883299029893895,
+    "ekf_pos_err_m_at_60s": 54.959341075269265,
+    "ekf_pos_err_m_at_120s": 114.95978729652425,
+    "ekf_pos_err_m_max_after": 187.01755247316245,
+    "ekf_pos_err_m_before": 0.10739602365831652
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h270_pos",
+   "case": "drift:1.0",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 128.028,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 33.75200000000001,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 24.5,
+     "stack": 24.5
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.376000000000005,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 17.876000000000005,
+     "stack": 17.876000000000005
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 3.1306034451165217,
+    "ekf_pos_err_m_at_30s": 22.67506768170884,
+    "ekf_pos_err_m_at_60s": 52.61629367412663,
+    "ekf_pos_err_m_at_120s": 112.65899122475422,
+    "ekf_pos_err_m_max_after": 184.84820179311643,
+    "ekf_pos_err_m_before": 0.12208883207244071
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h270_vel",
+   "case": "drift:1.0",
+   "heading": 270.0,
+   "velcons": true,
+   "onset_log_s": 128.48,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.415999999999997,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 17.792,
+     "stack": 17.792
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 4.922452204660681,
+    "ekf_pos_err_m_at_30s": 24.943304492849585,
+    "ekf_pos_err_m_at_60s": 54.90177200530072,
+    "ekf_pos_err_m_at_120s": 114.91929629776264,
+    "ekf_pos_err_m_max_after": 186.7370603517001,
+    "ekf_pos_err_m_before": 0.10976809352324698
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h90_pos",
+   "case": "drift:1.0",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 125.368,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 34.900000000000006,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 25.900000000000006,
+     "stack": 25.900000000000006
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.524,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.400000000000006,
+     "stack": 18.400000000000006
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 3.2519252427226073,
+    "ekf_pos_err_m_at_30s": 22.722897314237297,
+    "ekf_pos_err_m_at_60s": 52.808158898300555,
+    "ekf_pos_err_m_at_120s": 112.822738272227,
+    "ekf_pos_err_m_max_after": 184.78242874752118,
+    "ekf_pos_err_m_before": 0.09791445850934764
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift1.0_h90_vel",
+   "case": "drift:1.0",
+   "heading": 90.0,
+   "velcons": true,
+   "onset_log_s": 125.288,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 25.604,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 18.480000000000004,
+     "stack": 18.480000000000004
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 4.881095621068004,
+    "ekf_pos_err_m_at_30s": 24.835329975960473,
+    "ekf_pos_err_m_at_60s": 54.93070693894073,
+    "ekf_pos_err_m_at_120s": 114.92574473134155,
+    "ekf_pos_err_m_max_after": 186.35865645934118,
+    "ekf_pos_err_m_before": 0.12443058424750937
+   },
+   "case_rate": 1.0
+  },
+  {
+   "name": "drift2.0_h0_pos",
+   "case": "drift:2.0",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.98,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 19.415999999999983,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 15.291999999999987,
+     "stack": 15.291999999999987
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.791999999999987,
+     "gate": null,
+     "ekf2_gate_ref": 14.040000000000006,
+     "window": 11.540000000000006,
+     "stack": 11.540000000000006
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 6.490191381861381,
+    "ekf_pos_err_m_at_30s": 45.48900468526813,
+    "ekf_pos_err_m_at_60s": 105.52194786490227,
+    "ekf_pos_err_m_at_120s": 225.53707016378573,
+    "ekf_pos_err_m_max_after": 368.6180755554094,
+    "ekf_pos_err_m_before": 0.09060454933152937
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h0_vel",
+   "case": "drift:2.0",
+   "heading": 0.0,
+   "velcons": true,
+   "onset_log_s": 125.164,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.980000000000004,
+     "gate": null,
+     "ekf2_gate_ref": 13.980000000000004,
+     "window": 11.727999999999994,
+     "stack": 11.727999999999994
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 9.705099028797912,
+    "ekf_pos_err_m_at_30s": 49.76008855125165,
+    "ekf_pos_err_m_at_60s": 109.78921045193172,
+    "ekf_pos_err_m_at_120s": 229.7733612403572,
+    "ekf_pos_err_m_max_after": 373.57553238024803,
+    "ekf_pos_err_m_before": 0.10839275717116333
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h180_pos",
+   "case": "drift:2.0",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 125.656,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 19.364000000000004,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 14.49199999999999,
+     "stack": 14.49199999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.73999999999998,
+     "gate": null,
+     "ekf2_gate_ref": 13.99199999999999,
+     "window": 11.73999999999998,
+     "stack": 11.73999999999998
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 6.321549025554875,
+    "ekf_pos_err_m_at_30s": 45.359146952979685,
+    "ekf_pos_err_m_at_60s": 105.4708171390572,
+    "ekf_pos_err_m_at_120s": 225.404056712717,
+    "ekf_pos_err_m_max_after": 369.8424707277533,
+    "ekf_pos_err_m_before": 0.07957692746877418
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h180_vel",
+   "case": "drift:2.0",
+   "heading": 180.0,
+   "velcons": true,
+   "onset_log_s": 125.144,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.871999999999986,
+     "gate": null,
+     "ekf2_gate_ref": 14.0,
+     "window": 11.74799999999999,
+     "stack": 11.74799999999999
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 9.722378939617176,
+    "ekf_pos_err_m_at_30s": 49.6763511806401,
+    "ekf_pos_err_m_at_60s": 109.76193448443811,
+    "ekf_pos_err_m_at_120s": 229.79754030799077,
+    "ekf_pos_err_m_max_after": 373.78189386939664,
+    "ekf_pos_err_m_before": 0.10817008564183983
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h270_pos",
+   "case": "drift:2.0",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 127.784,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 19.236000000000004,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 14.736000000000004,
+     "stack": 14.736000000000004
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.736000000000004,
+     "gate": null,
+     "ekf2_gate_ref": 13.987999999999985,
+     "window": 11.487999999999985,
+     "stack": 11.487999999999985
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 6.362934039647855,
+    "ekf_pos_err_m_at_30s": 45.38558047380509,
+    "ekf_pos_err_m_at_60s": 105.40894870695058,
+    "ekf_pos_err_m_at_120s": 225.42062749578358,
+    "ekf_pos_err_m_max_after": 368.94758806489995,
+    "ekf_pos_err_m_before": 0.0868561244715416
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h270_vel",
+   "case": "drift:2.0",
+   "heading": 270.0,
+   "velcons": true,
+   "onset_log_s": 127.152,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.86399999999999,
+     "gate": null,
+     "ekf2_gate_ref": 13.992000000000004,
+     "window": 11.492000000000004,
+     "stack": 11.492000000000004
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 9.762380587044346,
+    "ekf_pos_err_m_at_30s": 49.72114891981,
+    "ekf_pos_err_m_at_60s": 109.74002488958132,
+    "ekf_pos_err_m_at_120s": 229.82291062712625,
+    "ekf_pos_err_m_max_after": 374.0024059655131,
+    "ekf_pos_err_m_before": 0.11232158782508264
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h90_pos",
+   "case": "drift:2.0",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 125.764,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 19.251999999999995,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": 14.88000000000001,
+     "stack": 14.88000000000001
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": false
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.751999999999995,
+     "gate": null,
+     "ekf2_gate_ref": 13.88000000000001,
+     "window": 11.751999999999995,
+     "stack": 11.751999999999995
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 6.526882190249392,
+    "ekf_pos_err_m_at_30s": 45.59404133552712,
+    "ekf_pos_err_m_at_60s": 105.62062992846643,
+    "ekf_pos_err_m_at_120s": 225.6394245168412,
+    "ekf_pos_err_m_max_after": 370.44090338355954,
+    "ekf_pos_err_m_before": 0.1057546721798253
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "drift2.0_h90_vel",
+   "case": "drift:2.0",
+   "heading": 90.0,
+   "velcons": true,
+   "onset_log_s": 124.916,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": null,
+     "gate": null,
+     "ekf2_gate_ref": null,
+     "window": null,
+     "stack": null
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": null
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 15.855999999999995,
+     "gate": null,
+     "ekf2_gate_ref": 13.97999999999999,
+     "window": 11.855999999999995,
+     "stack": 11.855999999999995
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 9.772470598786537,
+    "ekf_pos_err_m_at_30s": 49.75452622446447,
+    "ekf_pos_err_m_at_60s": 109.82572850872752,
+    "ekf_pos_err_m_at_120s": 229.77893675891644,
+    "ekf_pos_err_m_max_after": 374.16524778613086,
+    "ekf_pos_err_m_before": 0.08148319086253633
+   },
+   "case_rate": 2.0
+  },
+  {
+   "name": "jump1000_h0",
+   "case": "jump:1000",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.224,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.04399999999999693,
+     "gate": 0.04399999999999693,
+     "ekf2_gate_ref": 0.04399999999999693,
+     "window": 0.04399999999999693,
+     "stack": 0.04399999999999693
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.04399999999999693,
+     "gate": 0.04399999999999693,
+     "ekf2_gate_ref": 0.04399999999999693,
+     "window": 0.04399999999999693,
+     "stack": 0.04399999999999693
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.872
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 999.9974884260432,
+    "ekf_pos_err_m_at_30s": 999.9967457771768,
+    "ekf_pos_err_m_at_60s": 999.9922096620155,
+    "ekf_pos_err_m_at_120s": 1000.0074771458548,
+    "ekf_pos_err_m_max_after": 1000.0494848496097,
+    "ekf_pos_err_m_before": 0.0936689032725048
+   }
+  },
+  {
+   "name": "jump1000_h180",
+   "case": "jump:1000",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 125.996,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.02400000000000091,
+     "gate": 0.02400000000000091,
+     "ekf2_gate_ref": 0.02400000000000091,
+     "window": 0.02400000000000091,
+     "stack": 0.02400000000000091
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.02400000000000091,
+     "gate": 0.02400000000000091,
+     "ekf2_gate_ref": 0.02400000000000091,
+     "window": 0.02400000000000091,
+     "stack": 0.02400000000000091
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.8799999999999955
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 999.9179721644474,
+    "ekf_pos_err_m_at_30s": 999.9081405640435,
+    "ekf_pos_err_m_at_60s": 999.9809592381548,
+    "ekf_pos_err_m_at_120s": 999.9649239267649,
+    "ekf_pos_err_m_max_after": 1000.021256791074,
+    "ekf_pos_err_m_before": 0.10535765503483635
+   }
+  },
+  {
+   "name": "jump1000_h270",
+   "case": "jump:1000",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 123.536,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.12399999999999523,
+     "gate": 0.12399999999999523,
+     "ekf2_gate_ref": 0.12399999999999523,
+     "window": 0.12399999999999523,
+     "stack": 0.12399999999999523
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.12399999999999523,
+     "gate": 0.12399999999999523,
+     "ekf2_gate_ref": 0.12399999999999523,
+     "window": 0.12399999999999523,
+     "stack": 0.12399999999999523
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.872
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 999.9457947643974,
+    "ekf_pos_err_m_at_30s": 999.9974370849148,
+    "ekf_pos_err_m_at_60s": 999.9901617276456,
+    "ekf_pos_err_m_at_120s": 999.9953173529016,
+    "ekf_pos_err_m_max_after": 1000.0402137755693,
+    "ekf_pos_err_m_before": 0.13112481180415733
+   }
+  },
+  {
+   "name": "jump1000_h90",
+   "case": "jump:1000",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 126.004,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.012000000000000455,
+     "gate": 0.012000000000000455,
+     "ekf2_gate_ref": 0.012000000000000455,
+     "window": 0.012000000000000455,
+     "stack": 0.012000000000000455
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.012000000000000455,
+     "gate": 0.012000000000000455,
+     "ekf2_gate_ref": 0.012000000000000455,
+     "window": 0.012000000000000455,
+     "stack": 0.012000000000000455
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.88000000000001
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 1000.0002765502999,
+    "ekf_pos_err_m_at_30s": 999.9967429972127,
+    "ekf_pos_err_m_at_60s": 1000.0021976042547,
+    "ekf_pos_err_m_at_120s": 1000.0235332996516,
+    "ekf_pos_err_m_max_after": 1000.0535574805033,
+    "ekf_pos_err_m_before": 0.10835472563698224
+   }
+  },
+  {
+   "name": "jump200_h0",
+   "case": "jump:200",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.432,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.09199999999999875,
+     "gate": 0.09199999999999875,
+     "ekf2_gate_ref": 0.09199999999999875,
+     "window": 0.09199999999999875,
+     "stack": 0.09199999999999875
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.09199999999999875,
+     "gate": 0.09199999999999875,
+     "ekf2_gate_ref": 0.09199999999999875,
+     "window": 0.09199999999999875,
+     "stack": 0.09199999999999875
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.871999999999986
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 200.06481890443752,
+    "ekf_pos_err_m_at_30s": 200.04757568933587,
+    "ekf_pos_err_m_at_60s": 199.99782405372065,
+    "ekf_pos_err_m_at_120s": 200.01020863086038,
+    "ekf_pos_err_m_max_after": 200.13003714872184,
+    "ekf_pos_err_m_before": 0.09895730988696165
+   }
+  },
+  {
+   "name": "jump200_h180",
+   "case": "jump:200",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 125.16,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.10800000000000409,
+     "gate": 0.10800000000000409,
+     "ekf2_gate_ref": 0.10800000000000409,
+     "window": 0.10800000000000409,
+     "stack": 0.10800000000000409
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.10800000000000409,
+     "gate": 0.10800000000000409,
+     "ekf2_gate_ref": 0.10800000000000409,
+     "window": 0.10800000000000409,
+     "stack": 0.10800000000000409
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.8799999999999955
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 199.9977557880867,
+    "ekf_pos_err_m_at_30s": 199.97791982177984,
+    "ekf_pos_err_m_at_60s": 200.00210123935608,
+    "ekf_pos_err_m_at_120s": 199.99613519496535,
+    "ekf_pos_err_m_max_after": 200.08917185144256,
+    "ekf_pos_err_m_before": 0.09256581142448005
+   }
+  },
+  {
+   "name": "jump200_h270",
+   "case": "jump:200",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 126.208,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.07600000000000762,
+     "gate": 0.07600000000000762,
+     "ekf2_gate_ref": 0.07600000000000762,
+     "window": 0.07600000000000762,
+     "stack": 0.07600000000000762
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.07600000000000762,
+     "gate": 0.07600000000000762,
+     "ekf2_gate_ref": 0.07600000000000762,
+     "window": 0.07600000000000762,
+     "stack": 0.07600000000000762
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.872000000000014
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 200.004192679357,
+    "ekf_pos_err_m_at_30s": 200.03275999093376,
+    "ekf_pos_err_m_at_60s": 200.0084625367641,
+    "ekf_pos_err_m_at_120s": 200.043508943271,
+    "ekf_pos_err_m_max_after": 200.1229442050398,
+    "ekf_pos_err_m_before": 0.09458516936402847
+   }
+  },
+  {
+   "name": "jump200_h90",
+   "case": "jump:200",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 125.14,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.0040000000000048885,
+     "gate": 0.0040000000000048885,
+     "ekf2_gate_ref": 0.0040000000000048885,
+     "window": 0.0040000000000048885,
+     "stack": 0.0040000000000048885
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.0040000000000048885,
+     "gate": 0.0040000000000048885,
+     "ekf2_gate_ref": 0.0040000000000048885,
+     "window": 0.0040000000000048885,
+     "stack": 0.0040000000000048885
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.871999999999986
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 200.00044618517637,
+    "ekf_pos_err_m_at_30s": 199.9580721063268,
+    "ekf_pos_err_m_at_60s": 200.05279010429385,
+    "ekf_pos_err_m_at_120s": 200.04449499486313,
+    "ekf_pos_err_m_max_after": 200.07035374357915,
+    "ekf_pos_err_m_before": 0.11470307882811477
+   }
+  },
+  {
+   "name": "jump50_h0",
+   "case": "jump:50",
+   "heading": 0.0,
+   "velcons": false,
+   "onset_log_s": 125.412,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.10799999999998988,
+     "gate": 0.10799999999998988,
+     "ekf2_gate_ref": 0.10799999999998988,
+     "window": 0.10799999999998988,
+     "stack": 0.10799999999998988
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.10799999999998988,
+     "gate": 0.10799999999998988,
+     "ekf2_gate_ref": 0.10799999999998988,
+     "window": 0.10799999999998988,
+     "stack": 0.10799999999998988
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.7520000000000095
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 50.04743480765864,
+    "ekf_pos_err_m_at_30s": 50.0208709192131,
+    "ekf_pos_err_m_at_60s": 50.01390490112251,
+    "ekf_pos_err_m_at_120s": 50.05242366881644,
+    "ekf_pos_err_m_max_after": 50.123467967713545,
+    "ekf_pos_err_m_before": 0.11383435529444413
+   }
+  },
+  {
+   "name": "jump50_h180",
+   "case": "jump:50",
+   "heading": 180.0,
+   "velcons": false,
+   "onset_log_s": 125.24,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.028000000000005798,
+     "gate": 0.028000000000005798,
+     "ekf2_gate_ref": 0.028000000000005798,
+     "window": 0.028000000000005798,
+     "stack": 0.028000000000005798
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.028000000000005798,
+     "gate": 0.028000000000005798,
+     "ekf2_gate_ref": 0.028000000000005798,
+     "window": 0.028000000000005798,
+     "stack": 0.028000000000005798
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.872
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 50.043506622456015,
+    "ekf_pos_err_m_at_30s": 49.95087130940619,
+    "ekf_pos_err_m_at_60s": 50.028251383680505,
+    "ekf_pos_err_m_at_120s": 50.019995146859685,
+    "ekf_pos_err_m_max_after": 50.07472915437063,
+    "ekf_pos_err_m_before": 0.10995633050060098
+   }
+  },
+  {
+   "name": "jump50_h270",
+   "case": "jump:50",
+   "heading": 270.0,
+   "velcons": false,
+   "onset_log_s": 127.212,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.055999999999997385,
+     "gate": 0.055999999999997385,
+     "ekf2_gate_ref": 0.055999999999997385,
+     "window": 0.055999999999997385,
+     "stack": 0.055999999999997385
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.055999999999997385,
+     "gate": 0.055999999999997385,
+     "ekf2_gate_ref": 0.055999999999997385,
+     "window": 0.055999999999997385,
+     "stack": 0.055999999999997385
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.8799999999999955
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 50.021501743124624,
+    "ekf_pos_err_m_at_30s": 50.0025580814487,
+    "ekf_pos_err_m_at_60s": 49.9829804066806,
+    "ekf_pos_err_m_at_120s": 49.97976377583622,
+    "ekf_pos_err_m_max_after": 50.0569688432415,
+    "ekf_pos_err_m_before": 0.0954380196939398
+   }
+  },
+  {
+   "name": "jump50_h90",
+   "case": "jump:50",
+   "heading": 90.0,
+   "velcons": false,
+   "onset_log_s": 125.504,
+   "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+   "ekf": {
+    "latency_s": {
+     "marsad": 0.012000000000000455,
+     "gate": 0.012000000000000455,
+     "ekf2_gate_ref": 0.012000000000000455,
+     "window": 0.012000000000000455,
+     "stack": 0.012000000000000455
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "truth": {
+    "latency_s": {
+     "marsad": 0.012000000000000455,
+     "gate": 0.012000000000000455,
+     "ekf2_gate_ref": 0.012000000000000455,
+     "window": 0.012000000000000455,
+     "stack": 0.012000000000000455
+    },
+    "pre_alarm": {
+     "marsad": false,
+     "gate": false,
+     "ekf2_gate_ref": false,
+     "window": false,
+     "stack": false
+    },
+    "marsad_denied_at_first": true
+   },
+   "ekf2": {
+    "estimator_aid_src_gnss_pos": {
+     "n_episodes": 1,
+     "longest_s": 6.871999999999986
+    },
+    "estimator_aid_src_gnss_vel": {
+     "n_episodes": 0,
+     "longest_s": 0.0
+    },
+    "cs_gnss_fault_after_onset": false,
+    "ekf_pos_err_m_at_10s": 49.993517034546244,
+    "ekf_pos_err_m_at_30s": 50.002890435501705,
+    "ekf_pos_err_m_at_60s": 50.006403194463964,
+    "ekf_pos_err_m_at_120s": 50.01927687304433,
+    "ekf_pos_err_m_max_after": 50.049730919034175,
+    "ekf_pos_err_m_before": 0.10790094080689488
+   }
+  }
+ ]
+}

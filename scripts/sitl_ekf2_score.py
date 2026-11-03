@@ -91,11 +91,68 @@ def ekf2_response(ulog, t_on):
     return out
 
 
+def summarise(rows: list) -> str:
+    """Markdown table: per case, detections out of runs for each method and arm, and what EKF2 itself did."""
+    from real_corpus import clopper_pearson
+
+    cells: dict = {}
+    for r in rows:
+        key = r["case"] + (
+            ""
+            if r["case"] == "clean" or r["case"].startswith("jump")
+            else (" velocity consistent" if r["velcons"] else " position only")
+        )
+        cells.setdefault(key, []).append(r)
+    lines = [
+        "# PX4 EKF2 in the loop (SITL EKF2)",
+        "",
+        "n is 4 runs per case (four headings). Detection counts are runs in which the method left TRUSTED after the onset.",
+        "Arm ekf: reference is EKF2 fused velocity. Arm truth: reference is simulator truth velocity.",
+        "",
+        "| case | Marsad ekf arm | 95% CI | median latency s | Marsad truth arm | gate | window | stack | EKF2 rejection of 1 s or longer | EKF2 position error at 60 s, m |",
+        "|---|---|---|---|---|---|---|---|---|---|",
+    ]
+    for key, v in sorted(cells.items()):
+        n = len(v)
+        k = sum(1 for x in v if x["ekf"]["latency_s"]["marsad"] is not None)
+        lo, hi = clopper_pearson(k, n)
+        lat = sorted(x["ekf"]["latency_s"]["marsad"] for x in v if x["ekf"]["latency_s"]["marsad"] is not None)
+        med = f"{lat[len(lat) // 2]:.1f}" if lat else "n/a"
+        kt = sum(1 for x in v if x["truth"]["latency_s"]["marsad"] is not None)
+
+        cnt = {m: sum(1 for x in v if x["ekf"]["latency_s"][m] is not None) for m in METHODS}
+
+        rej = sum(
+            1
+            for x in v
+            if max(
+                x["ekf2"].get("estimator_aid_src_gnss_pos", {}).get("longest_s", 0.0),
+                x["ekf2"].get("estimator_aid_src_gnss_vel", {}).get("longest_s", 0.0),
+            )
+            >= 1.0
+        )
+        errs = sorted(round(x["ekf2"]["ekf_pos_err_m_at_60s"]) for x in v if "ekf_pos_err_m_at_60s" in x["ekf2"])
+        err_txt = f"{errs[0]} to {errs[-1]}" if errs else "n/a"
+        lines.append(
+            f"| {key} | {k}/{n} | {lo:.2f} to {hi:.2f} | {med} | {kt}/{n} | {cnt['gate']}/{n} | {cnt['window']}/{n} | {cnt['stack']}/{n} | {rej}/{n} | {err_txt} |"
+        )
+    lines += [
+        "",
+        f"Runs with a Marsad or baseline alarm before the onset: {sum(1 for r in rows for a in ('ekf', 'truth') if any(r[a]['pre_alarm'].values()))}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--runs", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--summary-only", action="store_true", help="rebuild summary.md from an existing runs.json")
     a = ap.parse_args(argv)
+    if a.summary_only:
+        rows = json.load(open(Path(a.out) / "runs.json"))["runs"]
+        (Path(a.out) / "summary.md").write_text(summarise(rows))
+        return 0
     from pyulog import ULog
 
     rows = []
@@ -137,6 +194,7 @@ def main(argv=None) -> int:
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     json.dump({"runs": rows}, open(out / "runs.json", "w"), indent=1)
+    (out / "summary.md").write_text(summarise(rows))
     return 0
 
 
