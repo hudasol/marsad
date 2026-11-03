@@ -1,8 +1,10 @@
+> Superseded by [KNOWN_LIMITS.md](../KNOWN_LIMITS.md) in v1.5.0. Kept unchanged as the record of the v1.4.0 position.
+
 # Known limits (v1.4.0)
 
 This page lists what Marsad still misses or does badly, with the evidence for each item. Every number carries one
 label and comes from a file in `docs/results/`. The analysis of the v1.3.0 misses is kept in
-[history/known-limits-v1.3.0.md](history/known-limits-v1.3.0.md).
+[history/known-limits-v1.3.0.md](known-limits-v1.3.0.md).
 
 ## 1. Drift slower than 0.25 m/s is not detected
 
@@ -22,7 +24,7 @@ method. **SIMULATED** floor: 0.15 m/s in 94 to 100% of runs, 0.1 m/s in 56 to 62
 
 What changed in v1.4.0: the engine now also compares the displacement against the uncorrected reference integral
 and the bound `ref_bias_bound`, so the bias estimator can no longer absorb a velocity consistent drift. The
-prediction and the outcome are in [research/PREREGISTRATION_PRIOR_BOUND.md](research/PREREGISTRATION_PRIOR_BOUND.md).
+prediction and the outcome are in [research/PREREGISTRATION_PRIOR_BOUND.md](../research/PREREGISTRATION_PRIOR_BOUND.md).
 
 ## 2. Slower than a plain window test
 
@@ -39,7 +41,7 @@ flattered because the SIH reference has no bias.
 **Label: SIMULATED.** `spoof_drift_noref` is detected in 53% of runs (median 33.1 s), labelled
 `spoofing_unclassified`, and no fallback position is produced. The window baseline reaches 87% on the same runs
 because it falls back to the receiver velocity. Marsad has no equivalent fallback channel yet; it is the first item in
-[ROADMAP.md](ROADMAP.md).
+[ROADMAP.md](../ROADMAP.md).
 
 ## 4. Obstruction is treated as a denial of confidence
 
@@ -68,6 +70,6 @@ through PX4 with injected GNSS is the proper comparison and is on the roadmap.
 
 ## Tried and rejected
 
-The bias estimator guard (2026-10-23), preregistered in [research/PREREGISTRATION_BIAS.md](research/PREREGISTRATION_BIAS.md),
+The bias estimator guard (2026-10-23), preregistered in [research/PREREGISTRATION_BIAS.md](../research/PREREGISTRATION_BIAS.md),
 raised false alarms on clean and multipath runs and doubled navigation error after a jump. It was reverted. Details
-and the table are in [history/known-limits-v1.3.0.md](history/known-limits-v1.3.0.md).
+and the table are in [history/known-limits-v1.3.0.md](known-limits-v1.3.0.md).
