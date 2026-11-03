@@ -14,6 +14,22 @@
 | Dashboard / API / MCP | Tested with the simulator and scripted clients; not security-audited |
 | Container image | A CI job builds the `Dockerfile` and smoke tests the API in it; it passes since 2026-10-17 |
 
+## Label definitions
+
+Every number in this repository carries exactly one of these labels. The label says where the data come from and
+which parts are real. The labels marked "added in v1.5.0" were defined before the first run that uses them.
+
+| Label | Meaning | Real | Synthetic |
+|---|---|---|---|
+| SIMULATED | The in repository simulator generates the vehicle, the GNSS stream, the reference and the attack. Scenarios and engine share an author | nothing | everything |
+| SIH + INJECTED | A PX4 software in the loop (SIH) flight, recorded by PX4 itself, with a position or velocity offset added to the logged fixes. The reference is the simulator truth velocity | the flight controller code, the logged GNSS timing and noise (simulated sensors) | the world, the sensors, the attack |
+| REAL LOG | A public flight log from a real vehicle, replayed without change. No attack is present. Used for false alarms and agreement with the flight controller | everything | nothing |
+| SITL FAULT | A failure that PX4's own failure injection produced in a SITL run (for example a GPS stop). Not spoofing and not jamming | the PX4 response | the vehicle and the world |
+| REAL LOG + INJECTED (added in v1.5.0) | A REAL LOG flight with a position or velocity offset added to the logged fixes by the generators of `scripts/sih_inject.py`. Two reference arms are never pooled: the logged EKF fused velocity (an upper bound, because it was computed from the uninjected fixes) and an independent reference where the log carries one | the flight, its receiver noise, gaps, cadence and quirks | the attack, which is one offset model |
+| SITL EKF2 (added in v1.5.0) | PX4's own EKF2 running in the loop on the injected fixes, so the reference is what EKF2 would have produced while being spoofed | EKF2 code | the vehicle, the sensors, the attack |
+| SIMULATED (LITERATURE) (added in v1.5.0) | The in repository simulator driven by a second scenario family that is specified from published attack descriptions (`docs/research/SCENARIOS_LITERATURE.md`) instead of from the engine's own design scenarios | nothing | everything; the family is independent of the engine design but the simulator and the engine still share an author |
+| SEALED (added in v1.5.0) | SIMULATED and SIMULATED (LITERATURE) scenarios on seeds 7000 to 7099, never used for any decision, run once at the end of the release | nothing | everything |
+
 ## Real-log results
 
 Two public logs from review.px4.io (CC-BY), run with `marsad inspect` / `marsad replay`:
