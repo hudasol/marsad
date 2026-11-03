@@ -1,0 +1,129 @@
+diff --git a/src/modules/simulation/sensor_gps_sim/SensorGpsSim.cpp b/src/modules/simulation/sensor_gps_sim/SensorGpsSim.cpp
+index 74bf0faf..a5231e75 100644
+--- a/src/modules/simulation/sensor_gps_sim/SensorGpsSim.cpp
++++ b/src/modules/simulation/sensor_gps_sim/SensorGpsSim.cpp
+@@ -129,8 +129,50 @@ void SensorGpsSim::Run()
+ 		_gps_pos_noise_d = _pos_markov_time * _gps_pos_noise_d +
+ 				   _pos_random_walk * generate_wgn() * _pos_noise_amplitude * 1.5f;
+ 
+-		const double latitude = gpos.lat + math::degrees((double)_gps_pos_noise_n / CONSTANTS_RADIUS_OF_EARTH);
+-		const double longitude = gpos.lon + math::degrees((double)_gps_pos_noise_e / CONSTANTS_RADIUS_OF_EARTH);
++		// Measurement offset applied to the published fix (SIM_SPF_*): drift ramps over 10 s to a constant rate,
++		// jump is a constant offset. Used only to study a receiver whose fixes are shifted; no RF is involved.
++		float spf_n = 0.f;
++		float spf_e = 0.f;
++		float spf_vn = 0.f;
++		float spf_ve = 0.f;
++
++		if (_param_spf_on.get() == 1) {
++			if (_spf_t0 == 0) {
++				_spf_t0 = hrt_absolute_time();
++			}
++
++			const float tau = (float)(hrt_absolute_time() - _spf_t0) * 1e-6f;
++			const float hdg = math::radians(_param_spf_hdg.get());
++			const float ux = cosf(hdg); // north
++			const float uy = sinf(hdg); // east
++			float dist = 0.f;
++			float rate = 0.f;
++
++			if (_param_spf_mode.get() == 1) {
++				dist = _param_spf_val.get();
++
++			} else {
++				const float ramp = 10.f;
++				const float r = _param_spf_val.get();
++				dist = tau < ramp ? 0.5f * r * tau * tau / ramp : 0.5f * r * ramp + r * (tau - ramp);
++				rate = r * math::min(tau / ramp, 1.f);
++			}
++
++			spf_n = dist * ux;
++			spf_e = dist * uy;
++
++			if (_param_spf_vel.get() == 1) {
++				spf_vn = rate * ux;
++				spf_ve = rate * uy;
++			}
++
++		} else {
++			_spf_t0 = 0;
++		}
++
++		const double latitude = gpos.lat + math::degrees((double)(_gps_pos_noise_n + spf_n) / CONSTANTS_RADIUS_OF_EARTH);
++		const double longitude = gpos.lon + math::degrees((double)_gps_pos_noise_e / CONSTANTS_RADIUS_OF_EARTH)
++					 + math::degrees((double)spf_e / CONSTANTS_RADIUS_OF_EARTH) / cos(math::radians(gpos.lat));
+ 		const double altitude = (double)(gpos.alt + _gps_pos_noise_d);
+ 
+ 		_gps_vel_noise_n = _vel_markov_time * _gps_vel_noise_n +
+@@ -142,7 +184,7 @@ void SensorGpsSim::Run()
+ 		_gps_vel_noise_d = _vel_markov_time * _gps_vel_noise_d +
+ 				   _vel_noise_density * generate_wgn() * _vel_noise_amplitude * 1.2f;
+ 
+-		const Vector3f gps_vel = Vector3f{lpos.vx + _gps_vel_noise_n, lpos.vy + _gps_vel_noise_e, lpos.vz + _gps_vel_noise_d};
++		const Vector3f gps_vel = Vector3f{lpos.vx + _gps_vel_noise_n + spf_vn, lpos.vy + _gps_vel_noise_e + spf_ve, lpos.vz + _gps_vel_noise_d};
+ 
+ 		// device id
+ 		device::Device::DeviceId device_id;
+diff --git a/src/modules/simulation/sensor_gps_sim/SensorGpsSim.hpp b/src/modules/simulation/sensor_gps_sim/SensorGpsSim.hpp
+index 91996b76..818a0b44 100644
+--- a/src/modules/simulation/sensor_gps_sim/SensorGpsSim.hpp
++++ b/src/modules/simulation/sensor_gps_sim/SensorGpsSim.hpp
+@@ -126,6 +126,14 @@ private:
+ 	DEFINE_PARAMETERS(
+ 		(ParamInt<px4::params::SIM_GPS_USED>)      _sim_gps_used,
+ 		(ParamFloat<px4::params::SENS_GNSS1_OFFX>) _param_gnss1_offx,
+-		(ParamFloat<px4::params::SENS_GNSS1_OFFY>) _param_gnss1_offy
++		(ParamFloat<px4::params::SENS_GNSS1_OFFY>) _param_gnss1_offy,
++		(ParamInt<px4::params::SIM_SPF_ON>)        _param_spf_on,
++		(ParamInt<px4::params::SIM_SPF_MODE>)      _param_spf_mode,
++		(ParamFloat<px4::params::SIM_SPF_VAL>)     _param_spf_val,
++		(ParamFloat<px4::params::SIM_SPF_HDG>)     _param_spf_hdg,
++		(ParamInt<px4::params::SIM_SPF_VEL>)       _param_spf_vel
+ 	)
++
++	// Measurement offset study (Marsad): time at which SIM_SPF_ON became 1
++	hrt_abstime _spf_t0{0};
+ };
+diff --git a/src/modules/simulation/sensor_gps_sim/parameters.yaml b/src/modules/simulation/sensor_gps_sim/parameters.yaml
+index 610f8239..67d1c503 100644
+--- a/src/modules/simulation/sensor_gps_sim/parameters.yaml
++++ b/src/modules/simulation/sensor_gps_sim/parameters.yaml
+@@ -22,3 +22,38 @@ parameters:
+       default: 10
+       min: 0
+       max: 50
++    SIM_SPF_ON:
++      description:
++        short: Marsad study, shift the published GNSS fixes (0 off, 1 on)
++      type: int32
++      default: 0
++      min: 0
++      max: 1
++    SIM_SPF_MODE:
++      description:
++        short: Marsad study, offset model (0 drift, 1 jump)
++      type: int32
++      default: 0
++      min: 0
++      max: 1
++    SIM_SPF_VAL:
++      description:
++        short: Marsad study, drift rate in m/s (mode 0) or jump size in m (mode 1)
++      type: float
++      default: 0.0
++      min: 0
++      max: 100000
++    SIM_SPF_HDG:
++      description:
++        short: Marsad study, offset direction, degrees clockwise from north
++      type: float
++      default: 0.0
++      min: 0
++      max: 360
++    SIM_SPF_VEL:
++      description:
++        short: Marsad study, also shift the receiver velocity by the drift rate (0 no, 1 yes)
++      type: int32
++      default: 0
++      min: 0
++      max: 1
