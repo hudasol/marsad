@@ -441,3 +441,34 @@ def test_dashboard_is_served_with_a_content_security_policy(client):
     assert "script-src 'self'" in r.headers["content-security-policy"]
     assert r.headers["x-content-type-options"] == "nosniff"
     assert "content-security-policy" not in client.get("/docs").headers
+
+
+def test_separate_acknowledge_key_guards_only_the_override():
+    with TestClient(create_app(api_key="read-key", ack_key="ack-key", store=Store())) as c:
+        h = {"X-API-Key": "read-key"}
+        run, samples = sim_samples("jam_hard")
+        assert (
+            c.post(
+                "/v1/vehicles/v/samples", json={"samples": samples[:50], "preset": "uav_multirotor"}, headers=h
+            ).status_code
+            == 200
+        )
+        url = "/v1/vehicles/v/acknowledge"
+        assert c.post(url, headers=h).status_code == 401  # read key alone is not enough
+        assert c.post(url, headers={**h, "X-Ack-Key": "wrong"}).status_code == 401
+        assert c.post(url, headers={"X-Ack-Key": "ack-key"}).status_code == 401  # the read key is still required
+        ok = c.post(url, json={"operator": "duty officer"}, headers={**h, "X-Ack-Key": "ack-key"})
+        assert ok.status_code == 200
+        assert c.get("/v1/vehicles/v/trust", headers=h).status_code == 200  # reads need no ack key
+        rows = c.get("/v1/audit", headers=h).json()["overrides"]
+        assert rows[-1]["credential"] == "ack_key" and rows[-1]["authenticated"] is True
+
+
+def test_without_an_acknowledge_key_the_read_key_still_works(monkeypatch):
+    monkeypatch.delenv("MARSAD_ACK_KEY", raising=False)
+    with TestClient(create_app(api_key="read-key", store=Store())) as c:
+        h = {"X-API-Key": "read-key"}
+        run, samples = sim_samples("jam_hard")
+        c.post("/v1/vehicles/v/samples", json={"samples": samples[:50], "preset": "uav_multirotor"}, headers=h)
+        assert c.post("/v1/vehicles/v/acknowledge", headers=h).status_code == 200
+        assert c.get("/v1/audit", headers=h).json()["overrides"][-1]["credential"] == "api_key"

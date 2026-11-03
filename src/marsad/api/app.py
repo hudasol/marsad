@@ -62,12 +62,18 @@ class _BodyLimit:
 
 
 def create_app(
-    api_key: Optional[str] = None, store: Optional[Store] = None, cors_origins: Optional[list[str]] = None
+    api_key: Optional[str] = None,
+    store: Optional[Store] = None,
+    cors_origins: Optional[list[str]] = None,
+    ack_key: Optional[str] = None,
 ) -> FastAPI:
     """Build the service. ``api_key`` falls back to env MARSAD_API_KEY (unset = open, for local use).
+    ``ack_key`` (env MARSAD_ACK_KEY) is a second credential that only the acknowledge endpoint checks, sent as the
+    ``X-Ack-Key`` header: a client that may read and post samples can then still not clear a distrusted position.
     CORS is off unless ``cors_origins`` or env MARSAD_CORS_ORIGINS (comma separated) is given."""
     st = store or get_store()
     key = api_key if api_key is not None else os.environ.get("MARSAD_API_KEY") or None
+    ackk = ack_key if ack_key is not None else os.environ.get("MARSAD_ACK_KEY") or None
     if cors_origins is None:
         env = os.environ.get("MARSAD_CORS_ORIGINS", "")
         cors_origins = [o.strip() for o in env.split(",") if o.strip()]
@@ -145,6 +151,13 @@ def create_app(
         if got is None or not hmac.compare_digest(got.encode(), key.encode()):
             raise HTTPException(401, "missing or invalid API key", headers={"WWW-Authenticate": "Bearer"})
 
+    def ack_guard(request: Request) -> None:
+        if ackk is None:
+            return
+        got = request.headers.get("x-ack-key")
+        if got is None or not hmac.compare_digest(got.encode(), ackk.encode()):
+            raise HTTPException(401, "missing or invalid acknowledge key", headers={"WWW-Authenticate": "X-Ack-Key"})
+
     pub = APIRouter(prefix="/v1", tags=["meta"])
     r = APIRouter(prefix="/v1", dependencies=[Depends(guard)])
 
@@ -174,11 +187,12 @@ def create_app(
     def vehicle_history(vid: str = VID, n: int = Query(600, ge=1, le=HISTORY)):
         return st.history(vid, n)
 
-    @r.post("/vehicles/{vid}/acknowledge", tags=["vehicles"])
+    @r.post("/vehicles/{vid}/acknowledge", tags=["vehicles"], dependencies=[Depends(ack_guard)])
     def vehicle_ack(request: Request, body: Optional[Acknowledge] = None, vid: str = VID):
         """Operator override: accept the current GNSS as trusted (engine.acknowledge())."""
         b = body or Acknowledge()
-        return st.acknowledge(vid, b.operator, b.note, authenticated=key is not None)
+        credential = "ack_key" if ackk is not None else ("api_key" if key is not None else "none")
+        return st.acknowledge(vid, b.operator, b.note, authenticated=credential != "none", credential=credential)
 
     @r.get("/audit", tags=["vehicles"])
     def audit():

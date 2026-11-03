@@ -28,6 +28,7 @@ app = create_app()                         # or create_app(api_key="...", cors_o
 | Setting | How | Default |
 |---|---|---|
 | API key | env `MARSAD_API_KEY` (or `create_app(api_key=...)`) | unset: open (fine for localhost only) |
+| Acknowledge key | env `MARSAD_ACK_KEY` (or `create_app(ack_key=...)`), sent as `X-Ack-Key` | unset: the API key is enough. When set, `POST /v1/vehicles/{vid}/acknowledge` needs both keys; `GET /v1/audit` records which credential was used |
 | CORS | env `MARSAD_CORS_ORIGINS` (comma separated) or `create_app(cors_origins=[...])` | off |
 | Batch cap | env `MARSAD_MAX_BATCH` | 2000 samples or reports per request |
 | Body cap | env `MARSAD_MAX_BODY_BYTES` | 8 MiB |

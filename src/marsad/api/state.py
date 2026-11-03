@@ -366,7 +366,12 @@ class Store:
             }
 
     def acknowledge(
-        self, vid: str, operator: Optional[str] = None, note: Optional[str] = None, authenticated: bool = False
+        self,
+        vid: str,
+        operator: Optional[str] = None,
+        note: Optional[str] = None,
+        authenticated: bool = False,
+        credential: str = "none",
     ) -> dict:
         with self.lock:
             rec = self.get_vehicle(vid)
@@ -382,7 +387,12 @@ class Store:
             }
             rec.last_state = "TRUSTED"
             self.audit.append(
-                {**ev, "wall_time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "authenticated": authenticated}
+                {
+                    **ev,
+                    "wall_time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "authenticated": authenticated,
+                    "credential": credential,
+                }
             )
         self.publish("acknowledge", ev)
         return ev

@@ -11,4 +11,7 @@ signal generation or attack tooling will not be accepted.
   `docker run -p 8000:8000 -e MARSAD_API_KEY=... marsad`. Put it behind TLS before exposing it. The key is accepted as
   `X-API-Key` or `Authorization: Bearer`; the stream endpoint also takes `?api_key=` because EventSource cannot set
   headers, so keep the service off shared proxies that log query strings.
+* Clearing a distrusted position is the one write that can hide an attack. Set `MARSAD_ACK_KEY` to give that endpoint its
+  own credential (header `X-Ack-Key`), separate from the key that reads and posts samples. Every override is recorded
+  at `GET /v1/audit` with the credential used.
 * Report vulnerabilities privately through GitHub's "Report a vulnerability" (Security tab).
