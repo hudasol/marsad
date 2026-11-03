@@ -5,21 +5,22 @@ detection behaviour get a preregistration before they are run, as with the earli
 
 ## Next
 
-1. **Fallback consistency channel without an independent reference.**
-   Motivation: `spoof_drift_noref` is detected in 53% of runs, the window baseline in 87% (`docs/BASELINES.md`).
-   The channel would compare displacement with the receiver's own velocity integral when no reference exists. The
-   hard part is keeping the nominal false alarm rate at zero, because a receiver velocity that a spoofer shifts
-   consistently carries no information. Needs its own preregistration.
-2. **Replay through the real EKF2.**
-   Motivation: the EKF2 style baselines are reimplementations. Feed recorded sensor data through PX4 with injected
-   GNSS, in software in the loop, and compare the vehicle's own accept and reject decisions with Marsad.
-3. **Score the baselines and the v1.4.0 engine on the real logs.**
-   Motivation: REAL LOG results exist only for the v1.3.0 engine and cover the false alarm side. Run
-   `marsad replay` and `scripts/replay_baselines.py` on `flight1.ulg` and `flight2.ulg` and record the result in
-   `docs/VALIDATION.md`.
-4. **Latency on slow drift.**
-   Motivation: a plain window test is faster (57.1 s against 113.6 s at 0.25 m/s on SIH). Look at whether the
-   bias allowance can be made adaptive per vehicle without reintroducing absorption.
+Ordered by what the v1.5.0 evidence says is weakest. Each change to detection behaviour gets a preregistration with
+kill criteria first, and is developed on the design subset and the development seeds only.
+
+1. **Real flight false alarms.** 46 of 101 corpus flights reached DENIED. The adaptive timeout and recovery timer trial
+   was not adopted (it missed 68 of 101 and raised episodes per hour). Open causes: lost fixes under 3 s on 1 Hz
+   receivers (about half of the alarmed flights), a cold start latch in the drift check, and the unverifiable
+   reacquisition cap. Next try: separate the receiver cadence from the loss decision without touching the recovery
+   timer, and score on fresh flights drawn after the change is fixed.
+2. **A reference the spoofer does not control.** In SITL EKF2 a velocity consistent drift is invisible against the
+   vehicle's own EKF2. Evaluate on logs with optical flow, visual odometry or wheel odometry, and with the receiver
+   velocity excluded from the reference. The corpus holds 7 flights with an independent source; more are needed.
+3. **Detection without an independent reference.** `spoof_drift_noref` is detected in 53% of simulated runs, the window
+   baseline in 87%. Not attempted in v1.5.0 (no time left after the false alarm work).
+4. **Latency on slow drift.** The window test is faster on every drift case; not attempted in v1.5.0.
+5. **Hardware or hardware in the loop.** SITL with a patched simulated GPS is the strongest flight controller evidence;
+   a bench receiver fed with logged data, or an authorised test range, is the next step.
 
 ## Later
 

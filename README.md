@@ -1,10 +1,11 @@
 # Marsad (مرصد)
 
-Position trust for vehicles and for tracks. Marsad takes a GNSS stream and an independent motion reference, decides
-whether the position can be believed, separates a degraded signal from a false one, and recommends what to do next.
+Advisory position trust for GNSS. Marsad takes a GNSS stream and an independent motion reference, decides whether the
+position can be believed, separates a degraded signal from a false one, and recommends what to do next. It is a
+research prototype, and this page leads with where it falls short.
 
 [![CI](https://github.com/hudasol/marsad/actions/workflows/ci.yml/badge.svg)](https://github.com/hudasol/marsad/actions/workflows/ci.yml)
-Apache-2.0 · Python 3.10+ · version 1.4.0 · [changelog](CHANGELOG.md)
+Apache-2.0 · Python 3.10+ · version 1.5.0 · [changelog](CHANGELOG.md)
 
 ![dashboard](docs/img/dashboard-spoof-drift.png)
 <sub>Operator dashboard during a SIMULATED carry off: what GNSS reported (magenta), what Marsad advises (blue, orange
@@ -34,14 +35,42 @@ SSE service with a dashboard, and the MCP server.
 
 ## Results
 
-Every number carries one label. SIMULATED is a measurement level generator; the table uses held out seeds 5000 to 5029.
-SIH + INJECTED is an attack added to a real PX4 software in the loop log, scored against simulator truth. REAL LOG is a
-public flight with no attack. SITL FAULT is not scored. What is and is not shown is in
-[docs/VALIDATION.md](docs/VALIDATION.md).
+Every number carries one label, defined in [docs/VALIDATION.md](docs/VALIDATION.md) before the run that produced it. The
+full account, with the preregistrations and the misses, is in [docs/EVIDENCE.md](docs/EVIDENCE.md).
+
+### What does not work yet
+
+* **False alarms on real flights (REAL LOG).** On 101 public PX4 flights with no attack, Marsad was fully TRUSTED on 54
+  (53.5%, 95% interval 43.3% to 63.5%) and reached DENIED on 46.
+  <!-- claim docs/results/real_corpus/summary.json R1_all_trusted/k 54 -->
+  The main causes are lost fixes on 1 Hz receivers and start up. All seven preregistered predictions for this study missed.
+  A later attempt to fix the two largest causes reached 62 of 101 against a target of 68 and was not adopted.
+* **A reference that follows the spoofer (SITL EKF2).** With PX4's own EKF2 velocity as the reference, a drift whose
+  velocity agrees with its position was detected in 0 of 4 runs at every rate from 0.25 to 2.0 m/s, by Marsad and by every
+  baseline, while the EKF2 rejected nothing. n is 4 runs per cell.
+* **A plain window test does as well (REAL LOG + INJECTED).** With attacks added to 52 real flights (the reference being
+  the logged EKF2 velocity, an optimistic bound), a sliding window consistency test detected as many drifts as Marsad and
+  was faster at every rate: median 57.6 s against 111.8 s at 0.25 m/s, and 18.5 s against 25.5 s at 1.0 m/s.
+  <!-- claim docs/results/real_injected/summary.json arms/ekf/cases/drift_0.25_velcons/window/median_latency_s 57.6 -->
+  23 of 75 eligible flights could not be used because Marsad was already alarmed before the onset.
+
+### What it does (labels as stated)
+
+| result | label | n |
+|---|---|---|
+| jumps of 50 to 1000 m detected in about 0.4 s, by Marsad and by every baseline | REAL LOG + INJECTED | 52 flights |
+| position only drift at 0.5 m/s or more detected in 19 to 62 s | SITL EKF2 | 4 runs per cell |
+| velocity consistent drift at 0.25 to 2.0 m/s detected with an uncontaminated reference | REAL LOG + INJECTED | 52 flights |
+| reference bias up to 0.15 m/s tolerated, failure at 0.30 m/s | SIH + INJECTED | 4 flights per cell |
+| five attack kinds specified from the literature detected, no false alarm before onset | SIMULATED (LITERATURE) | 30 runs per kind |
+
+The SIMULATED families share an author with the engine, so they read as regression tests. SEALED_README_PLACEHOLDER
 
 ### Against reference detectors (SIMULATED, held out, 30 seeds per scenario)
 
-Share of runs detected, median latency in seconds. The baselines are described in [docs/BASELINES.md](docs/BASELINES.md).
+This is the v1.4.0 table, kept because it is the only place the detectors are compared on scenarios with no
+real data behind them. Share of runs detected, median latency in seconds. The baselines are described in
+[docs/BASELINES.md](docs/BASELINES.md).
 
 | scenario | Marsad | EKF2 style gate + reference | window consistency | signal monitor |
 |---|---|---|---|---|
@@ -62,28 +91,15 @@ Share of runs detected, median latency in seconds. The baselines are described i
 | obstruction runs with any alarm / share of time not trusted | 100% / 85% | 60% / 23% | 73% / 23% | 100% / 95% |
 
 The window test is faster than Marsad on drift and does better without a reference, but it false alarms on nominal
-flights and cannot classify. The error rows compare what each system hands to the vehicle: the baselines raise a flag
-and keep following GNSS, Marsad also recommends a fallback position, so that lead comes from having a fallback at all.
-Under obstruction Marsad leaves the trusted state in most runs but reaches DENIED in none. It is the noisiest detector
-there after the signal monitor, and that is a cost of the design.
-
-### Slow drift on real logs with an added attack (SIH + INJECTED, `sitl2.ulg`, 230 s)
-
-| drift | Marsad | window consistency | EKF2 style gate + reference |
-|---|---|---|---|
-| 0.1 m/s | not detected | not detected | not detected |
-| 0.25 m/s | 4/4, 113.6 s | 4/4, 57.1 s | not detected |
-| 0.5 m/s | 4/4, 42.5 s | 4/4, 31.1 s | not detected |
-| 1.0 m/s | 4/4, 25.5 s | 4/4, 18.1 s | not detected |
-| 2.0 m/s | 4/4, 15.8 s | 4/4, 11.4 s | 4/4, 13.9 s |
-
-The reference in these logs is simulator truth with no bias, which flatters every method that uses it.
+simulated flights and cannot classify. The error rows compare what each system hands to the vehicle: the baselines raise
+a flag and keep following GNSS, Marsad also recommends a fallback position, so that lead comes from having a fallback at
+all.
 
 ### Limits
 
-Drift of 0.1 m/s is detected by nothing here. Without an independent reference Marsad finds 53% of drifts. The SIMULATED
-generator and the detectors share an author. Nothing has run on a real flight controller or on real interference
-data. The full list is in [docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md) and the plan in [docs/ROADMAP.md](docs/ROADMAP.md).
+Nothing has run on a real flight controller other than PX4 software in the loop, or on real interference. Drift below
+0.25 m/s is not detected. Without an independent reference Marsad finds 53% of simulated drifts. The full list is in
+[docs/KNOWN_LIMITS.md](docs/KNOWN_LIMITS.md) and the plan in [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## Install
 
@@ -165,7 +181,7 @@ download steps are in [docs/DATA.md](docs/DATA.md). Results of earlier versions 
 
 ## Documentation
 
-[Validation](docs/VALIDATION.md) · [Baselines](docs/BASELINES.md) · [Known limits](docs/KNOWN_LIMITS.md) ·
+[Evidence](docs/EVIDENCE.md) · [Validation](docs/VALIDATION.md) · [Baselines](docs/BASELINES.md) · [Known limits](docs/KNOWN_LIMITS.md) ·
 [Roadmap](docs/ROADMAP.md) · [Evaluation](docs/EVALUATION.md) · [Technical report](docs/TECHNICAL_REPORT.md) ·
 [Adapters](docs/ADAPTERS.md) · [Track trust](docs/TRACKS.md) · [API](docs/API.md) · [MCP](docs/MCP.md) ·
 [Dashboard](docs/DASHBOARD.md) · [Data](docs/DATA.md) · [Index](docs/README.md) · [Contributing](CONTRIBUTING.md) ·
