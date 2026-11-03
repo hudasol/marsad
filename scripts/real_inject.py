@@ -18,10 +18,11 @@ import sys
 import time
 import warnings
 from pathlib import Path
+from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from real_corpus import FIXEDWING  # noqa: E402
+from real_corpus import FIXEDWING, clopper_pearson, mcnemar_exact  # noqa: E402
 from sih_inject import inject, offset_at  # noqa: E402
 
 from marsad import TrustEngine  # noqa: E402
@@ -176,6 +177,125 @@ def cmd_run(a) -> int:
     return 0
 
 
+# --------------------------------------------------------------------------------------------- report
+BOOT = 10000
+BOOT_SEED = 20261103
+
+
+def _median(v: list) -> Optional[float]:
+    v = sorted(v)
+    n = len(v)
+    if not n:
+        return None
+    return v[n // 2] if n % 2 else 0.5 * (v[n // 2 - 1] + v[n // 2])
+
+
+def _boot_ci(per_flight: list) -> Optional[list]:
+    if len(per_flight) < 2:
+        return None
+    rng = random.Random(BOOT_SEED)
+    n = len(per_flight)
+    meds = sorted(_median([per_flight[rng.randrange(n)] for _ in range(n)]) for _ in range(BOOT))
+    return [meds[int(0.025 * BOOT)], meds[int(0.975 * BOOT) - 1]]
+
+
+def _flight_view(res: dict, case: str, m: str) -> Optional[dict]:
+    recs = res["cases"][case]
+    det = [r[m] for r in recs if r[m]["detected"]]
+    return {
+        "detected": len(det) >= 3,
+        "n_detected_headings": len(det),
+        "latency": _median([d["latency_s"] for d in det]),
+        "offset": _median([d["offset_m"] for d in det]),
+        "denied": sum(1 for d in det if d["denied"]),
+        "n_det": len(det),
+    }
+
+
+def cmd_report(a) -> int:
+    man = {r["log_id"]: r for r in csv.DictReader(open(a.manifest, encoding="utf-8"))}
+    summary: dict = {"arms": {}}
+    for mode in ("ekf", "indep"):
+        files = sorted(Path(a.flights).glob(f"*_{mode}.json"))
+        flights = [json.load(open(f)) for f in files]
+        ok = [f for f in flights if "cases" in f and f["cases"] and not f.get("excluded")]
+        excl: dict = {}
+        for f in flights:
+            k = f.get("excluded") or ("error: " + f["error"][:60] if "error" in f else None)
+            if k:
+                excl[k] = excl.get(k, 0) + 1
+        arm: dict = {"n_flights_run": len(flights), "n_flights_scored": len(ok), "excluded": excl, "cases": {}}
+        arm["clean_pre_alarm_flights"] = {m: sum(1 for f in ok if f["clean_pre_alarm"][m]) for m in METHODS}
+        for kind, p in CASES:
+            name = case_name(kind, p)
+            row: dict = {}
+            views = {m: [_flight_view(f, name, m) for f in ok] for m in METHODS}
+            for m in METHODS:
+                v = views[m]
+                k = sum(1 for x in v if x["detected"])
+                lat = [x["latency"] for x in v if x["detected"] and x["latency"] is not None]
+                off = [x["offset"] for x in v if x["detected"] and x["offset"] is not None]
+                nd = sum(x["n_det"] for x in v)
+                row[m] = {
+                    "detected": k,
+                    "n": len(v),
+                    "ci95": list(clopper_pearson(k, len(v))) if v else None,
+                    "median_latency_s": _median(lat),
+                    "latency_ci95": _boot_ci(lat),
+                    "median_offset_m": _median(off),
+                    "denied_share": (sum(x["denied"] for x in v) / nd) if nd else None,
+                }
+            for m in METHODS[1:]:
+                b = sum(1 for x, y in zip(views["marsad"], views[m]) if x["detected"] and not y["detected"])
+                c = sum(1 for x, y in zip(views["marsad"], views[m]) if y["detected"] and not x["detected"])
+                row[m]["mcnemar"] = {"marsad_only": b, "baseline_only": c, "p": mcnemar_exact(b, c)}
+            arm["cases"][name] = row
+        hw: dict = {}
+        for f in ok:
+            r = man.get(f["log_id"], {})
+            key = f"{r.get('hardware', '?')}|{r.get('release', '?')}"
+            hw.setdefault(key, {"n": 0, "marsad_detect_fraction": []})
+            hw[key]["n"] += 1
+            hw[key]["marsad_detect_fraction"].append(
+                sum(1 for c in f["cases"].values() for rec in c if rec["marsad"]["detected"])
+                / max(sum(len(c) for c in f["cases"].values()), 1)
+            )
+        arm["by_hardware_release"] = {
+            k: {"n": v["n"], "mean_detect": sum(v["marsad_detect_fraction"]) / v["n"]} for k, v in hw.items()
+        }
+        summary["arms"][mode] = arm
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    json.dump(summary, open(out / "summary.json", "w"), indent=1, sort_keys=True)
+    lines = ["# Attacks injected into real flights (REAL LOG + INJECTED)", ""]
+    for mode, arm in summary["arms"].items():
+        lines += [
+            f"## Arm {mode}: n flights run {arm['n_flights_run']}, scored {arm['n_flights_scored']}",
+            "",
+            f"Excluded: {json.dumps(arm['excluded'])}",
+            "",
+            "| case | method | detected | 95% CI | median latency s (95% CI) | median offset m | p vs Marsad |",
+            "|---|---|---|---|---|---|---|",
+        ]
+        for name, row in arm["cases"].items():
+            for m in METHODS:
+                d = row[m]
+                ci = f"{d['ci95'][0]:.2f} to {d['ci95'][1]:.2f}" if d["ci95"] else "n/a"
+                lc = d["latency_ci95"]
+                lat = (
+                    "n/a"
+                    if d["median_latency_s"] is None
+                    else f"{d['median_latency_s']:.1f}" + (f" ({lc[0]:.1f} to {lc[1]:.1f})" if lc else "")
+                )
+                off = "n/a" if d["median_offset_m"] is None else f"{d['median_offset_m']:.0f}"
+                pv = f"{d[m]['mcnemar']['p']:.3g}" if False else (f"{d['mcnemar']['p']:.3g}" if "mcnemar" in d else "")
+                lines.append(f"| {name} | {m} | {d['detected']}/{d['n']} | {ci} | {lat} | {off} | {pv} |")
+        lines.append("")
+    open(out / "summary.md", "w").write("\n".join(lines))
+    print(f"wrote {out}/summary.json and summary.md")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -186,6 +306,11 @@ def main(argv=None) -> int:
     r.add_argument("--limit", type=int, default=0)
     r.add_argument("--budget-s", type=float, default=0)
     r.set_defaults(fn=cmd_run)
+    q = sub.add_parser("report")
+    q.add_argument("--manifest", required=True)
+    q.add_argument("--flights", required=True)
+    q.add_argument("--out", required=True)
+    q.set_defaults(fn=cmd_report)
     a = ap.parse_args(argv)
     return a.fn(a)
 
