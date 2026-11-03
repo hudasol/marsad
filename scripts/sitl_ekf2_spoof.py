@@ -88,22 +88,22 @@ def main(argv=None) -> int:
         t_wait = time.time()
         while clk.now() < 30.0 and time.time() - t_wait < 300:
             time.sleep(0.2)
-        m.mav.command_long_send(sysid, comp, 400, 0, 1, 0, 0, 0, 0, 0, 0)
-        time.sleep(1)
-        m.mav.command_long_send(sysid, comp, 22, 0, 0, 0, 0, 0, 0, 0, 10)
-        t_take = clk.now()
-        while clk.now() < t_take + 12.0:
-            time.sleep(0.1)
 
         def vel(vn, ve, vd):
             m.mav.set_position_target_local_ned_send(
                 0, sysid, comp, mavutil.mavlink.MAV_FRAME_LOCAL_NED, 3527, 0, 0, 0, vn, ve, vd, 0, 0, 0, 0, 0
             )
 
-        for _ in range(60):
+        for _ in range(60):  # offboard needs a setpoint stream before the mode switch and before arming
             vel(0, 0, 0)
             time.sleep(0.05)
         m.mav.command_long_send(sysid, comp, 176, 0, 1, 6, 0, 0, 0, 0, 0)  # offboard
+        time.sleep(0.5)
+        m.mav.command_long_send(sysid, comp, 400, 0, 1, 0, 0, 0, 0, 0, 0)  # arm
+        t_up = clk.now()
+        while clk.now() < t_up + 12.0:  # climb about 10 m
+            vel(0, 0, -1.0)
+            time.sleep(0.05)
         legs = [(SPEED, 0), (0, SPEED), (-SPEED, 0), (0, -SPEED)]
         t0 = clk.now()
         events.append({"t_sim": t0, "event": "square_start"})
