@@ -1,0 +1,6 @@
+log_id,url,sha256,release,hardware,vehicle_type,gnss_seconds,independent_reference,stratum,design_subset,bytes
+16993cc0-7a35-4408-a413-64aeed78438a,https://cdn.logs.px4.io/16993cc0-7a35-4408-a413-64aeed78438a.ulg,f6b39f0dc0796dca6c6a2b5512c1528efcfaeeeebbe64923e06084fad9631db4,v1.15.0 0,NXP_TROPIC,Quadrotor,432,none,main,false,14020278
+e0dd98ef-abe9-4b62-b6f9-9ffd0944861a,https://cdn.logs.px4.io/e0dd98ef-abe9-4b62-b6f9-9ffd0944861a.ulg,4806a685d9f1709f41927b14b85af356b98f5de028a7550d2a90649a52cb2c15,v1.17.0 255,MATEK_H743_SLIM,Quadrotor,293,none,main,false,12650794
+99e38bd8-5d9b-4887-ad14-77cb09551276,https://cdn.logs.px4.io/99e38bd8-5d9b-4887-ad14-77cb09551276.ulg,6b12bf750cda60c5c43165aa031ca8bf081dda44b127eb2559ef5c32aadacc97,v1.16.0 0,HCUAV_PROTOTYPE_V2,VTOL Standard,635,none,main,false,43487720
+243c6dec-9a1b-4860-b45c-14b969d6f3bd,https://cdn.logs.px4.io/243c6dec-9a1b-4860-b45c-14b969d6f3bd.ulg,08c1ca7c63565b854e53d0764281d42a3aa532c8b8283705a408e639790d56da,v1.15.4 0,HOLYBRO_DURANDAL_V1,Quadrotor,1691,none,main,false,172182521
+9908af2f-7706-43fc-a1ec-7166249fdb8b,https://cdn.logs.px4.io/9908af2f-7706-43fc-a1ec-7166249fdb8b.ulg,0d03d3abfb470c3b4a5e1105e8a513905006f1826a70afa7ab0dcf455215a759,v1.17.0 0,WGDRONES_DR001,Quadrotor,492,none,main,false,52706784

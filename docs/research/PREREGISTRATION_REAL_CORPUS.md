@@ -82,3 +82,13 @@ None; this is a measurement. Any non TRUSTED flight is reported in the README he
 ## Outcome
 
 Empty until scored.
+
+## Amendment, 2026-11-03
+
+The first paragraph of this file says five pilot logs had been downloaded when it was committed. That was written
+ahead of the fact: the pilot download (the first five accepted candidates in the fixed order, 0.30 GB, listed in the
+manifest) happened a few minutes after this file was committed and before any engine output on the corpus was
+viewed. No prediction was changed. Five other candidates in the same order were dropped by the GNSS rule (no fixes of
+type 3 or better), so about half of the drawn logs fail the rule. With the caps in "Data and selection" the drawn list
+holds 240 main candidates, so the expected number of accepted logs is about 120, below the target of 130; the
+scoring set will be about 96 flights. The caps are not changed.
