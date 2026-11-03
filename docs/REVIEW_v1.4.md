@@ -33,15 +33,17 @@ A review written from the position of an engineer who had not seen the project b
 | Release workflow did not run the tests | Fixed |
 | Dashboard looked generated | Fixed. New palette, one title bar, three.js space time view |
 | No content security policy | Fixed. Script and style from self only |
-| `TrustEngine.update` is long and holds magic numbers | Open |
+| `TrustEngine.update` is long and holds magic numbers | Fixed in v1.5.0. `update` is split into stages and the constants are in `EngineConfig`; held out results unchanged |
 | `pop(0)` window in the kinematic detector | Fixed. `deque` |
 | `assert` used as validation in the bbox parser | Fixed. Explicit 422. Broad handlers elsewhere remain open |
-| No type hints or mypy on the core | Open |
-| No property based tests or coverage gate | Open |
-| Workflow actions are pinned by tag, not by commit | Open |
-| Acknowledge uses the same key as read access | Open |
+| No type hints or mypy on the core | Fixed in v1.5.0. `mypy` runs on the core in CI |
+| No property based tests or coverage gate | Fixed in v1.5.0. Hypothesis tests on the input path and a coverage gate of 87% (measured 89.4%) |
+| Workflow actions are pinned by tag, not by commit | Fixed in v1.5.0. Pinned by commit SHA |
+| Acknowledge uses the same key as read access | Fixed in v1.5.0. A separate acknowledgement key is accepted |
 
-## Plan for the open items
+## Plan for the open items (all closed in v1.5.0)
+
+Status note, 2026-11-03: the five items below were completed in the v1.5.0 engineering foundation work; item 2 narrowed the remaining broad handlers.
 
 1. Split `update` into stages (input cleaning, reference integration, evidence, state, learning). Move the constants into `EngineConfig`. Gate every step on `scripts/check_heldout.py` so the held out output stays byte identical.
 2. Narrow the remaining broad exception handlers.

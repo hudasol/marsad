@@ -149,3 +149,12 @@ python scripts/sih_baselines.py sitl2.ulg --end 290 --t-attack 60 \
     --marsad docs/results/prior_bound/sih_inject_long.json --out docs/results/baselines/sih_inject_long.json
 python scripts/replay_baselines.py path/to/real_flight.ulg
 ```
+
+## Update for v1.5.0: the same baselines on real flights and with PX4's EKF2
+
+On 52 real flights with attacks added (REAL LOG + INJECTED, logged EKF2 reference, an optimistic bound) the window
+consistency test and the combined stack detected velocity consistent drift of 0.25 m/s in 52 of 52 flights, Marsad in 45
+of 52, the EKF2 style gate with reference in 3 of 52 and the plain gate in 2 of 52. The window test was faster at every
+rate (57.6 s against 111.8 s at 0.25 m/s). With the EKF2 velocity as the reference (SITL EKF2) none of the methods
+detected a velocity consistent drift. On the independent literature family the stack was faster than Marsad on slow
+takeover and time push. Details and counts: [EVIDENCE.md](EVIDENCE.md).

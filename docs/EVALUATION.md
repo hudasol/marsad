@@ -1,6 +1,6 @@
 # Evaluation
 
-**Everything on this page is SIMULATED.** The scenarios come from `marsad.sim`, a measurement-level
+**Everything on this page is SIMULATED** (the first scenario family; v1.5.0 adds a second, SIMULATED (LITERATURE), and real flight studies, all in [EVIDENCE.md](EVIDENCE.md)). The scenarios come from `marsad.sim`, a measurement-level
 model of what a GNSS receiver and a reference sensor would report. No flight data, no RF, no hardware.
 Read the results as "the method works against this threat model", not "Marsad is validated in the field".
 

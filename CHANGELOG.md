@@ -6,6 +6,42 @@ SITL FAULT) are explained in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-03
+
+This release is mainly an evidence release. The engine behaviour is the same as v1.4.0; one engine trial was run and
+not adopted. The headline result is a miss: on real public flights the engine is fully trusted on only about half of the
+flights.
+
+### Added
+* A real flight corpus study: 139 public PX4 logs, 101 scored, with a seeded preregistered draw and a manifest with
+  checksums (`docs/results/real_corpus/`, `scripts/real_corpus.py`). All seven predictions missed.
+* Attacks injected into real flights (REAL LOG + INJECTED), 52 flights scored, `scripts/real_inject.py`. Six of nine
+  predictions hit.
+* PX4 EKF2 in the loop (SITL EKF2): a patch to the PX4 GPS simulator, driver and scoring scripts, 48 runs. A velocity
+  consistent drift is not detected when the reference is the EKF2 velocity.
+* A degraded reference study on SIH logs, `scripts/sih_realistic_ref.py`.
+* A second scenario family built from published attack descriptions, `marsad.sim.literature`, with a sealed split
+  (seeds 7000 to 7099) and a runner that refuses sealed seeds without `--final`.
+* `docs/EVIDENCE.md` and `tests/test_docs_numbers.py`, which checks that numbers quoted in documents match the result
+  files. Label definitions in `docs/VALIDATION.md`.
+* Preregistrations for every study above, with outcomes and misses, and `docs/research/PRIOR_ART.md`.
+* Engineering: `TrustEngine.update` split into stages with constants in `EngineConfig`, type hints with mypy on the core,
+  hypothesis tests and a coverage gate of 87%, narrowed exception handlers, actions pinned by commit, a separate
+  acknowledgement key, a refusal to bind publicly without a key.
+
+### Not adopted
+* An adaptive loss timeout and a recovery timer fix for lost fixes on 1 Hz receivers: fully trusted flights rose from 54
+  to 62 of 101 against a target of 68, alarm episodes per hour rose from 3.0 to 4.2, and some simulated spoofing
+  detections were one tick slower. Kept as `docs/research/patches/cadence_trial.patch`.
+
+### Changed
+* README and technical report lead with the real flight misses. The v1.4.0 limits and the old technical report
+  section 4 moved to `docs/history/`.
+
+### Known gaps
+* No result against real interference or a real attacker. No hardware. Detection without an independent reference and
+  latency on slow drift were not attempted.
+
 ## [1.4.0] - 2026-10-28
 
 ### Added

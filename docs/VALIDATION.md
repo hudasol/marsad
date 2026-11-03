@@ -292,6 +292,25 @@ ten hits, three misses (two of them on rows that improved) and one row not score
 * Not run: REAL LOG replay of the v1.4.0 engine. `marsad replay flight1.ulg` and `flight2.ulg` still need to be run
   by the author, who holds the files.
 
+## Studies of v1.5.0
+
+Each study has a preregistration with predictions fixed before the run and an Outcome that scores every row. The
+summary is in [EVIDENCE.md](EVIDENCE.md).
+
+| study | label | n | preregistration | results |
+|---|---|---|---|---|
+| public flights, no attack | REAL LOG | 101 scoring flights | [REAL_CORPUS](research/PREREGISTRATION_REAL_CORPUS.md) | `results/real_corpus/` |
+| attacks added to those flights | REAL LOG + INJECTED | 52 flights (arm with a logged EKF2 reference, optimistic); 2 flights (independent reference, not interpreted) | [REAL_INJECTED](research/PREREGISTRATION_REAL_INJECTED.md) | `results/real_injected/` |
+| PX4 EKF2 in the loop | SITL EKF2 | 4 runs per cell, 48 runs | [SITL_EKF2](research/PREREGISTRATION_SITL_EKF2.md) | `results/sitl_ekf2/` |
+| degraded reference models | SIH + INJECTED | 4 flights per cell | [SIH_REALISTIC_REF](research/PREREGISTRATION_SIH_REALISTIC_REF.md) | `results/sih_realistic_ref/` |
+| cadence and start up fix (not adopted) | REAL LOG, SIMULATED | 101 flights, 30 design flights | [CADENCE](research/PREREGISTRATION_CADENCE.md) | `results/cadence_trial_*` |
+| independent scenario family | SIMULATED (LITERATURE), SEALED | 30 dev runs per kind; 100 sealed runs per kind | [LITERATURE](research/PREREGISTRATION_LITERATURE.md) | `results/literature_dev/`, `results/sealed/` |
+
+What these studies do not establish: any result on real interference or a real spoofer, any hardware flight controller,
+or detection when the spoofer influences the reference by means other than the GNSS fix (a bound of the SITL EKF2 study
+is that the spoof is the simulated receiver's own output). In REAL LOG + INJECTED the logged EKF2 velocity does not follow the injected
+offset, so detection by any reference based method is an upper bound there.
+
 ## The path from here
 
 1. **Detection gaps** are ranked in [ROADMAP.md](ROADMAP.md). Real-log replay on clean flights is done (two logs, v1.3.0

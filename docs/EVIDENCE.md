@@ -28,6 +28,8 @@ flights (used only for engine work), 9 with error labels reported apart. 18.5 fl
 | flights with an alarm, plain gate | 25 of 101 <!-- claim docs/results/real_corpus/summary.json R5_baselines_vs_marsad/gate/flights_with_alarm/k 25 --> |
 | flights with an alarm, Marsad | 47 of 101 |
 
+![share of 101 public flights: fully trusted, with a denied sample, and alarmed by the plain gate](img/evidence-real-log.png)
+
 Seven of seven preregistered predictions missed (R1 to R7 in the Outcome of the preregistration). The false alarm
 rate is the weakest number in this project and the first one to read.
 
@@ -62,6 +64,8 @@ reference (optical flow, visual odometry) has 2 scored flights and is not interp
 | 0.5 m/s | 52 of 52 / 42.3 | 52 of 52 / 31.6 | 2 of 52 |
 | 1.0 m/s | 52 of 52 / 25.5 | 52 of 52 / 18.5 | 2 of 52 |
 | 2.0 m/s | 52 of 52 / 15.7 | 52 of 52 / 12.0 | 2 of 52 |
+
+![median latency of Marsad and the window test on velocity consistent drift added to 52 real flights](img/evidence-drift-latency.png)
 
 <!-- claim docs/results/real_injected/summary.json arms/ekf/cases/drift_0.25_velcons/marsad/detected 45 -->
 <!-- claim docs/results/real_injected/summary.json arms/ekf/cases/drift_0.25_velcons/window/detected 52 -->

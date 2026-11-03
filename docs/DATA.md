@@ -46,6 +46,19 @@ The PX4 software in the loop logs flown for the EKF2 in the loop study (SITL EKF
 release; the scored summary is in [results/sitl_ekf2/](results/sitl_ekf2/) and re-running the batch script regenerates
 them. The patch that adds the offset parameters to the PX4 GPS simulator is `scripts/px4_sensor_gps_sim_offset.patch`.
 
+Four of these runs are attached to the v1.5.0 GitHub Release as the clean base logs of the SIH + INJECTED studies of
+v1.5.0 (no attack, no failure injection, flown with `scripts/sitl_ekf2_spoof.py --case clean`). Their checksums, also in
+`SHA256SUMS.txt` on the release:
+
+| file | size (bytes) | SHA256 |
+|---|---|---|
+| `clean_h0.ulg` | 70,967,591 | `95324f3ec075da6261383fa7218cc9e2b220034462d323227f52e2adf7231d91` |
+| `clean_h90.ulg` | 72,769,927 | `9d97e5d019b791838f2cb0cb1a29343d89dcb1843a5eac253a3cb7aa07ede9a3` |
+| `clean_h180.ulg` | 72,351,070 | `a0d0dca53bead486170fb621f38c4705b0a9fa8c914691020a5fc6bdc02fa618` |
+| `clean_h270.ulg` | 73,051,127 | `7d1e9eed426ddaeffcc885e8d7d1f07e9595ad61fdfdc62e5f693f31e7cc7971` |
+
+`sitl1.ulg` and `sitl2.ulg` stay attached to the v1.3.0 release as before.
+
 ## How each file was obtained
 
 **`sitl1.ulg`.** PX4 software in the loop with the SIH simulator (`make px4_sitl sihsim_quadx`) on WSL2 Ubuntu,

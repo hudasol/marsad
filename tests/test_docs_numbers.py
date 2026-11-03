@@ -4,7 +4,7 @@ A document marks a figure with an HTML comment placed right after it:
 
     <!-- claim docs/results/real_corpus/summary.json R1_all_trusted.k 54 -->
 
-The comment names a JSON file, a dotted path (list items by index) and the value quoted in the text. The test fails if
+The comment names a JSON file, a path with "/" between keys (list items by index) and the value quoted in the text. The test fails if
 the file is missing, the path does not resolve, or the value differs. This keeps the headline numbers from drifting
 away from the committed results.
 """
@@ -33,7 +33,7 @@ def _claims():
 
 
 def _resolve(obj, path: str):
-    for part in path.split("."):
+    for part in path.split("/"):
         obj = obj[int(part)] if isinstance(obj, list) else obj[part]
     return obj
 
