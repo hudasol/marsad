@@ -10,7 +10,8 @@
 6. Failed: the cadence and start up engine trial (fully trusted 54 to 62 of 101 against a target of 68; kill criterion on held out simulated runs read as triggered); not adopted, patch kept. Prediction misses are recorded in each preregistration Outcome.
 7. Not completed: detection without an independent reference (WP7a) and slow drift latency (WP7b), dropped on time; SITL FAULT scoring; fresh SIH flights beyond the four clean logs; `sitl1.ulg` and `sitl2.ulg` were not on the build machine so their tables stay v1.4.0.
 8. Decisions: when the cadence kill criterion wording was ambiguous the weaker claim was taken (not adopted); the injected study keeps its two reference arms apart; the engine kept v1.4.0 behaviour so every study shares one engine.
-9. Manual: push the rewritten tags from your machine (`git push --force origin --tags`; the proxy refused it here); remove the repository topic `gps-spoofing-data`; update the repository description to match the new README tagline if you want it to; two Dependabot pull requests (checkout and setup-python) are open.
+9. Not completed: the tag and the GitHub Release. The annotated tag `v1.5.0` exists locally on the final commit but the push and the release API were refused from this environment. Manual: `git tag -a v1.5.0 -m "Marsad 1.5.0"` on the final commit (or `git push origin v1.5.0` from a clone that has it), then create the release with the notes from `CHANGELOG.md`, and attach `clean_h0.ulg`, `clean_h90.ulg`, `clean_h180.ulg`, `clean_h270.ulg` (checksums in `docs/DATA.md`; the files are on the build machine only) and a `SHA256SUMS.txt`.
+10. Manual: push the earlier rewritten tags from your machine (`git push --force origin --tags`; the proxy refused it here); remove the repository topic `gps-spoofing-data`; update the repository description to match the new README tagline if wanted; two Dependabot pull requests (checkout and setup-python) are open.
 
 ## Earlier runs, 2026-10-16 to 2026-10-23
 

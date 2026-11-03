@@ -46,9 +46,9 @@ The PX4 software in the loop logs flown for the EKF2 in the loop study (SITL EKF
 release; the scored summary is in [results/sitl_ekf2/](results/sitl_ekf2/) and re-running the batch script regenerates
 them. The patch that adds the offset parameters to the PX4 GPS simulator is `scripts/px4_sensor_gps_sim_offset.patch`.
 
-Four of these runs are attached to the v1.5.0 GitHub Release as the clean base logs of the SIH + INJECTED studies of
-v1.5.0 (no attack, no failure injection, flown with `scripts/sitl_ekf2_spoof.py --case clean`). Their checksums, also in
-`SHA256SUMS.txt` on the release:
+Four of these runs are the clean base logs of the SIH + INJECTED studies of
+v1.5.0 (no attack, no failure injection, flown with `scripts/sitl_ekf2_spoof.py --case clean`). Their checksums are below. They are meant to be attached to the v1.5.0 release together with a `SHA256SUMS.txt`; at the time
+of writing the release had not been created (see the run log), so until it is, the logs are not downloadable:
 
 | file | size (bytes) | SHA256 |
 |---|---|---|
