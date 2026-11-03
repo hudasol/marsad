@@ -15,6 +15,7 @@ import json
 import os
 import shutil
 import signal
+import struct
 import subprocess
 import time
 from pathlib import Path
@@ -39,7 +40,9 @@ class Clock:
 
 
 def set_param(m, sysid, comp, name, value, ptype):
-    m.mav.param_set_send(sysid, comp, name.encode(), float(value), ptype)
+    """PX4 carries an INT32 parameter as the raw bits of the float field (MAV_PARAM_TYPE_INT32 is 6)."""
+    v = struct.unpack("<f", struct.pack("<i", int(value)))[0] if ptype == 6 else float(value)
+    m.mav.param_set_send(sysid, comp, name.encode(), v, ptype)
     time.sleep(0.15)
 
 
@@ -52,6 +55,7 @@ def main(argv=None) -> int:
     ap.add_argument("--velcons", action="store_true", help="drift: also shift the receiver velocity")
     ap.add_argument("--speed", type=float, default=4.0, help="PX4_SIM_SPEED_FACTOR")
     ap.add_argument("--name", default=None)
+    ap.add_argument("--keep", action="store_true", help="keep the PX4 run directory")
     a = ap.parse_args(argv)
 
     kind, _, val = a.case.partition(":")
@@ -134,7 +138,7 @@ def main(argv=None) -> int:
             proc.wait(timeout=30)
         except subprocess.TimeoutExpired:
             proc.kill()
-    logs = sorted(run.glob("log/**/*.ulg"))
+    logs = sorted(run.glob("**/*.ulg"))
     meta = {
         "name": name,
         "case": a.case,
@@ -147,7 +151,8 @@ def main(argv=None) -> int:
     json.dump(meta, open(out / f"{name}.json", "w"), indent=1)
     if logs:
         shutil.copy(logs[-1], out / f"{name}.ulg")
-    shutil.rmtree(run, ignore_errors=True)
+    if not a.keep:
+        shutil.rmtree(run, ignore_errors=True)
     print(json.dumps(meta))
     return 0 if logs else 1
 
