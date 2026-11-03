@@ -1,0 +1,8 @@
+{
+ "log_id": "76f12133-188f-4a01-8e18-3456aaf7e6cb",
+ "ref_mode": "ekf",
+ "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+ "span_s": 257.91013399999997,
+ "cases": {},
+ "excluded": "less than 300 s of fixes"
+}

@@ -1,0 +1,8 @@
+{
+ "log_id": "8c163e81-6686-4812-9cff-cf7318810a01",
+ "ref_mode": "ekf",
+ "reference_source": null,
+ "span_s": 2973.798944,
+ "cases": {},
+ "excluded": "no reference for this arm"
+}

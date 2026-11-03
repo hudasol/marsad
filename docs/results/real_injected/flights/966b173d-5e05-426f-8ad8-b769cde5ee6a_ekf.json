@@ -1,0 +1,8 @@
+{
+ "log_id": "966b173d-5e05-426f-8ad8-b769cde5ee6a",
+ "ref_mode": "ekf",
+ "reference_source": "px4:vehicle_optical_flow",
+ "span_s": 274.99683500000003,
+ "cases": {},
+ "excluded": "less than 300 s of fixes"
+}

@@ -1,0 +1,16 @@
+{
+ "log_id": "76e837ea-f7e4-4644-bb4b-5db7ec4568db",
+ "ref_mode": "ekf",
+ "reference_source": "px4:vehicle_optical_flow",
+ "span_s": 372.03835100000003,
+ "cases": {},
+ "clean_pre_alarm": {
+  "marsad": true,
+  "gate": false,
+  "ekf2_gate_ref": true,
+  "window": true,
+  "stack": true
+ },
+ "clean_start": false,
+ "excluded": "Marsad not TRUSTED in the 30 s before the earliest onset"
+}

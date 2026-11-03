@@ -1,0 +1,16 @@
+{
+ "log_id": "349585d8-db32-4363-8987-dae3565767f4",
+ "ref_mode": "ekf",
+ "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+ "span_s": 670.032,
+ "cases": {},
+ "clean_pre_alarm": {
+  "marsad": true,
+  "gate": true,
+  "ekf2_gate_ref": true,
+  "window": true,
+  "stack": true
+ },
+ "clean_start": false,
+ "excluded": "Marsad not TRUSTED in the 30 s before the earliest onset"
+}

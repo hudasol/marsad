@@ -91,4 +91,42 @@ None; this is a measurement. A missed prediction is reported with its cause.
 
 ## Outcome
 
-Empty until scored.
+Scored 2026-11-03 (UTC+4) from `docs/results/real_injected/summary.json` and `summary.md`, engine v1.4.0 behaviour.
+Label: **REAL LOG + INJECTED**. The two reference arms are reported separately and never pooled.
+
+Population. 101 scoring flights were run. 24 had less than 300 s of fixes of type 3 or better, 2 had no reference for the
+independent arm, and **23 of the remaining 75 (31%) were not TRUSTED in the 30 s before the earliest onset in the
+uninjected replay** and were excluded as designed. This is the real flight false alarm problem showing up as a loss of
+test flights: the detection numbers below are for the 52 flights on which Marsad starts out trusted. Arm (a), the logged
+EKF fused velocity, has n = 52. Arm (b), an independent reference, has n = 2 scored flights (6 run), so it supports no
+claim and is not interpreted.
+
+Arm (a) is an optimistic upper bound for every method that uses the reference: the logged velocity came from the
+uninjected fixes and does not follow the injected offset. SITL EKF2 (see `PREREGISTRATION_SITL_EKF2.md`) is the study
+in which the reference is dragged.
+
+| Row | Result (arm a, n = 52) | Verdict |
+|---|---|---|
+| J1 | jump 200 m: 52 of 52 (95% interval 93% to 100%); jump 1000 m: 52 of 52 | HIT |
+| J2 | jump 50 m: 52 of 52 | HIT |
+| D1 | velocity consistent drift 1.0 m/s: 52 of 52, median latency 25.5 s; 2.0 m/s: 52 of 52, 15.7 s | HIT |
+| D2 | position only drift 0.5 m/s: 52 of 52, median latency 41.9 s | HIT |
+| D3 | velocity consistent drift 0.25 m/s: 45 of 52 (87%, interval 74% to 94%), median latency 111.8 s; predicted fewer than 50% | MISS |
+| C1 | window detects 52 of 52 at 0.5 m/s velocity consistent, Marsad 52 of 52; predicted a gap of at least 30 points | MISS |
+| C2 | plain gate detects 2 of 52 at 1.0 m/s velocity consistent (4%); predicted 0 | MISS (by two flights) |
+| F1 | Marsad alarm before onset in 2 of 52 scored flights (4%), at most 10% predicted | HIT, but carried by the exclusion above |
+| O1 | position only drift 1.0 m/s: median offset at alarm 20 m, under 60 m | HIT |
+
+Reading. D3 and C1 are the interesting misses. On real flight logs with a logged (uncontaminated) reference Marsad
+detects 0.25 m/s drift far more often than predicted, and the simple window test detects everything Marsad does and
+sooner: median latency 57.6 s against 111.8 s at 0.25 m/s, 31.6 s against 42.3 s at 0.5 m/s, 18.5 s against 25.5 s at
+1.0 m/s, 12.0 s against 15.7 s at 2.0 m/s (velocity consistent). The paired test at 0.25 m/s favours the window test
+(exact McNemar p 0.016, 7 flights detected by the window test only, none by Marsad only). The window test is not
+evaluated for false alarms on the 23 excluded flights; its pre onset alarm count on the 52 scored flights is 3, against 2
+for Marsad. Marsad's value over the window test on this study is therefore not detection speed; it is classification and
+a fallback position, neither of which this study measures. Comparisons: nine preregistered rows, with every other
+cell in `summary.md` exploratory (about 150 McNemar tests were computed; they are not corrected and are descriptive).
+
+The EKF2 style gate with the reference check (`ekf2_gate_ref`) detects 3 of 52 at 0.25 m/s and 48 of 52 at 0.5 m/s, with
+a median latency of 80 s, and is the closest to the vehicle's own behaviour among the baselines. With a reference that
+does not follow the spoofed fixes it detects drift of 1.0 m/s and above in nearly every flight.

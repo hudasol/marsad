@@ -1,0 +1,8 @@
+{
+ "log_id": "94b2876d-126c-4460-ae53-48d2ab298f5b",
+ "ref_mode": "indep",
+ "reference_source": "px4:vehicle_optical_flow",
+ "span_s": 246.00631199999998,
+ "cases": {},
+ "excluded": "less than 300 s of fixes"
+}

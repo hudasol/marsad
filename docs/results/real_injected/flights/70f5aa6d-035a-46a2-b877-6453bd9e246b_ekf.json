@@ -1,0 +1,1754 @@
+{
+ "log_id": "70f5aa6d-035a-46a2-b877-6453bd9e246b",
+ "ref_mode": "ekf",
+ "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+ "span_s": 694.999997,
+ "cases": {
+  "jump_50": [
+   {
+    "heading": 0.0,
+    "onset": 332.08879620271586,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.9771907972841518,
+     "offset_m": 50.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.9771907972841518,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.9771907972841518,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.9771907972841518,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.9771907972841518,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 389.29539626429363,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.023196735706392246,
+     "offset_m": 50.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.7708177357063732,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.7708177357063732,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.7708177357063732,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.7708177357063732,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 411.22927437746637,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.8371616225336425,
+     "offset_m": 50.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.8371616225336425,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.8371616225336425,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.8371616225336425,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.8371616225336425,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 294.35757116554674,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.7090368344532294,
+     "offset_m": 50.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.7090368344532294,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.7090368344532294,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.7090368344532294,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.7090368344532294,
+     "offset_m": 50.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "jump_200": [
+   {
+    "heading": 0.0,
+    "onset": 270.45172558940266,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.615263410597322,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.615263410597322,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.615263410597322,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.615263410597322,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.615263410597322,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 302.07713266313,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.9901633368700118,
+     "offset_m": 200.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.9901633368700118,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.9901633368700118,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.9901633368700118,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.9901633368700118,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 377.34526487468645,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.07997712531357593,
+     "offset_m": 200.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.7212991253135783,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.7212991253135783,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.7212991253135783,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.7212991253135783,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 348.84449039432815,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.22189660567187275,
+     "offset_m": 200.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.22189660567187275,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.22189660567187275,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.22189660567187275,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.22189660567187275,
+     "offset_m": 200.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "jump_1000": [
+   {
+    "heading": 0.0,
+    "onset": 362.65458491222125,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.4115580877787579,
+     "offset_m": 1000.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.4115580877787579,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.4115580877787579,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.4115580877787579,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.4115580877787579,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 388.9231705077596,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.10300849224040576,
+     "offset_m": 1000.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.14328349224041403,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.14328349224041403,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.14328349224041403,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.14328349224041403,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 326.0674396661666,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.9988603338334201,
+     "offset_m": 1000.0,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.9988603338334201,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.9988603338334201,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.9988603338334201,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.9988603338334201,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 271.30668168048425,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.7610873195157524,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": true,
+     "latency_s": 0.7610873195157524,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 0.7610873195157524,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 0.7610873195157524,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 0.7610873195157524,
+     "offset_m": 1000.0,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_0.25_velcons": [
+   {
+    "heading": 0.0,
+    "onset": 286.59283135684046,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.033312643159547406,
+     "offset_m": 1.3871652428441757e-05,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 217.47415664315952,
+     "offset_m": 53.11853916078988,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 217.47415664315952,
+     "offset_m": 53.11853916078988,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 319.5356224850353,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.5310945149647068,
+     "offset_m": 0.003525767297819965,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 198.53191751496473,
+     "offset_m": 48.38297937874118,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 198.53191751496473,
+     "offset_m": 48.38297937874118,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 336.85485162260653,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.21096937739349642,
+     "offset_m": 0.000556350977472494,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 77.2111953773935,
+     "offset_m": 18.052798844348374,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 77.2111953773935,
+     "offset_m": 18.052798844348374,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 252.73995793548778,
+    "marsad": {
+     "detected": true,
+     "latency_s": 29.3275480645122,
+     "offset_m": 6.08188701612805,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 394.32612406451227,
+     "offset_m": 97.33153101612807,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 394.32612406451227,
+     "offset_m": 97.33153101612807,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_0.25_posonly": [
+   {
+    "heading": 0.0,
+    "onset": 433.70748505903623,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.35902194096377116,
+     "offset_m": 0.0016112094261674197,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 50.35893594096376,
+     "offset_m": 11.33973398524094,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 50.35893594096376,
+     "offset_m": 11.33973398524094,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 344.2682361875645,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.7978768124354474,
+     "offset_m": 0.007957592597776876,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 51.798657812435465,
+     "offset_m": 11.699664453108866,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 51.798657812435465,
+     "offset_m": 11.699664453108866,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 426.9522847306434,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.11369626935663746,
+     "offset_m": 0.00016158552082021322,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 60.1146572693566,
+     "offset_m": 13.77866431733915,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 60.1146572693566,
+     "offset_m": 13.77866431733915,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 248.82890641342055,
+    "marsad": {
+     "detected": true,
+     "latency_s": 33.238599586579426,
+     "offset_m": 7.059649896644856,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 69.23675058657943,
+     "offset_m": 16.059187646644858,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 69.23675058657943,
+     "offset_m": 16.059187646644858,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_0.5_velcons": [
+   {
+    "heading": 0.0,
+    "onset": 353.98666904179095,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.07917495820908016,
+     "offset_m": 0.00015671685018523975,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 199.07989495820902,
+     "offset_m": 97.03994747910451,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 47.08029695820903,
+     "offset_m": 21.040148479104516,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 47.08029695820903,
+     "offset_m": 21.040148479104516,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 252.38182450573697,
+    "marsad": {
+     "detected": true,
+     "latency_s": 29.685681494263008,
+     "offset_m": 12.342840747131504,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 37.684552494263016,
+     "offset_m": 16.342276247131508,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 37.684552494263016,
+     "offset_m": 16.342276247131508,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 358.50933280315206,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.5573091968479389,
+     "offset_m": 0.007764838522282368,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 227.55658219684796,
+     "offset_m": 111.27829109842398,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 37.55756119684793,
+     "offset_m": 16.278780598423964,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 37.55756119684793,
+     "offset_m": 16.278780598423964,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 270.371395393332,
+    "marsad": {
+     "detected": true,
+     "latency_s": 11.696110606667958,
+     "offset_m": 3.348055303333979,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 140.69466860666796,
+     "offset_m": 67.84733430333398,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 140.69466860666796,
+     "offset_m": 67.84733430333398,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_0.5_posonly": [
+   {
+    "heading": 0.0,
+    "onset": 282.7148816097609,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.0077543902391425945,
+     "offset_m": 1.5032641995227486e-06,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 50.35110539023913,
+     "offset_m": 22.675552695119563,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 26.35209139023914,
+     "offset_m": 10.67604569511957,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 26.35209139023914,
+     "offset_m": 10.67604569511957,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 343.0416386552451,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.024454344754929025,
+     "offset_m": 1.4950374434823119e-05,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 106.0254113447549,
+     "offset_m": 50.51270567237745,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 32.025450344754915,
+     "offset_m": 13.512725172377458,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 32.025450344754915,
+     "offset_m": 13.512725172377458,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 288.2926887553739,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.033330244626085914,
+     "offset_m": 2.7772630170868224e-05,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 35.77257624462612,
+     "offset_m": 15.386288122313061,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 32.77285124462611,
+     "offset_m": 13.886425622313055,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 32.77285124462611,
+     "offset_m": 13.886425622313055,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 288.9579133602374,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.06970263976262459,
+     "offset_m": 0.00012146144974695536,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 138.10806763976262,
+     "offset_m": 66.55403381988131,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 40.10889563976258,
+     "offset_m": 17.55444781988129,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 40.10889563976258,
+     "offset_m": 17.55444781988129,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_1.0_velcons": [
+   {
+    "heading": 0.0,
+    "onset": 268.9035756586319,
+    "marsad": {
+     "detected": true,
+     "latency_s": 13.163930341368086,
+     "offset_m": 8.163930341368086,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 20.162425341368134,
+     "offset_m": 15.162425341368134,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 19.16314134136809,
+     "offset_m": 14.163141341368089,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 19.16314134136809,
+     "offset_m": 14.163141341368089,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 257.892502461756,
+    "marsad": {
+     "detected": true,
+     "latency_s": 24.17500353824397,
+     "offset_m": 19.17500353824397,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 23.174112538244003,
+     "offset_m": 18.174112538244003,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 21.174546538243987,
+     "offset_m": 16.174546538243987,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 21.174546538243987,
+     "offset_m": 16.174546538243987,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 344.35749823763086,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.708614762369109,
+     "offset_m": 0.025106744072371446,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 42.70934576236914,
+     "offset_m": 37.70934576236914,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 42.70934576236914,
+     "offset_m": 37.70934576236914,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 42.70934576236914,
+     "offset_m": 37.70934576236914,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 275.1404924283839,
+    "marsad": {
+     "detected": true,
+     "latency_s": 6.927013571616101,
+     "offset_m": 2.3991758510676826,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 119.92539857161614,
+     "offset_m": 114.92539857161614,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 125.9264735716161,
+     "offset_m": 120.9264735716161,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 119.92539857161614,
+     "offset_m": 114.92539857161614,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_1.0_posonly": [
+   {
+    "heading": 0.0,
+    "onset": 275.5224246301241,
+    "marsad": {
+     "detected": true,
+     "latency_s": 6.545081369875902,
+     "offset_m": 2.141904506914831,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 17.54430836987592,
+     "offset_m": 12.544308369875921,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 17.54430836987592,
+     "offset_m": 12.544308369875921,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 17.54430836987592,
+     "offset_m": 12.544308369875921,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 363.3106947502949,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.7566272497051045,
+     "offset_m": 0.02862423974981553,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 20.756694249705106,
+     "offset_m": 15.756694249705106,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 15.755775249705096,
+     "offset_m": 10.755775249705096,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 15.755775249705096,
+     "offset_m": 10.755775249705096,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 250.22758008935023,
+    "marsad": {
+     "detected": true,
+     "latency_s": 24.8393899106498,
+     "offset_m": 19.8393899106498,
+     "denied": true,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 18.839576910649782,
+     "offset_m": 13.839576910649782,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 17.839966910649764,
+     "offset_m": 12.839966910649764,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 17.839966910649764,
+     "offset_m": 12.839966910649764,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 324.1571902989711,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.908446701028879,
+     "offset_m": 0.04126377043051267,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 30.90904270102891,
+     "offset_m": 25.90904270102891,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 24.909196701028918,
+     "offset_m": 19.909196701028918,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 24.909196701028918,
+     "offset_m": 19.909196701028918,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_2.0_velcons": [
+   {
+    "heading": 0.0,
+    "onset": 443.1423940838933,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.9240479161067015,
+     "offset_m": 0.08538645512611376,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 23.924357916106715,
+     "offset_m": 37.84871583221343,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 21.92352691610671,
+     "offset_m": 33.84705383221342,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 21.92352691610671,
+     "offset_m": 33.84705383221342,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 445.3754688801416,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.05033511985840278,
+     "offset_m": 0.0002533624291159774,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 24.690802119858347,
+     "offset_m": 39.381604239716694,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 23.690687119858353,
+     "offset_m": 37.381374239716706,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 23.690687119858353,
+     "offset_m": 37.381374239716706,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 347.4931741787634,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.573075821236614,
+     "offset_m": 0.032841589688601965,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 31.57329582123657,
+     "offset_m": 53.14659164247314,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 31.57329582123657,
+     "offset_m": 53.14659164247314,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 31.57329582123657,
+     "offset_m": 53.14659164247314,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 314.55912054591914,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.5068104540808349,
+     "offset_m": 0.025685683636562207,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 70.50825045408084,
+     "offset_m": 131.01650090816167,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 57.50658245408084,
+     "offset_m": 105.01316490816168,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 57.50658245408084,
+     "offset_m": 105.01316490816168,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ],
+  "drift_2.0_posonly": [
+   {
+    "heading": 0.0,
+    "onset": 258.6537390492875,
+    "marsad": {
+     "detected": true,
+     "latency_s": 15.413337950712503,
+     "offset_m": 20.826675901425006,
+     "denied": true,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 11.413294950712498,
+     "offset_m": 12.826589901424995,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 12.413249950712498,
+     "offset_m": 14.826499901424995,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 11.413294950712498,
+     "offset_m": 12.826589901424995,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 90.0,
+    "onset": 309.06433346686174,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.0026395331382786935,
+     "offset_m": 6.967135188071368e-07,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 14.001713533138286,
+     "offset_m": 18.003427066276572,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 13.001471533138272,
+     "offset_m": 16.002943066276544,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 13.001471533138272,
+     "offset_m": 16.002943066276544,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 180.0,
+    "onset": 286.4708640478665,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.05649195213351277,
+     "offset_m": 0.0003191340655855098,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 11.59581395213354,
+     "offset_m": 13.19162790426708,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 12.595290952133496,
+     "offset_m": 15.190581904266992,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 11.59581395213354,
+     "offset_m": 13.19162790426708,
+     "denied": true,
+     "pre_alarm": true
+    }
+   },
+   {
+    "heading": 270.0,
+    "onset": 443.8166854851879,
+    "marsad": {
+     "detected": true,
+     "latency_s": 0.24975651481207706,
+     "offset_m": 0.006237831669107527,
+     "denied": false,
+     "pre_alarm": true
+    },
+    "gate": {
+     "detected": false,
+     "latency_s": null,
+     "offset_m": null,
+     "denied": null,
+     "pre_alarm": false
+    },
+    "ekf2_gate_ref": {
+     "detected": true,
+     "latency_s": 13.248778514812102,
+     "offset_m": 16.497557029624204,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "window": {
+     "detected": true,
+     "latency_s": 14.249402514812061,
+     "offset_m": 18.498805029624123,
+     "denied": true,
+     "pre_alarm": false
+    },
+    "stack": {
+     "detected": true,
+     "latency_s": 13.248778514812102,
+     "offset_m": 16.497557029624204,
+     "denied": true,
+     "pre_alarm": true
+    }
+   }
+  ]
+ },
+ "clean_pre_alarm": {
+  "marsad": true,
+  "gate": false,
+  "ekf2_gate_ref": false,
+  "window": false,
+  "stack": true
+ },
+ "clean_start": true
+}
