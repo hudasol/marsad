@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field, fields, replace
+from typing import Any
 
 
 @dataclass
@@ -100,7 +101,7 @@ class EngineConfig:
     explain_top: int = 4  # evidence entries reported
     explain_min_weight: float = 0.02  # weight below which evidence is not listed
 
-    def with_(self, **kw) -> "EngineConfig":
+    def with_(self, **kw: Any) -> "EngineConfig":
         return replace(self, **kw)
 
 
@@ -112,7 +113,7 @@ _PRESETS = {
 }
 
 
-def preset(name: str = "uav_multirotor", **overrides) -> EngineConfig:
+def preset(name: str = "uav_multirotor", **overrides: Any) -> EngineConfig:
     if name not in _PRESETS:
         raise KeyError(f"unknown preset {name!r}; choose from {sorted(_PRESETS)}")
     return EngineConfig(**{**_PRESETS[name], **overrides})

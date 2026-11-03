@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import math
 from collections import deque
+from typing import Optional
 
 from ..config import EngineConfig
 from ..geo import clamp
@@ -18,17 +19,18 @@ class KinematicDetector:
 
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
-        self._prev = None  # (t, e, n, ve, vn)
-        self._win = deque()  # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
+        self._prev: Optional[tuple] = None  # (t, e, n, ve, vn)
+        self._win: deque = deque()  # (t, e, n, cum_ve, cum_vn) for pos-vs-vel consistency
         self._cum = [0.0, 0.0]
         self._xe = 0.0  # EWMA of normalised innovation (noise inflation => degraded/jammed receiver)
-        self._last_jump = None  # (t, res_e, res_n, llr) for revert (multipath spike) detection
+        self._last_jump: Optional[tuple] = None  # (t, res_e, res_n, llr) for revert (multipath spike) detection
 
     def learn(self, ctx: Context) -> None:  # no learned baselines
         pass
 
     def update(self, ctx: Context) -> list[Evidence]:
-        g, c, out = ctx.gnss, self.cfg, []
+        g, c = ctx.gnss, self.cfg
+        out: list[Evidence] = []
         if g is None:
             return out
         have_v = g.ve is not None and g.vn is not None

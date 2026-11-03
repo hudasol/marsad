@@ -7,6 +7,8 @@ from 'GNSS is jammed' (C/N0 falls AND AGC rises) and flags the spoofing power si
 
 from __future__ import annotations
 
+from typing import Optional
+
 from ..config import EngineConfig
 from ..geo import clamp
 from ..types import Evidence
@@ -22,7 +24,7 @@ class SignalDetector:
         self.cn0_b = cfg.cn0_prior
         self.sd_b = cfg.cn0_std_prior
         self.nsat_b = cfg.nsat_prior
-        self.agc_b = None
+        self.agc_b: Optional[float] = None
         self._n = 0
 
     def learn(self, ctx: Context) -> None:
@@ -42,7 +44,8 @@ class SignalDetector:
             self.agc_b = g.agc if self.agc_b is None else self.agc_b + a * (g.agc - self.agc_b)
 
     def update(self, ctx: Context) -> list[Evidence]:
-        c, out = self.cfg, []
+        c = self.cfg
+        out: list[Evidence] = []
         # --- loss of fix (accrues with elapsed time, on every sample) ----------
         if ctx.gnss_gap > c.gnss_gap_timeout:
             r = 2.5 * ctx.dt
@@ -62,7 +65,7 @@ class SignalDetector:
         if self._n < 10:  # calibrating baselines from the first trusted fixes (assumes no attack at power-up)
             return out
         dt = ctx.gnss_dt  # everything below is computed once per fix
-        agc_known = g.agc is not None and self.agc_b is not None
+        agc, agc_b = g.agc, self.agc_b
         # --- power / satellites down: jamming vs environmental ----------------
         down = 0.0
         if g.cn0_mean is not None:
@@ -72,8 +75,8 @@ class SignalDetector:
             dn = self.nsat_b - g.n_sats
             down = max(down, clamp((dn - 3.0) / 3.0, -0.2, 2.0))
         if down > 0:
-            if agc_known:
-                rise = g.agc - self.agc_b
+            if agc is not None and agc_b is not None:
+                rise = agc - agc_b
                 jam_share = clamp((rise - c.agc_rise) / c.agc_rise, 0.0, 1.0)
                 out.append(
                     Evidence(
@@ -114,15 +117,15 @@ class SignalDetector:
                 )
             )
         # --- jamming signature via AGC alone ---------------------------------
-        if agc_known and g.agc - self.agc_b > 2 * c.agc_rise:
-            r = clamp((g.agc - self.agc_b - c.agc_rise) / c.agc_rise, 0.0, 3.0) * dt
+        if agc is not None and agc_b is not None and agc - agc_b > 2 * c.agc_rise:
+            r = clamp((agc - agc_b - c.agc_rise) / c.agc_rise, 0.0, 3.0) * dt
             out.append(
                 Evidence(
                     self.name,
                     "agc_rise",
                     {H.JAM: 1.5 * r},
-                    f"AGC +{g.agc - self.agc_b:.2f} above baseline",
-                    g.agc - self.agc_b,
+                    f"AGC +{agc - agc_b:.2f} above baseline",
+                    agc - agc_b,
                     r,
                 )
             )

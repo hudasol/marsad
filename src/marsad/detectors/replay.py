@@ -10,6 +10,7 @@ and an independent reference. Emits REPLAY evidence and *negative* SPOOF_JUMP ev
 from __future__ import annotations
 
 import math
+from typing import Optional
 
 from ..config import EngineConfig
 from ..types import Evidence
@@ -28,23 +29,23 @@ class ReplayDetector:
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
         self.reset()
-        self.lag = None  # last confirmed lag (s) or None
+        self.lag: Optional[float] = None  # last confirmed lag (s) or None
         self.last_corr = (0.0, 0.0)
 
     def reset(self) -> None:
-        self._bin = None
+        self._bin: Optional[int] = None
         self._acc = [0.0, 0.0, 0, 0.0, 0.0, 0]  # sum ref e,n,count; sum gnss e,n,count
         self._G: list = []  # per-second (ge, gn) or None
         self._R: list = []
-        self._next_eval = None
+        self._next_eval: Optional[float] = None
         self.lag = None
-        self._lags = []
+        self._lags: list[float] = []
         self._clear = 0
 
     def learn(self, ctx: Context) -> None:
         pass
 
-    def _push(self):
+    def _push(self) -> None:
         a = self._acc
         self._R.append((a[0] / a[2], a[1] / a[2]) if a[2] else None)
         self._G.append((a[3] / a[5], a[4] / a[5]) if a[5] else None)
@@ -54,7 +55,7 @@ class ReplayDetector:
         self._acc = [0.0, 0.0, 0, 0.0, 0.0, 0]
 
     @staticmethod
-    def _corr(g, r):
+    def _corr(g: list, r: list) -> tuple[Optional[float], float]:
         pts = [(a, b) for a, b in zip(g, r) if a is not None and b is not None]
         n = len(pts)
         if n < 15:

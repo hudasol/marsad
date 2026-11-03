@@ -8,19 +8,19 @@ from __future__ import annotations
 import bisect
 import dataclasses
 import math
-from typing import Optional
+from typing import Any, Optional
 
 from .config import EngineConfig, preset
 from .detectors import Context, InertialDetector, KinematicDetector, ReplayDetector, SignalDetector, TimingDetector
 from .fusion import Fusion
 from .geo import LocalFrame
-from .types import Evidence, NavAction, NavSample, TrustReport, TrustState
+from .types import Evidence, GnssFix, NavAction, NavSample, RefMotion, TrustReport, TrustState
 from .types import Hypothesis as H
 
 _FIX_OPTIONAL = ("alt", "ve", "vn", "cn0_mean", "cn0_std", "agc", "hdop", "t_gnss")
 
 
-def _clean_fix(g):
+def _clean_fix(g: GnssFix) -> Optional[GnssFix]:
     """Return the fix with non finite optional fields dropped, or None when its position cannot be used.
 
     A NaN or out of range position must never reach the local frame: the first fix defines the frame origin, and a
@@ -28,7 +28,9 @@ def _clean_fix(g):
     """
     if not (math.isfinite(g.lat) and math.isfinite(g.lon) and -90.0 <= g.lat <= 90.0 and -180.0 <= g.lon <= 180.0):
         return None
-    bad = {k: None for k in _FIX_OPTIONAL if getattr(g, k) is not None and not math.isfinite(getattr(g, k))}
+    bad: dict[str, Any] = {
+        k: None for k in _FIX_OPTIONAL if getattr(g, k) is not None and not math.isfinite(getattr(g, k))
+    }
     return dataclasses.replace(g, **bad) if bad else g
 
 
@@ -72,9 +74,9 @@ class TrustEngine:
         self.ref_sigma = None
         # gnss bookkeeping
         self.fix_t: Optional[float] = None
-        self.last_good = None  # (t, e, n) last position while TRUSTED
+        self.last_good: Optional[tuple] = None  # (t, e, n) last position while TRUSTED
         # anchor: smoothed (p_gnss - c) while trusted, with history for rewind
-        self.anchor = None  # (e, n) or None
+        self.anchor: Optional[tuple] = None  # (e, n) or None
         self.anchor_valid = False
         self._ah_t: list[float] = []
         self._ah: list[tuple] = []
@@ -87,7 +89,7 @@ class TrustEngine:
         self._recent: list[tuple] = []
         self._spoof_hold_until = -1e18
         self._last_jump_t = -1e18
-        self._verified_since = None
+        self._verified_since: Optional[float] = None
         self._cut_done = False
         self.fusion.reset()
 
@@ -109,7 +111,7 @@ class TrustEngine:
         g, ref = self._clean_input(s)
         pe, pn, gdt, gap = self._locate(g, t)
         ref, ref_ok = self._integrate_reference(ref, t)
-        warm = (t - self.t0) < self.cfg.warmup_s
+        warm = (t - (self.t0 if self.t0 is not None else t)) < self.cfg.warmup_s
         ctx = self._context(t, dt, gdt, g, ref, pe, pn, gap, ref_ok, warm)
         ev = self._collect_evidence(ctx)
         offset_m, reacq_ok = self._continuity_evidence(ev, g, pe, pn, gdt, t)
@@ -121,7 +123,7 @@ class TrustEngine:
         return self._report(t, g, pe, pn, ev, offset_m, ref_ok, warm)
 
     # ----------------------------------------------------------- update stages
-    def _tick(self, t):
+    def _tick(self, t: float) -> float:
         """Start time and the clamped step since the previous sample."""
         if self.t0 is None:
             self.t0 = t
@@ -129,7 +131,7 @@ class TrustEngine:
         self.t_last = t
         return dt
 
-    def _clean_input(self, s):
+    def _clean_input(self, s: NavSample) -> tuple[Optional[GnssFix], Optional[RefMotion]]:
         """Input cleaning: a fix of type 3 or better that is finite and in range, and a finite reference."""
         g = s.gnss if (s.gnss is not None and s.gnss.fix_type >= 3) else None
         if g is not None:
@@ -142,7 +144,7 @@ class TrustEngine:
             self.n_rejected += 1
         return g, ref
 
-    def _locate(self, g, t):
+    def _locate(self, g: Optional[GnssFix], t: float) -> tuple[float, float, float, float]:
         """Local position of the fix, the per fix step and the time since the last usable fix."""
         cfg = self.cfg
         if g is not None and self.frame is None:
@@ -154,10 +156,14 @@ class TrustEngine:
             if self.fix_t is not None:
                 gdt = min(max(t - self.fix_t, 0.0), cfg.gnss_gap_timeout)
             self.fix_t = t
-        gap = 0.0 if (g is not None) else (t - self.fix_t if self.fix_t is not None else t - self.t0)
+        gap = (
+            0.0
+            if (g is not None)
+            else (t - self.fix_t if self.fix_t is not None else t - (self.t0 if self.t0 is not None else t))
+        )
         return pe, pn, gdt, gap
 
-    def _integrate_reference(self, ref, t):
+    def _integrate_reference(self, ref: Optional[RefMotion], t: float) -> tuple[Optional[RefMotion], bool]:
         """Integrate the reference velocity (corrected and uncorrected) and decide whether it is usable now."""
         cfg = self.cfg
         if ref is not None and ref.quality is not None and ref.quality < cfg.ref_min_quality:
@@ -181,7 +187,19 @@ class TrustEngine:
             self.anchor_valid = False
         return ref, ref_ok
 
-    def _context(self, t, dt, gdt, g, ref, pe, pn, gap, ref_ok, warm):
+    def _context(
+        self,
+        t: float,
+        dt: float,
+        gdt: float,
+        g: Optional[GnssFix],
+        ref: Optional[RefMotion],
+        pe: float,
+        pn: float,
+        gap: float,
+        ref_ok: bool,
+        warm: bool,
+    ) -> Context:
         cfg = self.cfg
         return Context(
             t=t,
@@ -207,7 +225,7 @@ class TrustEngine:
             warmup=warm,
         )
 
-    def _collect_evidence(self, ctx):
+    def _collect_evidence(self, ctx: Context) -> list[Evidence]:
         """Evidence from every detector, with long drift windows not blamed on a takeover jump."""
         cfg, t = self.cfg, ctx.t
         ev: list[Evidence] = []
@@ -223,7 +241,9 @@ class TrustEngine:
                     e.llr = {H.SPOOF_JUMP: r, H.REPLAY: cfg.jump_replay_share * r}
         return ev
 
-    def _continuity_evidence(self, ev, g, pe, pn, gdt, t):
+    def _continuity_evidence(
+        self, ev: list[Evidence], g: Optional[GnssFix], pe: float, pn: float, gdt: float, t: float
+    ) -> tuple[Optional[float], bool]:
         """Evidence from the dead reckoned continuation of the last trusted track (appended to ev).
 
         Returns the offset of the fix from that continuation and whether re-acquisition is acceptable.
@@ -275,7 +295,18 @@ class TrustEngine:
             )
         return offset_m, reacq_ok
 
-    def _learn(self, ctx, prev_state, g, ref, ref_ok, pe, pn, gdt, t):
+    def _learn(
+        self,
+        ctx: Context,
+        prev_state: TrustState,
+        g: Optional[GnssFix],
+        ref: Optional[RefMotion],
+        ref_ok: bool,
+        pe: float,
+        pn: float,
+        gdt: float,
+        t: float,
+    ) -> None:
         """Learning and anchoring, only from clean trusted data; freeze the anchor when trust is lost."""
         cfg = self.cfg
         if self.state == TrustState.TRUSTED and prev_state == TrustState.TRUSTED and self.p_nom > cfg.learn_p_nominal:
@@ -307,7 +338,7 @@ class TrustEngine:
             self._freeze_anchor(t)
 
     # ----------------------------------------------------------------- helpers
-    def _update_anchor(self, t, dt, oe, on):
+    def _update_anchor(self, t: float, dt: float, oe: float, on: float) -> None:
         if self.anchor is None or not self.anchor_valid:
             self.anchor = (oe, on)
             self.anchor_valid = True
@@ -324,7 +355,7 @@ class TrustEngine:
             del self._ah_t[: self.cfg.anchor_history_trim]
             del self._ah[: self.cfg.anchor_history_trim]
 
-    def _freeze_anchor(self, t):
+    def _freeze_anchor(self, t: float) -> None:
         if not self.anchor_valid or not self._ah_t:
             self.dr_t0 = t
             return
@@ -337,7 +368,7 @@ class TrustEngine:
         del self._ah_t[k + 1 :]
         del self._ah[k + 1 :]
 
-    def _dead_reckon(self, t):
+    def _dead_reckon(self, t: float) -> Optional[tuple[float, float]]:
         if self.state == TrustState.TRUSTED and not self.anchor_valid:
             return None
         if not (
@@ -349,7 +380,7 @@ class TrustEngine:
             return None
         return (self.ce + self.anchor[0], self.cn + self.anchor[1])
 
-    def _reacquisition_ok(self, g, offset_m, t) -> bool:
+    def _reacquisition_ok(self, g: Optional[GnssFix], offset_m: Optional[float], t: float) -> bool:
         cfg = self.cfg
         if g is None:
             return False
@@ -366,7 +397,7 @@ class TrustEngine:
         self.unverifiable = False
         return offset_m <= allowed
 
-    def _advance_state(self, t, gap, reacq_ok):
+    def _advance_state(self, t: float, gap: float, reacq_ok: bool) -> None:
         cfg, p = self.cfg, self.probs
         p_spoof = p[H.SPOOF_JUMP.value] + p[H.SPOOF_DRIFT.value] + p[H.REPLAY.value]
         lost = gap > cfg.gnss_gap_timeout
@@ -402,7 +433,17 @@ class TrustEngine:
         else:
             self._down_since = None
 
-    def _report(self, t, g, pe, pn, ev, offset_m, ref_ok, warm) -> TrustReport:
+    def _report(
+        self,
+        t: float,
+        g: Optional[GnssFix],
+        pe: float,
+        pn: float,
+        ev: list[Evidence],
+        offset_m: Optional[float],
+        ref_ok: bool,
+        warm: bool,
+    ) -> TrustReport:
         cfg = self.cfg
         probs = self.probs
         non_nom = {k: v for k, v in probs.items() if k != H.NOMINAL.value}
@@ -416,7 +457,7 @@ class TrustEngine:
         elif dh is not None:
             dominant = dh.value
         else:
-            dominant = max(non_nom, key=non_nom.get)
+            dominant = max(non_nom, key=lambda k: non_nom[k])
             if dominant in ("spoofing_jump", "spoofing_drift", "replay_meaconing"):
                 dominant = "spoofing_unclassified"  # spoof signature present but nothing says which kind
         dr = self._dead_reckon(t)
@@ -450,7 +491,7 @@ class TrustEngine:
                 best[k] = e
         top = sorted(best.values(), key=lambda e: -e.weight)[: cfg.explain_top]
         lat = lon = None
-        if pos[0] is not None and self.frame is not None:
+        if pos[0] is not None and pos[1] is not None and self.frame is not None:
             lat, lon = self.frame.to_geo(pos[0], pos[1])
         report = TrustReport(
             t=t,

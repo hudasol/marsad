@@ -13,9 +13,10 @@ counts as evidence of attack.
 from __future__ import annotations
 
 import math
+from typing import Optional
 
 from .config import EngineConfig
-from .types import Evidence
+from .types import Evidence, Hypothesis
 from .types import Hypothesis as H
 
 HYPS = [H.ENV, H.JAM, H.SPOOF_JUMP, H.SPOOF_DRIFT, H.REPLAY]
@@ -32,7 +33,7 @@ class Fusion:
             self.L[h] = 0.0
             self.T[h] = 0.0
 
-    def dominant(self):
+    def dominant(self) -> Optional[Hypothesis]:
         h = max(HYPS, key=lambda k: self.T[k])
         return h if self.T[h] > 1.0 else None
 
@@ -54,7 +55,7 @@ class Fusion:
         return self.posterior()
 
     @staticmethod
-    def _primary(e):
+    def _primary(e: Evidence) -> Optional[Hypothesis]:
         """The single hypothesis an evidence item is *about* (largest |llr|; ties => none). Used only for labelling."""
         items = sorted(((abs(v), h) for h, v in e.llr.items() if h in HYPS), key=lambda x: -x[0])
         if not items or items[0][0] < 1e-9:

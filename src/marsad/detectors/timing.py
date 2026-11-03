@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 from ..config import EngineConfig
 from ..types import Evidence
 from ..types import Hypothesis as H
@@ -13,8 +15,8 @@ class TimingDetector:
 
     def __init__(self, cfg: EngineConfig):
         self.cfg = cfg
-        self._off = None
-        self._last_tg = None
+        self._off: Optional[float] = None
+        self._last_tg: Optional[float] = None
 
     def learn(self, ctx: Context) -> None:
         g = ctx.gnss
@@ -24,7 +26,8 @@ class TimingDetector:
         self._off = off if self._off is None else self._off + 0.02 * (off - self._off)
 
     def update(self, ctx: Context) -> list[Evidence]:
-        g, out = ctx.gnss, []
+        g = ctx.gnss
+        out: list[Evidence] = []
         if g is None or g.t_gnss is None:
             return out
         if self._last_tg is not None and g.t_gnss <= self._last_tg:

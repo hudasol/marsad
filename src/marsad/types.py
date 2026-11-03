@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Any, Optional
 
 
 class Hypothesis(str, Enum):
@@ -74,7 +74,7 @@ class Evidence:
     value: Optional[float] = None
     weight: float = 0.0  # magnitude used to rank evidence for display
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         return {
             "detector": self.detector,
             "kind": self.kind,
@@ -103,7 +103,7 @@ class TrustReport:
     warmup: bool = False
     summary: str = ""
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         return {
             "t": self.t,
             "state": self.state.value,
