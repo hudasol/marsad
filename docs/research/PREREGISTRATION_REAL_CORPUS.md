@@ -92,3 +92,13 @@ viewed. No prediction was changed. Five other candidates in the same order were 
 type 3 or better), so about half of the drawn logs fail the rule. With the caps in "Data and selection" the drawn list
 holds 240 main candidates, so the expected number of accepted logs is about 120, below the target of 130; the
 scoring set will be about 96 flights. The caps are not changed.
+
+## Amendment 2, 2026-11-03: scoring starts at the first fix
+
+The pilot showed that every baseline raised a "no GNSS fix" alarm at the start of each log, before the first fix of
+type 3 or better (the first 0.6 to 0.9 s, while reference samples arrive first). Counting those samples would
+penalise the baselines for a start up artifact. All methods, Marsad included, are therefore scored only from the
+first fix of type 3 or better. This definition was fixed after looking at the five pilot logs and before the
+remaining logs were downloaded or analysed. One pilot log (a VTOL with a 1 Hz receiver) shows Marsad DENIED for 95%
+of its flight after a 1.6 s gap between fixes; it is in the scoring set, it is reported as measured, and it is not
+removed.

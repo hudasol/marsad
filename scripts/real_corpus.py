@@ -290,13 +290,16 @@ def analyze_log(path: str, vehicle_type: str) -> dict:
     cfg = preset("uav_fixedwing" if vehicle_type in FIXEDWING else "uav_multirotor")
     eng = TrustEngine(cfg)
     res = replay_samples(data.samples, eng, data.px4_flags, keep_reports=True)
-    times = [r.t for r in res.reports]
-    bad = [r.state != TrustState.TRUSTED for r in res.reports]
-    den = [r.state == TrustState.DENIED for r in res.reports]
+    # every method is scored from the first fix of type 3 or better: before it there is nothing to trust or distrust
+    t1 = next((s.t for s in data.samples if s.gnss is not None and s.gnss.fix_type >= 3), None)
+    scored = [r for r in res.reports if t1 is not None and r.t >= t1]
+    times = [r.t for r in scored]
+    bad = [r.state != TrustState.TRUSTED for r in scored]
+    den = [r.state == TrustState.DENIED for r in scored]
     m_eps = episodes(times, bad)
     n = max(len(bad), 1)
     out: dict = {
-        "n_samples": len(res.reports),
+        "n_samples": len(scored),
         "duration_s": (times[-1] - times[0]) if times else 0.0,
         "preset": "uav_fixedwing" if vehicle_type in FIXEDWING else "uav_multirotor",
         "reference_source": info.reference_source,
@@ -331,7 +334,7 @@ def analyze_log(path: str, vehicle_type: str) -> dict:
     for s in data.samples:
         for k, b in bl.items():
             st, _ = b.update(s)
-            counts[k] += st != TrustState.TRUSTED
+            counts[k] += (st != TrustState.TRUSTED) and t1 is not None and s.t >= t1
     out["baselines"] = {k: {"has_alarm": v > 0, "samples_not_trusted": int(v)} for k, v in counts.items()}
     ULog = _import_pyulog()
     ul = ULog(
