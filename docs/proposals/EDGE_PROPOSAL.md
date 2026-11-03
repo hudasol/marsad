@@ -29,7 +29,7 @@ MAVLink reporter cannot send commands, and a test enforces this.
 ## 3. Evidence
 
 Every figure below is reproducible with the command listed in [VALIDATION.md](../VALIDATION.md) or
-[EVALUATION.md](../EVALUATION.md). Labels: SIMULATED = the repository's own generator; REAL LOG = unmodified flight,
+[EVALUATION.md](../EVALUATION.md). Labels (full definitions in [VALIDATION.md](../VALIDATION.md)): SIMULATED = the repository's own generator; REAL LOG = unmodified flight,
 no attack; SIH + INJECTED = PX4 software in the loop log using the SIH simulator, with an offset added to the GNSS
 fixes, scored against simulator truth.
 
@@ -39,7 +39,10 @@ fixes, scored against simulator truth.
 | Stealth carry off detected in 100% of 30 runs, median 58.3 s; gate baseline 0% | SIMULATED |
 | Carry off without a reference sensor: 53% detected | SIMULATED |
 | Drift of 0.1 m/s detected in 50 to 56% of runs, 0.05 m/s never | SIMULATED |
-| Two public PX4 flights (911 s and 334 s of GPS): zero alarms | REAL LOG |
+| Two public PX4 flights (911 s and 334 s of GPS): zero alarms (v1.3.0 engine) | REAL LOG |
+| 101 public PX4 flights, no attack: fully TRUSTED on 54 (53.5%), a DENIED sample on 46; all seven preregistered predictions missed (v1.4.0 engine) | REAL LOG |
+| Attacks added to 52 of those flights (logged EKF2 reference, an optimistic bound): jumps detected in 52 of 52 within 0.5 s; velocity consistent drift of 0.5 m/s or more in 52 of 52 (15.7 to 42.3 s); a plain window test was as sensitive and faster | REAL LOG + INJECTED |
+| PX4 EKF2 in the loop, reference is the EKF2 velocity: velocity consistent drift detected in 0 of 4 at every rate by Marsad and by every baseline; position only drift of 0.5 m/s or more detected | SITL EKF2 |
 | Jumps of 50, 200 and 1000 m added to two PX4 SIH logs: detected 4/4 on the first attacked fix | SIH + INJECTED |
 | Drifts of 1 and 2 m/s in a 32 s window: 4/4 detected, median 15.7 to 27.8 s (v1.2.0: 0/4); 0.5 m/s and slower: 0/4 | SIH + INJECTED |
 | Drifts of 0.5 to 2 m/s in a 230 s window: 4/4 detected, median 15.7 to 48.3 s at median offsets of 18.8 to 22.4 m (v1.2.0: 98.1 to 204.6 s, 77.1 to 186.8 m) | SIH + INJECTED |
@@ -49,12 +52,12 @@ fixes, scored against simulator truth.
 The SIH results exposed a defect that simulation hid: when the reference arrives faster than GNSS (about 125 Hz
 against 8 Hz in the two PX4 SIH logs), drift evidence was weighted by the wrong time step and accrued at roughly 6% of
 its intended rate. It was fixed in v1.3.0 after predictions were committed (PREREGISTRATION_WEIGHTING.md): 27 of 28
-predicted SIH rows were hit (SIH + INJECTED), and the two real flights still raise no alarm (REAL LOG). The one miss, a velocity consistent drift
+predicted SIH rows were hit (SIH + INJECTED), and the two real flights then raised no alarm (REAL LOG); the 101 flight corpus later showed that this was not representative. The one miss, a velocity consistent drift
 of 0.25 m/s, is explained in KNOWN_LIMITS.md. All rows above use the v1.3.0 engine; the SIMULATED rows are unchanged from v1.1.0 by the fix.
 
 ## 4. What it does not claim
 
-It has not run on a flight controller, on a companion computer, or on any real interference data. No real spoofing
+It has run on PX4 software in the loop only, not on a flight controller, a companion computer or any real interference data. On real public flights it raises alarms on about half of the flights with no attack. No real spoofing
 signal has been received. The reference used in the SIH tests is simulator truth, which is better than any real
 sensor. The simulated results come from a generator written by the same author as the detectors. Marsad does not
 generate RF, attribute interference to any actor, or command a vehicle.
