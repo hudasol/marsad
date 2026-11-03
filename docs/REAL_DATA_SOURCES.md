@@ -129,3 +129,15 @@ Source 1 (UAV Attack Dataset), if free access is confirmed, is the only source f
 and that contains real attacks on a real receiver. Before using it: define its label, preregister predictions for
 its benign and attack flights, and record its checksum in DATA.md. Source 2 is the cheapest way to widen the false
 alarm evidence and to look for receiver jamming flags in the wild.
+
+## Addendum, 2026-11-03
+
+* **Flight Review metadata.** `https://review.px4.io/dbinfo` is served as a gzip compressed JSON list (485,588 entries
+  on 2026-11-03) with `log_id`, `ver_sw_release`, `sys_hw`, `mav_type`, `duration_s`, `error_labels` and
+  `download_url` (`https://cdn.logs.px4.io/<log_id>.ulg`). Range requests work. This is the source of the real flight
+  corpus described in `research/PREREGISTRATION_REAL_CORPUS.md`.
+* **IEEE DataPort UAV Attack Dataset.** Re checked: the page lists CC BY 4.0, but still states both that a free
+  account is enough and that a subscription is required. Still excluded.
+* **TEXBAT.** Research use is granted without a written agreement; redistribution is not allowed; the captures are
+  raw radio data. Excluded because Marsad reads receiver outputs.
+* Comparison with other detectors is in [PRIOR_ART.md](research/PRIOR_ART.md).
