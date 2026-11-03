@@ -40,7 +40,7 @@ jobs:
         with: { python-version: "${{ matrix.python }}" }
       - run: python -m pip install -U pip
       - run: pip install -e ".[dev]"
-      - run: pytest
+      - run: pytest --cov=marsad --cov-fail-under=87
   core-is-stdlib-only:
     # the onboard-portable engine must import with nothing installed
     runs-on: ubuntu-latest
