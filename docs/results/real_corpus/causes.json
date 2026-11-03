@@ -1,0 +1,1682 @@
+{
+ "99e38bd8-5d9b-4887-ad14-77cb09551276": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 3.000000999999884,
+  "n_gaps_over_1p5s": 11,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 33.581965999999966,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9476065382370111,
+  "share_denied": 0.9476065382370111,
+  "hardware": "HCUAV_PROTOTYPE_V2",
+  "release": "v1.16.0 0",
+  "vehicle": "VTOL Standard",
+  "design": false
+ },
+ "10f0ac13-3ad9-4dc5-8559-dfaddddbb77e": {
+  "median_gap_s": 1.000036999999793,
+  "max_gap_s": 4.0029140000000325,
+  "n_gaps_over_1p5s": 7,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 96.73412400000007,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8982459540653164,
+  "share_denied": 0.8982459540653164,
+  "hardware": "CUBEPILOT_CUBEORANGE",
+  "release": "v1.14.3 255",
+  "vehicle": "VTOL Standard",
+  "design": false
+ },
+ "2c44fce8-53dd-44dd-b258-6c10371b34d4": {
+  "median_gap_s": 1.0019959999999912,
+  "max_gap_s": 2.0053569999999468,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 205.45363700000001,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.5601888276947286,
+  "share_denied": 0.5601888276947286,
+  "hardware": "MATEK_H743_SLIM",
+  "release": "v1.18.0 64",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "e9fde666-e4d5-4a41-8398-a9dd29680b6c": {
+  "median_gap_s": 0.9999984999999469,
+  "max_gap_s": 5.000001999999995,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 214.78902800000003,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 2.8 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 2.8 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7230456610088454,
+  "share_denied": 0.7230456610088454,
+  "hardware": "PX4_FMU_V6X_QGBF",
+  "release": "v1.17.0 255",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "a8d933da-7365-4dbc-8a6e-71f753b68d41": {
+  "median_gap_s": 0.9909270000000561,
+  "max_gap_s": 3.0158519999999953,
+  "n_gaps_over_1p5s": 8,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 28.907680000000028,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.9 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.9 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8789308176100629,
+  "share_denied": 0.8789308176100629,
+  "hardware": "PX4_FMU_V3",
+  "release": "v1.13.3 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "2e07d489-61e4-4b20-9016-6a51fd2e5952": {
+  "median_gap_s": 1.0000049999999874,
+  "max_gap_s": 2.000753999999972,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 102.57921099999999,
+   "state": "DENIED",
+   "dominant": "environmental_degradation",
+   "summary": "DENIED: most likely environmental degradation (obstruction/multipath). no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7374445223078719,
+  "share_denied": 0.7374445223078719,
+  "hardware": "NXP_FMUK66_V3",
+  "release": "v1.15.2 255",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "d4a518e7-7cba-409b-a280-914c774d9b9b": {
+  "median_gap_s": 1.001016,
+  "max_gap_s": 8.007070999999996,
+  "n_gaps_over_1p5s": 71,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 12.868207000000002,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.9 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.9 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.997431946584489,
+  "share_denied": 0.997431946584489,
+  "hardware": "UCAS_YANQIH7",
+  "release": "v1.13.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "b82a4d33-bce3-47ff-aae8-1f837afb1695": {
+  "median_gap_s": 1.0003369999994902,
+  "max_gap_s": 1.092996000000312,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.8 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.8 s"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 27,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 1.0,
+  "hardware": "PX4_FMU_V5X",
+  "release": "v1.13.0 255",
+  "vehicle": "Tiltrotor VTOL",
+  "design": false
+ },
+ "76f12133-188f-4a01-8e18-3456aaf7e6cb": {
+  "median_gap_s": 1.0012490000000014,
+  "max_gap_s": 5.03273200000001,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 9.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 9.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 6,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.06796116504854369,
+  "share_denied": 0.032362459546925564,
+  "hardware": "HUNG_D5_V1",
+  "release": "v1.17.0 64",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "110a3ec9-0684-4341-9dc7-d931cfcc1266": {
+  "median_gap_s": 0.1999999999999993,
+  "max_gap_s": 0.21399999999999864,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 68.4 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 68.4 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 7,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 0.9086687306501547,
+  "hardware": "MDSI_PLUMV3",
+  "release": "v1.14.0 128",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "94b2876d-126c-4460-ae53-48d2ab298f5b": {
+  "median_gap_s": 0.9999670000000123,
+  "max_gap_s": 1.0214879999999766,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_optical_flow",
+  "first_alarm": {
+   "t_rel": 14.999768000000003,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 25.7 m away from reference-integrated motion over 15 s (4.4x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 25.7 m away from reference-integrated motion over 15 s (4.4x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 6,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9381868131868132,
+  "share_denied": 0.9381868131868132,
+  "hardware": "NXP_TROPIC_COMMUNITY",
+  "release": "v1.18.0 64",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "02011abe-6647-4b6f-a7fc-c56f65f796f9": {
+  "median_gap_s": 0.9997350000000154,
+  "max_gap_s": 1.1567069999999973,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_optical_flow",
+  "first_alarm": {
+   "t_rel": 100.10126900000002,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 26.6 m away from reference-integrated motion over 96 s (2.8x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 26.6 m away from reference-integrated motion over 96 s (2.8x the nomi"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 20,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7363636363636363,
+  "share_denied": 0.7363636363636363,
+  "hardware": "ARK_PI6X",
+  "release": "v1.14.2 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "7ae947c2-b824-4f7a-867f-04de72540d88": {
+  "median_gap_s": 0.999953000000005,
+  "max_gap_s": 2.089321000000041,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 207.439667,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.2436289500509684,
+  "share_denied": 0.2436289500509684,
+  "hardware": "CTUAV_NEXUS_MK2",
+  "release": "v1.17.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "631550e5-fc2a-4707-ab2b-26f54d9cccdd": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.9989800000003015,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 256.7859699999999,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.8 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.8 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.41933484817186534,
+  "share_denied": 0.41933484817186534,
+  "hardware": "VERGEAERO_CUBEORANGEPLUS",
+  "release": "v1.15.0 255",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "ee494524-a328-4ce2-8737-4e4b17a809ff": {
+  "median_gap_s": 0.9993129999999724,
+  "max_gap_s": 1.0223949999999604,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_optical_flow",
+  "first_alarm": {
+   "t_rel": 583.998094,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 19.7 m away from reference-integrated motion over 5 s (3.5x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 19.7 m away from reference-integrated motion over 5 s (3.5x the nomin"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 25,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.23503325942350334,
+  "share_denied": 0.23503325942350334,
+  "hardware": "ARK_PI6X",
+  "release": "v1.15.0 128",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "8c163e81-6686-4812-9cff-cf7318810a01": {
+  "median_gap_s": 0.9032730000000129,
+  "max_gap_s": 2.7130710000001272,
+  "n_gaps_over_1p5s": 320,
+  "reference_source": null,
+  "first_alarm": {
+   "t_rel": 630.5179439999999,
+   "state": "DEGRADED",
+   "dominant": "environmental_degradation",
+   "summary": "DEGRADED: most likely environmental degradation (obstruction/multipath). C/N0/satellites down with AGC flat (obstruction-like). Action: USE_GNSS_WITH_CAUTION.",
+   "evidence": [
+    [
+     "signal",
+     "signal_down",
+     "C/N0/satellites down with AGC flat (obstruction-like)"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 14,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7705248990578735,
+  "share_denied": 0.6736204576043069,
+  "hardware": "WAYDOO_MASTER_V4",
+  "release": "v1.14.0 0",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "b503d683-6c86-4962-8c02-0a9b713764f2": {
+  "median_gap_s": 0.9999990000000025,
+  "max_gap_s": 2.013680000000022,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 213.64254499999998,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.3011174871639988,
+  "share_denied": 0.3011174871639988,
+  "hardware": "CUAV_NORA",
+  "release": "v1.16.1 255",
+  "vehicle": "Tiltrotor VTOL",
+  "design": false
+ },
+ "bfe9af87-fcfc-4433-8099-7d943ceaa8d8": {
+  "median_gap_s": 5.994997000000012,
+  "max_gap_s": 129.69185500000003,
+  "n_gaps_over_1p5s": 124,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 30.255623000000014,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.3 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.3 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9902120717781403,
+  "share_denied": 0.9885807504078303,
+  "hardware": "ED_ASBNN",
+  "release": "v1.16.0 255",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "d56d6e6c-48b3-4512-9be8-d12788cb7c94": {
+  "median_gap_s": 1.0000029999999924,
+  "max_gap_s": 2.0040599999999813,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 17.509646000000032,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9713299309516662,
+  "share_denied": 0.9713299309516662,
+  "hardware": "FREEFLY_ALTAX",
+  "release": "v1.15.0 192",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "a33c104a-ffea-48d8-8d33-a17df4a0b203": {
+  "median_gap_s": 5.9982634999999505,
+  "max_gap_s": 7.001994000000025,
+  "n_gaps_over_1p5s": 108,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 4.598614999999995,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 4.6 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 4.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9995916700694161,
+  "share_denied": 0.9995916700694161,
+  "hardware": "HEX_MBV2",
+  "release": "v1.17.0 0",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "a2f1e7e9-6a13-4956-908a-a04c2ec6e99a": {
+  "median_gap_s": 1.0000344999999982,
+  "max_gap_s": 1.795156999999989,
+  "n_gaps_over_1p5s": 8,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 38.718377000000004,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.853809196980096,
+  "share_denied": 0.853809196980096,
+  "hardware": "PIXFLAMINGO_H7",
+  "release": "v1.15.0 128",
+  "vehicle": "VTOL Standard",
+  "design": false
+ },
+ "3c88e4f8-62c3-4d95-8ac4-b9f52778889b": {
+  "median_gap_s": 1.0000009999999975,
+  "max_gap_s": 1.1160740000000011,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 8.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 8.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 26,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 1.0,
+  "hardware": "HNBQ_KAKUTEH7",
+  "release": "v1.15.1 0",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "15fcef59-5d78-4a06-9093-aeee34438cb7": {
+  "median_gap_s": 0.9999090000000024,
+  "max_gap_s": 3.001884000000018,
+  "n_gaps_over_1p5s": 4,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 396.608325,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.6494529177718833,
+  "share_denied": 0.6494529177718833,
+  "hardware": "PX4_FTG_FMU_V5",
+  "release": "v1.13.3 255",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "95e202b1-95b1-4ed3-91a7-97918e818bbb": {
+  "median_gap_s": 0.9999990000000025,
+  "max_gap_s": 1.0120549999999184,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 36.9 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 36.9 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 7,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.0011752196541496447,
+  "share_denied": 0.0005596284067379261,
+  "hardware": "PABLOX_F40_V1",
+  "release": "v1.15.4 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "4a17c9b5-f06f-4c2a-bdbf-8681e1f435a5": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.997998999999993,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 330.601076,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.2947841375268607,
+  "share_denied": 0.2947841375268607,
+  "hardware": "SILIC_S7MINI",
+  "release": "v1.15.0 128",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "75f04feb-9bde-4d9b-ae3b-0f59319edec0": {
+  "median_gap_s": 1.0000069999999823,
+  "max_gap_s": 1.99955700000001,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 3.909325999999993,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9938714499252616,
+  "share_denied": 0.9938714499252616,
+  "hardware": "CUAV_NORA",
+  "release": "v1.17.0 255",
+  "vehicle": "Tiltrotor VTOL",
+  "design": false
+ },
+ "6c82c8be-ae7f-471a-8de6-1d750e720b93": {
+  "median_gap_s": 1.000000999999429,
+  "max_gap_s": 4.9979990000001635,
+  "n_gaps_over_1p5s": 5,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 28.42058199999974,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.5 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9304668304668304,
+  "share_denied": 0.9304668304668304,
+  "hardware": "ITRI_FLIGHTPRO",
+  "release": "v1.14.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "4ffecfde-da34-49cb-96ef-f77e74a3fc67": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.0119979999999984,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 6,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 0.0032144005143040825,
+  "hardware": "AUAV_H9",
+  "release": "v1.17.0 0",
+  "vehicle": "Hexarotor",
+  "design": true
+ },
+ "e9e8a417-2c22-46ce-a3ad-03309b623950": {
+  "median_gap_s": 1.000772999999981,
+  "max_gap_s": 1.1469989999999939,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 917.928727,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 24.7 m away from reference-integrated motion over 120 s (2.2x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 24.7 m away from reference-integrated motion over 120 s (2.2x the nom"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 32,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.4740358018892542,
+  "share_denied": 0.4740358018892542,
+  "hardware": "CUBEPILOT_OSIRISGEN2",
+  "release": "v1.14.3 0",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "c86512bd-206a-4e0e-9d63-a2311f84a21e": {
+  "median_gap_s": 1.0009620000000368,
+  "max_gap_s": 1.1338570000000345,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 87.878961,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 26.0 m away from reference-integrated motion over 44 s (3.9x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 26.0 m away from reference-integrated motion over 44 s (3.9x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 17,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8662609238451935,
+  "share_denied": 0.8662609238451935,
+  "hardware": "PX4_FMU_V6C",
+  "release": "v1.16.0 255",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "d1dfb7a5-6a2a-4e7c-962b-dffe08346993": {
+  "median_gap_s": 1.000009499999976,
+  "max_gap_s": 1.0392380000000685,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 566.030673,
+   "state": "DEGRADED",
+   "dominant": "environmental_degradation",
+   "summary": "DEGRADED: most likely environmental degradation (obstruction/multipath). C/N0/satellites down with AGC flat (obstruction-like). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "signal_down",
+     "C/N0/satellites down with AGC flat (obstruction-like)"
+    ]
+   ],
+   "fix_type": 6,
+   "n_sats": 37,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.12420874947249964,
+  "share_denied": 0.0,
+  "hardware": "PX4_FMU_V4GBI6_G3",
+  "release": "v1.14.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "dc7584f4-2abd-4695-9ace-d63aee67880d": {
+  "median_gap_s": 0.9999990000000025,
+  "max_gap_s": 1.0098309999999628,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 209.99794399999996,
+   "state": "DEGRADED",
+   "dominant": "environmental_degradation",
+   "summary": "DEGRADED: most likely environmental degradation (obstruction/multipath). C/N0/satellites down with AGC flat (obstruction-like). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "signal_down",
+     "C/N0/satellites down with AGC flat (obstruction-like)"
+    ]
+   ],
+   "fix_type": 4,
+   "n_sats": 12,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.3345132743362832,
+  "share_denied": 0.2775811209439528,
+  "hardware": "",
+  "release": "v1.13.2 0",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "112d6a51-48e8-4a3d-8a3c-49de744e80fa": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.0999820000001819,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 21.9 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 21.9 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 9,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 1.0,
+  "hardware": "AC_WLY_IIK6",
+  "release": "v1.17.0 255",
+  "vehicle": "Fixed Wing",
+  "design": true
+ },
+ "3905ae4a-2cb0-496d-94db-fc5153e4b80c": {
+  "median_gap_s": 0.12499799999999084,
+  "max_gap_s": 1.9909999999999854,
+  "n_gaps_over_1p5s": 6,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 24.40864099999999,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.8 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.8 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9060518280748454,
+  "share_denied": 0.9060518280748454,
+  "hardware": "ORIGIN_INTERCEPTOR",
+  "release": "v1.14.3 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "a3702414-27e5-4d82-b3a3-3598dcae1cad": {
+  "median_gap_s": 1.0003339999999952,
+  "max_gap_s": 2.0047079999999937,
+  "n_gaps_over_1p5s": 5,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 28.582915,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8920837770678026,
+  "share_denied": 0.8920837770678026,
+  "hardware": "THEPEACH_K1",
+  "release": "v1.14.3 0",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "ec496c00-4a4b-495d-9a5a-06bc832678f7": {
+  "median_gap_s": 0.9999980000000033,
+  "max_gap_s": 11.621998000000001,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 11.6 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 11.6 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 4,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.010983763132760267,
+  "share_denied": 0.0052531041069723014,
+  "hardware": "TERRADRONE_TERRADFC_V2",
+  "release": "v1.15.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "349585d8-db32-4363-8987-dae3565767f4": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.1371060000000002,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 83.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 83.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 5,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9361852322462233,
+  "share_denied": 0.9346322179867288,
+  "hardware": "MRO_CTRL_ZERO_H7_OEM",
+  "release": "v1.15.2 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "3fa5918c-f79f-4bc0-ab7c-084ceccc849b": {
+  "median_gap_s": 1.0010319999999808,
+  "max_gap_s": 11.718000000000018,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 105.78424199999999,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.5547445255474452,
+  "share_denied": 0.5547445255474452,
+  "hardware": "MICOAIR_H743_AIO",
+  "release": "v1.15.2 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "c556ab0d-3046-4048-8a0e-e61bdce5c8f8": {
+  "median_gap_s": 0.24500499999999192,
+  "max_gap_s": 0.8518760000000007,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 29.1 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 29.1 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 5,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 0.8962589987932255,
+  "hardware": "DRONISOS_A5MICOAIR",
+  "release": "v1.14.3 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "67f2bf1f-037b-4bdc-9916-fe4e0dd00555": {
+  "median_gap_s": 1.0000200000000063,
+  "max_gap_s": 2.0051240000000234,
+  "n_gaps_over_1p5s": 3,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 84.55735799999997,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8488714425907753,
+  "share_denied": 0.8488714425907753,
+  "hardware": "PX4_FMU_V3",
+  "release": "v1.15.4 255",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "d68db1e4-b619-401d-94d4-d848d1b69f6e": {
+  "median_gap_s": 1.0001750000000413,
+  "max_gap_s": 1.1505530000000022,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 40.013239999999996,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 18.7 m away from reference-integrated motion over 14 s (3.1x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 18.7 m away from reference-integrated motion over 14 s (3.1x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 18,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9177416339502711,
+  "share_denied": 0.9177416339502711,
+  "hardware": "THEPEACH_P1",
+  "release": "v1.17.0 255",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "8e273836-0ed2-4820-b98b-817b7c0cfb24": {
+  "median_gap_s": 0.10000000000002274,
+  "max_gap_s": 1.9992500000000177,
+  "n_gaps_over_1p5s": 2,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 79.10404300000002,
+   "state": "DEGRADED",
+   "dominant": "spoofing_drift",
+   "summary": "DEGRADED: most likely gradual carry-off spoofing. GNSS moved 22.6 m away from reference-integrated motion over 45 s (3.4x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 22.6 m away from reference-integrated motion over 45 s (3.4x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 14,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.6928571428571428,
+  "share_denied": 0.6924603174603174,
+  "hardware": "ORIGIN_INTERCEPTORCUBEORANGEPLUS",
+  "release": "v1.14.3 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "70f5aa6d-035a-46a2-b877-6453bd9e246b": {
+  "median_gap_s": 0.9999649999999747,
+  "max_gap_s": 3.999047000000001,
+  "n_gaps_over_1p5s": 5,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 16.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 16.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 14,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.5932377049180327,
+  "share_denied": 0.0017076502732240437,
+  "hardware": "ZEROONE_M9",
+  "release": "v1.16.0 255",
+  "vehicle": "Octorotor",
+  "design": false
+ },
+ "bd186c09-1c55-4110-8bab-266a8fc8f85e": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 4.000999999999976,
+  "n_gaps_over_1p5s": 18,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 151.50145599999996,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7105878123314758,
+  "share_denied": 0.7105878123314758,
+  "hardware": "GBI_H743_V1",
+  "release": "v1.16.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "084a42d0-d507-4a8d-bc1c-893e1e46f840": {
+  "median_gap_s": 0.9990030000001298,
+  "max_gap_s": 1.146998999999596,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": null,
+  "first_alarm": {
+   "t_rel": 179.0279989999999,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 2.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 2.0 s"
+    ]
+   ],
+   "fix_type": 0,
+   "n_sats": 0,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.20658342792281498,
+  "share_denied": 0.12485811577752554,
+  "hardware": "MATEK_H743",
+  "release": "v1.14.0 0",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "f50d5a63-1fba-4902-9837-dd946d22e38d": {
+  "median_gap_s": 0.9998520000000326,
+  "max_gap_s": 4.002334000000019,
+  "n_gaps_over_1p5s": 7,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 93.11976500000003,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.1 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.1 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.7741253815449636,
+  "share_denied": 0.7741253815449636,
+  "hardware": "CUBEPILOT_CUBEORANGE",
+  "release": "v1.15.4 255",
+  "vehicle": "Hexarotor",
+  "design": false
+ },
+ "5e0574e1-e98d-4138-a73f-7b6b5b700603": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.0029749999999922,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 39.00400000000002,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 18.3 m away from reference-integrated motion over 4 s (3.2x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 18.3 m away from reference-integrated motion over 4 s (3.2x the nomin"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 27,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8538672142368241,
+  "share_denied": 0.8538672142368241,
+  "hardware": "ACOINFO_FMU_V6U",
+  "release": "v1.16.0 192",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "026e4f0e-4e71-4dd8-a701-7c22fd48d298": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 1.127997999999991,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 39.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 39.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 5,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 1.0,
+  "hardware": "SIRALAB_CTRL_ZERO_H7",
+  "release": "v1.13.0 255",
+  "vehicle": "VTOL Standard",
+  "design": false
+ },
+ "02452510-3772-4ccd-a0bc-581ec9b206ca": {
+  "median_gap_s": 1.0000009999999975,
+  "max_gap_s": 1.109999000000002,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_optical_flow",
+  "first_alarm": {
+   "t_rel": 208.002,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 17.8 m away from reference-integrated motion over 44 s (2.6x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 17.8 m away from reference-integrated motion over 44 s (2.6x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 16,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.07692307692307693,
+  "share_denied": 0.023931623931623933,
+  "hardware": "CUAV_FMU_V6X_NOIO",
+  "release": "v1.17.0 255",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "76e837ea-f7e4-4644-bb4b-5db7ec4568db": {
+  "median_gap_s": 0.9999990000000025,
+  "max_gap_s": 1.0198689999999715,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_optical_flow",
+  "first_alarm": {
+   "t_rel": 48.00134600000001,
+   "state": "DENIED",
+   "dominant": "spoofing_drift",
+   "summary": "DENIED: most likely gradual carry-off spoofing. GNSS moved 22.3 m away from reference-integrated motion over 41 s (3.4x the nominal bound). Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "inertial",
+     "gnss_vs_reference_drift",
+     "GNSS moved 22.3 m away from reference-integrated motion over 41 s (3.4x the nomi"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 24,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8788167938931297,
+  "share_denied": 0.8788167938931297,
+  "hardware": "CIRC_PILOT4_C1",
+  "release": "v1.16.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "34df0d41-0617-4f96-a13f-f3c28e2950aa": {
+  "median_gap_s": 0.9999945000001844,
+  "max_gap_s": 7.345943000000261,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 6.767804000000069,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 6.8 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 6.8 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9991982896846606,
+  "share_denied": 0.9991982896846606,
+  "hardware": "TECTIVE_FMU_V6X",
+  "release": "v1.14.0 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "fc9f2322-1bc1-4642-b432-0d740d4f0148": {
+  "median_gap_s": 0.9999990000000025,
+  "max_gap_s": 1.1220009999999974,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "environmental_degradation",
+   "summary": "DENIED: most likely environmental degradation (obstruction/multipath). no usable GNSS fix for 1.6 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 19,
+   "gap_s": null
+  },
+  "share_not_trusted": 1.0,
+  "share_denied": 1.0,
+  "hardware": "MICOAIR_H743",
+  "release": "v1.15.0 128",
+  "vehicle": "Tiltrotor VTOL",
+  "design": false
+ },
+ "6f59a746-cb8c-4a60-9185-12c74010b6e7": {
+  "median_gap_s": 0.10099950000000035,
+  "max_gap_s": 0.3019119999999589,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 2.3569780000000007,
+   "state": "DEGRADED",
+   "dominant": "jamming",
+   "summary": "DEGRADED: most likely jamming-like signal loss. AGC +0.27 above baseline. Action: USE_GNSS_WITH_CAUTION.",
+   "evidence": [
+    [
+     "signal",
+     "agc_rise",
+     "AGC +0.27 above baseline"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 26,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.6337678460583489,
+  "share_denied": 0.5551121752239071,
+  "hardware": "HOLYBRO_KAKUTEH7",
+  "release": "v1.18.0 128",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "3ed4ad8c-ce19-410e-8bb6-7d18f66f8028": {
+  "median_gap_s": 1.002081000000004,
+  "max_gap_s": 2.007659999999987,
+  "n_gaps_over_1p5s": 132,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 1.5547930000000179,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9969690846635684,
+  "share_denied": 0.9969690846635684,
+  "hardware": "PX4_FMU_V2",
+  "release": "v1.13.0 255",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "1bc61700-9735-4102-a2b9-b5b24a7bc7b1": {
+  "median_gap_s": 0.9999990000001162,
+  "max_gap_s": 1.0536240000001271,
+  "n_gaps_over_1p5s": 0,
+  "reference_source": null,
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 375.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 375.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 4,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.22505800464037123,
+  "share_denied": 0.19721577726218098,
+  "hardware": "AERIUM_RADIAN_H7U",
+  "release": "v1.16.0 192",
+  "vehicle": "Quadrotor",
+  "design": true
+ },
+ "8e9beb8b-ce29-43f5-8c2e-9b5e9ede1c44": {
+  "median_gap_s": 0.9999444999999696,
+  "max_gap_s": 3.991700000000037,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 119.34968400000002,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 3.3 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 3.3 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.6745306950786403,
+  "share_denied": 0.6745306950786403,
+  "hardware": "CUBEPILOT_CUBEORANGEPLUS",
+  "release": "v1.17.0 255",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "2cc8772a-a266-41aa-b500-9b4d7932e595": {
+  "median_gap_s": 1.0004000000000133,
+  "max_gap_s": 2.57458500000007,
+  "n_gaps_over_1p5s": 25,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 11.308348999999964,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.5 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.5 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9555236728837877,
+  "share_denied": 0.9555236728837877,
+  "hardware": "SKY_T900",
+  "release": "v1.18.0 64",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "4a55eeb4-32d2-47a8-ab65-9f5873ed47ae": {
+  "median_gap_s": 1.0002269999999953,
+  "max_gap_s": 2.0035069999999564,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 61.716076999999984,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 1.7 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.7 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.8341220423412204,
+  "share_denied": 0.8341220423412204,
+  "hardware": "PX4_FMU_V5",
+  "release": "v1.16.0 192",
+  "vehicle": "Quadrotor",
+  "design": false
+ },
+ "afcc8c4a-41d3-44bc-bb91-71baba6c9a97": {
+  "median_gap_s": 1.0011409999999614,
+  "max_gap_s": 2.0020339999999806,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 21.57895599999995,
+   "state": "DENIED",
+   "dominant": "none",
+   "summary": "DENIED: most likely unexplained anomaly. no usable GNSS fix for 1.6 s. Action: FALLBACK_REFERENCE.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 1.6 s"
+    ]
+   ],
+   "fix_type": null,
+   "n_sats": null,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9823182711198428,
+  "share_denied": 0.9823182711198428,
+  "hardware": "ARK_FMU_V6X",
+  "release": "v1.16.1 192",
+  "vehicle": "Fixed Wing",
+  "design": false
+ },
+ "b02646a8-149f-47d3-98c2-8a79e7bae37a": {
+  "median_gap_s": 1.0,
+  "max_gap_s": 3.2950549999999996,
+  "n_gaps_over_1p5s": 1,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]",
+  "first_alarm": {
+   "t_rel": 0.0,
+   "state": "DENIED",
+   "dominant": "jamming",
+   "summary": "DENIED: most likely jamming-like signal loss. no usable GNSS fix for 2.0 s. Action: HOLD_AND_ALERT.",
+   "evidence": [
+    [
+     "signal",
+     "fix_loss",
+     "no usable GNSS fix for 2.0 s"
+    ]
+   ],
+   "fix_type": 3,
+   "n_sats": 19,
+   "gap_s": null
+  },
+  "share_not_trusted": 0.9493317374825454,
+  "share_denied": 0.001097147416716537,
+  "hardware": "CZI_PILOT4",
+  "release": "v1.15.4 0",
+  "vehicle": "Quadrotor",
+  "design": false
+ }
+}

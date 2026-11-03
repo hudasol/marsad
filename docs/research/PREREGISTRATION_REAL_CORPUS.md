@@ -104,7 +104,7 @@ flights than every baseline except `ekf2_gate` without the reference. Every diff
 before adjustment (p from 0.043 to below 0.0001); with six comparisons the `stack` difference (p 0.043) is not.
 
 Decision: the false alarm rate of v1.4.0 on real flights is far above what the simulation suggested (0% to 3% on the
-nominal SIMULATED runs). The cause analysis is recorded in `docs/research/PREREGISTRATION_REAL_CAUSES.md`. These numbers
+nominal SIMULATED runs). The cause analysis is recorded in `docs/research/PREREGISTRATION_CADENCE.md`. These numbers
 go into the README headline area. They are not an argument against the detection results of the injected studies, which
 measure a different thing, but any reader of those studies has to hold them against this false alarm rate.
 
@@ -127,3 +127,7 @@ first fix of type 3 or better. This definition was fixed after looking at the fi
 remaining logs were downloaded or analysed. One pilot log (a VTOL with a 1 Hz receiver) shows Marsad DENIED for 95%
 of its flight after a 1.6 s gap between fixes; it is in the scoring set, it is reported as measured, and it is not
 removed.
+
+## Erratum, 2026-11-03
+
+The Outcome above first named a file `PREREGISTRATION_REAL_CAUSES.md` for the cause analysis. That file does not exist; the analysis is in `PREREGISTRATION_CADENCE.md` and the pointer was corrected. No number changed.
