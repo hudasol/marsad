@@ -1,7 +1,7 @@
 # Marsad: a position trust layer for uncrewed systems in contested GNSS conditions
 
-Proposal seed, version 1.3.0, October 2026. Author: Huda Mueen. Marsad is an independent open source project
-(Apache 2.0). It has no affiliation, endorsement or partnership with EDGE Group or any other organisation; this
+Proposal seed, version 1.5.0 (evidence section updated 2026-11-03). Author: Huda Mueen. Marsad is an independent open source project
+(Apache 2.0). It has no affiliation, endorsement or partnership with EDGE Group, the Technology Innovation Institute, the Advanced Technology Research Council or any other organisation; this
 document describes what a pilot could look like if a partner chose to run one.
 
 ## 1. Problem
@@ -36,7 +36,7 @@ fixes, scored against simulator truth.
 | finding | label |
 |---|---|
 | Jump and replay spoofing detected in 100% of 30 held out runs, median latency 0.1 s; gate baseline also detects them but returns to the spoofed position (median error 430 m vs 8 m on jumps) | SIMULATED |
-| Stealth carry off detected in 100% of 30 runs, median 58.3 s; gate baseline 0% | SIMULATED |
+| Stealth carry off detected in 100% of 30 runs, median 58.0 s; gate baseline 0% | SIMULATED |
 | Carry off without a reference sensor: 53% detected | SIMULATED |
 | Drift of 0.1 m/s detected in 50 to 56% of runs, 0.05 m/s never | SIMULATED |
 | Two public PX4 flights (911 s and 334 s of GPS): zero alarms (v1.3.0 engine) | REAL LOG |

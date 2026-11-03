@@ -11,13 +11,13 @@ On real public PX4 flights with no attack, the engine leaves TRUSTED on almost h
 cannot be used as an alarm without further work. When an attack is added to those flights, jumps are caught within
 about half a second and drift of 0.5 m/s or more within about 20 to 40 s, but only when the reference velocity does
 not follow the spoofed fixes. With PX4's own EKF2 as the reference, a velocity consistent drift is not detected at all,
-by Marsad or by any baseline here, because the EKF2 is dragged along. A plain sliding window test is as sensitive as
-Marsad and faster on every drift case measured. Nothing here is a test against real interference or a real attacker.
+by Marsad or by any baseline here, because the EKF2 is dragged along. On the 52 real flights with the optimistic reference, a plain sliding window test detected at least as many drifts as
+Marsad and was 3.5 to 54 s faster at every rate. Nothing here is a test against real interference or a real attacker.
 
 ## 1. REAL LOG: public flights with no attack (engine v1.4.0)
 
 Source: 139 logs from PX4 Flight Review, drawn by a seeded rule fixed before download; 101 scoring flights, 30 design
-flights (used only for engine work), 9 with error labels reported apart. 18.5 flight hours scored. Preregistration:
+flights (used only for engine work), 9 with error labels reported apart (one design flight carries an error label, so the groups overlap by one). 18.5 flight hours scored. Preregistration:
 [research/PREREGISTRATION_REAL_CORPUS.md](research/PREREGISTRATION_REAL_CORPUS.md). Data: [DATA.md](DATA.md).
 
 | quantity | value |
@@ -99,11 +99,11 @@ four detect it. n = 4 per cell, one flight pattern, one PX4 build.
 
 ## 4. SIH + INJECTED: imperfect reference (engine v1.4.0)
 
-PX4 SIH logs with the reference degraded in nine ways (bias, random walk, scale error, dropouts and latency). Four
+PX4 SIH logs with the reference degraded in eight ways (plus an exact reference with no added noise, which differs from the preregistered wording) (bias, random walk, scale error, dropouts and latency). Four
 flights per cell. Preregistration:
 [research/PREREGISTRATION_SIH_REALISTIC_REF.md](research/PREREGISTRATION_SIH_REALISTIC_REF.md).
 
-The engine tolerated a constant reference bias of 0.15 m/s, above the 0.096 m/s it assumes, because the estimator
+The engine tolerated a constant reference bias of 0.15 m/s, above the 0.08 m/s it assumes, because the estimator
 absorbed it, and failed only at 0.30 m/s (false alarm in 4 of 4 flights). A scale error of 2.4% (visual odometry
 figure) and a composite model with dropouts gave no false alarm in 4 flights and 4 of 4 detections at 1.0 m/s drift
 (27.7 s and 28.8 s). Predictions M1, M3, M4 hit; M2 and M5 missed. With four flights these cells show only that the
@@ -136,4 +136,4 @@ not as evidence about attackers.
 * Drift detection against a reference that the spoofer influences, which is the realistic case.
 * Detection below 0.25 m/s, and any claim about attack at power up.
 * A false alarm rate low enough for use without an operator.
-* Hardware or vehicle types beyond the 87 hardware names in the corpus; per hardware cells are one to three flights.
+* Hardware or vehicle types beyond the 87 hardware names in the scoring set (113 in the corpus); per hardware cells are one to three flights.

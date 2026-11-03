@@ -1,6 +1,6 @@
 # Baselines
 
-Marsad is compared against five reference detectors so that every result can be read against something a
+Marsad is compared against six reference detectors so that every result can be read against something a
 flight stack already does, rather than against nothing. This page states what each baseline is, what it
 reproduces and what it does not, how its parameters were fixed, and what the comparison shows. Numbers
 come from `scripts/run_baselines.py` and `scripts/sih_baselines.py`; the raw output is in
@@ -8,7 +8,7 @@ come from `scripts/run_baselines.py` and `scripts/sih_baselines.py`; the raw out
 
 All SIMULATED results use the held out split, seeds 5000 to 5029. SIH + INJECTED results use the PX4
 software in the loop logs `sitl1.ulg` and `sitl2.ulg` with attacks added to the GNSS record afterwards.
-Nothing here is a REAL LOG result.
+Nothing in this section is a REAL LOG result; the v1.5.0 update at the end of the page adds them.
 
 ## What each baseline is
 
@@ -119,7 +119,7 @@ Clean replay of the unmodified log: no baseline and not Marsad leaves TRUSTED.
    multipath runs where Marsad alarms in 0% and 3%. It reports one state, so it cannot tell drift from
    jump from replay, and it gives no recovery position. That is why its navigation error on `replay` is
    164 m against 10 m.
-4. **Marsad is the only entry that keeps the navigation error small across every attack class.** On
+4. **Marsad keeps the navigation error small on every class where a reference exists; the window test is better on `spoof_drift_noref` (86 m against 99 m) and the stack on stealth drift (see the table).** On
    `spoof_jump` it hands over 8 m where every baseline hands over 430 m, because it holds the last
    trusted position instead of following the jump.
 5. **Without a reference Marsad is weaker than the window test.** `spoof_drift_noref` is 53% against
@@ -136,7 +136,7 @@ Clean replay of the unmodified log: no baseline and not Marsad leaves TRUSTED.
   window test most of all, because Marsad pays for a bias allowance that the SIH reference does not need.
 - The SIMULATED generator is the same one Marsad was developed against, although on a held out split.
 - Four headings per SIH row is a small sample. The rows show direction, not a rate.
-- No baseline here has been scored on a REAL LOG. In ordinary flight logs the reference velocity is the
+- The baselines were scored on 101 REAL LOG flights in v1.5.0 (gate 25, window 27, stack 36, EKF2 style gate with reference 29 flights with an alarm; Marsad 47). In ordinary flight logs the reference velocity is the
   EKF fused velocity, which follows GNSS, so a real replay measures false alarms only. It is run with
   `python scripts/replay_baselines.py flight1.ulg flight2.ulg`.
 

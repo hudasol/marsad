@@ -16,7 +16,7 @@ stable fix ([results/real_corpus/causes.json](results/real_corpus/causes.json)).
 with an adaptive loss timeout) did not reach its target and was not adopted
 ([research/PREREGISTRATION_CADENCE.md](research/PREREGISTRATION_CADENCE.md)). Two mechanisms were found and are
 documented but not fixed: the recovery timer was cleared on ticks without a fix on interleaved streams, and a reacquisition
-that cannot be verified after a long outage leaves the state latched (item 5 below still applies).
+that cannot be verified after a long outage leaves the state latched (not covered by any study here).
 
 ### 0.2 A reference that follows the spoofed receiver
 
@@ -25,12 +25,12 @@ spoofed fixes, a drift whose velocity is consistent with its position is not det
 m/s, by Marsad, the plain gate or the window test, and PX4's own innovation check rejected nothing for 1 s or longer.
 Position only drift of 0.5 m/s or more is detected. This is the realistic case for most vehicles, and it is a limit of
 the information available as much as of the method: the only defence is a reference that is independent of the GNSS
-(optical flow, visual odometry, wheel odometry), which 7 of the 139 corpus flights had.
+(optical flow, visual odometry, wheel odometry), which 7 of the 139 corpus flights had (REAL LOG manifest).
 
 ### 0.3 A plain window test is as sensitive and faster
 
 **Label: REAL LOG + INJECTED** (52 flights, reference arm that is an optimistic bound). Window consistency detected
-drift at every rate in every flight where Marsad did, and 6 to 54 s sooner. Marsad's case rests on classification, on the
+drift at every rate in every flight where Marsad did, and 3.5 to 54 s sooner. Marsad's case rests on classification, on the
 fallback position and on lower false alarms in simulated multipath, none of which was measured on real flights.
 
 ### 0.4 Unusable flights
@@ -41,7 +41,7 @@ detection table on real flights is conditional on a clean start. That is a bias 
 ### 0.5 Reference model errors
 
 **Label: SIH + INJECTED** (4 flights per cell). A reference velocity bias of 0.30 m/s caused a false alarm in 4 of 4
-flights, and 0.15 m/s did not. The engine's assumed bound is 0.096 m/s. A scale error of 5% (assumed, no source) and a
+flights, and 0.15 m/s did not. The engine's assumed bound is 0.08 m/s (the `bias_bound` case tested 0.096 m/s, 1.2 times the bound). A scale error of 5% (assumed, no source) and a
 composite model with dropouts produced no false alarm in 4 flights; four flights cannot show robustness.
 
 ## 1. Drift slower than 0.25 m/s is not detected

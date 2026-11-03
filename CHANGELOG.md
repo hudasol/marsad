@@ -1,7 +1,7 @@
 # Changelog
 
 All notable changes to Marsad. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the
-project uses [Semantic Versioning](https://semver.org/). Result labels (SIMULATED, REAL LOG, SIH + INJECTED,
+project uses [Semantic Versioning](https://semver.org/). Result labels (SIMULATED, REAL LOG, SIH + INJECTED, REAL LOG + INJECTED, SITL EKF2, SIMULATED (LITERATURE), SEALED,
 SITL FAULT) are explained in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## [Unreleased]

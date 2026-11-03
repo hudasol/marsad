@@ -54,7 +54,7 @@ explanations as tools. The MAVLink reporter is advisory-only and cannot emit com
 
 On held-out scenarios (30 seeds each): 100% detection of jumps, replay, hard/soft jamming and both kinds of carry-off (fresh seeds, v1.1.0
 engine; in the v1.3.0 rerun only the soft jamming rows of the tables changed);
-median latency 0.1 s for abrupt events, 2.4 to 4.6 s for jamming (soft jamming 5.0 s before v1.3.0), 27.2 to 58.3 s for
+median latency 0.1 s for abrupt events, 2.4 to 4.6 s for jamming (soft jamming 5.0 s before v1.3.0), 27.1 to 58.0 s for
 carry-off. A simplified autopilot-style gate detects the abrupt events but **none** of the carry-off runs, and after
 its latch expires re-accepts spoofed positions (median error 430 m vs 8 m for Marsad on a jump). Obstruction never reaches DENIED and multipath did in 1 of 30 runs
 under Marsad (the gate baseline denies 100% / 77% of runs). Replay is labelled as replay with an estimated delay. The track module scores
@@ -86,7 +86,7 @@ Other regimes:
 
 * **No independent reference (SIMULATED):** carry-off without a power signature is undetectable; 53% detection (power-signature
   cases only) and no fallback position (`HOLD_AND_ALERT`).
-* **Slow carry-off near the reference bias bound:** 0.05 m/s is never detected and 0.1 m/s in 50 to 56% of runs (SIMULATED).
+* **Slow carry-off near the reference bias bound:** 0.05 m/s is never detected and 0.1 m/s in 56 to 62% of runs (SIMULATED).
 * **Attack at power-up:** no clean baseline.
 * **Coordinated attack on the reference sensor.**
 * **Replay labelling is late:** at the first alarm a replay carries the coarse spoofing label; `replay_meaconing` is assigned once a delay is confirmed (97% of runs settled, SIMULATED).

@@ -41,4 +41,15 @@ None; this is a measurement. A non TRUSTED sample on a real log is reported in t
 
 ## Outcome
 
-Empty until scored.
+Scored 2026-11-03 (UTC+4), late: it was left empty until the review of the release.
+
+| row | result | verdict |
+|---|---|---|
+| tests | 185 passed at the end of the engineering foundation work | HIT |
+| lint | `ruff check` and `ruff format --check` clean | HIT |
+| `check_heldout.py` | 0 differences after the engine was split into stages | HIT |
+| sitl2 clean, full length | not re run: `sitl2.ulg` is not on the build machine | NOT SCORED |
+| Marsad on each of the five lock logs, 100% TRUSTED | one of the five pilot logs, a VTOL with a 1 Hz receiver, was DENIED for 95% of its flight (see Amendment 2 of `PREREGISTRATION_REAL_CORPUS.md`) | MISS |
+| window baseline alarms on at least one of five | not scored separately; the 101 flight corpus supersedes the five log sample (window alarmed on 27 of 101 flights) | NOT SCORED |
+
+The false alarm side of this question is answered by the corpus, where the result is a miss.

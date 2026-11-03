@@ -26,7 +26,7 @@ found in the log. The manifest holds no coordinates. 33 candidates were rejected
 
 | item | value |
 |---|---|
-| logs analysed | 139 (101 scoring, 30 design subset, 9 with error labels reported separately) |
+| logs analysed | 139 (101 scoring, 30 design subset, 9 with error labels reported separately; one flight is in both of the last two groups) |
 | hardware names | 113 distinct names in the manifest |
 | vehicle types | 97 quadrotor, 18 fixed wing, 7 VTOL, 7 octorotor, 6 hexarotor, and others |
 | total download | about 6.0 GB |

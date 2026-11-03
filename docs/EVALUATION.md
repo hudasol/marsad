@@ -152,7 +152,7 @@ an EKF-fused (GNSS-contaminated) velocity is available.
 ![detectability](img/detectability.png)
 
 `docs/results/detectability.md` sweeps carry-off rate × reference bias. Without a power signature, drifts of
-0.05 m/s are **never** detected, 0.1 m/s in about 50 to 56% of runs (after about 4 to 5 minutes), and 0.15 m/s and faster in
+0.05 m/s are **never** detected, 0.1 m/s in 56 to 62% of runs (after about 4 to 5 minutes), and 0.15 m/s and faster in
 100% of runs (0.15 m/s after about 2.3 minutes). In v1.0.0 the 0.15 m/s cell was 0 to 38%; the improvement comes from the
 slow reference-bias estimator and the 240 s window. The sweep is on fresh seeds and the bias values are bounds of
 the simulated reference sensor. The floor comes from the reference

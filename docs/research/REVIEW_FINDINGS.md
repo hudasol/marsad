@@ -114,3 +114,35 @@ locally, 211 s).
 | Low | `src/marsad/api/texts.py` | MCP limits text understates the REAL LOG result | source code string; it understates rather than overstates |
 | Low | docs/EDGE_PROPOSAL.md file name | names EDGE Group | the owner chose the name; the content disclaims any affiliation |
 | Low | DATA.md, MILESTONES.md | describe the v1.3.0 release and its assets before they exist | the release is created at the end of this run; checked afterwards |
+
+## Review of the v1.5.0 candidate, 2026-11-03
+
+A reviewer with no knowledge of how the work was done read the committed state at `3cfd9ca`, recomputed about 60 quoted
+figures from the result files and checked style, scope and layering. No file was modified by the reviewer. The sealed
+results were excluded from the review.
+
+**Fixed in response (documents and version strings only; no engine change):**
+
+| # | severity | problem | fix |
+|---|---|---|---|
+| 1 | High | `VALIDATION.md` status rows still read as "zero alarms on real logs" | rewritten to the corpus result |
+| 2 | High | `VALIDATION.md` and `BASELINES.md` said no baseline had been scored on a REAL LOG | replaced by the corpus counts |
+| 3 | High | placeholders for the sealed result in README and EVIDENCE | filled from the sealed run |
+| 4 | High | `PREREGISTRATION_BASELINE_LOCK.md` had an empty Outcome, and one of its predictions had missed | scored, with one miss and two not scored |
+| 5 | High | version strings were still 1.4.0 | bumped in `pyproject.toml`, `__init__.py`, `CITATION.cff` |
+| 6 | Medium | reference bias bound quoted as 0.096 m/s; the configured value is 0.08 m/s | corrected |
+| 7 | Medium | "window test faster on every drift case" was unscoped; "6 to 54 s" and "5 to 11 s" ranges were wrong | scoped to the 52 real flights; ranges corrected to 3.5 to 54 s and 4.3 to 24.5 s |
+| 8 | Medium | stale figures (0.1 m/s in 50 to 56%, carry off 27.2 to 58.3 s, 58.3 s) | updated to 56 to 62%, 27.1 to 58.0 s |
+| 9 | Medium | "tolerated" for a 4 flight result; "only entry" in `BASELINES.md` | reworded |
+| 10 | Medium | wrong directory in the CADENCE preregistration; the corpus groups sum to 140 not 139; 87 against 113 hardware names; "nine ways" | corrected |
+| 11 | Low | TII and ATRC missing from the proposal's independence sentence; research index incomplete; label list in the changelog | added |
+
+**Not changed, with reasons.** Hyphenated words in `TECHNICAL_REPORT.md` and an en dash used as a placeholder in
+generated tables (`scripts/run_eval.py`, `bench/report.py`): the generated tables are committed results and
+changing the generator would alter published files; the report wording is left for a later pass. The phrase "AI
+agents" as a product feature of the MCP server is kept because it describes the interface. The number consistency test
+covers 13 claims in README and EVIDENCE only; the other documents are checked by hand.
+
+**Checked and consistent:** all 13 marked claims; the corpus, injected, SITL EKF2, imperfect reference, literature and
+cadence figures; the held out tables; the layer check (no third party import in the core); scope (no RF or command
+code); no `.ulg` in git; no attribution of interference to an actor.

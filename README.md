@@ -60,8 +60,8 @@ full account, with the preregistrations and the misses, is in [docs/EVIDENCE.md]
 |---|---|---|
 | jumps of 50 to 1000 m detected in about 0.4 s, by Marsad and by every baseline | REAL LOG + INJECTED | 52 flights |
 | position only drift at 0.5 m/s or more detected in 19 to 62 s | SITL EKF2 | 4 runs per cell |
-| velocity consistent drift at 0.25 to 2.0 m/s detected with an uncontaminated reference | REAL LOG + INJECTED | 52 flights |
-| reference bias up to 0.15 m/s tolerated, failure at 0.30 m/s | SIH + INJECTED | 4 flights per cell |
+| velocity consistent drift at 0.25 m/s (45 of 52) to 2.0 m/s (52 of 52) detected, with a reference that does not follow the spoof (not the case for a vehicle's own EKF2) | REAL LOG + INJECTED | 52 flights |
+| no false alarm in 4 of 4 flights at a reference bias of 0.15 m/s (one pattern); false alarm at 0.30 m/s | SIH + INJECTED | 4 flights per cell |
 | five attack kinds specified from the literature detected, no false alarm before onset | SIMULATED (LITERATURE) | 30 runs per kind |
 
 The SIMULATED families share an author with the engine, so they read as regression tests. SEALED_README_PLACEHOLDER

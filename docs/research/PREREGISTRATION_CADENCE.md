@@ -110,7 +110,7 @@ Not independent: the causes were diagnosed on the scoring flights as well as on 
 ## Amendment 1, 2026-11-03: a third change, found on the design subset
 
 Before any scoring flight was run with the new engine, the design subset was replayed with changes 1 and 2
-(`docs/results/real_corpus_v15_design/`). Flights with an alarm fell from 10 to 9 of 30, so prediction C2 (at most 7)
+(`docs/results/cadence_trial_design_c12/`). Flights with an alarm fell from 10 to 9 of 30, so prediction C2 (at most 7)
 was missed on the design data. Reading the four flights that stayed alarmed (`HNBQ_KAKUTEH7`, `AUAV_H9`, `HEX_MBV2`,
 `ED_ASBNN`; all in the design subset) showed a mechanism I had attributed to the reacquisition cap but that is simpler:
 the engine says P(nominal) is 0.96 and still stays DENIED or DEGRADED for the whole flight.
