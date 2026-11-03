@@ -94,4 +94,22 @@ against Marsad's 30 (exact McNemar p 0.0002, one comparison among the pairs list
 kinds were examined, 20 tests in all, so only p below 0.0025 would survive a Bonferroni correction).
 `benign_multipath` alarmed the plain gate in 25 of 30 runs and Marsad in 1.
 
-Sealed seeds: not run yet.
+### Sealed seeds, scored once on 2026-11-03 (UTC+4)
+
+Run once with `--final` after all engine work and documents for the release were fixed; engine v1.4.0 behaviour. Results in
+`docs/results/sealed/literature/` and `docs/results/sealed/design/` (label SEALED). n = 100 per kind.
+
+| Row | Result | Verdict |
+|---|---|---|
+| S1 | all five literature kinds detected in 100 of 100 runs (interval 96.4% to 100%); no kind fell below its development share | HIT |
+| S2 | first family on seeds 7000 to 7099: every attack kind 100 of 100 except `spoof_drift_noref` 57 of 100 (held out seeds 5000 to 5029: 53%); none lower by more than 10 points | HIT |
+| S3 | `nominal` 0 of 100 in both families; `benign_multipath` 5 of 100 in the first family and 6 of 100 in the literature family; at most 5 predicted | MISS (by one run, literature family) |
+
+Median latencies of Marsad on the sealed seeds (seconds): `lit_switch` 1.5, `lit_takeover` 11.4, `lit_time_push` 17.8,
+`lit_equal_power` 73.4, `lit_jam_chirp` 9.3; first family `spoof_drift` 28.1, `spoof_drift_stealth` 53.3, `spoof_drift_ref_outage` 55.9.
+No attack run raised an alarm before onset. The plain gate detected 0 of 100 on `lit_takeover`, `lit_time_push` and every
+carry off scenario, and alarmed in 66 and 72 of 100 multipath runs (Marsad 6 and 5).
+
+Reading. The sealed seeds reproduce the development result, so there is no sign that the engine was fitted to the
+development seeds of this family, but both families are synthetic and share their clean world with the engine, so this
+says little about real attackers. The sealed split was run once and is not repeated.

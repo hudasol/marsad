@@ -64,7 +64,7 @@ full account, with the preregistrations and the misses, is in [docs/EVIDENCE.md]
 | no false alarm in 4 of 4 flights at a reference bias of 0.15 m/s (one pattern); false alarm at 0.30 m/s | SIH + INJECTED | 4 flights per cell |
 | five attack kinds specified from the literature detected, no false alarm before onset | SIMULATED (LITERATURE) | 30 runs per kind |
 
-The SIMULATED families share an author with the engine, so they read as regression tests. SEALED_README_PLACEHOLDER
+The SIMULATED families share an author with the engine, so they read as regression tests. On 100 sealed seeds per kind (SEALED, run once) both families reproduced their development detection and all five literature kinds were detected in 100 of 100 runs, with 5 to 6 of 100 multipath runs alarmed.
 
 ### Against reference detectors (SIMULATED, held out, 30 seeds per scenario)
 

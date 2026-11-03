@@ -16,7 +16,7 @@ outcome is recorded next to them whether or not they hold.
 | [PREREGISTRATION_SITL_EKF2.md](PREREGISTRATION_SITL_EKF2.md) | PX4 EKF2 in the loop | six of six hit; the finding is a limit |
 | [PREREGISTRATION_SIH_REALISTIC_REF.md](PREREGISTRATION_SIH_REALISTIC_REF.md) | degraded reference models | three of five hit |
 | [PREREGISTRATION_CADENCE.md](PREREGISTRATION_CADENCE.md) | receiver cadence and start up change | not adopted, four of six missed |
-| [PREREGISTRATION_LITERATURE.md](PREREGISTRATION_LITERATURE.md) | independent scenario family and sealed split | see the outcome section |
+| [PREREGISTRATION_LITERATURE.md](PREREGISTRATION_LITERATURE.md) | independent scenario family and sealed split | dev 7 of 8 hit; sealed 2 of 3 hit |
 | [SCENARIOS_LITERATURE.md](SCENARIOS_LITERATURE.md) | the literature scenario family | specification |
 | [REVIEW_FINDINGS.md](REVIEW_FINDINGS.md) | findings of an independent review of the repository | open items listed |
 | [RUN_LOG.md](RUN_LOG.md) | timestamped log of the v1.3.0 run | historical |

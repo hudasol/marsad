@@ -22,6 +22,7 @@ flights.
 * A degraded reference study on SIH logs, `scripts/sih_realistic_ref.py`.
 * A second scenario family built from published attack descriptions, `marsad.sim.literature`, with a sealed split
   (seeds 7000 to 7099) and a runner that refuses sealed seeds without `--final`.
+* The sealed split was run once at the end (100 seeds per kind, both families): detection matched the development seeds; multipath false alarms 5 to 6 of 100 against a prediction of at most 5 (`docs/results/sealed/`).
 * `docs/EVIDENCE.md` and `tests/test_docs_numbers.py`, which checks that numbers quoted in documents match the result
   files. Label definitions in `docs/VALIDATION.md`.
 * Preregistrations for every study above, with outcomes and misses, and `docs/research/PRIOR_ART.md`.

@@ -121,7 +121,12 @@ The family does not separate the engine from its own design: it is at the ceilin
 faster than Marsad on a slow takeover (3.5 s against 10.3 s) and on a time push (7.7 s against 13.6 s).
 <!-- claim docs/results/literature_dev/summary.json kinds/lit_takeover/median_latency_s/stack/median 3.51 -->
 
-SEALED_PLACEHOLDER
+SEALED: seeds 7000 to 7099, 100 runs per kind, run once at the end of the release, for both families. All five literature
+kinds were detected in 100 of 100 runs, the first family's attack kinds in 100 of 100 except no reference drift (57 of
+100, held out 53%), nominal runs raised no alarm, and multipath runs alarmed in 5 and 6 of 100 (prediction S3, at most
+5, missed by one run in the literature family). The sealed results match the development ones, so nothing suggests
+fitting to the development seeds; they remain synthetic. See [research/PREREGISTRATION_LITERATURE.md](research/PREREGISTRATION_LITERATURE.md).
+<!-- claim docs/results/sealed/literature/summary.json kinds/lit_takeover/detected/marsad/k 100 -->
 
 ## 6. SIMULATED (first family): the earlier benchmark
 
