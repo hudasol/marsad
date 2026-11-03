@@ -1,8 +1,8 @@
 # Marsad: a position-trust layer for autonomous systems
 
-Huda Mueen · v1.3.0 · Independent open-source project, not affiliated with or endorsed by EDGE Group, TII, ATRC or any of their entities.
-Section 3 is SIMULATED. Results on real PX4 logs (REAL LOG) and on PX4 SIH logs with injected offsets
-(SIH + INJECTED) are in VALIDATION.md and summarised in section 4.
+Huda Mueen · v1.5.0 · Independent open-source project, not affiliated with or endorsed by EDGE Group, TII, ATRC or any of their entities.
+Section 3 is SIMULATED and regression only. The evidence on real PX4 flights, PX4 EKF2 in the loop and an independent
+scenario family is in section 4 and in EVIDENCE.md; labels are defined in VALIDATION.md.
 
 ## 1. Problem
 
@@ -62,7 +62,27 @@ precision/recall 1.00 on simulated multi-source scenarios (including a 3 to 15 k
 the right source), with the caveat that its simulator and detectors share an author. Full tables, ablations and a
 carry-off detectability sweep are in EVALUATION.md.
 
-## 4. Failure regimes (reported, not hidden)
+## 4. Evidence on real flights, and failure regimes (reported, not hidden)
+
+Studies of v1.5.0, each preregistered, with every miss kept ([EVIDENCE.md](EVIDENCE.md)):
+
+* **False alarms on 101 public flights (REAL LOG).** Fully TRUSTED on 54 (53.5%), DENIED at some point on 46, 3.0 alarm
+  episodes per flight hour. The main causes are lost fixes on 1 Hz receivers and start up. All seven predictions
+  missed. A trial fix reached 62 of 101 and was not adopted.
+* **Attacks added to real flights (REAL LOG + INJECTED, 52 flights, optimistic reference).** Jumps are detected in about
+  0.4 s by every method. Velocity consistent drift of 0.5 m/s or more is detected in every flight with a median latency of
+  42.3 s down to 15.7 s at 2.0 m/s; 0.25 m/s in 45 of 52 flights (111.8 s). A sliding window test detected all of them and
+  was faster in every case. 23 of 75 eligible flights were alarmed before the onset and could not be scored.
+* **PX4 EKF2 in the loop (SITL EKF2, 4 runs per cell).** When the reference is the EKF2 velocity, which fuses the
+  spoofed fixes, velocity consistent drift is not detected at any rate by Marsad or by any baseline, and the EKF2
+  itself rejects nothing. Position only drift of 0.5 m/s or more is detected in 19 to 62 s.
+* **Imperfect reference (SIH + INJECTED, 4 flights per cell).** A constant reference bias of 0.15 m/s was absorbed; 0.30
+  m/s caused false alarms in 4 of 4 flights.
+* **Independent scenario family (SIMULATED (LITERATURE)).** Attack kinds specified from published descriptions are
+  detected in 30 of 30 development runs each. The family is at the ceiling and does not separate the engine from a
+  baseline stack, which was faster.
+
+Other regimes:
 
 * **No independent reference (SIMULATED):** carry-off without a power signature is undetectable; 53% detection (power-signature
   cases only) and no fallback position (`HOLD_AND_ALERT`).
@@ -70,21 +90,15 @@ carry-off detectability sweep are in EVALUATION.md.
 * **Attack at power-up:** no clean baseline.
 * **Coordinated attack on the reference sensor.**
 * **Replay labelling is late:** at the first alarm a replay carries the coarse spoofing label; `replay_meaconing` is assigned once a delay is confirmed (97% of runs settled, SIMULATED).
-* **Where the baseline wins (SIMULATED):** in soft jamming its latency is lower (4.1 s vs 4.6 s), although its navigation error is
-  higher (11 m vs 9 m) since v1.3.0.
-* **Slow drift on real PX4 SIH logs (SIH + INJECTED):** v1.2.0 diluted drift evidence when the reference (about 125 Hz)
-  arrived faster than GNSS (about 8 Hz) and caught drifts of 0.5 to 2 m/s only after median latencies of 98.1 to
-  204.6 s. The preregistered fix in v1.3.0 brings this to 15.7 to 48.3 s at median offsets of 18.8 to 22.4 m in a 230 s
-  window. Still missed: a velocity consistent drift of 0.25 m/s, because the reference bias estimator absorbs 34.8%
-  of it before the drift evidence starts, and any drift of 0.1 m/s (KNOWN_LIMITS.md).
+* **Where the baseline wins:** in simulated soft jamming its latency is lower (4.1 s vs 4.6 s) and on every real flight drift case the window test is faster ([BASELINES.md](BASELINES.md)).
+
+The earlier account of slow drift on the SIH logs (v1.2.0 to v1.4.0) is in [history/technical-report-v1.4.0-section4.md](history/technical-report-v1.4.0-section4.md).
 
 ## 5. What it takes to make this real
 
-Two real PX4 flights now replay with zero alarms and two SIH logs have been scored with injected offsets
-(VALIDATION.md), and the evidence weighting fix has been scored against its preregistration. Next: review the bias
-estimator (KNOWN_LIMITS.md), replay more real logs including GNSS degraded ones,
-calibrate against receiver-reported jamming/spoofing flags, then an advisory companion computer, then closed loop in
-an authorised environment. An operational demo needs a vehicle, an operator who will use the output, and range time.
+The first obstacle is the false alarm rate on real flights (46 of 101 flights reached DENIED), then a reference that
+the spoofer cannot influence (optical flow, visual odometry, wheel odometry) and a flight controller on the bench,
+then an advisory companion computer, then closed loop in an authorised environment (ROADMAP.md). An operational demo needs a vehicle, an operator who will use the output, and range time.
 
 ## 6. Ethics and scope
 
