@@ -125,7 +125,7 @@ sooner: median latency 57.6 s against 111.8 s at 0.25 m/s, 31.6 s against 42.3 s
 evaluated for false alarms on the 23 excluded flights; its pre onset alarm count on the 52 scored flights is 3, against 2
 for Marsad. Marsad's value over the window test on this study is therefore not detection speed; it is classification and
 a fallback position, neither of which this study measures. Comparisons: nine preregistered rows, with every other
-cell in `summary.md` exploratory (about 150 McNemar tests were computed; they are not corrected and are descriptive).
+cell in `summary.md` exploratory (about 90 McNemar tests were computed; they are not corrected and are descriptive).
 
 The EKF2 style gate with the reference check (`ekf2_gate_ref`) detects 3 of 52 at 0.25 m/s and 48 of 52 at 0.5 m/s, with
 a median latency of 80 s, and is the closest to the vehicle's own behaviour among the baselines. With a reference that
