@@ -16,6 +16,36 @@ verify the two simulator logs.
 Checksums were computed with `sha256sum` on 2026-10-18. Version and hardware fields below are read from each log's
 own ULog header (`ver_sw_release`, `ver_sw`, `ver_hw`).
 
+## The real flight corpus (v1.5.0, REAL LOG)
+
+139 public PX4 logs from the Flight Review database (review.px4.io), published there under CC BY. They are listed in
+[results/real_corpus/manifest.csv](results/real_corpus/manifest.csv) with the log identifier, the download address, the
+SHA256 of the file, PX4 release, hardware name, vehicle type, seconds of usable GNSS and the independent reference types
+found in the log. The manifest holds no coordinates. 33 candidates were rejected before analysis
+([rejected.csv](results/real_corpus/rejected.csv); 32 had no usable GNSS and 1 was above the size limit).
+
+| item | value |
+|---|---|
+| logs analysed | 139 (101 scoring, 30 design subset, 9 with error labels reported separately) |
+| hardware names | 113 distinct names in the manifest |
+| vehicle types | 97 quadrotor, 18 fixed wing, 7 VTOL, 7 octorotor, 6 hexarotor, and others |
+| total download | about 6.0 GB |
+| selection | seeded draw, preregistered in [research/PREREGISTRATION_REAL_CORPUS.md](research/PREREGISTRATION_REAL_CORPUS.md) |
+
+Attribution. The logs are the work of their uploaders and are made available by the PX4 Flight Review service under
+the Creative Commons Attribution licence. Marsad does not redistribute them: no `.ulg` file from Flight Review is in
+this repository or in any release. To reproduce, download each file from the address in the manifest, check the SHA256
+with `sha256sum`, and run `python scripts/real_corpus.py analyze --manifest ... --logs DIR`. A log that was later removed or changed upstream will fail the check
+and be reported, not replaced silently.
+
+## Own simulator logs added in v1.5.0
+
+The PX4 software in the loop logs flown for the EKF2 in the loop study (SITL EKF2) and for the imperfect reference study
+(SIH + INJECTED) are made by `scripts/sitl_ekf2_spoof.py` and `scripts/sih_realistic_ref.py` on the PX4 build described in
+[results/ENVIRONMENT.md](results/ENVIRONMENT.md). The 48 SITL EKF2 logs are 3.3 GB in total and are not attached to the
+release; the scored summary is in [results/sitl_ekf2/](results/sitl_ekf2/) and re-running the batch script regenerates
+them. The patch that adds the offset parameters to the PX4 GPS simulator is `scripts/px4_sensor_gps_sim_offset.patch`.
+
 ## How each file was obtained
 
 **`sitl1.ulg`.** PX4 software in the loop with the SIH simulator (`make px4_sitl sihsim_quadx`) on WSL2 Ubuntu,

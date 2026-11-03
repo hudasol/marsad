@@ -4,7 +4,7 @@ Free, public sources of real GNSS interference or spoofing data that could be us
 opened while writing this page; details not shown on the page that was opened are marked "not stated". Nothing was
 downloaded. No source here needs payment; one needs a free account and one needs a subscription (excluded).
 
-None of these sources has been used by Marsad yet. A result on any of them would need its own honesty label, defined
+Update 2026-11-03 (v1.5.0): the PX4 Flight Review public log database, which is not in the survey below, has been used for the REAL LOG corpus (see [DATA.md](DATA.md)). None of the sources surveyed below has been used by Marsad yet. A result on any of them would need its own honesty label, defined
 before the run, because the existing labels do not cover a real receiver under real interference: REAL LOG means an
 unmodified flight with no attack.
 
