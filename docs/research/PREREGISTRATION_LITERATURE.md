@@ -66,4 +66,32 @@ None for the engine; there is no change to test. The sealed run is not repeated,
 
 ## Outcome
 
-Empty until scored.
+### Development seeds, scored 2026-11-03 (UTC+4)
+
+Results in `docs/results/literature_dev/` (`runs.json`, `summary.json`, `summary.md`, from `scripts/run_literature.py`
+and `scripts/summarise_literature.py`). Label: SIMULATED (LITERATURE). n = 30 per kind, so a 30 of 30 cell has a lower
+bound of 0.88.
+
+| Row | Result | Verdict |
+|---|---|---|
+| L1 | `lit_switch`: 30 of 30 detected, median latency 1.5 s | HIT |
+| L2 | `lit_takeover`: 30 of 30, median latency 10.3 s | HIT |
+| L3 | `lit_time_push`: 30 of 30, median latency 13.6 s | HIT |
+| L4 | `lit_equal_power`: 30 of 30, median latency 73.1 s | HIT |
+| L5 | `lit_jam_chirp`: 30 of 30, median latency 9.2 s | HIT |
+| L6 | `nominal` 0 of 30, `benign_multipath` 1 of 30 false alarms, `benign_obstruction` 30 of 30 alarmed | HIT |
+| L7 | plain gate detected 0 of 30 on `lit_takeover` and 0 of 30 on `lit_time_push` | HIT |
+| L8 | window median latency 72.3 s on `lit_takeover` (Marsad 10.3 s) and 10.1 s on `lit_time_push` (Marsad 13.6 s) | MISS (window is faster on one kind only) |
+
+Reading. Seven of eight rows hit, and the detection cells are at the ceiling, which means this family does not
+separate the engine from its own design: the thresholds in L1 to L5 were set low enough to be safe, and nothing in the
+family is hard for the engine. That is itself a finding about the family, not about the engine. Pre attack false
+alarms were zero in every attack kind. Two results are informative. First, the `stack` baseline (gate, window and the
+reference gate combined) was faster than Marsad on both kinds that matter (median 3.5 s against 10.3 s on `lit_takeover`,
+7.7 s against 13.6 s on `lit_time_push`), so on this family the engine is not the fastest detector. Second, the plain
+gate detects nothing on a slow takeover or time push, and on `lit_time_push` the reference gate detected 17 of 30
+against Marsad's 30 (exact McNemar p 0.0002, one comparison among the pairs listed in `summary.md`; 4 baselines times 5
+kinds were examined, 20 tests in all, so only p below 0.0025 would survive a Bonferroni correction).
+`benign_multipath` alarmed the plain gate in 25 of 30 runs and Marsad in 1.
+
+Sealed seeds: not run yet.

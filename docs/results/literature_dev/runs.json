@@ -1,0 +1,5354 @@
+{
+ "family": "literature",
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29
+ ],
+ "truth": {
+  "lit_switch": "spoofing_jump",
+  "lit_takeover": "spoofing_drift",
+  "lit_time_push": "spoofing_drift",
+  "lit_equal_power": "spoofing_drift",
+  "lit_jam_chirp": "jamming"
+ },
+ "runs": [
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 0,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.582507546095627,
+    "gate": 2.1825075460956214,
+    "ekf2_gate_ref": 4.982507546095604,
+    "window": 4.982507546095604,
+    "stack": 4.982507546095604
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.264734901023071
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 1,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.539922529448404,
+    "gate": 2.1399225294483983,
+    "ekf2_gate_ref": 4.339922529448415,
+    "window": 4.339922529448415,
+    "stack": 4.339922529448415
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 4.978117995420806
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 2,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5980384783431418,
+    "gate": 2.198038478343136,
+    "ekf2_gate_ref": 5.198038478343136,
+    "window": 5.198038478343136,
+    "stack": 5.198038478343136
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 5.642255209302926
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 3,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5501922083961404,
+    "gate": 2.150192208396163,
+    "ekf2_gate_ref": 2.950192208396146,
+    "window": 2.950192208396146,
+    "stack": 2.950192208396146
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 3.263725155521429
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 4,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4737655949497253,
+    "gate": 2.0737655949497196,
+    "ekf2_gate_ref": 3.2737655949497366,
+    "window": 3.2737655949497366,
+    "stack": 3.2737655949497366
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.253410360105504
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 5,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5254112113574365,
+    "gate": 2.1254112113574593,
+    "ekf2_gate_ref": 3.5254112113574365,
+    "window": 3.5254112113574365,
+    "stack": 3.5254112113574365
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 9.214048031618479
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 6,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5590858906267897,
+    "gate": 2.159085890626784,
+    "ekf2_gate_ref": 5.159085890626784,
+    "window": 5.159085890626784,
+    "stack": 5.159085890626784
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 9.419104701135158
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 7,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4971808837992455,
+    "gate": 2.09718088379924,
+    "ekf2_gate_ref": 2.4971808837992455,
+    "window": 2.4971808837992455,
+    "stack": 2.4971808837992455
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.269811994574593
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 8,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.419064207268292,
+    "gate": 2.0190642072683147,
+    "ekf2_gate_ref": 2.419064207268292,
+    "window": 2.419064207268292,
+    "stack": 2.419064207268292
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 8.190907525578838
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 9,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4938672418723797,
+    "gate": 2.093867241872374,
+    "ekf2_gate_ref": 5.093867241872374,
+    "window": 5.093867241872374,
+    "stack": 5.093867241872374
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 13.06077696595195
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 10,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4581137594711606,
+    "gate": 2.058113759471155,
+    "ekf2_gate_ref": 5.058113759471155,
+    "window": 5.058113759471155,
+    "stack": 5.058113759471155
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 14.374080562788253
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 11,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.542116404622874,
+    "gate": 2.1421164046228682,
+    "ekf2_gate_ref": 5.142116404622868,
+    "window": null,
+    "stack": 5.142116404622868
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 11.23022340469898
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 12,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.497715259255557,
+    "gate": 2.0977152592555512,
+    "ekf2_gate_ref": 4.097715259255551,
+    "window": 4.097715259255551,
+    "stack": 4.097715259255551
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 4.758113160418965
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 13,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5218962720167042,
+    "gate": 2.121896272016727,
+    "ekf2_gate_ref": 3.521896272016704,
+    "window": 3.521896272016704,
+    "stack": 3.521896272016704
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.359923953417358
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 14,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5116683458633702,
+    "gate": 2.1116683458633645,
+    "ekf2_gate_ref": 5.1116683458633645,
+    "window": 5.1116683458633645,
+    "stack": 5.1116683458633645
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 9.726947638506164
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 15,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5209150240150393,
+    "gate": 2.1209150240150336,
+    "ekf2_gate_ref": 3.920915024015045,
+    "window": 3.920915024015045,
+    "stack": 3.920915024015045
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 3.2531172260246284
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 16,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4793142846208411,
+    "gate": 2.079314284620864,
+    "ekf2_gate_ref": 4.879314284620847,
+    "window": 4.879314284620847,
+    "stack": 4.879314284620847
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 8.247545854522
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 17,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4882956427097724,
+    "gate": 2.0882956427097668,
+    "ekf2_gate_ref": 5.088295642709767,
+    "window": 5.088295642709767,
+    "stack": 5.088295642709767
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 10.023597214016922
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 18,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4140134865887148,
+    "gate": 2.0140134865887376,
+    "ekf2_gate_ref": 5.014013486588738,
+    "window": 5.014013486588738,
+    "stack": 5.014013486588738
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 9.57774735295935
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 19,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4007479719529101,
+    "gate": 2.0007479719529044,
+    "ekf2_gate_ref": 2.40074797195291,
+    "window": 2.40074797195291,
+    "stack": 2.40074797195291
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 5.91589910674005
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 20,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5809885625286881,
+    "gate": 2.180988562528711,
+    "ekf2_gate_ref": 4.180988562528711,
+    "window": 4.180988562528711,
+    "stack": 4.180988562528711
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 2.2869797738686723
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 21,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.559260674672828,
+    "gate": 2.1592606746728222,
+    "ekf2_gate_ref": 5.159260674672822,
+    "window": 5.159260674672822,
+    "stack": 5.159260674672822
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.024169928416321
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 22,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4502598650726668,
+    "gate": 2.050259865072661,
+    "ekf2_gate_ref": 2.850259865072644,
+    "window": 2.850259865072644,
+    "stack": 2.850259865072644
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 7.23474408887393
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 23,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4404953044898718,
+    "gate": 2.0404953044898946,
+    "ekf2_gate_ref": 2.440495304489872,
+    "window": 2.440495304489872,
+    "stack": 2.440495304489872
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.984163128446312
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 24,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4908291157383644,
+    "gate": 2.0908291157383587,
+    "ekf2_gate_ref": 5.090829115738359,
+    "window": null,
+    "stack": 5.090829115738359
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 15.383330285332319
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 25,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.488712523387079,
+    "gate": 2.0887125233870734,
+    "ekf2_gate_ref": 3.288712523387062,
+    "window": 3.288712523387062,
+    "stack": 3.288712523387062
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 7.727362131864654
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 26,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.5541384612905915,
+    "gate": 2.154138461290586,
+    "ekf2_gate_ref": 2.75413846129058,
+    "window": 2.75413846129058,
+    "stack": 2.75413846129058
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 9.256679217824727
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 27,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4549020173411407,
+    "gate": 2.054902017341135,
+    "ekf2_gate_ref": 5.054902017341135,
+    "window": 5.054902017341135,
+    "stack": 5.054902017341135
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 5.730423832411146
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 28,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4337183901868968,
+    "gate": 2.0337183901869196,
+    "ekf2_gate_ref": 3.233718390186908,
+    "window": 3.233718390186908,
+    "stack": 3.233718390186908
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 14.211194476767403
+  },
+  {
+   "family": "literature",
+   "kind": "lit_switch",
+   "seed": 29,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 1.4120884263392384,
+    "gate": 2.0120884263392327,
+    "ekf2_gate_ref": 5.012088426339233,
+    "window": 5.012088426339233,
+    "stack": 5.012088426339233
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 4.6535359076285205
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 0,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.657077687046382,
+    "gate": null,
+    "ekf2_gate_ref": 72.65707768704638,
+    "window": 71.05707768704639,
+    "stack": 3.0570776870463874
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 5.351441576030415,
+   "raw_offset_at_alarm_m": 0.9342307313623994
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 1,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 86.91392162075243,
+    "gate": null,
+    "ekf2_gate_ref": 93.91392162075243,
+    "window": 81.51392162075246,
+    "stack": 4.513921620752427
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 19.13060244064593,
+   "raw_offset_at_alarm_m": 16.989092135149356
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 2,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 8.626961544912604,
+    "gate": null,
+    "ekf2_gate_ref": 71.6269615449126,
+    "window": 70.6269615449126,
+    "stack": 3.8269615449126206
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 5.870648378360262,
+   "raw_offset_at_alarm_m": 0.7624478619907189
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 3,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 19.866067623602476,
+    "gate": null,
+    "ekf2_gate_ref": 82.26606762360248,
+    "window": 72.46606762360247,
+    "stack": 5.266067623602481
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 3.7749950228441556,
+   "raw_offset_at_alarm_m": 1.4785741968146462
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 4,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 34.15011548731101,
+    "gate": null,
+    "ekf2_gate_ref": 91.750115487311,
+    "window": 81.950115487311,
+    "stack": 15.150115487311012
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 13.690782282986259,
+   "raw_offset_at_alarm_m": 1.8355422924500453
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 5,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.0830969678363545,
+    "gate": null,
+    "ekf2_gate_ref": 91.88309696783637,
+    "window": 82.48309696783639,
+    "stack": 2.48309696783636
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.746842003846474,
+   "raw_offset_at_alarm_m": 0.9704352500463903
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 6,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.695594854425735,
+    "gate": null,
+    "ekf2_gate_ref": 91.69559485442574,
+    "window": 89.09559485442577,
+    "stack": 3.095594854425741
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 8.858763708013122,
+   "raw_offset_at_alarm_m": 0.8598696125051147
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 7,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 74.15161570140233,
+    "gate": null,
+    "ekf2_gate_ref": 72.15161570140233,
+    "window": 72.75161570140233,
+    "stack": 4.751615701402329
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.420312322948483,
+   "raw_offset_at_alarm_m": 23.958907931399647
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 8,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.93376179119957,
+    "gate": null,
+    "ekf2_gate_ref": 71.33376179119955,
+    "window": 71.13376179119956,
+    "stack": 71.13376179119956
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 27.56023852506378,
+   "raw_offset_at_alarm_m": 25.459596831600653
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 9,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 88.47779011028922,
+    "gate": null,
+    "ekf2_gate_ref": 88.67779011028921,
+    "window": 79.67779011028921,
+    "stack": 79.67779011028921
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 20.070592579559616,
+   "raw_offset_at_alarm_m": 21.473739192840895
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 10,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.623123488156324,
+    "gate": null,
+    "ekf2_gate_ref": 71.62312348815632,
+    "window": 71.62312348815632,
+    "stack": 3.4231234881563353
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 22.96651897685561,
+   "raw_offset_at_alarm_m": 0.8011985098760627
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 11,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 8.403183980362115,
+    "gate": null,
+    "ekf2_gate_ref": 70.40318398036212,
+    "window": 68.00318398036208,
+    "stack": 2.8031839803620926
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.262955890723378,
+   "raw_offset_at_alarm_m": 1.1579634364292273
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 12,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.193995137282144,
+    "gate": null,
+    "ekf2_gate_ref": 68.1939951372822,
+    "window": 67.79399513728217,
+    "stack": 4.193995137282172
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 7.94977242127159,
+   "raw_offset_at_alarm_m": 1.2297112410077964
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 13,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.233566178695867,
+    "gate": null,
+    "ekf2_gate_ref": 81.03356617869588,
+    "window": 77.03356617869588,
+    "stack": 3.833566178695861
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 4.547954220446349,
+   "raw_offset_at_alarm_m": 1.158108232901009
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 14,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 14.713771126700692,
+    "gate": null,
+    "ekf2_gate_ref": 90.11377112670073,
+    "window": 77.91377112670074,
+    "stack": 3.5137711267007035
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 20.621966068204912,
+   "raw_offset_at_alarm_m": 1.3222060871872934
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 15,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.445684852151544,
+    "gate": null,
+    "ekf2_gate_ref": 83.24568485215156,
+    "window": 70.84568485215158,
+    "stack": 2.8456848521515496
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 5.329740758027885,
+   "raw_offset_at_alarm_m": 1.1115237803442333
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 16,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 24.95486797362264,
+    "gate": null,
+    "ekf2_gate_ref": 67.35486797362267,
+    "window": 67.35486797362267,
+    "stack": 8.554867973622663
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 22.076891218877318,
+   "raw_offset_at_alarm_m": 0.7914120049488128
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 17,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 87.98728106848526,
+    "gate": null,
+    "ekf2_gate_ref": 91.18728106848525,
+    "window": 84.18728106848525,
+    "stack": 84.18728106848525
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 17.79291846731324,
+   "raw_offset_at_alarm_m": 19.49198207177269
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 18,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.487632353186598,
+    "gate": null,
+    "ekf2_gate_ref": 77.88763235318658,
+    "window": 72.08763235318662,
+    "stack": 2.487632353186598
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 8.723193994941038,
+   "raw_offset_at_alarm_m": 0.2724543027609405
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 19,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.58549857159511,
+    "gate": null,
+    "ekf2_gate_ref": 66.58549857159511,
+    "window": 66.58549857159511,
+    "stack": 3.3854985715951216
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.327285134061801,
+   "raw_offset_at_alarm_m": 0.7115902760678772
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 20,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 18.331088728870526,
+    "gate": null,
+    "ekf2_gate_ref": 81.73108872887053,
+    "window": 75.13108872887051,
+    "stack": 4.331088728870526
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 18.89515240264126,
+   "raw_offset_at_alarm_m": 0.4483973902483073
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 21,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.704496434653976,
+    "gate": null,
+    "ekf2_gate_ref": 79.90449643465399,
+    "window": 76.30449643465397,
+    "stack": 2.30449643465397
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 5.862061236734055,
+   "raw_offset_at_alarm_m": 2.6691637377048787
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 22,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.83401010040211,
+    "gate": null,
+    "ekf2_gate_ref": 70.83401010040211,
+    "window": 70.4340101004021,
+    "stack": 34.23401010040212
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 22.600650306883846,
+   "raw_offset_at_alarm_m": 23.004316558824602
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 23,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.382945337444966,
+    "gate": null,
+    "ekf2_gate_ref": 68.18294533744498,
+    "window": 64.98294533744499,
+    "stack": 3.3829453374449656
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 8.392527311135263,
+   "raw_offset_at_alarm_m": 1.829739110496043
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 24,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 15.247076019287107,
+    "gate": null,
+    "ekf2_gate_ref": 65.84707601928713,
+    "window": 68.04707601928712,
+    "stack": 4.84707601928713
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 20.930379995403314,
+   "raw_offset_at_alarm_m": 1.9807220527213805
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 25,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.90736139547954,
+    "gate": null,
+    "ekf2_gate_ref": 82.50736139547956,
+    "window": 79.30736139547955,
+    "stack": 3.5073613954795633
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.194628744431547,
+   "raw_offset_at_alarm_m": 1.8416390136170657
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 26,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 8.207860656672523,
+    "gate": null,
+    "ekf2_gate_ref": 68.40786065667251,
+    "window": 69.00786065667253,
+    "stack": 3.007860656672534
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 10.206094798038658,
+   "raw_offset_at_alarm_m": 1.3227444472547254
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 27,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.687240995406512,
+    "gate": null,
+    "ekf2_gate_ref": 77.4872409954065,
+    "window": 74.4872409954065,
+    "stack": 2.8872409954065006
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 6.460196372010874,
+   "raw_offset_at_alarm_m": 0.45349218767068833
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 28,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.718409135045505,
+    "gate": null,
+    "ekf2_gate_ref": 92.11840913504551,
+    "window": 83.3184091350455,
+    "stack": 3.1184091350455105
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 10.161404336570556,
+   "raw_offset_at_alarm_m": 1.8060081312113148
+  },
+  {
+   "family": "literature",
+   "kind": "lit_takeover",
+   "seed": 29,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.59806269243245,
+    "gate": null,
+    "ekf2_gate_ref": 70.19806269243242,
+    "window": 70.19806269243242,
+    "stack": 3.198062692432444
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 15.588033271451886,
+   "raw_offset_at_alarm_m": 1.1938487941388054
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 0,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 13.553400986301739,
+    "gate": null,
+    "ekf2_gate_ref": 18.55340098630174,
+    "window": 10.153400986301733,
+    "stack": 6.35340098630175
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 17.68441279842705,
+   "raw_offset_at_alarm_m": 17.297818265179053
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 1,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 18.63767433983665,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 7.037674339836656,
+    "stack": 7.037674339836656
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.862718528693094,
+   "raw_offset_at_alarm_m": 20.984139928407018
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 2,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.832682613208732,
+    "gate": null,
+    "ekf2_gate_ref": 19.832682613208732,
+    "window": 8.032682613208749,
+    "stack": 5.432682613208755
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 18.822247959406713,
+   "raw_offset_at_alarm_m": 17.250966971270046
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 3,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.813807951161067,
+    "gate": null,
+    "ekf2_gate_ref": 11.413807951161061,
+    "window": 5.013807951161084,
+    "stack": 5.013807951161084
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.377518563507383,
+   "raw_offset_at_alarm_m": 19.659127844279006
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 4,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 81.63632967118818,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 104.63632967118818,
+    "stack": 104.63632967118818
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 35.00010208900176,
+   "raw_offset_at_alarm_m": 15.884161743043142
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 5,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.132381438403257,
+    "gate": null,
+    "ekf2_gate_ref": 9.132381438403257,
+    "window": 4.332381438403246,
+    "stack": 4.332381438403246
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 18.562603802693832,
+   "raw_offset_at_alarm_m": 17.88783813762414
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 6,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 16.597660277212356,
+    "gate": null,
+    "ekf2_gate_ref": 39.797660277212344,
+    "window": 17.597660277212356,
+    "stack": 17.597660277212356
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 20.391411891033584,
+   "raw_offset_at_alarm_m": 17.72108756967096
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 7,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 17.980470702969598,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 22.380470702969603,
+    "stack": 4.380470702969603
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 49.696735291480145,
+   "raw_offset_at_alarm_m": 9.897913370228427
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 8,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.98521294687734,
+    "gate": null,
+    "ekf2_gate_ref": 10.185212946877357,
+    "window": 8.385212946877346,
+    "stack": 8.385212946877346
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 19.78875509052956,
+   "raw_offset_at_alarm_m": 19.60306279422464
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 9,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 23.54792839822386,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 49.147928398223854,
+    "stack": 5.347928398223843
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.014151289516985,
+   "raw_offset_at_alarm_m": 7.74392399324653
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 10,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.301380058198959,
+    "gate": null,
+    "ekf2_gate_ref": 7.10138005819897,
+    "window": 6.10138005819897,
+    "stack": 6.10138005819897
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 18.459642539032064,
+   "raw_offset_at_alarm_m": 18.600851900241732
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 11,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 14.042436883668472,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 60.04243688366847,
+    "stack": 4.242436883668461
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.115832382376468,
+   "raw_offset_at_alarm_m": 2.2804099508384943
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 12,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 15.972860918035508,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 11.372860918035485,
+    "stack": 11.372860918035485
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 31.134992283391778,
+   "raw_offset_at_alarm_m": 19.39630734350274
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 13,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 12.1331938914268,
+    "gate": null,
+    "ekf2_gate_ref": 10.1331938914268,
+    "window": 7.733193891426822,
+    "stack": 7.733193891426822
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 26.468317273058855,
+   "raw_offset_at_alarm_m": 19.066467513108424
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 14,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 12.311983445750627,
+    "gate": null,
+    "ekf2_gate_ref": 9.91198344575065,
+    "window": 7.91198344575065,
+    "stack": 7.91198344575065
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 45.918901740971556,
+   "raw_offset_at_alarm_m": 18.56251937403941
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 15,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 13.559806025365845,
+    "gate": null,
+    "ekf2_gate_ref": 12.359806025365828,
+    "window": 15.159806025365839,
+    "stack": 12.359806025365828
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 40.133202827055406,
+   "raw_offset_at_alarm_m": 20.56345299086894
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 16,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 67.2150488374757,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 78.4150488374757,
+    "stack": 78.4150488374757
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 33.451668773797856,
+   "raw_offset_at_alarm_m": 17.341121141403704
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 17,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 12.318310860551037,
+    "gate": null,
+    "ekf2_gate_ref": 13.118310860551048,
+    "window": 10.118310860551048,
+    "stack": 10.118310860551048
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 20.282059872639987,
+   "raw_offset_at_alarm_m": 17.266808878578992
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 18,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 25.86267208213914,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 19.262672082139147,
+    "stack": 19.262672082139147
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 33.198270261313674,
+   "raw_offset_at_alarm_m": 15.37566465140844
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 19,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.909084767792848,
+    "gate": null,
+    "ekf2_gate_ref": 9.109084767792865,
+    "window": 6.309084767792854,
+    "stack": 6.309084767792854
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 19.252048710517045,
+   "raw_offset_at_alarm_m": 18.689245210891745
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 20,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 14.672809144699045,
+    "gate": null,
+    "ekf2_gate_ref": 13.872809144699033,
+    "window": 13.07280914469905,
+    "stack": 13.07280914469905
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 20.171036297333597,
+   "raw_offset_at_alarm_m": 19.912958445561575
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 21,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 24.19532903919722,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 18.595329039197225,
+    "stack": 7.795329039197242
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 12.011037663886242,
+   "raw_offset_at_alarm_m": 13.486488099913785
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 22,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 13.003968227697186,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 8.60396822769718,
+    "stack": 8.60396822769718
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 23.944655965502022,
+   "raw_offset_at_alarm_m": 17.992333297692472
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 23,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 24.007951867894832,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 29.007951867894832,
+    "stack": 10.007951867894832
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.523088777705764,
+   "raw_offset_at_alarm_m": 8.859195522356874
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 24,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 12.943003836105362,
+    "gate": null,
+    "ekf2_gate_ref": 26.743003836105316,
+    "window": 9.743003836105345,
+    "stack": 4.543003836105328
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 17.74401349436839,
+   "raw_offset_at_alarm_m": 16.749064270934852
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 25,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 20.490573606387215,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 14.690573606387233,
+    "stack": 14.690573606387233
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 51.20451759739448,
+   "raw_offset_at_alarm_m": 16.267546188475055
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 26,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.478709106535291,
+    "gate": null,
+    "ekf2_gate_ref": 8.478709106535291,
+    "window": 6.478709106535291,
+    "stack": 6.478709106535291
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 14.351616154715494,
+   "raw_offset_at_alarm_m": 18.544761918755317
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 27,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 15.635492980959128,
+    "gate": null,
+    "ekf2_gate_ref": null,
+    "window": 27.835492980959145,
+    "stack": 4.035492980959134
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 7.35025978169417,
+   "raw_offset_at_alarm_m": 6.315311880429314
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 28,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.859609512453233,
+    "gate": null,
+    "ekf2_gate_ref": 9.059609512453221,
+    "window": 7.659609512453244,
+    "stack": 7.659609512453244
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 16.715635491358157,
+   "raw_offset_at_alarm_m": 20.16159344789888
+  },
+  {
+   "family": "literature",
+   "kind": "lit_time_push",
+   "seed": 29,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.07183867645233,
+    "gate": null,
+    "ekf2_gate_ref": 9.671838676452296,
+    "window": 7.07183867645233,
+    "stack": 7.07183867645233
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 18.714086679462618,
+   "raw_offset_at_alarm_m": 18.463989606084986
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 0,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.31183319258429,
+    "gate": 236.3118331925843,
+    "ekf2_gate_ref": 67.1118331925843,
+    "window": 66.1118331925843,
+    "stack": 66.1118331925843
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 28.06629351353551,
+   "raw_offset_at_alarm_m": 26.897882296178725
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 1,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 80.32356697390867,
+    "gate": 249.12356697390868,
+    "ekf2_gate_ref": 78.32356697390867,
+    "window": 75.12356697390868,
+    "stack": 75.12356697390868
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.553152277047978,
+   "raw_offset_at_alarm_m": 22.52965619014807
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 2,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 74.065176865007,
+    "gate": 179.46517686500698,
+    "ekf2_gate_ref": 71.065176865007,
+    "window": 70.66517686500697,
+    "stack": 70.66517686500697
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.316668985918337,
+   "raw_offset_at_alarm_m": 25.141333397104216
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 3,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 79.47396956224543,
+    "gate": 231.67396956224547,
+    "ekf2_gate_ref": 76.67396956224542,
+    "window": 76.67396956224542,
+    "stack": 76.67396956224542
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 21.25651664659257,
+   "raw_offset_at_alarm_m": 21.028370314989047
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 4,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 80.64265214221541,
+    "gate": 170.6426521422154,
+    "ekf2_gate_ref": 77.8426521422154,
+    "window": 74.24265214221543,
+    "stack": 74.24265214221543
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 22.930715034923967,
+   "raw_offset_at_alarm_m": 21.307455947416898
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 5,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.08639282763636,
+    "gate": 245.4863928276364,
+    "ekf2_gate_ref": 67.2863928276364,
+    "window": 67.08639282763636,
+    "stack": 67.08639282763636
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 23.306189526494375,
+   "raw_offset_at_alarm_m": 26.986334675957217
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 6,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.3278281175653,
+    "gate": 165.5278281175653,
+    "ekf2_gate_ref": 66.9278281175653,
+    "window": 66.72782811756528,
+    "stack": 66.72782811756528
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.742585340597998,
+   "raw_offset_at_alarm_m": 26.171019597168836
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 7,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.27138032053091,
+    "gate": 206.87138032053093,
+    "ekf2_gate_ref": 70.47138032053095,
+    "window": 66.47138032053095,
+    "stack": 66.47138032053095
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.61817610148219,
+   "raw_offset_at_alarm_m": 24.43146762761714
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 8,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.64695639150153,
+    "gate": 162.04695639150157,
+    "ekf2_gate_ref": 71.24695639150156,
+    "window": 70.64695639150153,
+    "stack": 70.64695639150153
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 25.557602039148783,
+   "raw_offset_at_alarm_m": 22.310938909399052
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 9,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.5977935667241,
+    "gate": 205.79779356672415,
+    "ekf2_gate_ref": 66.39779356672412,
+    "window": 67.79779356672412,
+    "stack": 66.39779356672412
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.822642661331273,
+   "raw_offset_at_alarm_m": 28.98875607885442
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 10,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.67303350281861,
+    "gate": 226.47303350281862,
+    "ekf2_gate_ref": 65.87303350281863,
+    "window": 68.27303350281863,
+    "stack": 65.87303350281863
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.974955615911433,
+   "raw_offset_at_alarm_m": 26.87675023793703
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 11,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 69.95067600386827,
+    "gate": 240.15067600386826,
+    "ekf2_gate_ref": 66.55067600386829,
+    "window": 68.3506760038683,
+    "stack": 66.55067600386829
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 26.05843118840241,
+   "raw_offset_at_alarm_m": 25.12324298937486
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 12,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 78.54632296822663,
+    "gate": 228.74632296822668,
+    "ekf2_gate_ref": 81.54632296822663,
+    "window": 74.14632296822666,
+    "stack": 74.14632296822666
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 17.548340837278108,
+   "raw_offset_at_alarm_m": 18.16135071877263
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 13,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.61360655348548,
+    "gate": 225.4136065534855,
+    "ekf2_gate_ref": 66.4136065534855,
+    "window": 67.01360655348552,
+    "stack": 66.4136065534855
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.446786429104556,
+   "raw_offset_at_alarm_m": 27.75140715979181
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 14,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.1290082031008,
+    "gate": 189.52900820310083,
+    "ekf2_gate_ref": 71.52900820310077,
+    "window": 70.72900820310082,
+    "stack": 70.72900820310082
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 19.69326220222285,
+   "raw_offset_at_alarm_m": 22.391879142542475
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 15,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 78.8525743123281,
+    "gate": 239.05257431232815,
+    "ekf2_gate_ref": 81.25257431232814,
+    "window": 72.8525743123281,
+    "stack": 72.8525743123281
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.48853652448028,
+   "raw_offset_at_alarm_m": 18.929109645775444
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 16,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.69751969504364,
+    "gate": 252.69751969504364,
+    "ekf2_gate_ref": 70.69751969504364,
+    "window": 71.09751969504362,
+    "stack": 70.69751969504364
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.982372023581817,
+   "raw_offset_at_alarm_m": 22.644749652509987
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 17,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 74.05660457644996,
+    "gate": 167.45660457644993,
+    "ekf2_gate_ref": 71.25660457644994,
+    "window": 70.85660457644997,
+    "stack": 70.85660457644997
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 23.71074341302271,
+   "raw_offset_at_alarm_m": 24.108807623547904
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 18,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 81.4574629973961,
+    "gate": 207.85746299739614,
+    "ekf2_gate_ref": 81.25746299739612,
+    "window": 77.65746299739612,
+    "stack": 77.65746299739612
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 23.531108491564222,
+   "raw_offset_at_alarm_m": 20.611212248218973
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 19,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.32677429554803,
+    "gate": 216.32677429554803,
+    "ekf2_gate_ref": 66.12677429554805,
+    "window": 67.12677429554805,
+    "stack": 66.12677429554805
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.886681733647517,
+   "raw_offset_at_alarm_m": 25.69076217741201
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 20,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.89476026584987,
+    "gate": 223.2947602658499,
+    "ekf2_gate_ref": 70.89476026584987,
+    "window": 70.49476026584989,
+    "stack": 70.49476026584989
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 23.0424099780993,
+   "raw_offset_at_alarm_m": 23.425154843303737
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 21,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.18510605199174,
+    "gate": 180.78510605199176,
+    "ekf2_gate_ref": 65.98510605199175,
+    "window": 67.58510605199174,
+    "stack": 65.98510605199175
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 23.636139814565045,
+   "raw_offset_at_alarm_m": 24.969331293065498
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 22,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 69.99044694788762,
+    "gate": 161.99044694788762,
+    "ekf2_gate_ref": 66.39044694788763,
+    "window": 66.79044694788763,
+    "stack": 66.39044694788763
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.398555321148116,
+   "raw_offset_at_alarm_m": 26.12632810594585
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 23,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 72.9200901797825,
+    "gate": 233.12009017978255,
+    "ekf2_gate_ref": 71.52009017978253,
+    "window": 71.32009017978251,
+    "stack": 71.32009017978251
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 20.77949489514861,
+   "raw_offset_at_alarm_m": 22.3033801166142
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 24,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 80.58516651183231,
+    "gate": 176.58516651183237,
+    "ekf2_gate_ref": 79.98516651183235,
+    "window": 74.78516651183236,
+    "stack": 74.78516651183236
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.39098819655427,
+   "raw_offset_at_alarm_m": 20.437507452208184
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 25,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.07679388412066,
+    "gate": 216.87679388412067,
+    "ekf2_gate_ref": 67.87679388412067,
+    "window": 66.2767938841207,
+    "stack": 66.2767938841207
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 22.64326989514574,
+   "raw_offset_at_alarm_m": 24.67818892142484
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 26,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 72.99926578639688,
+    "gate": 224.5992657863969,
+    "ekf2_gate_ref": 71.59926578639684,
+    "window": 69.99926578639688,
+    "stack": 69.99926578639688
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 22.693568721755533,
+   "raw_offset_at_alarm_m": 22.22445672064088
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 27,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 73.41914592986683,
+    "gate": 221.41914592986683,
+    "ekf2_gate_ref": 70.61914592986682,
+    "window": 70.21914592986684,
+    "stack": 70.21914592986684
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 21.302925286495597,
+   "raw_offset_at_alarm_m": 23.559722534981287
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 28,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 70.08334600412036,
+    "gate": 217.88334600412037,
+    "ekf2_gate_ref": 67.68334600412038,
+    "window": 67.08334600412036,
+    "stack": 67.08334600412036
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 24.95896147451157,
+   "raw_offset_at_alarm_m": 25.938516954108408
+  },
+  {
+   "family": "literature",
+   "kind": "lit_equal_power",
+   "seed": 29,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 69.8287508375264,
+    "gate": 178.0287508375264,
+    "ekf2_gate_ref": 67.22875083752638,
+    "window": 67.62875083752641,
+    "stack": 67.22875083752638
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 25.830226861803567,
+   "raw_offset_at_alarm_m": 25.212719864518878
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 0,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.167518612087434,
+    "gate": 8.967518612087446,
+    "ekf2_gate_ref": 7.167518612087434,
+    "window": 6.167518612087434,
+    "stack": 6.167518612087434
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 16.929917812569414,
+   "raw_offset_at_alarm_m": 3.904982308139836
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 1,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.67223105631578,
+    "gate": 10.872231056315798,
+    "ekf2_gate_ref": 12.472231056315792,
+    "window": 15.67223105631578,
+    "stack": 9.472231056315792
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 7.248062786267729,
+   "raw_offset_at_alarm_m": 7.221602143517421
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 2,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.13980565374544,
+    "gate": 6.5398056537454465,
+    "ekf2_gate_ref": 9.539805653745447,
+    "window": 11.539805653745447,
+    "stack": 9.539805653745447
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.266326116896863,
+   "raw_offset_at_alarm_m": 5.119520639714184
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 3,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.614861823697765,
+    "gate": 4.8148618236977825,
+    "ekf2_gate_ref": 7.414861823697777,
+    "window": 11.21486182369776,
+    "stack": 7.414861823697777
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.241213548049698,
+   "raw_offset_at_alarm_m": 4.333351928476441
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 4,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.486531041476695,
+    "gate": 6.686531041476712,
+    "ekf2_gate_ref": 14.086531041476718,
+    "window": 8.086531041476718,
+    "stack": 8.086531041476718
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.659757656422677,
+   "raw_offset_at_alarm_m": 8.93319322034911
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 5,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.741879190067436,
+    "gate": 6.741879190067436,
+    "ekf2_gate_ref": 8.541879190067448,
+    "window": 15.34187919006743,
+    "stack": 8.541879190067448
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 11.443725159228084,
+   "raw_offset_at_alarm_m": 8.137196626898854
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 6,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.459175745106023,
+    "gate": 6.059175745106046,
+    "ekf2_gate_ref": 9.859175745106029,
+    "window": 11.459175745106023,
+    "stack": 8.259175745106035
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 11.919585102279752,
+   "raw_offset_at_alarm_m": 7.987365675186948
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 7,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 6.415903616545819,
+    "gate": 4.415903616545819,
+    "ekf2_gate_ref": 6.815903616545825,
+    "window": 2.0159036165458133,
+    "stack": 2.0159036165458133
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.595409773610287,
+   "raw_offset_at_alarm_m": 5.136777114934176
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 8,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.116943462369363,
+    "gate": 7.916943462369375,
+    "ekf2_gate_ref": 8.716943462369358,
+    "window": 8.716943462369358,
+    "stack": 8.716943462369358
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 13.353180709265061,
+   "raw_offset_at_alarm_m": 4.867323297787613
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 9,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.505908116856375,
+    "gate": 11.305908116856386,
+    "ekf2_gate_ref": 14.705908116856392,
+    "window": 22.10590811685637,
+    "stack": 14.705908116856392
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 8.426205856284545,
+   "raw_offset_at_alarm_m": 4.017093358093035
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 10,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 6.801416319871322,
+    "gate": 4.601416319871333,
+    "ekf2_gate_ref": 5.201416319871328,
+    "window": 5.201416319871328,
+    "stack": 4.001416319871339
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 16.120633006286813,
+   "raw_offset_at_alarm_m": 7.39346955626027
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 11,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.247606474120346,
+    "gate": 5.6476064741203515,
+    "ekf2_gate_ref": 8.247606474120346,
+    "window": 8.247606474120346,
+    "stack": 7.247606474120346
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 13.507819328828557,
+   "raw_offset_at_alarm_m": 4.365997230971773
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 12,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 8.598426425079452,
+    "gate": 5.398426425079435,
+    "ekf2_gate_ref": 12.198426425079447,
+    "window": 19.79842642507944,
+    "stack": 8.198426425079447
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 12.675396212246774,
+   "raw_offset_at_alarm_m": 2.41433422882426
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 13,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.703411617433915,
+    "gate": 6.703411617433915,
+    "ekf2_gate_ref": 15.303411617433909,
+    "window": 15.303411617433909,
+    "stack": 11.303411617433909
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 12.531021877007507,
+   "raw_offset_at_alarm_m": 4.63030884637927
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 14,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.798532614811307,
+    "gate": 6.798532614811307,
+    "ekf2_gate_ref": 11.998532614811296,
+    "window": 11.998532614811296,
+    "stack": 9.798532614811307
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.259040546858735,
+   "raw_offset_at_alarm_m": 4.84904394905793
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 15,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 12.134875501658087,
+    "gate": 10.134875501658087,
+    "ekf2_gate_ref": 22.134875501658087,
+    "window": 26.134875501658087,
+    "stack": 14.534875501658092
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.721449344534378,
+   "raw_offset_at_alarm_m": 4.356008571072591
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 16,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.416202059288565,
+    "gate": 2.8162020592885426,
+    "ekf2_gate_ref": 7.216202059288548,
+    "window": 11.216202059288548,
+    "stack": 7.216202059288548
+   },
+   "marsad_denied_at_first": true,
+   "marsad_nav_err_max_m": 10.233214693507088,
+   "raw_offset_at_alarm_m": 15.138472423440085
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 17,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.436213198767717,
+    "gate": 8.2362131987677,
+    "ekf2_gate_ref": 16.03621319876771,
+    "window": 8.2362131987677,
+    "stack": 8.2362131987677
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.921090476101158,
+   "raw_offset_at_alarm_m": 5.135012023624356
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 18,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.276719797570308,
+    "gate": 10.276719797570308,
+    "ekf2_gate_ref": 12.276719797570308,
+    "window": 10.076719797570291,
+    "stack": 10.076719797570291
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.223169781038726,
+   "raw_offset_at_alarm_m": 8.665505571736187
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 19,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 11.173219607551346,
+    "gate": 9.173219607551346,
+    "ekf2_gate_ref": 11.173219607551346,
+    "window": 11.173219607551346,
+    "stack": 11.173219607551346
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.026051131014425,
+   "raw_offset_at_alarm_m": 10.923936784095206
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 20,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.017848949795081,
+    "gate": 2.4178489497950864,
+    "ekf2_gate_ref": 15.817848949795064,
+    "window": 15.817848949795064,
+    "stack": 6.817848949795064
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 8.314678990961331,
+   "raw_offset_at_alarm_m": 4.62184135423622
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 21,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.820880679767868,
+    "gate": 3.0208806797678847,
+    "ekf2_gate_ref": 10.220880679767873,
+    "window": 10.220880679767873,
+    "stack": 8.42088067976789
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 16.482768013500426,
+   "raw_offset_at_alarm_m": 2.569928092906981
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 22,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 14.264257517369828,
+    "gate": 11.864257517369822,
+    "ekf2_gate_ref": 15.864257517369822,
+    "window": 15.864257517369822,
+    "stack": 9.064257517369839
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.554252261651694,
+   "raw_offset_at_alarm_m": 7.387011944228557
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 23,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 10.044463143534983,
+    "gate": 7.244463143534972,
+    "ekf2_gate_ref": 5.844463143534995,
+    "window": 11.444463143534989,
+    "stack": 5.244463143534972
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 12.984087569489992,
+   "raw_offset_at_alarm_m": 12.761403194839213
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 24,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 9.072763343693907,
+    "gate": 6.4727633436938845,
+    "ekf2_gate_ref": 10.072763343693907,
+    "window": 10.072763343693907,
+    "stack": 10.072763343693907
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 9.51137189447253,
+   "raw_offset_at_alarm_m": 3.9830022775807588
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 25,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 6.957745046137944,
+    "gate": 4.957745046137944,
+    "ekf2_gate_ref": 5.157745046137961,
+    "window": 5.157745046137961,
+    "stack": 5.157745046137961
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 15.18969136070125,
+   "raw_offset_at_alarm_m": 6.5963185758810345
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 26,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 6.006875754162735,
+    "gate": 2.2068757541627235,
+    "ekf2_gate_ref": 7.806875754162746,
+    "window": 2.2068757541627235,
+    "stack": 2.2068757541627235
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 12.12186660150046,
+   "raw_offset_at_alarm_m": 6.154331770408301
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 27,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.950296388547855,
+    "gate": 4.750296388547838,
+    "ekf2_gate_ref": 5.150296388547844,
+    "window": 10.750296388547838,
+    "stack": 5.150296388547844
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 11.968889419635437,
+   "raw_offset_at_alarm_m": 9.067431278089142
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 28,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 7.164221329699473,
+    "gate": 3.5642213296994782,
+    "ekf2_gate_ref": 6.964221329699484,
+    "window": 6.964221329699484,
+    "stack": 4.164221329699473
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 13.275569223151596,
+   "raw_offset_at_alarm_m": 6.733325177918464
+  },
+  {
+   "family": "literature",
+   "kind": "lit_jam_chirp",
+   "seed": 29,
+   "attack": true,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "latency_s": {
+    "marsad": 8.030265254410807,
+    "gate": 5.430265254410813,
+    "ekf2_gate_ref": 17.83026525441082,
+    "window": 17.83026525441082,
+    "stack": 7.030265254410807
+   },
+   "marsad_denied_at_first": false,
+   "marsad_nav_err_max_m": 10.061481928927492,
+   "raw_offset_at_alarm_m": 8.850037273509907
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 0,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 1,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 2,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 3,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 4,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 5,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 6,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 7,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 8,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 9,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 10,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 11,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 12,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 13,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 14,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 15,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 16,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 17,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 18,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 19,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 20,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 21,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 22,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 23,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 24,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 25,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 26,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 27,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 28,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "nominal",
+   "seed": 29,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 0,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 1,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 2,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 3,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 4,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 5,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 6,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 7,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 8,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 9,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 10,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 11,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 12,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 13,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 14,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 15,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 16,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 17,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 18,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 19,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 20,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 21,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 22,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 23,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 24,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 25,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 26,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 27,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 28,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_obstruction",
+   "seed": 29,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 0,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 1,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 2,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 3,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 4,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": true,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 5,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 6,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 7,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 8,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 9,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 10,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 11,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 12,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 13,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 14,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 15,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 16,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 17,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 18,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 19,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 20,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 21,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 22,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 23,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 24,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 25,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 26,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 27,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 28,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": false,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  },
+  {
+   "family": "literature",
+   "kind": "benign_multipath",
+   "seed": 29,
+   "attack": false,
+   "pre_alarm": {
+    "marsad": false,
+    "gate": false,
+    "ekf2_gate_ref": false,
+    "window": false,
+    "stack": false
+   },
+   "any_alarm": {
+    "marsad": false,
+    "gate": true,
+    "ekf2_gate_ref": true,
+    "window": true,
+    "stack": true
+   },
+   "alarm_samples_marsad_frac": null
+  }
+ ]
+}
