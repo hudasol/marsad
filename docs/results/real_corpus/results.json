@@ -1,0 +1,8840 @@
+{
+ "00d94ddf-2aba-40bd-a3e5-db7118b86efc": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 935
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 256.136749,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2819,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "02011abe-6647-4b6f-a7fc-c56f65f796f9": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 3
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 73
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 303
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 265
+   }
+  },
+  "duration_s": 383.088074,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     190.006289,
+     472.993094
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.003688938413531341,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.26363636363636367
+  },
+  "n_samples": 1100,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "0226e4d9-7afc-4138-bbce-b2171b4472b4": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 3524
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 631.1566250000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6937,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 150.04556899999992,
+   "flagged_s": 150.04556899999992,
+   "longest_state2_run_s": 2.0041460000000058,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "02452510-3772-4ccd-a0bc-581ec9b206ca": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 95
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 162
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 67
+   }
+  },
+  "duration_s": 251.895994,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 1,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 2,
+   "n_pos_rejected": 3,
+   "n_rejected_ge_1s": 2,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     216.709981,
+     260.603975
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.3906018587172373,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.9230769230769231
+  },
+  "n_samples": 585,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 152.89737099999996,
+   "flagged_s": 174.89870599999998,
+   "longest_state2_run_s": 48.00098999999999,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "026e4f0e-4e71-4dd8-a701-7c22fd48d298": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 258
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 38
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 324
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 41
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 38
+   }
+  },
+  "duration_s": 1702.879455,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     51.627162,
+     1754.506617
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 18637,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 1702.879455,
+   "longest_state2_run_s": 1701.921189,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "02a77faa-5b4d-4339-980d-06f2057b8287": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 143
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 281.69210799999996,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3093,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 97.11921600000008,
+   "flagged_s": 97.11921600000008,
+   "longest_state2_run_s": 10.004068999999959,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "084a42d0-d507-4a8d-bc1c-893e1e46f840": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 101
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 92
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 131
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 44
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 427
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 381
+   }
+  },
+  "duration_s": 879.942,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     2247.655679,
+     2347.599679
+    ],
+    [
+     2735.571681,
+     2815.649679
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015404242416450701,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.7934165720771851
+  },
+  "n_samples": 881,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 3.0000059999997575,
+   "flagged_s": 21.990005999999994,
+   "longest_state2_run_s": 18.990004000000226,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": null
+ },
+ "0884024e-3ab5-4c0e-b51f-7e292ae44e3d": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 429
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 533.4371029999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 5869,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "0a70101f-4b9e-4610-8141-5451a9a1557d": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 275.403096,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2972,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "0bc7f4d4-4410-44cb-8ec5-f8d84cdd1497": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1799.8079700000017,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 32321,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 1799.8079700000017,
+   "flagged_s": 1799.8079700000017,
+   "longest_state2_run_s": 1799.7410780000027,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "0da5e3ac-351a-4767-a9a8-9856fa37bf84": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 6342
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 890.7173690000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9583881518197827,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 9757,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "10f0ac13-3ad9-4dc5-8559-dfaddddbb77e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2660
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 66
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 14
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 66
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 949.532345,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     702.842154,
+     1555.640375
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.005515010708234611,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.10175404593468362
+  },
+  "n_samples": 10319,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "110a3ec9-0684-4341-9dc7-d931cfcc1266": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 932
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 49
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 4172
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 3860
+   }
+  },
+  "duration_s": 398.128923,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     88.071361,
+     486.200284
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 5814,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "112d6a51-48e8-4a3d-8a3c-49de744e80fa": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 285
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 219
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 232
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 101
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 948
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 847
+   }
+  },
+  "duration_s": 934.9826050000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 4,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 3,
+   "n_rejected_ge_1s": 4,
+   "n_vel_rejected": 3,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     2204.477438,
+     3139.460043
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015404818036266672,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 10285,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "150c57ba-1416-4325-a332-040608c5b0e0": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 99
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 326.739356,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3595,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "15fcef59-5d78-4a06-9093-aeee34438cb7": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 139
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1118.012222,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     819.153785,
+     1540.557682
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.501347369694622,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.3505470822281167
+  },
+  "n_samples": 12064,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "16601c39-2d4b-4f00-8076-ba6d03dc23c9": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 2319.607583,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9501673801289408,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 24997,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "16993cc0-7a35-4408-a413-64aeed78438a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 431.02273,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4734,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "17cd2c4e-639b-4ed5-999e-5c5c674f6212": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 143
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 321.87601000000006,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.8683285234707538,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3541,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 280.86437899999976,
+   "flagged_s": 280.86437899999976,
+   "longest_state2_run_s": 32.002000000000066,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "17d285da-6341-4d46-bcd5-bb1b9be1bf38": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 342.65329599999995,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3770,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "1923fba4-907e-4a54-bdff-c66d5f37a418": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 550
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 400.73562300000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4409,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 400.73562300000003,
+   "flagged_s": 400.73562300000003,
+   "longest_state2_run_s": 400.005665,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "1a736043-7c0a-4ed3-b344-d2c46bc0afb2": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1298.264595,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.8765353856786973,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 14282,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "1bc61700-9735-4102-a2b9-b5b24a7bc7b1": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 145
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 139
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 160
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 85
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 150
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 127
+   }
+  },
+  "duration_s": 430.05401700000004,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 2,
+   "marsad_episodes_near_ekf2": 2,
+   "n_fault": 1,
+   "n_pos_rejected": 1,
+   "n_rejected_ge_1s": 3,
+   "n_vel_rejected": 3,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     904.184801,
+     992.186695
+    ],
+    [
+     1327.184684,
+     1334.238818
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.7749419953596288
+  },
+  "n_samples": 431,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 333.99800000000005,
+   "flagged_s": 429.05108900000005,
+   "longest_state2_run_s": 429.05108900000005,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": false,
+  "reference_source": null
+ },
+ "1efa36c2-95eb-42d5-b234-e4a7774bcfa7": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 351.286509,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3864,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 351.286509,
+   "flagged_s": 351.286509,
+   "longest_state2_run_s": 351.025848,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "23877c34-84f5-47bb-a898-323140593033": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 4
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 52
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 4
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   }
+  },
+  "duration_s": 473.181529,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9381434974913285,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6868,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "243c6dec-9a1b-4860-b45c-14b969d6f3bd": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1689.980258,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 18544,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "2b9c507f-0c26-4b64-bd7a-78b86f80e33c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 254.271857,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2788,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 254.271857,
+   "flagged_s": 254.271857,
+   "longest_state2_run_s": 253.93868600000002,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "2c44fce8-53dd-44dd-b258-6c10371b34d4": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 467.95367699999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     246.478529,
+     508.978569
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.913726931944788,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.43981117230527145
+  },
+  "n_samples": 5084,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "2cc8772a-a266-41aa-b500-9b4d7932e595": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 8
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 254.708523,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     277.372504,
+     520.772678
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9121124903293896,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0444763271162123
+  },
+  "n_samples": 2788,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "2d049ac9-f596-4953-b90e-da9413bf60e0": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 350.50205299999993,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3843,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "2e07d489-61e4-4b20-9016-6a51fd2e5952": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2460
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 390.780883,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     158.286486,
+     446.488158
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.8749590360001154,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.26255547769212806
+  },
+  "n_samples": 4281,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "31c49cb4-0e32-46d9-b6d6-044ebd19435b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 350.6138409999994,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3858,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3236dde3-0cb0-499c-8845-e2967f8dc80b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 957.492828,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9589972457401915,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 10475,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "344d8aa5-2d90-42b0-8db1-34bb2ba96a9c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1672
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 472.77846,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 5198,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.9978570000000104,
+   "flagged_s": 0.9978570000000104,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3450d4f8-ae30-4cb3-9e7f-5f7329b47d7b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 257.1265000000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2830,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "349585d8-db32-4363-8987-dae3565767f4": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 72
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 72
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 15
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 10
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 791
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 787
+   }
+  },
+  "duration_s": 670.8929430000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     94.835601,
+     114.838602
+    ],
+    [
+     164.847602,
+     765.728544
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0638147677537767
+  },
+  "n_samples": 7083,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "34df0d41-0617-4f96-a13f-f3c28e2950aa": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   }
+  },
+  "duration_s": 686.4687480000002,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     2323.588264,
+     3003.289208
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0008017103153393768
+  },
+  "n_samples": 7484,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 6.767804000000069,
+   "flagged_s": 686.4687480000002,
+   "longest_state2_run_s": 686.300949,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3905ae4a-2cb0-496d-94db-fc5153e4b80c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1159
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 290
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 3516
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 3361
+   }
+  },
+  "duration_s": 242.708619,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     193.386395,
+     411.686373
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0036721214456994075,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.09394817192515459
+  },
+  "n_samples": 12773,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3c4890a9-3c98-4192-9483-5184352a8e93": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 605.0518339999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6657,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3c88e4f8-62c3-4d95-8ac4-b9f52778889b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 31
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 10
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   }
+  },
+  "duration_s": 323.987958,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     19.700716,
+     343.688674
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 3464,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3ed4ad8c-ce19-410e-8bb6-7d18f66f8028": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 560.155478,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     311.847254,
+     870.447939
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.427086323035049,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0030309153364316277
+  },
+  "n_samples": 4949,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "3fa5918c-f79f-4bc0-ab7c-084ceccc849b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 31
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   }
+  },
+  "duration_s": 248.684639,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     222.57,
+     365.470397
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.005504596972097858,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.44525547445255476
+  },
+  "n_samples": 2603,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "42aee150-7771-47b7-96d0-1e970b6d2a9c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 17519
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 3475.999892,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 2,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9592034264342679,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 38049,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "44fd7a9b-ec8b-4c22-ac4d-3ee740f1f3e2": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 657.954258,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 7208,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "470407d9-cea5-427f-95af-3265f5968838": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 259.6138930000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2857,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 258.61678900000004,
+   "flagged_s": 258.61678900000004,
+   "longest_state2_run_s": 188.00097099999994,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4a17c9b5-f06f-4c2a-bdbf-8681e1f435a5": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 560
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 467.708111,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     370.989718,
+     508.096753
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9147936627622276,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.7052158624731393
+  },
+  "n_samples": 5119,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 330.601076,
+   "flagged_s": 467.708111,
+   "longest_state2_run_s": 467.017,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4a55eeb4-32d2-47a8-ab65-9f5873ed47ae": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 384
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 366.223987,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     480.713579,
+     785.221489
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.5556677343792692,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.16587795765877955
+  },
+  "n_samples": 4015,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 34.224100999999905,
+   "longest_state2_run_s": 4.011211000000003,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4ba0abbb-298b-4c68-8ba6-c4b61b32dec9": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 3222
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 643.4133629999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 7069,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4c8f1ece-d0cd-4723-bc17-bc305e7e8412": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 288.4324980000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3167,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4ee387f4-c9ae-462a-90b9-cef198981269": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 152
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 502.02004700000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.83254505004096,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 5497,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4f57992c-98d1-49f3-a5d4-4e30d366f0a5": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 631
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 312.08698300000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3402,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 312.08698300000003,
+   "flagged_s": 312.08698300000003,
+   "longest_state2_run_s": 312.08698300000003,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "4ffecfde-da34-49cb-96ef-f77e74a3fc67": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 296.145324,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 1,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 1,
+   "n_pos_rejected": 1,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     29.557669,
+     325.702993
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.011924263220328893,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 3111,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 234.144308,
+   "longest_state2_run_s": 233.99698600000002,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "53c1d054-39f2-4df7-9867-cce49c0ed957": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 300.009769,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.8668777513612672,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3302,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 3.9939820000001873,
+   "flagged_s": 3.9939820000001873,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "53e50a67-9637-4270-acae-b84af605ef59": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 379.846878,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4179,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "5dd17ba4-3e55-4de3-9772-a1f8d3522137": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 570.443599,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6255,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "5e0574e1-e98d-4138-a73f-7b6b5b700603": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 412
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 887
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1779
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1559
+   }
+  },
+  "duration_s": 270.91284599999994,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 4,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 2,
+   "n_rejected_ge_1s": 4,
+   "n_vel_rejected": 2,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     344.15696,
+     576.065806
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0036889367731621236,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.1461327857631759
+  },
+  "n_samples": 2922,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "631550e5-fc2a-4707-ab2b-26f54d9cccdd": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 33
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 442.1883170000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     3607.95491,
+     3793.357257
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.8228427412340636,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.5806651518281347
+  },
+  "n_samples": 4841,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "63f3d6b2-497e-4db8-8efe-3758c9f75621": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 139
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 276.717628,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2987,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "64603299-3b7f-431e-b7e1-20441608847f": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 589.043848,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6467,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 566.00498,
+   "flagged_s": 566.00498,
+   "longest_state2_run_s": 122.00580400000001,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "67f2bf1f-037b-4bdc-9916-fe4e0dd00555": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2551
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 495
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 495
+   }
+  },
+  "duration_s": 557.4522919999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     453.494337,
+     926.389271
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9151168800660723,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.1511285574092247
+  },
+  "n_samples": 6114,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6866dbf0-0cb3-4400-b509-ca75be64fe8c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 252.44238999999993,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2778,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6c82c8be-ae7f-471a-8de6-1d750e720b93": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 575
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 26
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 666
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 666
+   }
+  },
+  "duration_s": 383.81763799999953,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     4727.153502,
+     5082.550558
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.003064631875371255,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.06953316953316957
+  },
+  "n_samples": 4070,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 28.42058199999974,
+   "flagged_s": 383.81763799999953,
+   "longest_state2_run_s": 382.99708499999997,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6c88baa6-600a-4e94-9391-a1a5bb3ab60f": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 290.631369,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3198,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 136.74129999999974,
+   "flagged_s": 136.74129999999974,
+   "longest_state2_run_s": 14.005451999999991,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6d192b5a-6c04-4e56-b812-39e83a1a5183": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 1108
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1108
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 295.0031829999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3144,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 179.99506299999956,
+   "flagged_s": 179.99506299999956,
+   "longest_state2_run_s": 19.000787000000003,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6d2f5fca-dd53-49c2-9845-ab0f2a602b3e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 3462
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1090.162355,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 11929,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "6f59a746-cb8c-4a60-9185-12c74010b6e7": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 120
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 6304
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 6304
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 83
+   }
+  },
+  "duration_s": 689.1780540000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 4,
+   "marsad_episodes_near_ekf2": 2,
+   "n_fault": 1,
+   "n_pos_rejected": 4,
+   "n_rejected_ge_1s": 4,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     9.002665,
+     420.121713
+    ],
+    [
+     644.407649,
+     682.685649
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0024725423997375433,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.3662321539416511
+  },
+  "n_samples": 11277,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 6.001066000000037,
+   "flagged_s": 79.42905499999986,
+   "longest_state2_run_s": 44.98700100000002,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "704ec6f8-2420-41ba-bc55-18449af6946e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 142
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 308.987613,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3356,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 274.8870790000001,
+   "flagged_s": 274.8870790000001,
+   "longest_state2_run_s": 87.99113699999998,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "70f5aa6d-035a-46a2-b877-6453bd9e246b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 10
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 10
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 695.2557439999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 2,
+   "marsad_episodes_near_ekf2": 2,
+   "n_fault": 1,
+   "n_pos_rejected": 2,
+   "n_rejected_ge_1s": 2,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     29.06605,
+     49.067835
+    ],
+    [
+     282.067506,
+     724.321794
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.40676229508196726
+  },
+  "n_samples": 5856,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "72003609-ad28-439a-8fee-f3bd0392db12": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 616.023058,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6668,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 32.91711900000007,
+   "flagged_s": 32.91711900000007,
+   "longest_state2_run_s": 9.997410000000002,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "743e4801-cc4d-435b-b77b-f5590b4ebc34": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 244.376544,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3668,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "74ddbbaf-95f1-465f-8a2b-c5f27b103f8a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1986.040397,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 1,
+   "n_pos_rejected": 1,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 21384,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 18.91204399999993,
+   "flagged_s": 18.91204399999993,
+   "longest_state2_run_s": 6.902998999999999,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "74f0561e-2477-4644-9a05-7f75f0267149": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 351
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 252.38503999999995,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2771,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "75f04feb-9bde-4d9b-ae3b-0f59319edec0": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 608.4122560000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     252.628771,
+     857.131701
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9100450318384363,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.006128550074738448
+  },
+  "n_samples": 6690,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "766891ef-d536-45f4-97fb-f88aa2f8862f": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2739
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 438.89576600000004,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9283530868358548,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4814,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "76e837ea-f7e4-4644-bb4b-5db7ec4568db": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 108
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 320
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 823
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 720
+   }
+  },
+  "duration_s": 372.03835100000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 1,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     238.97457,
+     563.011575
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0036889367731621236,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.12118320610687028
+  },
+  "n_samples": 1048,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "76f12133-188f-4a01-8e18-3456aaf7e6cb": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 257.91013399999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 2,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 4,
+   "n_rejected_ge_1s": 5,
+   "n_vel_rejected": 2,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     26.974798,
+     46.997661
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.9320388349514563
+  },
+  "n_samples": 309,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "7a5cbb46-ab61-4a17-8a7d-c7f2d52e72d5": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 568
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 713.5037490000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 7797,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "7ae947c2-b824-4f7a-867f-04de72540d88": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 273
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 272.734805,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 1,
+   "n_pos_rejected": 1,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     258.96605,
+     324.261188
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.8977953983603227,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.7563710499490316
+  },
+  "n_samples": 2943,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "7f9487a6-80de-4129-8bf1-c84d4a4a3dc3": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 132
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 696.6535989999998,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 7664,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "89ee5515-0578-4053-8d93-7310d0e446df": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2310
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 99
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 99
+   }
+  },
+  "duration_s": 335.41548700000004,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.7466344938821484,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3618,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.9999950000000126,
+   "flagged_s": 0.9999950000000126,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "8c163e81-6686-4812-9cff-cf7318810a01": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1001
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 1001
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 14
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 2326
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 2324
+   }
+  },
+  "duration_s": 2973.798944,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": []
+  },
+  "marsad": {
+   "episodes": [
+    [
+     695.25419,
+     828.03342
+    ],
+    [
+     839.777988,
+     1366.433185
+    ],
+    [
+     1377.266419,
+     2211.087368
+    ],
+    [
+     2234.556435,
+     2689.835928
+    ],
+    [
+     2700.67774,
+     3038.53519
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.002472519643285952,
+   "n_episodes": 5,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.22947510094212653
+  },
+  "n_samples": 2972,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": null
+ },
+ "8c48d070-d678-4bd4-baaf-36ab79d50b8c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 825.957849,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 9085,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "8e273836-0ed2-4820-b98b-817b7c0cfb24": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 727
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 409
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1023
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 614
+   }
+  },
+  "duration_s": 269.15726900000004,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     269.668782,
+     459.722008
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.009536924070827641,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.30714285714285716
+  },
+  "n_samples": 15120,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 77.10194800000002,
+   "flagged_s": 267.15517400000004,
+   "longest_state2_run_s": 229.80290699999998,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "8e3a5236-d2dd-4bb2-9637-f1fc9ef5bf71": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 76
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 762.0571469999998,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 8381,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "8e9beb8b-ce29-43f5-8c2e-9b5e9ede1c44": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 280
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 7
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 361.349683,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     553.133988,
+     795.133987
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0210351215080621,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.3254693049213597
+  },
+  "n_samples": 3942,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "90ffb3f1-aca5-419a-989b-c582d58d25a2": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 318.48319100000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3504,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "9434f26d-e4a0-4115-87c1-3d241b7fb72f": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1266
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 12
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 3521
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 3533
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 12
+   }
+  },
+  "duration_s": 504.776596,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 5334,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "94b2876d-126c-4460-ae53-48d2ab298f5b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 3
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 87
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 363
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 317
+   }
+  },
+  "duration_s": 246.48157300000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 7,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 1,
+   "n_pos_rejected": 2,
+   "n_rejected_ge_1s": 7,
+   "n_vel_rejected": 11,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     102.968317,
+     334.450122
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0036889367731621236,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.061813186813186816
+  },
+  "n_samples": 728,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 14.999768000000003,
+   "flagged_s": 246.48157300000003,
+   "longest_state2_run_s": 246.00631199999998,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "95e202b1-95b1-4ed3-91a7-97918e818bbb": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 40
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 31
+   }
+  },
+  "duration_s": 1710.6566679999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     44.703876,
+     64.714796
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.9988247803458503
+  },
+  "n_samples": 17869,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "966b173d-5e05-426f-8ad8-b769cde5ee6a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 72
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 275.08089200000006,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 826,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "9908af2f-7706-43fc-a1ec-7166249fdb8b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 152
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 491.59340699999996,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 5391,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 38.10616500000003,
+   "flagged_s": 38.10616500000003,
+   "longest_state2_run_s": 20.949001000000067,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "99e38bd8-5d9b-4887-ad14-77cb09551276": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2540
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 19
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 633.7838759999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 1,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     1708.552181,
+     2308.754091
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.00551896087036416,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.05239346176298887
+  },
+  "n_samples": 6852,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "9edb56c4-cdd7-442a-8835-03669a36608e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 260
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 268.32505499999996,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2663,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a1c4e1cc-86d0-40db-94d7-9113bdff2d77": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 348.28495599999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3796,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a2c425f3-12e3-4db9-a2ea-2d8c18d14548": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 23
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1675.645465,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 18430,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a2f1e7e9-6a13-4956-908a-a04c2ec6e99a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 213
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 264.81834299999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     103.324239,
+     329.424205
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9590444144421959,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.14619080301990395
+  },
+  "n_samples": 2914,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a33c104a-ffea-48d8-8d33-a17df4a0b203": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1109
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 1109
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2221
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1109
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1109
+   }
+  },
+  "duration_s": 780.005307,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 3,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 3,
+   "n_rejected_ge_1s": 3,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     241.401471,
+     1016.808163
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0004083299305839283
+  },
+  "n_samples": 2449,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a3702414-27e5-4d82-b3a3-3598dcae1cad": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1768
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 263.785373,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     86.275908,
+     321.478366
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9154398889477242,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.10791622293219738
+  },
+  "n_samples": 2817,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a5fdda5c-1621-4c1b-84e5-6ee46cf1b260": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1042
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 33
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 33
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 638.596504,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6817,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a7b7325d-ea61-4133-bfa2-2b5c6037c8d0": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1111
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 697.861559,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 7677,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a808b02b-f0db-4c98-b252-ff75f357b65e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 362
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 362
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 274.413685,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3006,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a8d933da-7365-4dbc-8a6e-71f753b68d41": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 174
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 8
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 243.2067280000001,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     1459.315889,
+     1673.614937
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.4101904586234191,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.12106918238993714
+  },
+  "n_samples": 2544,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "a992e6d8-f830-4289-8965-fda2852cd231": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1216
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 289.23773900000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 14,
+   "n_rejected_ge_1s": 4,
+   "n_vel_rejected": 1,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3171,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "abda049b-0175-4e03-a343-baa42ddc2574": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 297
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 279.663553,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3077,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 17.66768400000001,
+   "flagged_s": 17.66768400000001,
+   "longest_state2_run_s": 7.000046999999995,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "ac32b27b-8ffd-4ba4-8d1b-8a6f295b4b13": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 299.162137,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 15237,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "afcc8c4a-41d3-44bc-bb91-71baba6c9a97": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 11054
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 1221
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1985
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 895
+   }
+  },
+  "duration_s": 1204.383914,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 2,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 44,
+   "n_rejected_ge_1s": 2,
+   "n_vel_rejected": 1,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     728.439185,
+     1911.244143
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0036849316617118843,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.017681728880157177
+  },
+  "n_samples": 13234,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 9.901356000000078,
+   "longest_state2_run_s": 0.9839990000000398,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "b02646a8-149f-47d3-98c2-8a79e7bae37a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 8
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 8
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 935.469009,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     8.042062,
+     25.045003
+    ],
+    [
+     80.045003,
+     943.511071
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.48258651189390706,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0506682625174546
+  },
+  "n_samples": 10026,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "b3940ae2-a8ee-4514-be93-eb0ea0b1c0cb": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 2115.595229,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 23051,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "b503d683-6c86-4962-8c02-0a9b713764f2": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 484
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 305.344037,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     314.979631,
+     406.681123
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.005523465981233119,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.6988825128360012
+  },
+  "n_samples": 3311,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "b6611bef-6f05-411e-99f4-56a315f6db30": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1639
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 242
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 231
+   }
+  },
+  "duration_s": 317.686639,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 1,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3495,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 105.69658200000009,
+   "flagged_s": 105.69658200000009,
+   "longest_state2_run_s": 37.00199999999998,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "b82a4d33-bce3-47ff-aae8-1f837afb1695": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1572
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 791.2446919999993,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     4959.849565,
+     5751.094257
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0131366529714572,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 8700,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "bd186c09-1c55-4110-8bab-266a8fc8f85e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 50
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 29
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 42
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 586
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 586
+   }
+  },
+  "duration_s": 541.5014229999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     1982.224269,
+     2372.224236
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015404797655298394,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.28941218766852417
+  },
+  "n_samples": 5563,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "bf600ffd-8e2d-4c7f-b00b-f22e9dc2b5f0": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 383.82075599999996,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 1,
+   "n_pos_rejected": 1,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9598636452732092,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4184,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 89.78372000000002,
+   "flagged_s": 89.78372000000002,
+   "longest_state2_run_s": 24.03899899999999,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "bfe9af87-fcfc-4433-8099-7d943ceaa8d8": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 224
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 222
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 359
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 222
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 214
+   }
+  },
+  "duration_s": 1088.222224,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 1,
+   "n_pos_rejected": 2,
+   "n_rejected_ge_1s": 1,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     229.448394,
+     1287.414995
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.001539415393467591,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.009787928221859699
+  },
+  "n_samples": 613,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 6.001012999999972,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "c556ab0d-3046-4048-8a0e-e61bdce5c8f8": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 61
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 39
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 39
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   }
+  },
+  "duration_s": 1746.251902,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": []
+  },
+  "marsad": {
+   "episodes": [
+    [
+     43.38769,
+     1789.639592
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 24031,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "c6127849-4cf8-4af9-b60d-33b78bcffa5b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1572
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 110
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 342.145034,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3765,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "c86512bd-206a-4e0e-9d63-a2311f84a21e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 253
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 131
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 804
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 792
+   }
+  },
+  "duration_s": 593.66383,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 4,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 3,
+   "n_rejected_ge_1s": 5,
+   "n_vel_rejected": 6,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     99.826509,
+     605.611378
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.00661392021086318,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.1337390761548065
+  },
+  "n_samples": 6408,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 1.0029429999999984,
+   "flagged_s": 1.0029429999999984,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "cdc4a6f4-4ae5-4581-b12b-e5fd62c86cb1": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 221
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 374.097601,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4099,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d1dfb7a5-6a2a-4e7c-962b-dffe08346993": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 646.357917,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     1075.367153,
+     1155.694397
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": false,
+   "min_p_nominal": 0.42773929974835817,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.8757912505275004
+  },
+  "n_samples": 7109,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d3392107-1054-4d51-a773-87e90761083e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 475.181575,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": []
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9004493725417443,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 9404,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d4a518e7-7cba-409b-a280-914c774d9b9b": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 49
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 49
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 443
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 49
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 49
+   }
+  },
+  "duration_s": 354.669515,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     15.589854,
+     357.391162
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.002568053415511029
+  },
+  "n_samples": 1947,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 10.867191000000002,
+   "flagged_s": 352.668499,
+   "longest_state2_run_s": 350.009994,
+   "marsad_alarm_within_flagged": true,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d4d305f0-84d9-440d-bf8e-7ba44424a620": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 860.67255,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9165276519366311,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 9432,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 1.828345000000013,
+   "flagged_s": 1.828345000000013,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d56d6e6c-48b3-4512-9be8-d12788cb7c94": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1317
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 627.2093299999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     428.107526,
+     1037.80721
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.9146550366112254,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0286700690483338
+  },
+  "n_samples": 6662,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.9999080000000049,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d68db1e4-b619-401d-94d4-d848d1b69f6e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 2125
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 415
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 327
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 2358
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 2193
+   }
+  },
+  "duration_s": 490.44814199999996,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 3,
+   "marsad_episodes_near_ekf2": 1,
+   "n_fault": 0,
+   "n_pos_rejected": 4,
+   "n_rejected_ge_1s": 4,
+   "n_vel_rejected": 14,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     273.952045,
+     724.386947
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.003688512561567387,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.08225836604972891
+  },
+  "n_samples": 5349,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 2.0613459999999577,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "d701f0bd-321b-432d-b454-f628157c68f9": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 165
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 165
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1335.5814679999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.7774218909508539,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 54798,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 1333.581639,
+   "flagged_s": 1333.581639,
+   "longest_state2_run_s": 1332.021928,
+   "marsad_alarm_within_flagged": false,
+   "state2_ge_30s": true
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "da794230-c7fd-4a55-a28c-d50f05552b3e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 363
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 246.450963,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2712,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "dc7584f4-2abd-4695-9ace-d63aee67880d": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 76
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 314.5047589999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     887.996661,
+     992.503476
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.19141175724414672,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.6654867256637168
+  },
+  "n_samples": 3390,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "dfb40ec4-c61b-4e87-92f7-56275998213e": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 4222
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 110
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1731.7231800000002,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 2,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 19050,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e0dd98ef-abe9-4b62-b6f9-9ffd0944861a": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 292.28814100000005,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 3215,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e35048da-3864-44a9-b9f1-9f4520d8ca94": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 22
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 254.17737499999998,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 2797,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 76.18619699999977,
+   "flagged_s": 76.18619699999977,
+   "longest_state2_run_s": 26.999804999999924,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e7d87547-bc89-43e2-bb67-6d834c4a01f5": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 671
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 397.26892200000003,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.8765401624888955,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4370,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e8372eba-2db3-494e-874c-415f9da42653": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 440.577791,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 1,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 2,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.947026336452044,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 4125,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 18.017936000000248,
+   "flagged_s": 18.017936000000248,
+   "longest_state2_run_s": 1.0019979999999578,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e9e8a417-2c22-46ce-a3ad-03309b623950": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 142
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 1745.691314,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     1122.386458,
+     1950.149045
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.010489003189941637,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.5259641981107458
+  },
+  "n_samples": 19161,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 14.010025000000041,
+   "longest_state2_run_s": 13.00900200000001,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "e9fde666-e4d5-4a41-8398-a9dd29680b6c": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 638
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 11
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 770.28498,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     525.322349,
+     1080.818301
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0029771146683588118,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.2769543389911546
+  },
+  "n_samples": 8366,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "ec496c00-4a4b-495d-9a5a-06bc832678f7": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 266
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 6
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 15
+   },
+   "signal": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 9
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 6
+   }
+  },
+  "duration_s": 240.32805199999999,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     18.091574,
+     39.101712
+    ],
+    [
+     258.419626,
+     258.419626
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.0015405163833258138,
+   "n_episodes": 2,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.9890162368672397
+  },
+  "n_samples": 2094,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "ee494524-a328-4ce2-8737-4e4b17a809ff": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 50
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 205
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 181
+   }
+  },
+  "duration_s": 767.433756,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     671.772141,
+     855.207803
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.010957194555534105,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.7649667405764966
+  },
+  "n_samples": 2255,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": false,
+  "reference_source": "px4:vehicle_optical_flow"
+ },
+ "f50d5a63-1fba-4902-9837-dd946d22e38d": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 1717
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": true,
+    "samples_not_trusted": 132
+   },
+   "gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 20
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": true,
+    "samples_not_trusted": 1820
+   },
+   "window": {
+    "has_alarm": true,
+    "samples_not_trusted": 1820
+   }
+  },
+  "duration_s": 403.43043,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     800.241129,
+     1110.551794
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.005504724600708865,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.22587461845503642
+  },
+  "n_samples": 4259,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "fc9f2322-1bc1-4642-b432-0d740d4f0148": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 98
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 498.48418499999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_aid_src_gnss_pos",
+    "estimator_aid_src_gnss_vel",
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [
+    [
+     23.481971,
+     521.966156
+    ]
+   ],
+   "has_alarm": true,
+   "has_denial": true,
+   "min_p_nominal": 0.944819149611875,
+   "n_episodes": 1,
+   "n_rejected_inputs": 0,
+   "share_trusted": 0.0
+  },
+  "n_samples": 5352,
+  "preset": "uav_fixedwing",
+  "px4_flags": {
+   "available": true,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ },
+ "ffe36c8a-547b-415e-ae73-db709c4bee65": {
+  "baselines": {
+   "ekf2_gate": {
+    "has_alarm": true,
+    "samples_not_trusted": 143
+   },
+   "ekf2_gate_ref": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "gate": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "signal": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "stack": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   },
+   "window": {
+    "has_alarm": false,
+    "samples_not_trusted": 0
+   }
+  },
+  "duration_s": 603.6093149999997,
+  "ekf2": {
+   "marsad_alarm_near_rejection": 0,
+   "marsad_episodes_near_ekf2": 0,
+   "n_fault": 0,
+   "n_pos_rejected": 0,
+   "n_rejected_ge_1s": 0,
+   "n_vel_rejected": 0,
+   "topics": [
+    "estimator_status_flags"
+   ]
+  },
+  "marsad": {
+   "episodes": [],
+   "has_alarm": false,
+   "has_denial": false,
+   "min_p_nominal": 0.9599831506131694,
+   "n_episodes": 0,
+   "n_rejected_inputs": 0,
+   "share_trusted": 1.0
+  },
+  "n_samples": 6621,
+  "preset": "uav_multirotor",
+  "px4_flags": {
+   "available": false,
+   "flagged_marsad_trusted_s": 0.0,
+   "flagged_s": 0.0,
+   "longest_state2_run_s": 0.0,
+   "state2_ge_30s": false
+  },
+  "reference_contaminated": true,
+  "reference_source": "px4:vehicle_local_position[EKF-FUSED,CONTAMINATED]"
+ }
+}

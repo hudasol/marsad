@@ -81,7 +81,32 @@ None; this is a measurement. Any non TRUSTED flight is reported in the README he
 
 ## Outcome
 
-Empty until scored.
+Scored on 2026-11-03 (UTC+4) with the engine of commit b25b502 (behaviour of v1.4.0, unchanged since the
+preregistration). Files: `docs/results/real_corpus/{manifest.csv,results.json,summary.json,summary.md}`. The corpus is
+139 logs (130 main, 9 with error labels) from 6 PX4 minor versions (v1.13 to v1.18) and 113 hardware names; 30 are in the
+design subset, so 101 main logs are scored (18.47 flight hours, 87 hardware names). Reference: EKF fused velocity on 93
+flights, an independent source on 6, none on 2. Label: **REAL LOG**. Every prediction missed.
+
+| id | prediction | measured (scoring set, n = 101 unless stated) | result |
+|---|---|---|---|
+| R1 | at least 85% of flights 100% TRUSTED | 54 of 101 (53.5%, 95% interval 43.3 to 63.5%) | **MISS** |
+| R2 | at most 6% of flights with any DENIED sample | 46 of 101 (45.5%, 35.6 to 55.8%) | **MISS** |
+| R3 | fewer than 0.5 alarm episodes per flight hour | 3.03 per flight hour | **MISS** |
+| R4 | Marsad stays 100% TRUSTED in at least 80% of flights where the receiver reported state 2 or more for 30 s | 8 of 16 (50.0%, 24.7 to 75.4%) | **MISS** |
+| R5 | window consistency alarms on at least twice as many flights as Marsad | window 27 flights (26.7%), Marsad 47 (46.5%): the reverse | **MISS** |
+| R6 | EKF2 rejects for 1 s or longer in at least 25% of flights, and fewer than 15% of those have a Marsad alarm within 10 s | 11 of 99 flights (11.1%, 5.7 to 19.0%); 7 of those 11 (63.6%) have a Marsad alarm within 10 s | **MISS** (both parts) |
+| R7 | upper 95% bound of the denial share below 10% for every release minor version with at least 10 scored flights | upper bounds 69.4% (v1.14, n 23), 64.7% (v1.15, n 27), 59.2% (v1.16, n 20), 67.7% (v1.17, n 15) | **MISS** |
+
+Paired comparison on "has an alarm" (exact McNemar, 6 baselines, 6 comparisons, unadjusted): the plain gate alarms on 25
+flights (24.8%), `ekf2_gate_ref` on 29 (28.7%), `window` on 27 (26.7%), `stack` on 36 (35.6%), `signal` on 14 (13.9%), and
+`ekf2_gate` without the reference on 63 (62.4%). Marsad alarms on 47 (46.5%). Marsad raises an alarm on strictly more
+flights than every baseline except `ekf2_gate` without the reference. Every difference is significant at the 0.05 level
+before adjustment (p from 0.043 to below 0.0001); with six comparisons the `stack` difference (p 0.043) is not.
+
+Decision: the false alarm rate of v1.4.0 on real flights is far above what the simulation suggested (0% to 3% on the
+nominal SIMULATED runs). The cause analysis is recorded in `docs/research/PREREGISTRATION_REAL_CAUSES.md`. These numbers
+go into the README headline area. They are not an argument against the detection results of the injected studies, which
+measure a different thing, but any reader of those studies has to hold them against this false alarm rate.
 
 ## Amendment, 2026-11-03
 

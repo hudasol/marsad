@@ -1,0 +1,2265 @@
+{
+ "R1_all_trusted": {
+  "ci95": [
+   0.4327,
+   0.6345
+  ],
+  "k": 54,
+  "n": 101,
+  "share": 0.5346534653465347
+ },
+ "R2_any_denied": {
+  "ci95": [
+   0.356,
+   0.5576
+  ],
+  "k": 46,
+  "n": 101,
+  "share": 0.45544554455445546
+ },
+ "R3_episodes_per_flight_hour": 3.0325,
+ "R4_receiver_state2_ge_30s": {
+  "marsad_stays_trusted": {
+   "ci95": [
+    0.2465,
+    0.7535
+   ],
+   "k": 8,
+   "n": 16,
+   "share": 0.5
+  },
+  "n_flights": 16
+ },
+ "R5_baselines_vs_marsad": {
+  "ekf2_gate": {
+   "baseline_only": 27,
+   "flights_with_alarm": {
+    "ci95": [
+     0.5218,
+     0.7182
+    ],
+    "k": 63,
+    "n": 101,
+    "share": 0.6237623762376238
+   },
+   "marsad_only": 11,
+   "mcnemar_exact_p": 0.013853
+  },
+  "ekf2_gate_ref": {
+   "baseline_only": 5,
+   "flights_with_alarm": {
+    "ci95": [
+     0.2015,
+     0.3857
+    ],
+    "k": 29,
+    "n": 101,
+    "share": 0.2871287128712871
+   },
+   "marsad_only": 23,
+   "mcnemar_exact_p": 0.000912
+  },
+  "gate": {
+   "baseline_only": 3,
+   "flights_with_alarm": {
+    "ci95": [
+     0.167,
+     0.3433
+    ],
+    "k": 25,
+    "n": 101,
+    "share": 0.24752475247524752
+   },
+   "marsad_only": 25,
+   "mcnemar_exact_p": 2.7e-05
+  },
+  "signal": {
+   "baseline_only": 3,
+   "flights_with_alarm": {
+    "ci95": [
+     0.0779,
+     0.2216
+    ],
+    "k": 14,
+    "n": 101,
+    "share": 0.13861386138613863
+   },
+   "marsad_only": 36,
+   "mcnemar_exact_p": 0.0
+  },
+  "stack": {
+   "baseline_only": 7,
+   "flights_with_alarm": {
+    "ci95": [
+     0.2636,
+     0.4579
+    ],
+    "k": 36,
+    "n": 101,
+    "share": 0.3564356435643564
+   },
+   "marsad_only": 18,
+   "mcnemar_exact_p": 0.043285
+  },
+  "window": {
+   "baseline_only": 2,
+   "flights_with_alarm": {
+    "ci95": [
+     0.1841,
+     0.3646
+    ],
+    "k": 27,
+    "n": 101,
+    "share": 0.26732673267326734
+   },
+   "marsad_only": 22,
+   "mcnemar_exact_p": 3.6e-05
+  }
+ },
+ "R6_ekf2": {
+  "flights_with_ekf2_topics": 99,
+  "flights_with_rejection_ge_1s": {
+   "ci95": [
+    0.0568,
+    0.1901
+   ],
+   "k": 11,
+   "n": 99,
+   "share": 0.1111111111111111
+  },
+  "marsad_episodes_near_ekf2_episode": 10,
+  "marsad_episodes_total": 56,
+  "of_those_with_marsad_alarm_within_10s": {
+   "ci95": [
+    0.3079,
+    0.8907
+   ],
+   "k": 7,
+   "n": 11,
+   "share": 0.6363636363636364
+  }
+ },
+ "R7_denial_upper_by_release": {
+  "v1.14": 0.6941,
+  "v1.15": 0.6467,
+  "v1.16": 0.5922,
+  "v1.17": 0.6771
+ },
+ "alarmed_flights": [
+  "02011abe-6647-4b6f-a7fc-c56f65f796f9",
+  "026e4f0e-4e71-4dd8-a701-7c22fd48d298",
+  "084a42d0-d507-4a8d-bc1c-893e1e46f840",
+  "10f0ac13-3ad9-4dc5-8559-dfaddddbb77e",
+  "110a3ec9-0684-4341-9dc7-d931cfcc1266",
+  "15fcef59-5d78-4a06-9093-aeee34438cb7",
+  "2c44fce8-53dd-44dd-b258-6c10371b34d4",
+  "2cc8772a-a266-41aa-b500-9b4d7932e595",
+  "349585d8-db32-4363-8987-dae3565767f4",
+  "34df0d41-0617-4f96-a13f-f3c28e2950aa",
+  "3905ae4a-2cb0-496d-94db-fc5153e4b80c",
+  "3ed4ad8c-ce19-410e-8bb6-7d18f66f8028",
+  "3fa5918c-f79f-4bc0-ab7c-084ceccc849b",
+  "4a17c9b5-f06f-4c2a-bdbf-8681e1f435a5",
+  "5e0574e1-e98d-4138-a73f-7b6b5b700603",
+  "631550e5-fc2a-4707-ab2b-26f54d9cccdd",
+  "67f2bf1f-037b-4bdc-9916-fe4e0dd00555",
+  "6c82c8be-ae7f-471a-8de6-1d750e720b93",
+  "6f59a746-cb8c-4a60-9185-12c74010b6e7",
+  "70f5aa6d-035a-46a2-b877-6453bd9e246b",
+  "75f04feb-9bde-4d9b-ae3b-0f59319edec0",
+  "76e837ea-f7e4-4644-bb4b-5db7ec4568db",
+  "76f12133-188f-4a01-8e18-3456aaf7e6cb",
+  "7ae947c2-b824-4f7a-867f-04de72540d88",
+  "8c163e81-6686-4812-9cff-cf7318810a01",
+  "8e273836-0ed2-4820-b98b-817b7c0cfb24",
+  "8e9beb8b-ce29-43f5-8c2e-9b5e9ede1c44",
+  "94b2876d-126c-4460-ae53-48d2ab298f5b",
+  "95e202b1-95b1-4ed3-91a7-97918e818bbb",
+  "99e38bd8-5d9b-4887-ad14-77cb09551276",
+  "a2f1e7e9-6a13-4956-908a-a04c2ec6e99a",
+  "a3702414-27e5-4d82-b3a3-3598dcae1cad",
+  "a8d933da-7365-4dbc-8a6e-71f753b68d41",
+  "b503d683-6c86-4962-8c02-0a9b713764f2",
+  "b82a4d33-bce3-47ff-aae8-1f837afb1695",
+  "bd186c09-1c55-4110-8bab-266a8fc8f85e",
+  "c556ab0d-3046-4048-8a0e-e61bdce5c8f8",
+  "c86512bd-206a-4e0e-9d63-a2311f84a21e",
+  "d1dfb7a5-6a2a-4e7c-962b-dffe08346993",
+  "d4a518e7-7cba-409b-a280-914c774d9b9b",
+  "d56d6e6c-48b3-4512-9be8-d12788cb7c94",
+  "d68db1e4-b619-401d-94d4-d848d1b69f6e",
+  "e9fde666-e4d5-4a41-8398-a9dd29680b6c",
+  "ec496c00-4a4b-495d-9a5a-06bc832678f7",
+  "ee494524-a328-4ce2-8737-4e4b17a809ff",
+  "f50d5a63-1fba-4902-9837-dd946d22e38d",
+  "fc9f2322-1bc1-4642-b432-0d740d4f0148"
+ ],
+ "flight_hours": 18.47,
+ "hardware_types": 87,
+ "label": "REAL LOG",
+ "n_design_subset": 30,
+ "n_error_labelled": 9,
+ "n_failed_to_analyse": 0,
+ "n_scored": 101,
+ "reference": {
+  "ekf_fused_contaminated": 93,
+  "independent": 6,
+  "none": 2
+ },
+ "strata": {
+  "hardware": {
+   "ACOINFO_FMU_V6U": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "ARK_PI6X": {
+    "alarm": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "n": 2
+   },
+   "AVIS_A30": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "C0X53544D_7_NANO": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "CF_FFT_V2": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "CIRC_PILOT4_C1": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "CIRC_PILOT4_MINI_H1V2": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "CTUAV_NEXUS_MK2": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "CUAV_FMU_V6X": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "CUAV_NORA": {
+    "alarm": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "n": 2
+   },
+   "CUBEPILOT_CUBEORANGE": {
+    "alarm": {
+     "ci95": [
+      0.0943,
+      0.9916
+     ],
+     "k": 2,
+     "n": 3,
+     "share": 0.6666666666666666
+    },
+    "denial": {
+     "ci95": [
+      0.0943,
+      0.9916
+     ],
+     "k": 2,
+     "n": 3,
+     "share": 0.6666666666666666
+    },
+    "n": 3
+   },
+   "CUBEPILOT_CUBEORANGEPLUS": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "CZI_CZ100": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "CZI_TF_MINI": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "DRONEYEE_AUTOFLY_V3": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "DRONEYEE_ZYFC_H7": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "DRONISOS_A5MICOAIR": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "DRONISOS_TUNDRA": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "DROTEK_LUMOS": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "ECHOMAV_ECHOPILOT_AI": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "EVO_FLIGHT_CONTROL_V1": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "FREEFLY_ALTAX": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "GBI_H743_V1": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "HANASKY_PX4_MINI_V1": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "HCUAV_PROTOTYPE_V2": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "HNBQ_KAKUTEH7_NX": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "HNBQ_MYAPH7_FEILEI": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "HOLYBRO_AEOLUS": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "HOLYBRO_DURANDAL_V1": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "HOLYBRO_KAKUTEH7": {
+    "alarm": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "denial": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "n": 2
+   },
+   "HUNG_D5_V1": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "ITRI_FLIGHTPRO": {
+    "alarm": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "denial": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "n": 2
+   },
+   "ITRI_FLIGHTV6NEO": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "JCFH_NXT_DUAL": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "KOADRONE_KOAFC": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "LECTRON_JETSON_AUTOPILOT": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "MATEK_H743": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "MATEK_H743_SLIM": {
+    "alarm": {
+     "ci95": [
+      0.0084,
+      0.9057
+     ],
+     "k": 1,
+     "n": 3,
+     "share": 0.3333333333333333
+    },
+    "denial": {
+     "ci95": [
+      0.0084,
+      0.9057
+     ],
+     "k": 1,
+     "n": 3,
+     "share": 0.3333333333333333
+    },
+    "n": 3
+   },
+   "MDSI_PLUMV3": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "MICOAIR_H743": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "MICOAIR_H743_AIO": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "MMSL_PIXHAWK6X": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "MORAKOT_V6": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "MRO_CTRL_ZERO_H7_OEM": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "MULTIROTOR_MULTIG5S": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "NXP_IMX95": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "NXP_MR_TROPIC": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "NXP_TROPIC": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "NXP_TROPIC_COMMUNITY": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "ORIGIN_INTERCEPTOR": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "ORIGIN_INTERCEPTORCUBEORANGEPLUS": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PABLOX_F40_V1": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PEGA_D_POC": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PIXFLAMINGO_H7": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PRIBOR_BOTTLE_V2": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V2": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V3": {
+    "alarm": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.1581,
+      1.0
+     ],
+     "k": 2,
+     "n": 2,
+     "share": 1.0
+    },
+    "n": 2
+   },
+   "PX4_FMU_V4GBI6_G3": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V4PRO": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V5X": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V6C": {
+    "alarm": {
+     "ci95": [
+      0.0084,
+      0.9057
+     ],
+     "k": 1,
+     "n": 3,
+     "share": 0.3333333333333333
+    },
+    "denial": {
+     "ci95": [
+      0.0084,
+      0.9057
+     ],
+     "k": 1,
+     "n": 3,
+     "share": 0.3333333333333333
+    },
+    "n": 3
+   },
+   "PX4_FMU_V6C_X650": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V6SP": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V6X": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "PX4_FMU_V6X_QGBF": {
+    "alarm": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "denial": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "n": 2
+   },
+   "PX4_FTG_FMU_V5": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "PX4_FTG_FMU_V6C": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "RADIOLINK_PIX6": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "SERCHE_HATER": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "SILIC_S7MINI": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "SILIC_S7MINI_V2": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "SIRALAB_CTRL_ZERO_H7": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "SKYDIGIT_CUAV_X7PRO": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "SKY_T900": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "TECTIVE_FMU_V6X": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "TERRADRONE_TERRADFC_V2": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "THEPEACH_K1": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "THEPEACH_P1": {
+    "alarm": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "denial": {
+     "ci95": [
+      0.0126,
+      0.9874
+     ],
+     "k": 1,
+     "n": 2,
+     "share": 0.5
+    },
+    "n": 2
+   },
+   "UCAS_YANQIH7": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "VERGEAERO_CUBEORANGEPLUS": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "WAYDOO_MASTER_V4": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "WGDRONES_DR001": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.8419
+     ],
+     "k": 0,
+     "n": 2,
+     "rule_of_three_upper": 1.5,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.8419
+     ],
+     "k": 0,
+     "n": 2,
+     "rule_of_three_upper": 1.5,
+     "share": 0.0
+    },
+    "n": 2
+   },
+   "WW_WFG100": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "XC_FLY_XC_SLIM": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "X_MAV_AP_H743V2": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   },
+   "ZEROONE_M9": {
+    "alarm": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "denial": {
+     "ci95": [
+      0.025,
+      1.0
+     ],
+     "k": 1,
+     "n": 1,
+     "share": 1.0
+    },
+    "n": 1
+   },
+   "ZKRT_V6C": {
+    "alarm": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "denial": {
+     "ci95": [
+      0.0,
+      0.975
+     ],
+     "k": 0,
+     "n": 1,
+     "rule_of_three_upper": 3.0,
+     "share": 0.0
+    },
+    "n": 1
+   }
+  },
+  "release": {
+   "v1.13": {
+    "alarm": {
+     "ci95": [
+      0.3491,
+      0.9681
+     ],
+     "k": 6,
+     "n": 8,
+     "share": 0.75
+    },
+    "denial": {
+     "ci95": [
+      0.3491,
+      0.9681
+     ],
+     "k": 6,
+     "n": 8,
+     "share": 0.75
+    },
+    "n": 8
+   },
+   "v1.14": {
+    "alarm": {
+     "ci95": [
+      0.3059,
+      0.7318
+     ],
+     "k": 12,
+     "n": 23,
+     "share": 0.5217391304347826
+    },
+    "denial": {
+     "ci95": [
+      0.2682,
+      0.6941
+     ],
+     "k": 11,
+     "n": 23,
+     "share": 0.4782608695652174
+    },
+    "n": 23
+   },
+   "v1.15": {
+    "alarm": {
+     "ci95": [
+      0.2548,
+      0.6467
+     ],
+     "k": 12,
+     "n": 27,
+     "share": 0.4444444444444444
+    },
+    "denial": {
+     "ci95": [
+      0.2548,
+      0.6467
+     ],
+     "k": 12,
+     "n": 27,
+     "share": 0.4444444444444444
+    },
+    "n": 27
+   },
+   "v1.16": {
+    "alarm": {
+     "ci95": [
+      0.1539,
+      0.5922
+     ],
+     "k": 7,
+     "n": 20,
+     "share": 0.35
+    },
+    "denial": {
+     "ci95": [
+      0.1539,
+      0.5922
+     ],
+     "k": 7,
+     "n": 20,
+     "share": 0.35
+    },
+    "n": 20
+   },
+   "v1.17": {
+    "alarm": {
+     "ci95": [
+      0.1634,
+      0.6771
+     ],
+     "k": 6,
+     "n": 15,
+     "share": 0.4
+    },
+    "denial": {
+     "ci95": [
+      0.1634,
+      0.6771
+     ],
+     "k": 6,
+     "n": 15,
+     "share": 0.4
+    },
+    "n": 15
+   },
+   "v1.18": {
+    "alarm": {
+     "ci95": [
+      0.157,
+      0.843
+     ],
+     "k": 4,
+     "n": 8,
+     "share": 0.5
+    },
+    "denial": {
+     "ci95": [
+      0.157,
+      0.843
+     ],
+     "k": 4,
+     "n": 8,
+     "share": 0.5
+    },
+    "n": 8
+   }
+  }
+ },
+ "versions": [
+  "v1.13",
+  "v1.14",
+  "v1.15",
+  "v1.16",
+  "v1.17",
+  "v1.18"
+ ]
+}
