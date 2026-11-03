@@ -65,7 +65,7 @@ def tracks_mod():
             if not hasattr(m, n):
                 raise ImportError(n)
         return m
-    except Exception:
+    except ImportError:
         raise Unavailable("Track trust (marsad.tracks)") from None
 
 
@@ -74,7 +74,7 @@ def sim_mod():
         from .. import sim
 
         return sim
-    except Exception:
+    except ImportError:
         raise Unavailable("The scenario simulator (needs numpy)") from None
 
 
@@ -501,7 +501,7 @@ class Store:
                     ring = f["geometry"]["coordinates"][0]
                     lon = sum(p[0] for p in ring) / len(ring)
                     lat = sum(p[1] for p in ring) / len(ring)
-                except Exception:
+                except (KeyError, IndexError, TypeError, ZeroDivisionError):
                     return True
                 return bbox[0] <= lon <= bbox[2] and bbox[1] <= lat <= bbox[3]
 

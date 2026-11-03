@@ -148,6 +148,6 @@ class DemoRunner:
             st.maybe_publish_scene(force=True)
         except asyncio.CancelledError:
             raise
-        except Exception as e:  # surface, never crash the server
+        except Exception as e:  # task boundary: report any failure in the demo state instead of ending the server task
             st.demo = {**st.demo, "running": False, "error": f"{type(e).__name__}: {e}"}
             st.publish("demo", dict(st.demo))

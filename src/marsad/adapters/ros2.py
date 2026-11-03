@@ -25,7 +25,7 @@ try:  # pragma: no cover - exercised only with ROS installed
     from rclpy.node import Node
 
     HAVE_ROS2 = True
-except Exception:  # ImportError or a broken ROS environment
+except (ImportError, OSError, RuntimeError):  # not installed, or a broken ROS environment
     rclpy = None
     Node = object
     HAVE_ROS2 = False

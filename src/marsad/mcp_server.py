@@ -282,7 +282,7 @@ def build_server(store: Optional[Store] = None) -> Any:
                 ring = f["geometry"]["coordinates"][0]
                 lon = sum(p[0] for p in ring) / len(ring)
                 lat = sum(p[1] for p in ring) / len(ring)
-            except Exception:
+            except (KeyError, IndexError, TypeError, ZeroDivisionError):
                 lat = lon = None
             cells.append({"center_lat": lat, "center_lon": lon, **(f.get("properties") or {})})
         return {

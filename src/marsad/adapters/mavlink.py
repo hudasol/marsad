@@ -350,7 +350,7 @@ class MavlinkSource:
         self._closed = True
         try:
             self._conn.close()
-        except Exception:  # pragma: no cover
+        except (OSError, AttributeError):  # pragma: no cover
             pass
 
     def messages(self) -> Iterator:
